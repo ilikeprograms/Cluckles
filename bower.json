@@ -1,0 +1,29 @@
+{
+  "name": "BootstrapThemeEditor",
+  "version": "0.0.0",
+  "authors": [
+    "Thomas Coleman <tom@ilikeprograms.com>"
+  ],
+  "description": "Bootstrap Theme editing API, which allows less files to be parsed and updated live",
+  "keywords": [
+    "bootstrap",
+    "js",
+    "less",
+    "live-editing"
+  ],
+  "license": "GPL v3",
+  "homepage": "https://github.com/ilikeprograms/BootstrapThemeEditor",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+	  "jquery": "~1.11.1",
+	  "bootstrap": "~3.1.1",
+	  "font-awesome": "~4.1.0",
+	  "less.js": "~1.7.0"
+  }
+}
