@@ -1,23 +1,27 @@
 {
-  "name": "BootstrapThemeEditor",
-  "version": "0.0.0",
-  "description": "Bootstrap Theme editing API, which allows less files to be parsed and updated live",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "bootstrap",
-    "js",
-    "less",
-    "live-editing"
-  ],
-  "author": "Thomas Coleman",
-  "homepage": "https://github.com/ilikeprograms/BootstrapThemeEditor",
-  "license": "GPL v3",
-  "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-uglify": "~0.4.0",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-contrib-copy": "~0.5.0"
-  }
+	"name": "BootstrapThemeEditor",
+	"version": "0.0.1",
+	"description": "Bootstrap Theme editing API, which allows less files to be parsed and updated live",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"bootstrap",
+		"js",
+		"less",
+		"live-editing"
+	],
+	"author": "Thomas Coleman",
+	"homepage": "https://github.com/ilikeprograms/BootstrapThemeEditor",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/ilikeprograms/BootstrapThemeEditor.git"
+	},
+	"license": "GPL v3",
+	"devDependencies": {
+		"grunt": "~0.4.5",
+		"grunt-contrib-uglify": "~0.4.0",
+		"grunt-contrib-jshint": "~0.10.0",
+		"grunt-contrib-copy": "~0.5.0"
+	}
 }
