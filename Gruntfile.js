@@ -34,7 +34,7 @@ module.exports = function (grunt) {
 					
 					{expand: true, src: ['src/bootstrap.less'], flatten: true, dest: 'build/less'},
 					
-					{expand: true, src: ['bower_components/less.js/dist/less-1.7.3.min.js'], flatten: true, dest: 'build/js/lib/less.min.js'},
+					{expand: true, src: ['bower_components/less.js/dist/less-1.7.3.min.js'], flatten: true, dest: 'build/js/lib'},
 
 					{expand: true, src: ['src/variables-custom.less'], flatten: true, dest: 'build/less'},
 				],
