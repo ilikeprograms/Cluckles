@@ -1,10 +1,20 @@
 Bootstrap Theme Editor
 =====================
 
-Boostrap Theme Editor allows live modification of Boostrap themes so that you can customise them easily.
-There is an example page provided (index.html) which makes it easy to see it in action!  
+Bootstrap Theme Editor allows live modification of Boostrap themes so that you can customise them easily.
+There is an example page provided (build/example/index.html) which makes it easy to see it in action!
+
+The example deme page has a User Interface which has panels where you can change the different parts
+of bootstrap by using color pickers to change the styling. Simple and Easy.
 
 The included files can be distributed and used in other projects to provide live editing functionality.
+
+## Quick Start
+
+- Download the Project by either `cloning` or `forking`. (Then CD into BootstrapThemeEditor)
+- Install dependencies by running `npm install` and `bower install`
+- Run `Grunt` to build the files and open the example demo page in the browser
+- Take a look at the demo!
 
 ##What is Supported?
 
@@ -64,6 +74,10 @@ The files in `src` and `bower_components` directories are used in the Build proc
 If you change the source files in the `src` directory, you will need to rebuild. `Grunt` is used for the build.
 
 To build the project files just run the `grunt` command from the main directory. This will then make grunt run the default task which will build the files.
+
+It will also automatically host a localhost server at http://localhost:9000/example which will host `the build/example/index.html` page
+and open a tab in the browser at the address. It will also watch for changes to the source file and automatically rebuild for you,
+if any changes are made.
 
 ## Contributing
 
