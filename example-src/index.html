@@ -10,9 +10,8 @@
 
   <title>Bootstrap Theme Editor</title>
 
-  <link type="text/css" href="build/less/bootstrap.less" rel="stylesheet/less" />
-  <link type="text/css" href="src/example.css" rel="stylesheet" />
-  <link type="text/css" href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" /> 
+  <link type="text/css" href="../less/bootstrap.less" rel="stylesheet/less" />
+  <link type="text/css" href="example.css" rel="stylesheet" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -920,11 +919,11 @@
   </div> <!-- Main container -->
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="build/js/lib/jquery.min.js"><\/script>');</script>
+  <script>window.jQuery || document.write('<script src="../build/js/lib/jquery.min.js"><\/script>');</script>
   
   <!-- Load JS Libs which are required -->
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-  <script>typeof $.fn.modal !== 'undefined' || document.write('<script src="build/js/lib/bootstrap.min.js"><\/script>');</script>
+  <script>typeof $.fn.modal !== 'undefined' || document.write('<script src="../build/js/lib/bootstrap.min.js"><\/script>');</script>
 
   <!-- Initialise Less with some default options, so we can start to live edit -->
   <script>
@@ -942,10 +941,11 @@
 
   <!-- Load Less from the CDN -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
-  <script>less.hasOwnProperty('Parser') || document.write('<script src="build/js/lib/less-1.7.3.min.js"><\/script>');</script>
+  <script>less.hasOwnProperty('Parser') || document.write('<script src="../build/js/lib/less-1.7.3.min.js"><\/script>');</script>
+  <script src="//localhost:35729/livereload.js"></script>
 
   <!-- Load our Fancy live editing ThemeEditor -->
-  <script src="build/bsThemeEditor-0.0.0.min.js"></script>
+  <script src="../bsThemeEditor-0.0.1.min.js"></script>
   <script>
     var themeEditor = new ThemeEditor(less, {
       theme: {
