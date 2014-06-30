@@ -1,6 +1,6 @@
 {
   "name": "BootstrapThemeEditor",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Bootstrap Theme editing API, which allows less files to be parsed and updated live",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
