@@ -263,6 +263,48 @@
     };
 
     /**
+     * Sends the Theme Data to the URL provided by the "save" option to ThemeEditor(options).
+     * 
+     * Save options:
+     * - method:    {string}    The HTTP method for the save request. Default "POST".
+     * - url:       {string}    The URL to send the JSON data.
+     * - callback:  {Function}  A callback function to execute on success.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.sendThemeData = function () {
+        var options = this.options.save,
+            method = options.method || 'POST', // Default to "POST"
+            saveXHR;
+
+        // Throw an error if the URL option was not provided or was not a string
+        if (typeof options.url !== 'string') {
+            throw new TypeError('ThemeEditor.sendThemeData: The save url was not provided, or was not a string');
+        }
+
+        // Create an XMLHttpRequest to send the Theme json to the server
+        saveXHR = new XMLHttpRequest();
+        saveXHR.open(method.toUpperCase(), options.url, true); // Open the URL, call uppercase on 
+        saveXHR.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); // Set the Content-Type header to JSON.
+
+        // If a callback function is provided
+        if (options.hasOwnProperty('callback')) {
+            if (typeof options.callback === 'function') {
+                // Wait for the XHR to finish (4) and be succesfull (200)
+                saveXHR.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        // Call the callback function
+                        options.callback();
+                    }
+                };
+            }
+        }
+
+        // Send the JSON to the server
+        saveXHR.send(this.getJSON());
+    };
+
+    /**
      * Prases a theme.json file located at the themeURL, by default uses "GET" as the method.
      * 
      * @param {string} themeUrl The url to locate the theme.json file and download the content.
@@ -310,6 +352,36 @@
 
         return button;
     };
+
+    /**
+     * Creates a Save button and appends it to the element provided by the destination.
+     * 
+     * Save Options:
+     * - id:    {string} The id to set for the save button (Default "save_theme_link").
+     * - text:  {string} The text content of the button (Default "Save Theme").
+     * 
+     * @param {string} destination The destination element selector (Default "body").
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.createSaveLink = function (destination) {
+        var saveOptions = this.options.save,
+            saveLink = this.createBsButton(), // Create a button
+            dest = destination === undefined ? 'body' : destination; // Body or custom parent
+
+        // Set the text and id of the Save button
+        saveLink.textContent = saveOptions.text || 'Save Theme';
+        saveLink.setAttribute('id', saveOptions.id || 'save_theme_link');
+
+        // Append the Save button to the document
+        document.querySelector(dest).appendChild(saveLink);
+
+        // Add a click handler which calls the sendThemeData function
+        saveLink.addEventListener('click', this.sendThemeData.bind(this), false);
+
+        return saveLink;
+    };
+
     /**
      * Creates a Download button and appends it to the element provided by the destination.
      * 
