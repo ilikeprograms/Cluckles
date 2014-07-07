@@ -1,13 +1,13 @@
 Bootstrap Theme Editor
 =====================
 
-Bootstrap Theme Editor allows live modification of Boostrap themes so that you can customise them easily.
+Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
 There is an example page provided (build/example/index.html) which makes it easy to see it in action!
 
 The example deme page has a User Interface which has panels where you can change the different parts
 of bootstrap by using color pickers to change the styling. Simple and Easy.
 
-The included files can be distributed and used in other projects to provide live editing functionality.
+The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.
 
 ## Quick Start
 
@@ -126,4 +126,4 @@ I will happily accept contributions in any form, even if its just suggestions an
 
 ## Licence
 
-This project is licenced under the GPLv3 Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements
+This project is licenced under the GPLv3 Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.
