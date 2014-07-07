@@ -1,78 +1,5 @@
 /* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown */
 (function (window) {
-	"use strict";
-
-
-	/**
-	 * Sets the background color of Components, such as Panel body, List Groups.
-	 * 
-	 * @param {string} bg The background color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	ThemeEditor.prototype.setComponentBaseBackground = function (bg) {
-		this.componentBaseBg = bg;
-		this.applyModifications();
-	};
-	
-
-	/**
-	 * Sets the body background color.
-	 * 
-	 * @param {string} bg The body background color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	ThemeEditor.prototype.setBodyBackground = function (bg) {
-		this.bodyBg = bg;
-		this.applyModifications();
-	};
-
-	/**
-	 * Sets the body text color.
-	 * 
-	 * @param {string} color The body text color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	ThemeEditor.prototype.setTextColor = function (color) {
-		this.textColor = color;
-		this.applyModifications();
-	};
-
-	/**
-	 * Sets the headings text color.
-	 * 
-	 * @param {string} color The headings text color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	ThemeEditor.prototype.setHeadingsColor = function (color) {
-		this.headingsColor = color;
-		this.applyModifications();
-	};
-
-
-	/**
-	 * Turns the Modifications to the Theme into JSON.
-	 * 
-	 * @returns {String}
-	 */
-	ThemeEditor.prototype.getJSON = function () {
-		return JSON.stringify(this.getModifiers());
-	};
-
-	/**
-	 * Applies the Modifications to the Less Theme.
-	 * 
-	 * @returns {undefined}
-	 */
-	ThemeEditor.prototype.applyModifications = function () {
-		this.generateDownloadBlob();
-		this.lessGlobal.modifyVars(this.getModifiers());
-	};
-	
-	
 	ThemeEditor.prototype.createDownloadLink = function (destination) {
 		var downloadLink = document.createElement('a'),
 			dest = destination === undefined ? 'body' : destination;
@@ -87,7 +14,8 @@
 
 		return downloadLink;
 	};
-	
+    "use strict";
+
     /**
      * ThemeEditor class holds the modifications to the less theme using sub classes
      * which hold information about the modifications, for each different part of the theme.
@@ -182,6 +110,19 @@
             }
         }
     };
+
+    /**
+     * Sets the background color of Components, such as Panel body, List Groups.
+     * 
+     * @param {string} bg The background color to set.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.setComponentBaseBackground = function (bg) {
+        this.componentBaseBg = bg;
+        this.applyModifications();
+    };
+
     /**
      * Sets the Background color of the Well Component.
      * 
@@ -193,6 +134,43 @@
         this.wellBg = bg;
         this.applyModifications();
     };
+
+    /**
+     * Sets the body background color.
+     * 
+     * @param {string} bg The body background color to set.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.setBodyBackground = function (bg) {
+        this.bodyBg = bg;
+        this.applyModifications();
+    };
+
+    /**
+     * Sets the body text color.
+     * 
+     * @param {string} color The body text color to set.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.setTextColor = function (color) {
+        this.textColor = color;
+        this.applyModifications();
+    };
+
+    /**
+     * Sets the headings text color.
+     * 
+     * @param {string} color The headings text color to set.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.setHeadingsColor = function (color) {
+        this.headingsColor = color;
+        this.applyModifications();
+    };
+
     /**
      * Get the Modifications which have been stored.
      * 
@@ -278,6 +256,26 @@
 
         return modifiers;
     };
+
+    /**
+     * Turns the Modifications to the Theme into JSON.
+     * 
+     * @returns {String}
+     */
+    ThemeEditor.prototype.getJSON = function () {
+        return JSON.stringify(this.getModifiers());
+    };
+
+    /**
+     * Applies the Modifications to the Less Theme.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.applyModifications = function () {
+        this.generateDownloadBlob();
+        this.lessGlobal.modifyVars(this.getModifiers());
+    };
+
     /**
      * Prases a theme.json file located at the themeURL, by default uses "GET" as the method.
      * 
