@@ -1,19 +1,5 @@
 /* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown */
 (function (window) {
-	ThemeEditor.prototype.createDownloadLink = function (destination) {
-		var downloadLink = document.createElement('a'),
-			dest = destination === undefined ? 'body' : destination;
-		downloadLink.classList.add('btn');
-		downloadLink.classList.add('btn-primary');
-		downloadLink.textContent = 'Download Theme';
-		downloadLink.setAttribute('id', 'download_theme_link');
-
-		downloadLink.setAttribute('download', 'theme.json');
-
-		document.querySelector(dest).appendChild(downloadLink);
-
-		return downloadLink;
-	};
     "use strict";
 
     /**
@@ -309,6 +295,36 @@
 
         themeXHR.send(null);
     };
+    /**
+     * Creates a Download button and appends it to the element provided by the destination.
+     * 
+     * Download Options:
+     * - id:    {string} The id to set for the download button (Default "download_theme_link").
+     * - text:  {string} The text content of the button (Default "Download Theme").
+     * 
+     * @param {string} destination The destination element selector (Default "body").
+     * 
+     * @returns {Element}
+     */
+    ThemeEditor.prototype.createDownloadLink = function (destination) {
+        var downloadOptions = this.options.download,
+            downloadLink = this.createBsButton(),
+            dest = destination === undefined ? 'body' : destination;
+
+        // Set the text, id and download attrubute of the Download button
+        downloadLink.textContent = downloadOptions.text || 'Download Theme';
+        downloadLink.setAttribute('id', downloadOptions.id || 'download_theme_link');
+
+        // Download attribute allows the button to provided a file to download on click
+        // The generateDownloadBlob function provides the file contents
+        downloadLink.setAttribute('download', 'theme.json');
+
+        // Append the Download button to the document
+        document.querySelector(dest).appendChild(downloadLink);
+
+        return downloadLink;
+    };
+
     /**
      * Generates a download blob and sets the content to the theme JSON modifications,
      * updated the download link with the download blob.
