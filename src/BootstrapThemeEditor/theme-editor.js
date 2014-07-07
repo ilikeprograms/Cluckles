@@ -295,6 +295,21 @@
 
         themeXHR.send(null);
     };
+
+    /**
+     * Creates and returns a Primary Bootstrap Anchor tag link.
+     * 
+     * @returns {Element}
+     */
+    ThemeEditor.prototype.createBsButton = function () {
+        var button = document.createElement('a'); // Create link
+
+        // Add Primary BS classes
+        button.classList.add('btn');
+        button.classList.add('btn-primary');
+
+        return button;
+    };
     /**
      * Creates a Download button and appends it to the element provided by the destination.
      * 
