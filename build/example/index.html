@@ -953,6 +953,13 @@
       },
       download: {
         append: '#download-panel-footer'
+      },
+      save: {
+        append: '#download-panel-footer',
+        url: "http://localhost:9000/example/",
+        callback: function () {
+          alert('Theme modifications have been saved');
+        }
       }
     });
   </script>
