@@ -16,7 +16,7 @@ The included files can be distributed and used in other projects to provide live
 - Run `Grunt` to build the files and open the example demo page in the browser
 - Take a look at the demo!
 
-##What is Supported?
+## What is Supported?
 
 At the moment, the following Components can be styled directly:
 
@@ -78,6 +78,47 @@ To build the project files just run the `grunt` command from the main directory.
 It will also automatically host a localhost server at http://localhost:9000/example which will host `the build/example/index.html` page
 and open a tab in the browser at the address. It will also watch for changes to the source file and automatically rebuild for you,
 if any changes are made.
+
+## Theme Editor Options
+
+There are options that can be provided when a ThemeEditor instance is created and are as follows:
+
+### Theme
+
+Location to find the theme file to start editing (If editing existing theme).
+
+| Field | Type     | Default | Desc                         |
+| ----- |:--------:| ------- | ---------------------------- |
+| url   | `string` |         | URL to locate the theme file |
+
+### Download
+
+The download link provided the ability to download the theme changes as a json file.  
+The DOM node to append the download link, the id and the text of the link can be customised.
+
+| Field  | Type     | Default                | Desc                                                  |
+| ------ |:--------:| ---------------------- | ----------------------------------------------------- |
+| append | `string` | body                   | Query selector of DOM element to append download link |
+| id     | `string` | download_theme_link    | ID attribute to set on the download link              |
+| text   | `string` | Download Theme         | Text content for the download link                    |
+
+### Save
+
+The save link provided the ability to send the theme changes to an URL.  
+The DOM node to append the save link, the id and the text of the link can be customised.  
+
+The url and method can be provided to alter the HTTP method and the location the changes are send. 
+
+An optional success callback can also be provided to fire when the changes have been successfully received by the remote URL.
+
+| Field          | Type       | Default         | Desc                                              |
+| -------------- |:----------:| --------------- | ------------------------------------------------- |
+| append         | `string`   | body            | Query selector of DOM element to append save link |
+| url (required) | `string`   |                 | URL to send the modified theme changes            |
+| method         | `string`   | `POST`          | HTTP method for the save request                  |
+| callback       | `function` |                 | Optional success save callback                    |
+| id             | `string`   | save_theme_link | ID attribute to set on the download link          |
+| text           | `string`   | Save Theme      | Text content for the download link                |
 
 ## Contributing
 
