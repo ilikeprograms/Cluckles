@@ -1,2 +1,4 @@
 build/
 src/
+bower_components
+.DS_Store
