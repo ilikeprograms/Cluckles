@@ -1,6 +1,6 @@
 build/
 src/
-bower_components
 node_modules
 bower.json
 .DS_Store
+bower_components
