@@ -5,6 +5,7 @@ github:
   username: 'ilikeprograms'
   repo:     'BootstrapThemeEditor'
 
+baseurl: 'BootstrapThemeEditor'
 source:      .
 destination: ./_site
 plugins:     ./_plugins
