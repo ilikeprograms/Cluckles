@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Theme Editor</title>
+    
+    <meta name="description" content="BoostrapThemeEditor Demo page" />
+    
+    <meta name="author" content="Thomas Coleman <tom@ilikeprograms.com>">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <link type="text/css" href="assets/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="bower_components/BootstrapThemeEditor/build/less/bootstrap.less" rel="stylesheet/less" />
+    <link type="text/css" href="bower_components/BootstrapThemeEditor/build/example/example.css" rel="stylesheet" />
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="bower_components/BootstrapThemeEditor/build/js/lib/jquery.min.js"><\/script>');</script>
+
+<!-- Load JS Libs which are required -->
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script>typeof $.fn.modal !== 'undefined' || document.write('<script src="bower_components/BootstrapThemeEditor/build/js/lib/bootstrap.min.js"><\/script>');</script>
+    <!-- Initialise Less with some default options, so we can start to live edit -->
+<script>
+  less = {
+    env: "development",
+    logLevel: 2,
+    async: false,
+    fileAsync: false,
+    poll: 1000,
+    functions: {},
+    dumpLineNumbers: "comments",
+    relativeUrls: false,
+  };
+</script>
+
+<!-- Load Less from the CDN -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+<script>less.hasOwnProperty('Parser') || document.write('<script src="bower_components/BootstrapThemeEditor/build/js/lib/less-1.7.3.min.js"><\/script>');</script>    
+  </head>
+  <body role="document">
+    <div class="navbar navbar-inverse">
+  <!-- Navbar Header -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavigation">
+      <span class="sr-only">Toggle Navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="index.html">Bootstrap Theme Editor</a>
+  </div> <!-- Navbar Header -->
+
+  <!-- Navbar Nav -->
+  <div class="collapse navbar-collapse" id="mainNavigation">
+    <ul class="nav navbar-nav">
+      <li><a href="https://github.com/ilikeprograms/BootstrapThemeEditor" target="_blank" title="BootstrapThemeEditor on Github">Github <sup><i class="fa fa-external-link"></i></sup></a></li>
+      <li><a href="demo.html">Demo</a></li>
+    </ul>
+  </div> <!-- Navbar Nav -->
+</div>    
+
+    <!-- Main container -->
+    <div class="container-fluid" id="mainContainer">
+      <div class='row'>
+        <div class="jumbotron">
+  <h1>BootstrapThemeEditor</h1>
+  <p>Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily. There is an example page provided (build/example/index.html) which makes it easy to see it in action!</p>
+
+  <p>The example deme page has a User Interface which has panels where you can change the different parts of bootstrap by using color pickers to change the styling. Simple and Easy.</p>
+
+  <p>The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.</p>
+  <hr />
+  <p>I made this tool because I needed a way to Live edit Bootstrap in <a href="https://github.com/ilikeprograms/corvus">Corvus</a>. I couldnt find anything existing which I could integrate into the project, so I made BootstrapThemeEditor.</p>
+  <p>If you find the project usefull, feel free to fork it and extend it, or even dontate to the project with <a href="https://www.gittip.com/ilikeprograms/">Gittip</a> <img src="http://img.shields.io/gittip/ilikeprograms.svg" alt="ilikeprograms Gittip status" /></p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <!-- Main Content Panel -->
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        Bootstrap Theme Editor
+      </div>
+      <div class="panel-body">
+        
+        
+<p>Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
+There is an example page provided (<code>build/example/index.html</code>) which makes it easy to see it in action!</p>
+
+<p>The example demo page has a User Interface which has panels where you can change the different parts
+of bootstrap by using color pickers to change the styling. Simple and Easy.</p>
+
+<p>The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.</p>
+
+<h2 id="quick-start">Quick Start</h2>
+
+<ul>
+  <li>Download the Project by either <code>cloning</code> or <code>forking</code>. (Then CD into BootstrapThemeEditor)</li>
+  <li>Install dependencies by running <code>npm install</code> and <code>bower install</code></li>
+  <li>Run <code>Grunt</code> to build the files and open the example demo page in the browser</li>
+  <li>Take a look at the demo!</li>
+</ul>
+
+<h2 id="what-is-supported">What is Supported?</h2>
+
+<p>At the moment, the following Components can be styled directly:</p>
+
+<ul>
+  <li>[x] Base Styles</li>
+  <li>[x] Drodowns</li>
+  <li>[ ] Inputs</li>
+  <li>[x] Links/Nav</li>
+  <li>[x] Navbars</li>
+  <li>[ ] Breadcrumbs?</li>
+  <li>[ ] Pagination?</li>
+  <li>[ ] Labels?</li>
+  <li>[ ] Badges?</li>
+  <li>[x] Jumbotron</li>
+  <li>[x] Page Header</li>
+  <li>[ ] Thumbnails?</li>
+  <li>[x] Alerts</li>
+  <li>[x] Progress Bars</li>
+  <li>[x] List Groups</li>
+  <li>[x] Panels</li>
+  <li>[x] Wells</li>
+  <li>[x] Headings</li>
+  <li>[x] Body Text Color/Background</li>
+</ul>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>To begin, download the repository from Git either by using the <em>Clone in Desktop</em> button, or download from Github:</p>
+
+<h3 id="downloading">Downloading</h3>
+
+<p><code>shell
+git clone https://github.com/ilikeprograms/BootstrapThemeEditor
+cd BootstrapThemeEditor
+</code></p>
+
+<h3 id="installing-the-dependencies">Installing the Dependencies</h3>
+
+<p>Now you can start to install the dependencies. <code>Grunt</code> is used for build the JS files, and <code>Bower</code> for the JS files it depends on.
+This means that <code>Node.js</code> and <code>NPM</code> needs to be installed on your system. To get Grunt/Bower to work, run the following commands</p>
+
+<p><code>shell
+npm install
+bower install
+</code></p>
+
+<h3 id="build-files">Build Files</h3>
+
+<p>There should be a <em>build</em> directory which contains the <code>bsThemeEditor-x.x.x.js</code> file which is the main distribution file.
+This can be taken out from the project and will provide the live editing functionality.
+It does however rely on the files in <code>build/js/lib</code> and <code>build/less</code>. The <code>build/js/lib</code> files however could be replaced with newer versions and should work ok.
+If you have a dependency on a specific version of <code>jquery</code> for instance, just replace the file.</p>
+
+<h3 id="changing-the-build">Changing the Build</h3>
+
+<p>The files in <code>src</code> and <code>bower_components</code> directories are used in the Build process to create the files in the <code>build</code> directory.
+If you change the source files in the <code>src</code> directory, you will need to rebuild. <code>Grunt</code> is used for the build.</p>
+
+<p>To build the project files just run the <code>grunt</code> command from the main directory. This will then make grunt run the default task which will build the files.</p>
+
+<p>It will also automatically host a localhost server at http://localhost:9000/example which will host <code>the build/example/index.html</code> page
+and open a tab in the browser at the address. It will also watch for changes to the source file and automatically rebuild for you,
+if any changes are made.</p>
+
+<h2 id="theme-editor-options">Theme Editor Options</h2>
+
+<p>There are options that can be provided when a ThemeEditor instance is created and are as follows:</p>
+
+<h3 id="theme">Theme</h3>
+
+<p>Location to find the theme file to start editing (If editing existing theme).</p>
+
+<table class="table table-bordered table-striped default">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th style="text-align: center">Type</th>
+      <th>Default</th>
+      <th>Desc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>url</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td> </td>
+      <td>URL to locate the theme file</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="download">Download</h3>
+
+<p>The download link provided the ability to download the theme changes as a json file.<br />
+The DOM node to append the download link, the id and the text of the link can be customised.</p>
+
+<table class="table table-bordered table-striped default">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th style="text-align: center">Type</th>
+      <th>Default</th>
+      <th>Desc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>append</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td>body</td>
+      <td>Query selector of DOM element to append download link</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td>download_theme_link</td>
+      <td>ID attribute to set on the download link</td>
+    </tr>
+    <tr>
+      <td>text</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td>Download Theme</td>
+      <td>Text content for the download link</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="save">Save</h3>
+
+<p>The save link provided the ability to send the theme changes to an URL.<br />
+The DOM node to append the save link, the id and the text of the link can be customised.  </p>
+
+<p>The url and method can be provided to alter the HTTP method and the location the changes are send. </p>
+
+<p>An optional success callback can also be provided to fire when the changes have been successfully received by the remote URL.</p>
+
+<table class="table table-bordered table-striped default">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th style="text-align: center">Type</th>
+      <th>Default</th>
+      <th>Desc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>append</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td>body</td>
+      <td>Query selector of DOM element to append save link</td>
+    </tr>
+    <tr>
+      <td>url (required)</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td> </td>
+      <td>URL to send the modified theme changes</td>
+    </tr>
+    <tr>
+      <td>method</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td><code>POST</code></td>
+      <td>HTTP method for the save request</td>
+    </tr>
+    <tr>
+      <td>callback</td>
+      <td style="text-align: center"><code>function</code></td>
+      <td> </td>
+      <td>Optional success save callback</td>
+    </tr>
+    <tr>
+      <td>id</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td>save_theme_link</td>
+      <td>ID attribute to set on the download link</td>
+    </tr>
+    <tr>
+      <td>text</td>
+      <td style="text-align: center"><code>string</code></td>
+      <td>Save Theme</td>
+      <td>Text content for the download link</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="contributing">Contributing</h2>
+
+<p>I will happily accept contributions in any form, even if its just suggestions and I will have to work on them! Feel free to fork and submit a pull request.</p>
+
+
+      </div>
+    </div> <!-- Main Content Panel End -->
+  </div>
+</div>
+      </div>
+    </div> <!-- Main container -->
+
+    <footer id="pageFooter">
+      <div class="container">
+        <div class="row">
+          <p>This project is licenced under the GPLv3 Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.</p>
+          <p>Demo site powered by <a href="https://github.com/mojombo/jekyll">jekyll</a>. Hosted by <a href="https://github.com">Github <3</a></p>
+        </div>
+      </div>
+    </footer>
+    
+    
+      <a href="http://github.com/ilikeprograms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
+    
+
+    
+  </body>
+</html>
