@@ -5,8 +5,7 @@ github:
   username: 'ilikeprograms'
   repo:     'BootstrapThemeEditor'
 
-baseurl: /
-url:     blog.ilikeprograms.com/BootstrapThemeEditor
+baseurl: http://blog.ilikeprograms.com/BootstrapThemeEditor
 source:      docs
 destination: _gh_pages
 include:     ['.htaccess']
