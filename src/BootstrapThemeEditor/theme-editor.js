@@ -10,6 +10,9 @@
      * 
      * @class ThemeEditor
      * 
+     * Generic Options:
+     * - delay: {Number} Milliseconds delay between refresh updates (Default: 750)
+     * 
      * @param {Object} less The Global less object.
      * 
      * @property {Object} lessGlobal The Global less object.
@@ -32,6 +35,17 @@
     var ThemeEditor = function (less, options) {
         this.lessGlobal         = less;
         this.options            = options;
+        
+        /**
+         * Monitors the refreshing of the less files, enables it to be block for x duration between refreshes. To avoid crashing the brower :).
+         * 
+         * @property readyState {Number} Tracks whether or not another refresh can be performed. (0 = ready, 1 = on delaying).
+         * @propery delay {Number} Milliseconds delay between refresh updates (Default: 750).
+         */
+        this.refreshMonitor      = {
+            readyState: 0,
+            delay: options.refreshDelay || 750
+        };
 
         // Misc Theme vars
         this.componentBaseBg	= null;
