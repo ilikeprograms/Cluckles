@@ -22,8 +22,6 @@
 			filteredModifiers = {},
 			modifierNames = Object.keys(modifiers);
 	
-		console.log(this.modifiers);
-	
 		if (modifierNames.length === 0) { return {}; }
 
 		// Filter out modifiers which are still null
