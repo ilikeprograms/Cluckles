@@ -3,6 +3,37 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 
+        // Concat task to Contatenate all the bsThemeEditor files together
+        concat: {
+            options: {
+                separator: grunt.util.linefeed + grunt.util.linefeed,
+                banner: '/**\n' +
+                        ' * <%= pkg.name %> <%= pkg.version %>:' +
+                        ' Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.\n' +
+                        ' * Copyrite <%= grunt.template.today("yyyy") %> <%= pkg.author %> <tom@ilikeprograms.com>\n' +
+                        ' * Licence: GPL-3.0+\n' +
+                        ' */\n'
+            },
+            
+            // The Main lib files used to make bsThemeEditor.js
+            main: {
+                src: [
+                    'src/<%= pkg.name %>/theme-modifier.js',
+                    'src/<%= pkg.name %>/branding.js',
+                    'src/<%= pkg.name %>/dropdown.js',
+                    'src/<%= pkg.name %>/form-state.js',
+                    'src/<%= pkg.name %>/gray-base.js',
+                    'src/<%= pkg.name %>/jumbotron.js',
+                    'src/<%= pkg.name %>/list-group.js',
+                    'src/<%= pkg.name %>/navbar.js',
+                    'src/<%= pkg.name %>/theme-modifier.js',
+                    'src/<%= pkg.name %>/theme-editor.js',
+                ],
+                dest: 'build/bsThemeEditor-<%= pkg.version %>.js'
+            }
+        },
+
+        // Uglify will build the .min version of our Main lib file
 		uglify: {
 			build: {
                 // Theme Editor Files
@@ -144,8 +175,9 @@ module.exports = function (grunt) {
 			files: ['src/<%= pkg.name %>/*.js']
 		}
 	});
-	
+
     // Load the Required Tasks
+	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-copy');
@@ -154,7 +186,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-open');
 
     // Register the "default" Task
-	grunt.registerTask("default", ["jshint", "uglify", "copy", "express", "open", "watch"]);
-    
-    grunt.registerTask("docs", ["jshint", "uglify", "copy:docs"]);
+	grunt.registerTask("default", ["jshint", "concat", "uglify", "copy", "express", "open", "watch"]);
+
+    grunt.registerTask("docs", ["jshint", "concat", "uglify", "copy:docs"]);
 };
