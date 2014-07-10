@@ -128,7 +128,7 @@
 	 */
 	Navbar.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -149,7 +149,7 @@
 	 */
 	Navbar.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -170,7 +170,7 @@
 	 */
 	Navbar.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -191,7 +191,7 @@
 	 */
 	Navbar.prototype.setLinkColor = function (color) {
 		this.modifiers.linkColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -212,7 +212,7 @@
 	 */
 	Navbar.prototype.setLinkHoverColor = function (color) {
 		this.modifiers.linkHoverColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -233,7 +233,7 @@
 	 */
 	Navbar.prototype.setLinkHoverBackgroundColor = function (color) {
 		this.modifiers.linkHoverBg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -254,7 +254,7 @@
 	 */
 	Navbar.prototype.setLinkActiveColor = function (color) {
 		this.modifiers.linkActiveColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -275,7 +275,7 @@
 	 */
 	Navbar.prototype.setLinkActiveBackgroundColor = function (color) {
 		this.modifiers.linkActiveBg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -296,7 +296,7 @@
 	 */
 	Navbar.prototype.setLinkDisabledColor = function (color) {
 		this.modifiers.linkDisabledColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -317,7 +317,7 @@
 	 */
 	Navbar.prototype.setLinkDisabledBackgroundColor = function (color) {
 		this.modifiers.linkDisabledBg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 		
@@ -339,7 +339,7 @@
 	 */
 	Navbar.prototype.setBrandColor = function (color) {
 		this.modifiers.brandColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 		
@@ -361,7 +361,7 @@
 	 */
 	Navbar.prototype.setBrandHoverColor = function (color) {
 		this.modifiers.brandHoverColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -382,7 +382,7 @@
 	 */
 	Navbar.prototype.setBrandHoverBackgroundColor = function (color) {
 		this.modifiers.brandHoverBg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	window.Navbar = Navbar;

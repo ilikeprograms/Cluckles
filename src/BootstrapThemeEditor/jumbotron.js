@@ -58,7 +58,7 @@
 	 */
 	Jumbotron.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -79,7 +79,7 @@
 	 */
 	Jumbotron.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -100,7 +100,7 @@
 	 */
 	Jumbotron.prototype.setHeadingColor = function (color) {
 		this.modifiers.headingColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	window.Jumbotron = Jumbotron;

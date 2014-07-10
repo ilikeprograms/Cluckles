@@ -66,7 +66,7 @@
 	GrayShade.prototype.setColor = function (color) {
 		this.color = color;
 
-		this.grayScale.editor.applyModifications();
+		this.grayScale.editor.queueModifications();
 	};
 	
 	window.GrayScale = GrayScale;

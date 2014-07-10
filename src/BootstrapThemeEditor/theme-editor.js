@@ -120,7 +120,7 @@
      */
     ThemeEditor.prototype.setComponentBaseBackground = function (bg) {
         this.componentBaseBg = bg;
-        this.applyModifications();
+        this.queueModifications();
     };
 
     /**
@@ -132,7 +132,7 @@
      */
     ThemeEditor.prototype.setWellBackground = function (bg) {
         this.wellBg = bg;
-        this.applyModifications();
+        this.queueModifications();
     };
 
     /**
@@ -144,7 +144,7 @@
      */
     ThemeEditor.prototype.setBodyBackground = function (bg) {
         this.bodyBg = bg;
-        this.applyModifications();
+        this.queueModifications();
     };
 
     /**
@@ -156,7 +156,7 @@
      */
     ThemeEditor.prototype.setTextColor = function (color) {
         this.textColor = color;
-        this.applyModifications();
+        this.queueModifications();
     };
 
     /**
@@ -168,7 +168,7 @@
      */
     ThemeEditor.prototype.setHeadingsColor = function (color) {
         this.headingsColor = color;
-        this.applyModifications();
+        this.queueModifications();
     };
 
     /**
@@ -267,6 +267,29 @@
     };
 
     /**
+     * Applies the modification, or makes the refreshMonitor queue a single update
+     * in x milliseconds from now, controlled by this.refreshMonitor.delay.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.queueModifications = function () {
+        // If an update is allowed right now, apply the modifications
+        if (this.refreshMonitor.readyState === 0) {
+            this.applyModifications();
+            
+            // Set the state to not ready for more updates yet
+            this.refreshMonitor.readyState = 1;
+            
+            // Set a timeout to allow updated again after x time (refreshMonitor.rate)
+            // and apply the modifications that were pending
+            setTimeout(function () {
+                this.refreshMonitor.readyState = 0;
+                this.applyModifications();
+            }.bind(this), this.refreshMonitor.delay);
+        }
+    };
+    
+    /**
      * Applies the Modifications to the Less Theme.
      * 
      * @returns {undefined}
@@ -345,7 +368,7 @@
                 this.modifiers = JSON.parse(themeXHR.responseText);
 
                 // Now apply the modifications to style the page with the theme.json
-                this.applyModifications();
+                this.queueModifications();
             }
         }.bind(this);
 

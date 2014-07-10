@@ -58,7 +58,7 @@
 	 */
 	FormState.prototype.setHeadingBackground = function (color) {
 		this.modifiers.headingBg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -79,7 +79,7 @@
 	 */
 	FormState.prototype.setText = function (text) {
 		this.modifiers.text.value = text;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -100,7 +100,7 @@
 	 */
 	FormState.prototype.setBorder = function (border) {
 		this.modifiers.border.value = border;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	window.FormState = FormState;

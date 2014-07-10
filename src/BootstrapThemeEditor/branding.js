@@ -77,7 +77,7 @@
 	 */
 	BrandModifier.prototype.setDefault = function (color) {
 		this.modifiers.default.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -98,7 +98,7 @@
 	 */
 	BrandModifier.prototype.setPrimary = function (color) {
 		this.modifiers.primary.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -119,7 +119,7 @@
 	 */
 	BrandModifier.prototype.setSuccess = function (color) {
 		this.modifiers.success.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -140,7 +140,7 @@
 	 */
 	BrandModifier.prototype.setInfo = function (color) {
 		this.modifiers.info.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -161,7 +161,7 @@
 	 */
 	BrandModifier.prototype.setWarning = function (color) {
 		this.modifiers.warning.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -182,7 +182,7 @@
 	 */
 	BrandModifier.prototype.setDanger = function (color) {
 		this.modifiers.danger.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	window.BrandModifier = BrandModifier;

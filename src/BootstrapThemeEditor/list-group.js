@@ -94,7 +94,7 @@
 	 */
 	ListGroup.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -115,7 +115,7 @@
 	 */
 	ListGroup.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -136,7 +136,7 @@
 	 */
 	ListGroup.prototype.setHoverBackground = function (color) {
 		this.modifiers.hoverBg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
  	/**
@@ -157,7 +157,7 @@
 	 */
 	ListGroup.prototype.setLinkColor = function (color) {
 		this.modifiers.linkColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -178,7 +178,7 @@
 	 */
 	ListGroup.prototype.setLinkHeadingColor = function (color) {
 		this.modifiers.linkHeadingColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -199,7 +199,7 @@
 	 */
 	ListGroup.prototype.setActiveBackground = function (color) {
 		this.modifiers.activeBg.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -220,7 +220,7 @@
 	 */
 	ListGroup.prototype.setActiveBorder = function (color) {
 		this.modifiers.activeBorder.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -241,7 +241,7 @@
 	 */
 	ListGroup.prototype.setActiveColor = function (color) {
 		this.modifiers.activeColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -262,7 +262,7 @@
 	 */
 	ListGroup.prototype.setActiveTextColor = function (color) {
 		this.modifiers.activeTextColor.value = color;
-		this.editor.applyModifications();
+		this.editor.queueModifications();
 	};
 	
 	window.ListGroup = ListGroup;
