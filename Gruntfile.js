@@ -106,7 +106,34 @@ module.exports = function (grunt) {
 						return content.replace(/variables\.less/g, "variables-custom.less");
 					}
 				}
-			}
+			},
+
+            docs: {
+                files: [
+                    // Main JS File
+                    {
+                        src: 'build/bsThemeEditor-<%= pkg.version %>.min.js',
+                        dest: 'docs/assets/js/bsThemeEditor.min.js'
+                    },
+                    
+                    // Copy the example.css file
+                    {src: "example-src/example.css", dest: 'docs/assets/css/example.css'},
+                    
+                    // JS lib files
+					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'docs/assets/js/lib'},
+					{src: 'bower_components/bootstrap/dist/js/bootstrap.min.js', dest: 'docs/assets/js/lib/bootstrap.min.js'},
+                    {src: 'bower_components/less.js/dist/less-1.7.3.min.js', dest: 'docs/assets/js/lib/less.min.js'},
+                    
+                    // Bootstrap less files
+					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'docs/assets/less', filter: 'isFile'},
+                    
+                    // Custom Bootstrap variables file
+					{src: 'src/variables-custom.less', dest: 'docs/assets/less/variables-custom.less'},
+
+                    // Copy the Custom Bootstrap.less file which adds the theme.less as an import
+                    {src: "src/bootstrap.less", dest: 'docs/assets/less/bootstrap.less'}
+                ]
+            }
 		},
 
         // Turn on JShint for the Javascript files in src/BootstrapThemeEditor/
@@ -128,4 +155,6 @@ module.exports = function (grunt) {
 
     // Register the "default" Task
 	grunt.registerTask("default", ["jshint", "uglify", "copy", "express", "open", "watch"]);
+    
+    grunt.registerTask("docs", ["jshint", "uglify", "copy:docs"]);
 };
