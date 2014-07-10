@@ -1,0 +1,534 @@
+<!-- Controls Column -->
+<div class='col-md-3'>
+  <div class="row">
+    <!-- Branding Panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>Branding</h2>
+      </div>
+      <div class="panel-body">
+        <h3>Color Scheme</h3>
+        <hr />
+        <div class='panel-group' id='brandColor'>
+          <!-- Default Color Branding Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+              <a data-toggle="collapse" data-parent="#brandColor" href="#defaultBrandingColor">
+                Grayscale
+              </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse in" id="defaultBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Base</td><td></td><td><input type="color" onchange="themeEditor.grayScale.base.setColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Darker</td><td></td><td><input type="color" onchange="themeEditor.grayScale.darker.setColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Dark</td><td></td><td><input type="color" onchange="themeEditor.grayScale.dark.setColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Gray</td><td></td><td><input type="color" onchange="themeEditor.grayScale.gray.setColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Light</td><td></td><td><input type="color" onchange="themeEditor.grayScale.light.setColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Lighter</td><td></td><td><input type="color" onchange="themeEditor.grayScale.lighter.setColor(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Default Color Branding Panel End -->
+
+          <!-- Primary Color Branding Panel -->
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#primaryBrandingColor">
+                  Primary
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="primaryBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Button Background</td><td><button class="btn btn-primary">Primary Btn</button></td><td><input type="color" onchange="themeEditor.branding.setPrimary(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Alert/Panel Background Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.primary.setHeadingBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Text Color</td><td><span class="text-primary">Primary Text</span></td><td><input type="color" onchange="themeEditor.formStates.primary.setText(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.primary.setBorder(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Primary Color Branding Panel End -->
+
+          <!-- Success Color Branding Panel -->
+          <div class="panel panel-success">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#successBrandingColor">
+                  Success
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="successBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Button Background</td><td><button class="btn btn-success">Success Btn</button></td><td><input type="color" onchange="themeEditor.branding.setSuccess(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Alert/Panel Heading Background Color</td><td><div class="alert alert-success"><strong>Success!</strong> message</div></td><td><input type="color" onchange="themeEditor.formStates.success.setHeadingBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Heading/ Alert Text Color</td><td><span class="text-success">Success Text</span></td><td><input type="color" onchange="themeEditor.formStates.success.setText(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.success.setBorder(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Success Color Branding Panel End -->
+
+          <!-- Info Color Branding Panel -->
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#infoBrandingColor">
+                  Info
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="infoBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Button Background</td><td><button class="btn btn-info">Info Btn</button></td><td><input type="color" onchange="themeEditor.branding.setInfo(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Alert/Panel Heading Background Color</td><td><div class="alert alert-info"><strong>Info!</strong> message</div></td><td><input type="color" onchange="themeEditor.formStates.info.setHeadingBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Heading/ Alert Text Color</td><td><span class="text-info">Info Text</span></td><td><input type="color" onchange="themeEditor.formStates.info.setText(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.info.setBorder(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Info Color Branding Panel End -->
+
+          <!-- Warning Color Branding Panel -->
+          <div class="panel panel-warning">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#warningBrandingColor">
+                  Warning
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="warningBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Button Background</td><td><button class="btn btn-warning">Warning Btn</button></td><td><input type="color" onchange="themeEditor.branding.setWarning(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Alert/Panel Heading Background Color</td><td><div class="alert alert-warning"><strong>Warning!</strong> message</div></td><td><input type="color" onchange="themeEditor.formStates.warning.setHeadingBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Heading/ Alert Text Color</td><td><span class="text-warning">Warning Text</span></td><td><input type="color" onchange="themeEditor.formStates.warning.setText(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.warning.setBorder(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Warning Color Branding Panel End -->
+
+          <!-- Danger Color Branding Panel -->
+          <div class="panel panel-danger">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#dangerBrandingColor">
+                  Danger
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="dangerBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Button Background</td><td><button class="btn btn-danger">Danger Btn</button></td><td><input type="color" onchange="themeEditor.branding.setDanger(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Alert/Panel Heading Background Color</td><td><div class="alert alert-danger"><strong>Danger!</strong> message</div></td><td><input type="color" onchange="themeEditor.formStates.danger.setHeadingBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Heading/ Alert Text Color</td><td><span class="text-danger">Danger Text</span></td><td><input type="color" onchange="themeEditor.formStates.danger.setText(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.danger.setBorder(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Danger Color Branding Panel End -->
+
+          <!-- Jumbotron Color Branding Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#jumbotronBrandingColor">
+                  Jumbotron
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="jumbotronBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Color</td><td></td><td><input type="color" onchange="themeEditor.jumbotron.setColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Headings Color</td><td></td><td><input type="color" onchange="themeEditor.jumbotron.setHeadingColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.jumbotron.setBackground(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Jumbotron Color Branding Panel End -->
+
+          <!-- List Group Branding Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#listGroupModifiers">
+                  List Group
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="listGroupModifiers">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Background</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setBorder(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Hover Background</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setHoverBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Heading Color</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setLinkHeadingColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Color</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setLinkColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Active Background Color</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setActiveBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Active Border</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setActiveBorder(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Active Color</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setActiveColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Active Text Color</td><td></td><td><input type="color" onchange="themeEditor.listGroup.setActiveTextColor(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- List Group Branding Panel End -->
+
+          <!-- Dropdown Branding Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#dropdownModifiers">
+                  Dropdown
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="dropdownModifiers">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Background</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Header Color</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setHeaderColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setBorder(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Divider</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setDivider(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Color</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setLinkColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Disabled Color</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setLinkDisabledColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Hover Background</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setLinkHoverBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setLinkHoverColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Active Background</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setLinkActiveBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Active Color</td><td></td><td><input type="color" onchange="themeEditor.dropdown.setLinkActiveColor(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Dropdown Branding Panel End -->
+
+          <!-- Misc Color Branding Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#miscBrandingColor" class="text-muted">
+                  Misc
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="miscBrandingColor">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Component Base Background</td><td></td><td><input type="color" onchange="themeEditor.setComponentBaseBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Well Base Background</td><td></td><td><input type="color" onchange="themeEditor.setWellBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Body Background</td><td></td><td><input type="color" onchange="themeEditor.setBodyBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Text Color</td><td></td><td><input type="color" onchange="themeEditor.setTextColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Headings Color</td><td></td><td><input type="color" onchange="themeEditor.setHeadingsColor(this.value);" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Misc Color Branding Panel End -->
+        </div>
+      </div>
+    </div> <!-- Branding Panel End -->
+  </div>
+
+  <div class="row">
+    <!-- Navbars Panel -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Navbars</h3>
+      </div>
+      <div class="panel-body">
+        <div class="panel-body">
+          <!-- Navbar Tab Nav -->
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#defaultNavbarTab" data-toggle="tab">Default</a></li>
+            <li><a href="#inverseNavbarTab" data-toggle="tab">Inverse</a></li>
+          </ul> <!-- Navbar Tab Nav End -->
+
+          <div class="tab-content">
+            <!-- Default Navbar Tab -->
+            <div class="tab-pane active fade in" id="defaultNavbarTab">
+              <table class="table table-bordered">
+                <caption><h4>Default</h4></caption>
+                <thead>
+                  <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBackground(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBorder(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkHoverColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkHoverBackgroundColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Active Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkActiveColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Active Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkActiveBackgroundColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Disabled Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkDisabledColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Disabled Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkDisabledBackgroundColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Brand Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBrandColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Brand Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBrandHoverColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Brand Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBrandHoverBackgroundColor(this.value);" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div> <!-- Default Navbar Tab End -->
+
+            <!-- Inverse Navbar Tab -->
+            <div class="tab-pane fade" id="inverseNavbarTab">
+              <table class="table table-bordered">
+                <caption><h4>Default</h4></caption>
+                <thead>
+                  <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBackground(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBorder(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkHoverColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkHoverBackgroundColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Active Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkActiveColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Active Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkActiveBackgroundColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Disabled Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkDisabledColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Link Disabled Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkDisabledBackgroundColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Brand Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBrandColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Brand Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBrandHoverColor(this.value);" /></td>
+                  </tr>
+                  <tr>
+                    <td>Brand Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBrandHoverBackgroundColor(this.value);" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div> <!-- Inverse Navbar Tab End -->
+          </div>
+        </div>
+      </div>
+    </div> <!-- Navbars Panel End -->
+  </div>
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3>Download Theme</h3>
+      </div>
+      <div class="panel-body">
+        <p>Once your happy with the changes, click the download button below and you will get a theme.json file.<br />
+          You can then use this file to modify the variables in less.</p>
+        <p>
+          How you choose to do that isnt part of the BootstrapThemeEditor.
+          However, if you are using Symfony2, you can use <a href="https://github.com/ilikeprograms/BootstrapThemeBundle">BoostrapThemeBundle</a> which is also developed by me.
+        </p>
+      </div>
+      <div class="panel-footer" id="download-panel-footer"></div>
+    </div>
+  </div>
+</div> <!-- Controls Column End-->
