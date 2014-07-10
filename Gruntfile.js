@@ -35,24 +35,14 @@ module.exports = function (grunt) {
 
         // Uglify will build the .min version of our Main lib file
 		uglify: {
+            options: {
+                preserveComments: 'some'
+            },
+
 			build: {
                 // Theme Editor Files
-				files: {
-                    // The Destination file
-					'build/bsThemeEditor-<%= pkg.version %>.min.js': [
-                        // The Source files
-						'src/<%= pkg.name %>/theme-modifier.js',
-						'src/<%= pkg.name %>/branding.js',
-						'src/<%= pkg.name %>/dropdown.js',
-						'src/<%= pkg.name %>/form-state.js',
-						'src/<%= pkg.name %>/gray-base.js',
-						'src/<%= pkg.name %>/jumbotron.js',
-						'src/<%= pkg.name %>/list-group.js',
-						'src/<%= pkg.name %>/navbar.js',
-						'src/<%= pkg.name %>/theme-modifier.js',
-						'src/<%= pkg.name %>/theme-editor.js',
-					]
-				}
+				src: '<%= concat.main.dest %>',
+                dest: 'build/bsThemeEditor-<%= pkg.version %>.min.js'
 			}
 		},
         
