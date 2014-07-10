@@ -5,11 +5,10 @@ github:
   username: 'ilikeprograms'
   repo:     'BootstrapThemeEditor'
 
-baseurl: 'BootstrapThemeEditor'
-source:      ./gh_pages
-destination: ./gh_pages/_site
-plugins:     ./gh_pages/_plugins
-layouts:     ./gh-pages/_layouts
+baseurl: /
+url:     blog.ilikeprograms.com/BootstrapThemeEditor
+source:      docs
+destination: _gh_pages
 include:     ['.htaccess']
 exclude:     []
 keep_files:  ['.git','.svn']
