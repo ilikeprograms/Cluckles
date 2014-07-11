@@ -100,7 +100,7 @@
 	 */
 	Dropdown.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 
 	/**
@@ -121,7 +121,7 @@
 	 */
 	Dropdown.prototype.setHeaderColor = function (color) {
 		this.modifiers.headerColor.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -142,7 +142,7 @@
 	 */
 	Dropdown.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -163,7 +163,7 @@
 	 */
 	Dropdown.prototype.setDivider = function (color) {
 		this.modifiers.divider.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -184,7 +184,7 @@
 	 */
 	Dropdown.prototype.setLinkColor = function (color) {
 		this.modifiers.linkColor.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -205,7 +205,7 @@
 	 */
 	Dropdown.prototype.setLinkDisabledColor = function (color) {
 		this.modifiers.linkDisabledColor.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -226,7 +226,7 @@
 	 */
 	Dropdown.prototype.setLinkHoverBackground = function (color) {
 		this.modifiers.linkHoverBg.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -247,7 +247,7 @@
 	 */
 	Dropdown.prototype.setLinkHoverColor = function (color) {
 		this.modifiers.linkHoverColor.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -268,7 +268,7 @@
 	 */
 	Dropdown.prototype.setLinkActiveBackground = function (color) {
 		this.modifiers.linkActiveBg.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	/**
@@ -289,7 +289,7 @@
 	 */
 	Dropdown.prototype.setLinkActiveColor = function (color) {
 		this.modifiers.linkActiveColor.value = color;
-		this.editor.queueModificationss();
+		this.editor.queueModifications();
 	};
 	
 	window.Dropdown = Dropdown;
