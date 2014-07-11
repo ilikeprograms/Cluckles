@@ -18,16 +18,16 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <link type="text/css" href="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/css/style.css" rel="stylesheet" />
-    <link type="text/css" href="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/less/bootstrap.less" rel="stylesheet/less" />
-    <link type="text/css" href="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/css/example.css" rel="stylesheet" />
+    <link type="text/css" href="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/less/bootstrap.less" rel="stylesheet/less" />
+    <link type="text/css" href="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/css/example.css" rel="stylesheet" />
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/jquery.min.js"><\/script>');</script>
+<script>window.jQuery || document.write('<script src="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/jquery.min.js"><\/script>');</script>
 
 <!-- Load JS Libs which are required -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script>typeof $.fn.modal !== 'undefined' || document.write('<script src="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/bootstrap.min.js"><\/script>');</script>
+<script>typeof $.fn.modal !== 'undefined' || document.write('<script src="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/bootstrap.min.js"><\/script>');</script>
     <!-- Initialise Less with some default options, so we can start to live edit -->
 <script>
   less = {
@@ -44,7 +44,7 @@
 
 <!-- Load Less from the CDN -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
-<script>less.hasOwnProperty('Parser') || document.write('<script src="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/less.min.js"><\/script>');</script>    
+<script>less.hasOwnProperty('Parser') || document.write('<script src="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/less.min.js"><\/script>');</script>    
   </head>
   <body role="document">
     <div class="navbar navbar-inverse">
@@ -96,6 +96,9 @@
 <p>Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
 There is an example page provided (<code>build/example/index.html</code>) which makes it easy to see it in action!</p>
 
+<p>There is also a Live demo which can be found at:
+<code>http://demo.ilikeprograms.com/BootstrapThemeEditor</code></p>
+
 <p>The example demo page has a User Interface which has panels where you can change the different parts
 of bootstrap by using color pickers to change the styling. Simple and Easy.</p>
 
@@ -116,17 +119,17 @@ of bootstrap by using color pickers to change the styling. Simple and Easy.</p>
 
 <ul>
   <li>[x] Base Styles</li>
-  <li>[x] Drodowns</li>
-  <li>[ ] Inputs</li>
+  <li>[x] Dropdowns</li>
+  <li>[ ] Inputs/Forms</li>
   <li>[x] Links/Nav</li>
   <li>[x] Navbars</li>
-  <li>[ ] Breadcrumbs?</li>
-  <li>[ ] Pagination?</li>
-  <li>[ ] Labels?</li>
-  <li>[ ] Badges?</li>
+  <li>[x] Breadcrumbs</li>
+  <li>[ ] Pagination</li>
+  <li>[ ] Labels</li>
+  <li>[ ] Badges</li>
   <li>[x] Jumbotron</li>
   <li>[x] Page Header</li>
-  <li>[ ] Thumbnails?</li>
+  <li>[ ] Thumbnails</li>
   <li>[x] Alerts</li>
   <li>[x] Progress Bars</li>
   <li>[x] List Groups</li>
@@ -175,9 +178,48 @@ If you change the source files in the <code>src</code> directory, you will need 
 and open a tab in the browser at the address. It will also watch for changes to the source file and automatically rebuild for you,
 if any changes are made.</p>
 
+<h3 id="changingviewing-docs-files">Changing/Viewing Docs Files</h3>
+
+<p>The docs are powered by <code>jekyll</code> and <code>Github pages</code>. When the project is build, the dist files are copied to the docs folder, that the build files can be used in the Live demo.  </p>
+
+<p>To preview the Live demo to test them, run the following command from the command line:
+<code>
+jekyll --serve --base-url=
+</code></p>
+
+<p>Then go to the browser and go to the url:<br />
+<code>http://localhost:4000</code></p>
+
 <h2 id="theme-editor-options">Theme Editor Options</h2>
 
 <p>There are options that can be provided when a ThemeEditor instance is created and are as follows:</p>
+
+<h2 id="theme-editor-options-1">Theme Editor Options</h2>
+
+<p>There are options that can be provided when a ThemeEditor instance is created and are as follows:</p>
+
+<h3 id="misc">Misc</h3>
+
+<p>Miscellaneous Options</p>
+
+<table class="table table-bordered table-striped default">
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th style="text-align: center">Type</th>
+      <th>Default</th>
+      <th>Desc</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>delay</td>
+      <td style="text-align: center"><code>number</code></td>
+      <td>750 (milliseconds)</td>
+      <td>Milliseconds delay between refresh updates</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="theme">Theme</h3>
 
@@ -295,6 +337,31 @@ The DOM node to append the save link, the id and the text of the link can be cus
     </tr>
   </tbody>
 </table>
+
+<h4 id="example">Example</h4>
+
+<p><code>
+&lt;!-- Load our Fancy live editing ThemeEditor --&gt;
+&lt;script src="../bsThemeEditor-0.2.0.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+  var themeEditor = new ThemeEditor(less, {
+    delay: 2000,
+    theme: {
+      src: 'theme.json'
+    },
+    download: {
+      append: '#download-panel-footer'
+    },
+    save: {
+      append: '#download-panel-footer',
+      url: "http://localhost:9000/example/",
+      callback: function () {
+        alert('Theme modifications have been saved');
+      }
+    }
+  });
+&lt;/script&gt;
+</code></p>
 
 <h2 id="contributing">Contributing</h2>
 

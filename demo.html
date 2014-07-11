@@ -18,16 +18,16 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <link type="text/css" href="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/css/style.css" rel="stylesheet" />
-    <link type="text/css" href="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/less/bootstrap.less" rel="stylesheet/less" />
-    <link type="text/css" href="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/css/example.css" rel="stylesheet" />
+    <link type="text/css" href="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/css/style.css" rel="stylesheet" />
+    <link type="text/css" href="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/less/bootstrap.less" rel="stylesheet/less" />
+    <link type="text/css" href="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/css/example.css" rel="stylesheet" />
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/jquery.min.js"><\/script>');</script>
+<script>window.jQuery || document.write('<script src="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/jquery.min.js"><\/script>');</script>
 
 <!-- Load JS Libs which are required -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script>typeof $.fn.modal !== 'undefined' || document.write('<script src="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/bootstrap.min.js"><\/script>');</script>
+<script>typeof $.fn.modal !== 'undefined' || document.write('<script src="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/bootstrap.min.js"><\/script>');</script>
     <!-- Initialise Less with some default options, so we can start to live edit -->
 <script>
   less = {
@@ -44,7 +44,7 @@
 
 <!-- Load Less from the CDN -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
-<script>less.hasOwnProperty('Parser') || document.write('<script src="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/less.min.js"><\/script>');</script>    
+<script>less.hasOwnProperty('Parser') || document.write('<script src="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/js/lib/less.min.js"><\/script>');</script>    
   </head>
   <body role="document">
     <div class="navbar navbar-inverse">
@@ -310,6 +310,9 @@
                   </thead>
                   <tbody>
                     <tr>
+                      <td>Padding</td><td></td><td><input type="number" onchange="themeEditor.jumbotron.setPadding(this.value);" value="30" min="1" step="1" /></td>
+                    </tr>
+                    <tr>
                       <td>Color</td><td></td><td><input type="color" onchange="themeEditor.jumbotron.setColor(this.value);" /></td>
                     </tr>
                     <tr>
@@ -425,6 +428,72 @@
             </div>
           </div> <!-- Dropdown Branding Panel End -->
 
+          <!-- Breadcrumbs Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#breadcrumbsModifiers">
+                  Breadcrumbs
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="breadcrumbsModifiers">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Background</td><td></td><td><input type="color" onchange="themeEditor.breadcrumbs.setBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Color</td><td></td><td><input type="color" onchange="themeEditor.breadcrumbs.setColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Active Color</td><td></td><td><input type="color" onchange="themeEditor.breadcrumbs.setActiveColor(this.value);" /></td>
+                    </tr>
+                    <!-- TODO: How .... :( ? -->
+<!--                          <tr>
+                      <td>Seperator</td><td></td><td><input type="text" onchange="themeEditor.breadcrumbs.setSeperator(this.value);" placeholder="/" /></td>
+                    </tr>-->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Breadcrumbs Panel End -->
+
+          <!-- Panel Panel -->
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#brandColor" href="#panel" class="text-muted">
+                  Panel
+                </a>
+              </h4>
+            </div>
+            <div class="panel-collapse collapse" id="panel">
+              <div class="panel-body">
+                <table class="table table-bordered">
+                  <thead>
+                    <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Panel Footer Background Color</td><td></td><td><input type="color" onchange="themeEditor.panelBase.setPanelFooterBackground(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Panel Body Padding</td><td></td><td><input type="text" onchange="themeEditor.panelBase.setPanelBodyPadding(this.value);" value="15px" placeholder="15px" /></td>
+                    </tr>
+                    <tr>
+                      <td>Panel Border Radius</td><td></td><td><input type="text" onchange="themeEditor.panelBase.setPanelBorderRadius(this.value);" value="4px" placeholder="4px" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div> <!-- Misc Color Branding Panel End -->
+
           <!-- Misc Color Branding Panel -->
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -442,19 +511,31 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Component Base Background</td><td></td><td><input type="color" onchange="themeEditor.setComponentBaseBackground(this.value);" /></td>
+                      <td>Component Base Background</td><td></td><td><input type="color" onchange="themeEditor.misc.setComponentBaseBackground(this.value);" /></td>
                     </tr>
                     <tr>
-                      <td>Well Base Background</td><td></td><td><input type="color" onchange="themeEditor.setWellBackground(this.value);" /></td>
+                      <td>Well Base Background</td><td></td><td><input type="color" onchange="themeEditor.misc.setWellBackground(this.value);" /></td>
                     </tr>
                     <tr>
-                      <td>Body Background</td><td></td><td><input type="color" onchange="themeEditor.setBodyBackground(this.value);" /></td>
+                      <td>Body Background</td><td></td><td><input type="color" onchange="themeEditor.misc.setBodyBackground(this.value);" /></td>
                     </tr>
                     <tr>
-                      <td>Text Color</td><td></td><td><input type="color" onchange="themeEditor.setTextColor(this.value);" /></td>
+                      <td>Text Color</td><td></td><td><input type="color" onchange="themeEditor.misc.setTextColor(this.value);" /></td>
                     </tr>
                     <tr>
-                      <td>Headings Color</td><td></td><td><input type="color" onchange="themeEditor.setHeadingsColor(this.value);" /></td>
+                      <td>Link Color</td><td></td><td><input type="color" onchange="themeEditor.misc.setLinkColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.misc.setLinkHoverColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Headings Color</td><td></td><td><input type="color" onchange="themeEditor.misc.setHeadingsColor(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Horizontal Rule Color</td><td></td><td><input type="color" onchange="themeEditor.misc.setHrBorder(this.value);" /></td>
+                    </tr>
+                    <tr>
+                      <td>Border Radius Base</td><td></td><td><input type="text" onchange="themeEditor.misc.setBorderRadiusBase(this.value);" value="4px" placeholder="4px" /></td>
                     </tr>
                   </tbody>
                 </table>
@@ -476,15 +557,38 @@
         <div class="panel-body">
           <!-- Navbar Tab Nav -->
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#defaultNavbarTab" data-toggle="tab">Default</a></li>
+            <li class="active"><a href="#baseNavbarTab" data-toggle="tab">Base</a></li>
+            <li><a href="#defaultNavbarTab" data-toggle="tab">Default</a></li>
             <li><a href="#inverseNavbarTab" data-toggle="tab">Inverse</a></li>
           </ul> <!-- Navbar Tab Nav End -->
 
           <div class="tab-content">
-            <!-- Default Navbar Tab -->
-            <div class="tab-pane active fade in" id="defaultNavbarTab">
+            <!-- Base Navbar Tab -->
+            <div class="tab-pane active fade in" id="baseNavbarTab">
               <table class="table table-bordered">
-                <caption><h4>Default</h4></caption>
+                <thead>
+                  <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Navbar Height</td><td></td><td><input type="number" onchange="themeEditor.navbarBase.setHeight(this.value);" value="50" min="1" step="1" /></td>
+                  </tr>
+                  <tr>
+                    <td>Navbar Margin Bottom</td><td></td><td><input type="number" onchange="themeEditor.navbarBase.setMarginBottom(this.value);" value="30" min="1" step="1" /></td>
+                  </tr>
+                  <tr>
+                    <td>Navbar Border Radius</td><td></td><td><input type="text" onchange="themeEditor.navbarBase.setBorderRadius(this.value);" value="4px" placeholder="4px" /></td>
+                  </tr>
+                  <tr>
+                    <td>Navbar Collapse Max Height</td><td></td><td><input type="number" onchange="themeEditor.navbarBase.setCollapseMaxHeight(this.value);" value="340" min="1" step="1" /></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div> <!-- Base Navbar Tab End -->
+
+            <!-- Default Navbar Tab -->
+            <div class="tab-pane fade" id="defaultNavbarTab">
+              <table class="table table-bordered">
                 <thead>
                   <tr><th>Property</th><th>Example</th><th>Change</th></tr>
                 </thead>
@@ -535,7 +639,6 @@
             <!-- Inverse Navbar Tab -->
             <div class="tab-pane fade" id="inverseNavbarTab">
               <table class="table table-bordered">
-                <caption><h4>Default</h4></caption>
                 <thead>
                   <tr><th>Property</th><th>Example</th><th>Change</th></tr>
                 </thead>
@@ -676,6 +779,7 @@
       <div class="dropdown theme-dropdown clearfix">
         <a id="dropdownMenu1" href="#" role="button" class="sr-only dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
         <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+          <li role="presentation" class="dropdown-header">Dropdown header</li>
           <li class="active" role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
           <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
@@ -759,6 +863,47 @@
         </div>
       </div>
 
+      <!-- Navs Section Panel -->
+      <div class="page-header">
+        <h1>Navs</h1>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <p>Tabs</p>
+          <ul class="nav nav-tabs" role="tablist">
+            <li class="active"><a href="#">Active Tab</a></li>
+            <li><a href="#">Tab</a></li>
+          </ul>
+          <p>Pills</p>
+          <ul class="nav nav-pills">
+            <li class="active"><a href="#">Active Tab</a></li>
+            <li><a href="#">Tab</a></li>
+          </ul>
+        </div>
+      </div> <!-- Navs Section Panel End -->
+
+      <!-- Breadcrumbs Section Panel -->
+      <div class="page-header">
+        <h1>Breadcrumbs</h1>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <ol class="breadcrumb">
+            <li class="active">First</li>
+          </ol>
+
+          <ol class="breadcrumb">
+            <li><a href="#">First</a></li>
+            <li class="active">Second</li>
+          </ol>
+
+          <ol class="breadcrumb">
+            <li><a href="#">Fist</a></li>
+            <li><a href="#">Second</a></li>
+            <li class="active">Third</li>
+          </ol>
+        </div>
+      </div> <!-- Breadcrumbs Section Panel End -->
 
       <div class="page-header">
         <h1>FormStates</h1>
@@ -927,6 +1072,9 @@
             <div class="panel-body">
               Panel content
             </div>
+            <div class="panel-footer">
+              Panel Footer
+            </div>
           </div> <!-- Panel Danger End -->
         </div><!-- /.col-sm-4 -->
       </div>
@@ -941,7 +1089,7 @@
   </div>
 </div> <!-- Theme Example Column -->
 <!-- Load our Fancy live editing ThemeEditor -->
-<script src="http://blog.ilikeprograms.com/BootstrapThemeEditor/assets/js/bsThemeEditor.min.js"></script>
+<script src="http://demo.ilikeprograms.com/BootstrapThemeEditor/assets/js/bsThemeEditor.min.js"></script>
 <script>
   var themeEditor = new ThemeEditor(less, {
     theme: {
