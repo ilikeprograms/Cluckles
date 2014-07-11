@@ -1,4 +1,4 @@
-/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc */
+/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase */
 (function (window) {
     "use strict";
 
@@ -20,7 +20,8 @@
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
      * @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
-     * @property {Object} navbar Holds Navbar instances which control the styling of Navbar components.
+     * @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
+     * @property {Object} navbar Holds Navbar instances which control the styling of Navbar Components.
      * @property {Object} formStates Holds FormState instances which control the styling of various components, (Alerts/Panels).
      * @property {ListGroup} listGroup Holds the changes to the ListGroup component.
      * @property {object} modifiers Holds all of the Modifications to the whole theme.
@@ -48,6 +49,7 @@
         this.jumbotron			= new Jumbotron(this);
         this.grayScale			= new GrayScale(this);
         this.branding			= new BrandModifier(this);
+        this.panelBase          = new PanelBase(this);
         this.navbar = {
             'default':			  new Navbar(this),
             'inverse':			  new Navbar(this, 'inverse')
@@ -137,6 +139,9 @@
 
             this.extractModifications(modifiers, formStatesStyle);
         }, this);
+        
+        // Panel Base
+        this.extractModifications(modifiers, this.panelBase);
 
         // Misc
         this.extractModifications(modifiers, this.misc);
