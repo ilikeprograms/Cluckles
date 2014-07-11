@@ -123,66 +123,54 @@
         });
 
         // Navbars
+        // Itterate over the object to extract modifications for both styles of Navbar's
         Object.keys(navbar).forEach(function (style) {
-            var navbarStyle = navbar[style],
-                navbarModifications = navbarStyle.getModifications();
+            var navbarStyle = navbar[style];
 
-            Object.keys(navbarModifications).forEach(function (modifier) {
-                var modifierObject = navbarModifications[modifier];
-                modifiers[modifierObject.variable] = modifierObject.value;
-            });
-        });
+            this.extractModifications(modifiers, navbarStyle);
+        }, this);
 
         // FormStates
-        Object.keys(formStates).forEach(function (stateType) {
-            var formState = formStates[stateType],
-                formModifications = formState.getModifications();
+        // Itterate over the object to extract modifications for each styles of FormState's
+        Object.keys(formStates).forEach(function (style) {
+            var formStatesStyle = formStates[style];
 
-            Object.keys(formModifications).forEach(function (modifier) {
-                var modifierObject = formModifications[modifier];
-                modifiers[modifierObject.variable] = modifierObject.value;
-            });
-        });
+            this.extractModifications(modifiers, formStatesStyle);
+        }, this);
 
         // Misc
-        var miscModifiers = this.misc.getModifications();
-        Object.keys(miscModifiers).forEach(function (modifier) {
-            var modifierObject = miscModifiers[modifier];
-            modifiers[modifierObject.variable] = modifierObject.value;
-        });
+        this.extractModifications(modifiers, this.misc);
 
         // Branding
-        var brandingModifiers = this.branding.getModifications();
-        Object.keys(brandingModifiers).forEach(function (modifier) {
-            var modifierObject = brandingModifiers[modifier];
-            modifiers[modifierObject.variable] = modifierObject.value;
-        });
+        this.extractModifications(modifiers, this.branding);
 
         // Dropdown
-
-        var dropdownModifiers = this.dropdown.getModifications();
-        Object.keys(dropdownModifiers).forEach(function (modifier) {
-            var modifierObject = dropdownModifiers[modifier];
-            modifiers[modifierObject.variable] = modifierObject.value;
-        });
+        this.extractModifications(modifiers, this.dropdown);
 
         // Jumbotron
-
-        var jumbotronModifiers = this.jumbotron.getModifications();
-        Object.keys(jumbotronModifiers).forEach(function (modifier) {
-            var modifierObject = jumbotronModifiers[modifier];
-            modifiers[modifierObject.variable] = modifierObject.value;
-        });
+        this.extractModifications(modifiers, this.jumbotron);
 
         // List Group
-
-        var listGroupModifiers = this.listGroup.getModifications();
-        Object.keys(listGroupModifiers).forEach(function (modifier) {
-            var modifierObject = listGroupModifiers[modifier];
-            modifiers[modifierObject.variable] = modifierObject.value;
-        });
+        this.extractModifications(modifiers, this.listGroup);
 
         return modifiers;
+    };
+
+    /**
+     * Extracts the Modifications for the particular style/component by using
+     * ThemeModifier.prototype.getModifications() and adds them to ThemeEditor.modifications.
+     * 
+     * @param {Object} modifiers All of the modifications to the theme.
+     * @param {Obejct} modifiersType The object which holds the modifications for a particular style/components.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.extractModifications = function (modifiers, modifiersType) {
+        var modifiersOfType = modifiersType.getModifications();
+        Object.keys(modifiersOfType).forEach(function (modifier) {
+            var modifierObject = modifiersOfType[modifier];
+            modifiers[modifierObject.variable] = modifierObject.value;
+        });
     };
 
     /**
