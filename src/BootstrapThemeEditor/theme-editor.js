@@ -1,4 +1,4 @@
-/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase */
+/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase */
 (function (window) {
     "use strict";
 
@@ -21,6 +21,7 @@
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
      * @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
      * @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
+     * @property {Navbar} navbarBase Holds the changes to the General Navbar styling of Navbar Components.
      * @property {Object} navbar Holds Navbar instances which control the styling of Navbar Components.
      * @property {Object} formStates Holds FormState instances which control the styling of various components, (Alerts/Panels).
      * @property {ListGroup} listGroup Holds the changes to the ListGroup component.
@@ -45,24 +46,25 @@
 
         this.misc               = new Misc(this);
         // Component vars
-        this.dropdown			= new Dropdown(this);
-        this.jumbotron			= new Jumbotron(this);
-        this.grayScale			= new GrayScale(this);
-        this.branding			= new BrandModifier(this);
+        this.dropdown           = new Dropdown(this);
+        this.jumbotron          = new Jumbotron(this);
+        this.grayScale          = new GrayScale(this);
+        this.branding           = new BrandModifier(this);
         this.panelBase          = new PanelBase(this);
+        this.navbarBase         = new NavbarBase(this);
         this.navbar = {
-            'default':			  new Navbar(this),
-            'inverse':			  new Navbar(this, 'inverse')
+            'default':            new Navbar(this),
+            'inverse':            new Navbar(this, 'inverse')
         };
         this.formStates = {
-            'default':			  new FormState(this, 'default'),
-            'primary':			  new FormState(this, 'primary'),
-            'success':			  new FormState(this, 'success'),
-            'info':				  new FormState(this, 'info'),
-            'warning':			  new FormState(this, 'warning'),
-            'danger':			  new FormState(this, 'danger')
+            'default':            new FormState(this, 'default'),
+            'primary':            new FormState(this, 'primary'),
+            'success':            new FormState(this, 'success'),
+            'info':               new FormState(this, 'info'),
+            'warning':            new FormState(this, 'warning'),
+            'danger':             new FormState(this, 'danger')
         };
-        this.listGroup			= new ListGroup(this);
+        this.listGroup          = new ListGroup(this);
 
         // All modifier vars
         this.modifiers = {};
@@ -142,6 +144,9 @@
         
         // Panel Base
         this.extractModifications(modifiers, this.panelBase);
+
+        // Navbar Base
+        this.extractModifications(modifiers, this.navbarBase);
 
         // Misc
         this.extractModifications(modifiers, this.misc);
