@@ -7,14 +7,17 @@
      * @class Misc
      * @extends ThemeModifier
 	 * 
-	 * @param {Misc} editor instance which manages the less modifications.
+	 * @param {ThemeEditor} editor instance which manages the less modifications.
      * 
      * @property {string} componentBaseBg The @state-base-bg variable which sets the background color of bootstrap components.
      * @property {string} wellBg The @well-base-bg variable which sets the background color of the Well Component.
      * @property {string} bodyBg The @body-bg variable which sets the body background color.
      * @property {string} textColor The @text-color variable which sets the body text color.
      * @property {string} headingsColor The @headings-color variable which sets the color of <h1>-<h6> tags.
+     * @property {string} linkColor The @link-color variable which sets the link color.
+     * @property {string} linkHoverColor The @link-hover-color variable which sets the link hover color.
      * @property {string} hrBorder The @hr-border variable which sets the color of the <hr> tag.
+     * @property {string} borderRadiusBase The @border-radius-base variable which sets the base border radius.
      * 
      * @returns {Misc}
      */
@@ -42,8 +45,20 @@
             variable: '@headings-color',
             value: null
         };
+        this.linkColor = {
+            variable: '@link-color',
+            value: null
+        };
+        this.linkHoverColor = {
+            variable: '@link-hover-color',
+            value: null
+        };
         this.hrBorder = {
             variable: '@hr-border',
+            value: null
+        };
+        this.borderRadiusBase = {
+            variable: '@border-radius-base',
             value: null
         };
 
@@ -54,7 +69,10 @@
             bodyBg:             this.bodyBg,
             textColor:          this.textColor,
             headingsColor:      this.headingsColor,
-            hrBorder:           this.hrBorder
+            linkColor:          this.linkColor,
+            linkHoverColor:     this.linkHoverColor,
+            hrBorder:           this.hrBorder,
+            borderRadiusBase:   this.borderRadiusBase
         };
     };
 
@@ -158,12 +176,54 @@
     /**
      * Sets the Headings Text color.
      * 
-     * @param {string} color The headings text color to set.
+     * @param {string} color The Headings text color to set.
      * 
      * @returns {undefined}
      */
     Misc.prototype.setHeadingsColor = function (color) {
         this.modifiers.headingsColor.value = color;
+        this.editor.queueModifications();
+    };
+
+    /**
+     * Gets the Link color.
+     * 
+     * @returns {String}
+     */
+    Misc.prototype.getLinkColor = function () {
+        return this.modifiers.linkColor.value;
+    };
+
+    /**
+     * Sets the Link color.
+     * 
+     * @param {string} linkColor The Link color to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setLinkColor = function (linkColor) {
+        this.modifiers.linkColor.value = linkColor;
+        this.editor.queueModifications();
+    };
+
+    /**
+     * Gets the Link Hover color.
+     * 
+     * @returns {String}
+     */
+    Misc.prototype.getLinkHoverColor = function () {
+        return this.modifiers.linkHoverColor.value;
+    };
+
+    /**
+     * Sets the Link Hover color.
+     * 
+     * @param {string} linkHoverColor The Link Hover color to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setLinkHoverColor = function (linkHoverColor) {
+        this.modifiers.linkHoverColor.value = linkHoverColor;
         this.editor.queueModifications();
     };
 
@@ -185,6 +245,27 @@
      */
     Misc.prototype.setHrBorder = function (hrBorder) {
         this.modifiers.hrBorder.value = hrBorder;
+        this.editor.queueModifications();
+    };
+
+    /**
+     * Gets the Border Radius Base.
+     * 
+     * @returns {String}
+     */
+    Misc.prototype.getBorderRadiusBase = function () {
+        return this.modifiers.borderRadiusBase.value;
+    };
+    
+    /**
+     * Sets the Border Radius Base/
+     * 
+     * @param {string} borderRadiusBase The Border Radius Base to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setBorderRadiusBase = function (borderRadiusBase) {
+        this.modifiers.borderRadiusBase.value = borderRadiusBase;
         this.editor.queueModifications();
     };
 
