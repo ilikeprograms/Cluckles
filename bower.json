@@ -1,6 +1,6 @@
 {
   "name": "BootstrapThemeEditor",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "authors": [
     "Thomas Coleman <tom@ilikeprograms.com>"
   ],
@@ -22,6 +22,7 @@
     "Gruntfile.js",
     "README.md",
     "package.json",
+    "CHANGELOG.md",
     "test",
     "tests"
   ],
