@@ -18,6 +18,7 @@
 	var FormState = function (editor, type) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 		
+        // Configure the Modifiers
 		this.headingBg = {
 			variable: '@state-' + type + '-bg',
 			value: null
@@ -31,9 +32,12 @@
 			value: null
 		};
 		
-		this.modifiers.headingBg	= this.headingBg;
-		this.modifiers.text			= this.text;
-		this.modifiers.border		= this.border;
+        // Configure the modifiers so they can be extracted easier
+        this.modifiers = {
+            headingBg:  this.headingBg,
+            text:       this.text,
+            border:     this.border
+        };
 	};
 	
 	// Inherit from parent Prototype and preserve constructor

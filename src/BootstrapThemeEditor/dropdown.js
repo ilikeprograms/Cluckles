@@ -25,6 +25,7 @@
 	var Dropdown = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 		
+        // Configure the Modifiers
 		this.bg = {
 			variable: '@dropdown-bg',
 			value: null
@@ -66,16 +67,19 @@
 			value: null
 		};
 
-		this.modifiers.bg					= this.bg;
-		this.modifiers.headerColor			= this.headerColor;
-		this.modifiers.border				= this.border;
-		this.modifiers.divider				= this.divider;
-		this.modifiers.linkColor			= this.linkColor;
-		this.modifiers.linkDisabledColor	= this.linkDisabledColor;
-		this.modifiers.linkHoverBg			= this.linkHoverBg;
-		this.modifiers.linkHoverColor		= this.linkHoverColor;
-		this.modifiers.linkActiveBg			= this.linkActiveBg;
-		this.modifiers.linkActiveColor		= this.linkActiveColor;
+        // Configure the modifiers so they can be extracted easier
+        this.modifiers = {
+            bg:                 this.bg,
+            headerColor:        this.headerColor,
+            border:             this.border,
+            divider:            this.divider,
+            linkColor:          this.linkColor,
+            linkDisabledColor:  this.linkDisabledColor,
+            linkHoverBg:        this.linkHoverBg,
+            linkHoverColor:     this.linkHoverColor,
+            linkActiveBg:       this.linkActiveBg,
+            linkActiveColor:    this.linkActiveColor
+        };
 	};
 	
 	// Inherit from parent Prototype and preserve constructor

@@ -18,6 +18,7 @@
 	var Jumbotron = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 		
+        // Configure the Modifiers
 		this.bg = {
 			variable: '@jumbotron-bg',
 			value: null
@@ -31,9 +32,12 @@
 			value: null
 		};
 		
-		this.modifiers.bg			= this.bg;
-		this.modifiers.headingColor = this.headingColor;
-		this.modifiers.color		= this.color;
+        // Configure the modifiers so they can be extracted easier
+        this.modifiers = {
+            bg:             this.bg,
+            headingColor:   this.headingColor,
+            color:          this.color
+        };
 	};
 	
 	// Inherit from parent Prototype and preserve constructor

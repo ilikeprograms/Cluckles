@@ -30,6 +30,7 @@
 		
 		var navbarStyle = style === undefined ? 'default' : 'inverse';
 
+        // Configure the Modifiers
 		this.bg = {
 			variable: 'navbar-' + navbarStyle + '-bg',
 			value: null
@@ -91,19 +92,22 @@
 			value: null
 		};
 		
-		this.modifiers.bg					= this.bg;
-		this.modifiers.color				= this.color;
-		this.modifiers.border				= this.border;
-		this.modifiers.linkColor			= this.linkColor;
-		this.modifiers.linkHoverColor		= this.linkHoverColor;
-		this.modifiers.linkHoverBg			= this.linkHoverBg;
-		this.modifiers.linkActiveColor		= this.linkActiveColor;
-		this.modifiers.linkActiveBg			= this.linkActiveBg;
-		this.modifiers.linkDisabledColor	= this.linkDisabledColor;
-		this.modifiers.linkDisabledBg		= this.linkDisabledBg;
-		this.modifiers.brandColor			= this.brandColor;
-		this.modifiers.brandHoverColor		= this.brandHoverColor;
-		this.modifiers.brandHoverBg			= this.brandHoverBg;
+        // Configure the modifiers so they can be extracted easier
+        this.modifiers = {
+            bg:                 this.bg,
+            color:              this.color,
+            border:             this.border,
+            linkColor:          this.linkColor,
+            linkHoverColor:     this.linkHoverColor,
+            linkHoverBg:        this.linkHoverBg,
+            linkActiveColor:    this.linkActiveColor,
+            linkActiveBg:       this.linkActiveBg,
+            linkDisabledColor:  this.linkDisabledColor,
+            linkDisabledBg:     this.linkDisabledBg,
+            brandColor:         this.brandColor,
+            brandHoverColor:    this.brandHoverColor,
+            brandHoverBg:       this.brandHoverBg
+        };
 	};
 	
 	// Inherit from parent Prototype and preserve constructor

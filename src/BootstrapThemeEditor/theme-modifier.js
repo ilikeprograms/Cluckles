@@ -7,6 +7,7 @@
 			},
 			'modifiers': {
 				enumerable: false,
+                writable: true,
 				value: {}
 			}
 		});

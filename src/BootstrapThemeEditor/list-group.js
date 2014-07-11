@@ -24,6 +24,7 @@
 	var ListGroup = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        // Configure the Modifiers
 		this.bg = {
 			variable: '@list-group-bg',
 			value: null
@@ -61,15 +62,18 @@
 			value: null
 		};
 		
-		this.modifiers.bg					= this.bg;
-		this.modifiers.border				= this.border;
-		this.modifiers.hoverBg				= this.hoverBg;
-		this.modifiers.linkHeadingColor		= this.linkHeadingColor;
-		this.modifiers.linkColor			= this.linkColor;
-		this.modifiers.activeBg				= this.activeBg;
-		this.modifiers.activeBorder			= this.activeBorder;
-		this.modifiers.activeColor			= this.activeColor;
-		this.modifiers.activeTextColor		= this.activeTextColor;
+        // Configure the modifiers so they can be extracted easier
+        this.modifiers = {
+            bg:                 this.bg,
+            border:             this.border,
+            hoverBg:            this.hoverBg,
+            linkHeadingColor:   this.linkHeadingColor,
+            linkColor:          this.linkColor,
+            activeBg:           this.activeBg,
+            activeBorder:       this.activeBorder,
+            activeColor:        this.activeColor,
+            activeTextColor:    this.activeTextColor
+        };
 	};
 	
 	// Inherit from parent Prototype and preserve constructor

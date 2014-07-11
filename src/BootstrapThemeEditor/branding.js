@@ -22,6 +22,7 @@
 	var BrandModifier = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        // Configure the Modifiers
 		this.default = {
 			variable: '@brand-default',
 			value: null
@@ -47,12 +48,15 @@
 			value: null
 		};
 		
-		this.modifiers.default	= this.default;
-		this.modifiers.primary	= this.primary;
-		this.modifiers.success	= this.success;
-		this.modifiers.info		= this.info;
-		this.modifiers.warning	= this.warning;
-		this.modifiers.danger	= this.danger;
+        // Configure the modifiers so they can be extracted easier
+        this.modifiers = {
+            default:    this.default,
+            primary:    this.primary,
+            success:    this.success,
+            info:       this.info,
+            warning:    this.warning,
+            danger:     this.danger
+        };
 	};
 	
 	// Inherit from parent Prototype and preserve constructor

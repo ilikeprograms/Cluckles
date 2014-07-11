@@ -21,7 +21,7 @@
     var Misc = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
-        // Misc Theme vars
+        // Define the Modifiers
         this.componentBaseBg = {
             variable: '@state-base-bg',
             value: null
@@ -47,12 +47,15 @@
             value: null
         };
 
-        this.modifiers.componentBaseBg  = this.componentBaseBg;
-        this.modifiers.wellBg           = this.wellBg;
-        this.modifiers.bodyBg           = this.bodyBg;
-        this.modifiers.textColor        = this.textColor;
-        this.modifiers.headingsColor    = this.headingsColor;
-        this.modifiers.hrBorder         = this.hrBorder;
+        // Configure the modifiers so they can be extracted easier
+        this.modifiers = {
+            componentBaseBg:    this.componentBaseBg,
+            wellBg:             this.wellBg,
+            bodyBg:             this.bodyBg,
+            textColor:          this.textColor,
+            headingsColor:      this.headingsColor,
+            hrBorder:           this.hrBorder
+        };
     };
 
     // Inherit from parent Prototype and preserve constructor
