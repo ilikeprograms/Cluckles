@@ -20,6 +20,7 @@ module.exports = function (grunt) {
                 src: [
                     'src/<%= pkg.name %>/theme-modifier.js',
                     'src/<%= pkg.name %>/misc.js',
+                    'src/<%= pkg.name %>/breadcrumb.js',
                     'src/<%= pkg.name %>/panel.base.js',
                     'src/<%= pkg.name %>/navbar.base.js',
                     'src/<%= pkg.name %>/branding.js',

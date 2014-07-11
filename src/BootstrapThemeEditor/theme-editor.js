@@ -1,4 +1,4 @@
-/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase */
+/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -16,6 +16,7 @@
      * @param {Object} less The Global less object.
      * 
      * @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
+     * @property {Breadcrumbs} breadcrumbs Holds modifications to the Breadcrumbs component.
      * @property {Dropdown} dropdown Holds modifications to the Dropdown component.
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
@@ -46,6 +47,7 @@
 
         this.misc               = new Misc(this);
         // Component vars
+        this.breadcrumbs        = new Breadcrumb(this);
         this.dropdown           = new Dropdown(this);
         this.jumbotron          = new Jumbotron(this);
         this.grayScale          = new GrayScale(this);
@@ -153,6 +155,9 @@
 
         // Branding
         this.extractModifications(modifiers, this.branding);
+
+        // Breadcrumbs
+        this.extractModifications(modifiers, this.breadcrumbs);
 
         // Dropdown
         this.extractModifications(modifiers, this.dropdown);
