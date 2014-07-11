@@ -1,5 +1,5 @@
 /**
- * BootstrapThemeEditor 0.3.2: Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
+ * BootstrapThemeEditor 0.3.3: Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
  * Copyrite 2014 Thomas Coleman <tom@ilikeprograms.com>
  * Licence: GPL-3.0+
  */
