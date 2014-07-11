@@ -1,4 +1,4 @@
-/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown */
+/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc */
 (function (window) {
     "use strict";
 
@@ -15,12 +15,7 @@
      * 
      * @param {Object} less The Global less object.
      * 
-     * @property {Object} lessGlobal The Global less object.
-     * @property {string} componentBaseBg The base background color of bootstrap components.
-     * @property {string} wellBg The well components background color.
-     * @property {string} bodyBg The body background color.
-     * @property {string} textColor The body text color.
-     * @property {string} headingsColor The headings color.
+     * @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
      * @property {Dropdown} dropdown Holds modifications to the Dropdown component.
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
@@ -47,13 +42,7 @@
             delay: options.refreshDelay || 750
         };
 
-        // Misc Theme vars
-        this.componentBaseBg	= null;
-        this.wellBg				= null;
-        this.bodyBg				= null;
-        this.textColor			= null;
-        this.headingsColor		= null;
-
+        this.misc               = new Misc(this);
         // Component vars
         this.dropdown			= new Dropdown(this);
         this.jumbotron			= new Jumbotron(this);
@@ -112,66 +101,6 @@
     };
 
     /**
-     * Sets the background color of Components, such as Panel body, List Groups.
-     * 
-     * @param {string} bg The background color to set.
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.setComponentBaseBackground = function (bg) {
-        this.componentBaseBg = bg;
-        this.queueModifications();
-    };
-
-    /**
-     * Sets the Background color of the Well Component.
-     * 
-     * @param {string} bg The Background color to set.
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.setWellBackground = function (bg) {
-        this.wellBg = bg;
-        this.queueModifications();
-    };
-
-    /**
-     * Sets the body background color.
-     * 
-     * @param {string} bg The body background color to set.
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.setBodyBackground = function (bg) {
-        this.bodyBg = bg;
-        this.queueModifications();
-    };
-
-    /**
-     * Sets the body text color.
-     * 
-     * @param {string} color The body text color to set.
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.setTextColor = function (color) {
-        this.textColor = color;
-        this.queueModifications();
-    };
-
-    /**
-     * Sets the headings text color.
-     * 
-     * @param {string} color The headings text color to set.
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.setHeadingsColor = function (color) {
-        this.headingsColor = color;
-        this.queueModifications();
-    };
-
-    /**
      * Get the Modifications which have been stored.
      * 
      * @returns {Object}
@@ -216,12 +145,11 @@
         });
 
         // Misc
-
-        if (this.componentBaseBg !== null) { modifiers['@state-base-bg'] = this.componentBaseBg; }
-        if (this.wellBg !== null) { modifiers['@well-base-bg'] = this.wellBg; }
-        if (this.bodyBg !== null) { modifiers['@body-bg'] = this.bodyBg; }
-        if (this.textColor !== null) { modifiers['@text-color'] = this.textColor; }
-        if (this.headingsColor !== null) { modifiers['@headings-color'] = this.headingsColor; }
+        var miscModifiers = this.misc.getModifications();
+        Object.keys(miscModifiers).forEach(function (modifier) {
+            var modifierObject = miscModifiers[modifier];
+            modifiers[modifierObject.variable] = modifierObject.value;
+        });
 
         // Branding
         var brandingModifiers = this.branding.getModifications();

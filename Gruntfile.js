@@ -19,6 +19,7 @@ module.exports = function (grunt) {
             main: {
                 src: [
                     'src/<%= pkg.name %>/theme-modifier.js',
+                    'src/<%= pkg.name %>/misc.js',
                     'src/<%= pkg.name %>/branding.js',
                     'src/<%= pkg.name %>/dropdown.js',
                     'src/<%= pkg.name %>/form-state.js',
