@@ -2,9 +2,12 @@ Bootstrap Theme Editor
 =====================
 
 Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
-There is an example page provided (build/example/index.html) which makes it easy to see it in action!
+There is an example page provided (`build/example/index.html`) which makes it easy to see it in action!
 
-The example deme page has a User Interface which has panels where you can change the different parts
+There is also a Live demo which can be found at:
+`http://demo.ilikeprograms.com/BootstrapThemeEditor`
+
+The example demo page has a User Interface which has panels where you can change the different parts
 of bootstrap by using color pickers to change the styling. Simple and Easy.
 
 The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.
@@ -21,17 +24,17 @@ The included files can be distributed and used in other projects to provide live
 At the moment, the following Components can be styled directly:
 
 - [x] Base Styles
-- [x] Drodowns
-- [ ] Inputs
+- [x] Dropdowns
+- [ ] Inputs/Forms
 - [x] Links/Nav
 - [x] Navbars
-- [ ] Breadcrumbs?
-- [ ] Pagination?
-- [ ] Labels?
-- [ ] Badges?
+- [x] Breadcrumbs
+- [ ] Pagination
+- [ ] Labels
+- [ ] Badges
 - [x] Jumbotron
 - [x] Page Header
-- [ ] Thumbnails?
+- [ ] Thumbnails
 - [x] Alerts
 - [x] Progress Bars
 - [x] List Groups
@@ -79,14 +82,40 @@ It will also automatically host a localhost server at http://localhost:9000/exam
 and open a tab in the browser at the address. It will also watch for changes to the source file and automatically rebuild for you,
 if any changes are made.
 
+### Changing/Viewing Docs Files
+
+The docs are powered by `jekyll` and `Github pages`. When the project is build, the dist files are copied to the docs folder, that the build files can be used in the Live demo.  
+
+To preview the Live demo to test them, run the following command from the command line:
+```
+jekyll --serve --base-url=
+```
+
+Then go to the browser and go to the url:  
+`http://localhost:4000`
+
 ## Theme Editor Options
 
 There are options that can be provided when a ThemeEditor instance is created and are as follows:
+
+## Theme Editor Options
+
+There are options that can be provided when a ThemeEditor instance is created and are as follows:
+
+### Misc
+
+Miscellaneous Options
+
+{:.table .table-bordered .table-striped .default}
+| Field   | Type     | Default            | Desc                                       |
+| -----   |:--------:| ------------------ | ------------------------------------------ |
+| delay   | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates |
 
 ### Theme
 
 Location to find the theme file to start editing (If editing existing theme).
 
+{:.table .table-bordered .table-striped .default}
 | Field | Type     | Default | Desc                         |
 | ----- |:--------:| ------- | ---------------------------- |
 | url   | `string` |         | URL to locate the theme file |
@@ -96,6 +125,7 @@ Location to find the theme file to start editing (If editing existing theme).
 The download link provided the ability to download the theme changes as a json file.  
 The DOM node to append the download link, the id and the text of the link can be customised.
 
+{:.table .table-bordered .table-striped .default}
 | Field  | Type     | Default                | Desc                                                  |
 | ------ |:--------:| ---------------------- | ----------------------------------------------------- |
 | append | `string` | body                   | Query selector of DOM element to append download link |
@@ -111,6 +141,7 @@ The url and method can be provided to alter the HTTP method and the location the
 
 An optional success callback can also be provided to fire when the changes have been successfully received by the remote URL.
 
+{:.table .table-bordered .table-striped .default}
 | Field          | Type       | Default         | Desc                                              |
 | -------------- |:----------:| --------------- | ------------------------------------------------- |
 | append         | `string`   | body            | Query selector of DOM element to append save link |
@@ -120,10 +151,31 @@ An optional success callback can also be provided to fire when the changes have 
 | id             | `string`   | save_theme_link | ID attribute to set on the download link          |
 | text           | `string`   | Save Theme      | Text content for the download link                |
 
+#### Example
+
+```
+<!-- Load our Fancy live editing ThemeEditor -->
+<script src="../bsThemeEditor-0.2.0.min.js"></script>
+<script>
+  var themeEditor = new ThemeEditor(less, {
+    delay: 2000,
+    theme: {
+      src: 'theme.json'
+    },
+    download: {
+      append: '#download-panel-footer'
+    },
+    save: {
+      append: '#download-panel-footer',
+      url: "http://localhost:9000/example/",
+      callback: function () {
+        alert('Theme modifications have been saved');
+      }
+    }
+  });
+</script>
+```
+
 ## Contributing
 
 I will happily accept contributions in any form, even if its just suggestions and I will have to work on them! Feel free to fork and submit a pull request.
-
-## Licence
-
-This project is licenced under the GPLv3 Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.
