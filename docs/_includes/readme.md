@@ -3,7 +3,7 @@ Bootstrap Theme Editor allows live modification of Bootstrap themes so that you 
 There is an example page provided (`build/example/index.html`) which makes it easy to see it in action!
 
 There is also a Live demo which can be found at:
-`http://demo.ilikeprograms.com/BootstrapThemeEditor`
+`http://demo.ilikeprograms.com`
 
 The example demo page has a User Interface which has panels where you can change the different parts
 of bootstrap by using color pickers to change the styling. Simple and Easy.
