@@ -1,4 +1,4 @@
-/* global Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -15,6 +15,7 @@
      * 
      * @param {Object} less The Global less object.
      * 
+     * @property {Export} export Manages the Theme exporting.
      * @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
      * @property {Breadcrumbs} breadcrumbs Holds modifications to the Breadcrumbs component.
      * @property {Dropdown} dropdown Holds modifications to the Dropdown component.
@@ -40,10 +41,13 @@
          * @property readyState {Number} Tracks whether or not another refresh can be performed. (0 = ready, 1 = on delaying).
          * @propery delay {Number} Milliseconds delay between refresh updates (Default: 750).
          */
-        this.refreshMonitor      = {
+        this.refreshMonitor     = {
             readyState: 0,
             delay: options.refreshDelay || 750
         };
+        
+        // Export
+        this.export             = new Export(this, options.export);
 
         this.misc               = new Misc(this);
         // Component vars
@@ -71,30 +75,6 @@
         // All modifier vars
         this.modifiers = {};
 
-        // If the download option was provided
-        if (options.hasOwnProperty('download')) {
-
-            // If the download.append option was provided
-            if (options.download.hasOwnProperty('append')) {
-                // Attempt to append to the element selector in append
-                this.downloadLink = this.createDownloadLink(options.download.append);
-            } else {
-                this.downloadLink = this.createDownloadLink();
-            }
-        }
-
-        // If the Save option was provided
-        if (options.hasOwnProperty('save')) {
-            
-            // If the save.append option was provided
-            if (options.save.hasOwnProperty('append')) {
-                // Attempt to append to the element selector in append
-                this.createSaveLink(options.save.append);
-            } else {
-                this.createSaveLink();
-            }
-        }
-
         // If the theme option was provided
         if (options.hasOwnProperty('theme')) {
 
@@ -104,6 +84,24 @@
                 this.parseThemeFile(options.theme.src);
             }
         }
+
+        // Configure the Post Processor for when Less finished Processing Changes to the Theme
+        this.setupPostProcessor(this.lessGlobal);
+    };
+    
+    /**
+     * Sets up a Callback for the Less#postProcessor callback.
+     * 
+     * @param {Object} less The Global less object.
+     * 
+     * @returns {undefined}
+     */
+    ThemeEditor.prototype.setupPostProcessor = function (less) {
+        // Provide less with the postProcessor callback we want to executre
+        less.postProcessor = function (css) {
+            // Generate a Download blob from the Compiled CSS
+            this.export.generateCssBlob(css);
+        }.bind(this);
     };
 
     /**
@@ -226,50 +224,8 @@
      * @returns {undefined}
      */
     ThemeEditor.prototype.applyModifications = function () {
-        this.generateDownloadBlob();
+        this.export.generateJsonBlob();
         this.lessGlobal.modifyVars(this.getModifiers());
-    };
-
-    /**
-     * Sends the Theme Data to the URL provided by the "save" option to ThemeEditor(options).
-     * 
-     * Save options:
-     * - method:    {string}    The HTTP method for the save request. Default "POST".
-     * - url:       {string}    The URL to send the JSON data.
-     * - callback:  {Function}  A callback function to execute on success.
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.sendThemeData = function () {
-        var options = this.options.save,
-            method = options.method || 'POST', // Default to "POST"
-            saveXHR;
-
-        // Throw an error if the URL option was not provided or was not a string
-        if (typeof options.url !== 'string') {
-            throw new TypeError('ThemeEditor.sendThemeData: The save url was not provided, or was not a string');
-        }
-
-        // Create an XMLHttpRequest to send the Theme json to the server
-        saveXHR = new XMLHttpRequest();
-        saveXHR.open(method.toUpperCase(), options.url, true); // Open the URL, call uppercase on 
-        saveXHR.setRequestHeader('Content-Type', 'application/json; charset=UTF-8'); // Set the Content-Type header to JSON.
-
-        // If a callback function is provided
-        if (options.hasOwnProperty('callback')) {
-            if (typeof options.callback === 'function') {
-                // Wait for the XHR to finish (4) and be succesfull (200)
-                saveXHR.onreadystatechange = function () {
-                    if (this.readyState === 4 && this.status === 200) {
-                        // Call the callback function
-                        options.callback();
-                    }
-                };
-            }
-        }
-
-        // Send the JSON to the server
-        saveXHR.send(this.getJSON());
     };
 
     /**
@@ -304,97 +260,6 @@
         }.bind(this);
 
         themeXHR.send(null);
-    };
-
-    /**
-     * Creates and returns a Primary Bootstrap Anchor tag link.
-     * 
-     * @returns {Element}
-     */
-    ThemeEditor.prototype.createBsButton = function () {
-        var button = document.createElement('a'); // Create link
-
-        // Add Primary BS classes
-        button.classList.add('btn');
-        button.classList.add('btn-primary');
-
-        return button;
-    };
-
-    /**
-     * Creates a Save button and appends it to the element provided by the destination.
-     * 
-     * Save Options:
-     * - id:    {string} The id to set for the save button (Default "save_theme_link").
-     * - text:  {string} The text content of the button (Default "Save Theme").
-     * 
-     * @param {string} destination The destination element selector (Default "body").
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.createSaveLink = function (destination) {
-        var saveOptions = this.options.save,
-            saveLink = this.createBsButton(), // Create a button
-            dest = destination === undefined ? 'body' : destination; // Body or custom parent
-
-        // Set the text and id of the Save button
-        saveLink.textContent = saveOptions.text || 'Save Theme';
-        saveLink.setAttribute('id', saveOptions.id || 'save_theme_link');
-
-        // Append the Save button to the document
-        document.querySelector(dest).appendChild(saveLink);
-
-        // Add a click handler which calls the sendThemeData function
-        saveLink.addEventListener('click', this.sendThemeData.bind(this), false);
-
-        return saveLink;
-    };
-
-    /**
-     * Creates a Download button and appends it to the element provided by the destination.
-     * 
-     * Download Options:
-     * - id:    {string} The id to set for the download button (Default "download_theme_link").
-     * - text:  {string} The text content of the button (Default "Download Theme").
-     * 
-     * @param {string} destination The destination element selector (Default "body").
-     * 
-     * @returns {Element}
-     */
-    ThemeEditor.prototype.createDownloadLink = function (destination) {
-        var downloadOptions = this.options.download,
-            downloadLink = this.createBsButton(),
-            dest = destination === undefined ? 'body' : destination;
-
-        // Set the text, id and download attrubute of the Download button
-        downloadLink.textContent = downloadOptions.text || 'Download Theme';
-        downloadLink.setAttribute('id', downloadOptions.id || 'download_theme_link');
-
-        // Download attribute allows the button to provided a file to download on click
-        // The generateDownloadBlob function provides the file contents
-        downloadLink.setAttribute('download', 'theme.json');
-
-        // Append the Download button to the document
-        document.querySelector(dest).appendChild(downloadLink);
-
-        return downloadLink;
-    };
-
-    /**
-     * Generates a download blob and sets the content to the theme JSON modifications,
-     * updated the download link with the download blob.
-     * 
-     * @returns {undefined}
-     */
-    ThemeEditor.prototype.generateDownloadBlob = function () {
-        var blobData = this.getJSON(),
-            blob = new Blob([blobData]), // Create a Blog with the JSON data
-    
-            // Create an Object url, allows the Blob data to be downloaded on click
-            downloadBlob = window.URL.createObjectURL(blob);
-
-        // Update the href of the download link, this now points to the blob data
-        this.downloadLink.setAttribute('href', downloadBlob);
     };
 
     window.ThemeEditor = ThemeEditor;

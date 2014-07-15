@@ -31,6 +31,7 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/list-group.js',
                     'src/<%= pkg.name %>/navbar.js',
                     'src/<%= pkg.name %>/theme-modifier.js',
+                    'src/<%= pkg.name %>/export.js',
                     'src/<%= pkg.name %>/theme-editor.js',
                 ],
                 dest: 'build/bsThemeEditor-<%= pkg.version %>.js'
