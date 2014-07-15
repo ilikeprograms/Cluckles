@@ -1,14 +1,4 @@
 
-Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
-There is an example page provided (`build/example/index.html`) which makes it easy to see it in action!
-
-There is also a Live demo which can be found at:
-`http://demo.ilikeprograms.com`
-
-The example demo page has a User Interface which has panels where you can change the different parts
-of bootstrap by using color pickers to change the styling. Simple and Easy.
-
-The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.
 
 ## Quick Start
 
@@ -47,7 +37,7 @@ To begin, download the repository from Git either by using the *Clone in Desktop
 
 ### Downloading
 
-```shell
+```
 git clone https://github.com/ilikeprograms/BootstrapThemeEditor
 cd BootstrapThemeEditor
 ```
@@ -57,7 +47,7 @@ cd BootstrapThemeEditor
 Now you can start to install the dependencies. `Grunt` is used for build the JS files, and `Bower` for the JS files it depends on.
 This means that `Node.js` and `NPM` needs to be installed on your system. To get Grunt/Bower to work, run the following commands
 
-```shell
+```
 npm install
 bower install
 ```
@@ -85,6 +75,7 @@ if any changes are made.
 The docs are powered by `jekyll` and `Github pages`. When the project is build, the dist files are copied to the docs folder, that the build files can be used in the Live demo.  
 
 To preview the Live demo to test them, run the following command from the command line:
+
 ```
 jekyll --serve --base-url=
 ```
@@ -177,3 +168,7 @@ An optional success callback can also be provided to fire when the changes have 
 ## Contributing
 
 I will happily accept contributions in any form, even if its just suggestions and I will have to work on them! Feel free to fork and submit a pull request.
+
+## Licence
+
+This project is licenced under the GPL-3.0+ Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.</p>
