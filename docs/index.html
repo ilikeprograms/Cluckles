@@ -31,3 +31,13 @@ description: 'BoostrapThemeEditor Demo page'
     </div> <!-- Main Content Panel End -->
   </div>
 </div>
+
+<script>
+  $(function () {
+    [].slice.call(document.querySelectorAll('table')).forEach(function (table) {
+      table.classList.add('table');
+      table.classList.add('table-striped');
+      table.classList.add('table-bordered');
+    });
+  });
+</script>
