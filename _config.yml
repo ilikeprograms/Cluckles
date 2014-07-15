@@ -26,9 +26,15 @@ encoding:    nil
 #paginate_path: 'page:num'
 #paginate:      nil
 #
-markdown:      kramdown
+markdown:      redcarpet
 markdown_ext:  markdown,mkdown,mkdn,mkd,md
 textile_ext:   textile
+
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
+highlighter: pygments
+pygments: true
 
 maruku:
   use_tex:    false
