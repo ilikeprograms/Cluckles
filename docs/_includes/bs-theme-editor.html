@@ -5,8 +5,14 @@
     theme: {
       src: 'theme.json'
     },
-    download: {
-      append: '#download-panel-footer'
+    export: {
+      target: '#download-panel-footer',   // Fallback/General Target
+      json: {
+        target: '#download-panel-footer', // Custom Target
+        id: 'download-theme-json',        // Custom Id
+        text: 'Download Json'             // Custom Text
+      },
+      css: {} // Blank Object provided makes the Css download button appear
     }
   });
 </script>

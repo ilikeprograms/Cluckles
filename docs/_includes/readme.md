@@ -37,7 +37,7 @@ To begin, download the repository from Git either by using the *Clone in Desktop
 
 ### Downloading
 
-```
+```console
 git clone https://github.com/ilikeprograms/BootstrapThemeEditor
 cd BootstrapThemeEditor
 ```
@@ -47,7 +47,7 @@ cd BootstrapThemeEditor
 Now you can start to install the dependencies. `Grunt` is used for build the JS files, and `Bower` for the JS files it depends on.
 This means that `Node.js` and `NPM` needs to be installed on your system. To get Grunt/Bower to work, run the following commands
 
-```
+```console
 npm install
 bower install
 ```
@@ -76,7 +76,7 @@ The docs are powered by `jekyll` and `Github pages`. When the project is build, 
 
 To preview the Live demo to test them, run the following command from the command line:
 
-```
+```console
 jekyll --serve --base-url=
 ```
 
@@ -87,15 +87,10 @@ Then go to the browser and go to the url:
 
 There are options that can be provided when a ThemeEditor instance is created and are as follows:
 
-## Theme Editor Options
-
-There are options that can be provided when a ThemeEditor instance is created and are as follows:
-
 ### Misc
 
 Miscellaneous Options
 
-{:.table .table-bordered .table-striped .default}
 | Field   | Type     | Default            | Desc                                       |
 | -----   |:--------:| ------------------ | ------------------------------------------ |
 | delay   | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates |
@@ -104,61 +99,84 @@ Miscellaneous Options
 
 Location to find the theme file to start editing (If editing existing theme).
 
-{:.table .table-bordered .table-striped .default}
 | Field | Type     | Default | Desc                         |
 | ----- |:--------:| ------- | ---------------------------- |
 | url   | `string` |         | URL to locate the theme file |
 
-### Download
 
-The download link provided the ability to download the theme changes as a json file.  
-The DOM node to append the download link, the id and the text of the link can be customised.
+### Export
 
-{:.table .table-bordered .table-striped .default}
-| Field  | Type     | Default                | Desc                                                  |
-| ------ |:--------:| ---------------------- | ----------------------------------------------------- |
-| append | `string` | body                   | Query selector of DOM element to append download link |
-| id     | `string` | download_theme_link    | ID attribute to set on the download link              |
-| text   | `string` | Download Theme         | Text content for the download link                    |
+An export object can be provided to control the exporting options.
 
-### Save
+| Field  | Type     | Default | Desc                                                           |
+| ------ |:--------:| ------- | -------------------------------------------------------------- |
+| target | `string` | 'body'  | Optional General DOM Element target, to append Export links to |
 
-The save link provided the ability to send the theme changes to an URL.  
+### Export Json
+
+The export.json object can be provided to configure the options for Downloading the theme modifications in JSON format.  
+The DOM node to append the export as json link, the id and the text of the link can be customised.
+
+| Field  | Type     | Default              | Desc                                          |
+| ------ |:--------:| -------------------- | --------------------------------------------- |
+| target | `string` | export.target        | DOM Element target to append json Export link |
+| id     | `string` | 'download_json_link' | ID attribute to set on the json Export link   |
+| text   | `string` | 'Download Json'      | Text content for the json Export link         |
+
+### Export Css
+
+The export.css object can be provided to configure the options for Downloading the Compiled Theme in Css format. See `ThemeEditor#setupPostProcessor`  
+The DOM node to append the export as css link, the id and the text of the link can be customised.
+
+| Field  | Type     | Default             | Desc                                         |
+| ------ |:--------:| ------------------- | -------------------------------------------- |
+| target | `string` | export.target       | DOM Element target to append css Export link |
+| id     | `string` | 'download_css_link' | ID attribute to set on the css Export link   |
+| text   | `string` | 'Download Css'      | Text content for the css Export link         |
+
+#### Export Save
+
+The export.save object can be provided to configure the options for Saving the theme
+modifications (as JSON) to an external URL.
+
 The DOM node to append the save link, the id and the text of the link can be customised.  
 
-The url and method can be provided to alter the HTTP method and the location the changes are send. 
+The url and method can be provided to alter the HTTP method and the location the changes are send.  
 
 An optional success callback can also be provided to fire when the changes have been successfully received by the remote URL.
 
-{:.table .table-bordered .table-striped .default}
-| Field          | Type       | Default         | Desc                                              |
-| -------------- |:----------:| --------------- | ------------------------------------------------- |
-| append         | `string`   | body            | Query selector of DOM element to append save link |
-| url (required) | `string`   |                 | URL to send the modified theme changes            |
-| method         | `string`   | `POST`          | HTTP method for the save request                  |
-| callback       | `function` |                 | Optional success save callback                    |
-| id             | `string`   | save_theme_link | ID attribute to set on the download link          |
-| text           | `string`   | Save Theme      | Text content for the download link                |
+| Field          | Type       | Default           | Desc                                          |
+| -------------- |:----------:| ----------------- | --------------------------------------------- |
+| target         | `string`   | export.target     | DOM Element target to append save Export link |
+| url (required) | `string`   |                   | URL to send the modified theme changes        |
+| method         | `string`   | `POST`            | HTTP method for the save request              |
+| callback       | `function` |                   | Optional success save callback                |
+| id             | `string`   | 'save_theme_link' | ID attribute to set on the save Export link   |
+| text           | `string`   | 'Save Theme'      | Text content for the save Export link         |
 
 #### Example
 
-```
+```javascript
 <!-- Load our Fancy live editing ThemeEditor -->
 <script src="../bsThemeEditor-0.2.0.min.js"></script>
 <script>
   var themeEditor = new ThemeEditor(less, {
-    delay: 2000,
     theme: {
       src: 'theme.json'
     },
-    download: {
-      append: '#download-panel-footer'
-    },
-    save: {
-      append: '#download-panel-footer',
-      url: "http://localhost:9000/example/",
-      callback: function () {
-        alert('Theme modifications have been saved');
+    export: {
+      target: '#download-panel-footer',   // Fallback/General Target
+      json: {
+        target: '#download-panel-footer', // Custom Target
+        id: 'download-theme-json',        // Custom Id
+        text: 'Download Json'             // Custom Text
+      },
+      css: {}, // Blank Object provided makes the Css download button appear
+      save: {
+        url: "http://localhost:9000/example/",
+        callback: function () {
+          alert('Theme modifications have been saved');
+        }
       }
     }
   });

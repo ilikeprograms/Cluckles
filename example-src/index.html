@@ -1100,14 +1100,19 @@
       theme: {
         src: 'theme.json'
       },
-      download: {
-        append: '#download-panel-footer'
-      },
-      save: {
-        append: '#download-panel-footer',
-        url: "http://localhost:9000/example/",
-        callback: function () {
-          alert('Theme modifications have been saved');
+      export: {
+        target: '#download-panel-footer',   // Fallback/General Target
+        json: {
+          target: '#download-panel-footer', // Custom Target
+          id: 'download-theme-json',        // Custom Id
+          text: 'Download Json'             // Custom Text
+        },
+        css: {}, // Blank Object provided makes the Css download button appear
+        save: {
+          url: "http://localhost:9000/example/",
+          callback: function () {
+            alert('Theme modifications have been saved');
+          }
         }
       }
     });
