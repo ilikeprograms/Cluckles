@@ -179,3 +179,7 @@ An optional success callback can also be provided to fire when the changes have 
 ## Contributing
 
 I will happily accept contributions in any form, even if its just suggestions and I will have to work on them! Feel free to fork and submit a pull request.
+
+## Licence
+
+This project is licenced under the GPL-3.0+ Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.</p>
