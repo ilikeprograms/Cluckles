@@ -1,0 +1,145 @@
+<!-- Navbars Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#navbarModifiers">
+        Navbars
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="navbarModifiers">
+    <div class="panel-body">
+      <!-- Navbar Tab Nav -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#baseNavbarTab" data-toggle="tab">Base</a></li>
+        <li><a href="#defaultNavbarTab" data-toggle="tab">Default</a></li>
+        <li><a href="#inverseNavbarTab" data-toggle="tab">Inverse</a></li>
+      </ul> <!-- Navbar Tab Nav End -->
+
+      <div class="tab-content">
+        <!-- Base Navbar Tab -->
+        <div class="tab-pane active fade in" id="baseNavbarTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Navbar Height</td><td></td><td><input type="number" onchange="themeEditor.navbarBase.setHeight(this.value);" value="50" min="1" step="1" /></td>
+              </tr>
+              <tr>
+                <td>Navbar Margin Bottom</td><td></td><td><input type="number" onchange="themeEditor.navbarBase.setMarginBottom(this.value);" value="30" min="1" step="1" /></td>
+              </tr>
+              <tr>
+                <td>Navbar Border Radius</td><td></td><td><input type="text" onchange="themeEditor.navbarBase.setBorderRadius(this.value);" value="4px" placeholder="4px" /></td>
+              </tr>
+              <tr>
+                <td>Navbar Collapse Max Height</td><td></td><td><input type="number" onchange="themeEditor.navbarBase.setCollapseMaxHeight(this.value);" value="340" min="1" step="1" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <!-- Base Navbar Tab End -->
+
+        <!-- Default Navbar Tab -->
+        <div class="tab-pane fade" id="defaultNavbarTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBackground(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBorder(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkHoverColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkHoverBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkActiveColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkActiveBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Disabled Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkDisabledColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Disabled Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setLinkDisabledBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Brand Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBrandColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Brand Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBrandHoverColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Brand Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.default.setBrandHoverBackgroundColor(this.value);" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <!-- Default Navbar Tab End -->
+
+        <!-- Inverse Navbar Tab -->
+        <div class="tab-pane fade" id="inverseNavbarTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBackground(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBorder(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkHoverColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkHoverBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkActiveColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkActiveBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Disabled Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkDisabledColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Disabled Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setLinkDisabledBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Brand Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBrandColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Brand Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBrandHoverColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Brand Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navbar.inverse.setBrandHoverBackgroundColor(this.value);" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <!-- Inverse Navbar Tab End -->
+      </div>
+    </div>
+  </div>
+</div> <!--/ Navbars Panel -->

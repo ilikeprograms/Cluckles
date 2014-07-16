@@ -1,0 +1,30 @@
+<!-- Panel Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#panel" class="text-muted">
+        Panel
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="panel">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Panel Footer Background Color</td><td></td><td><input type="color" onchange="themeEditor.panelBase.setPanelFooterBackground(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Panel Body Padding</td><td></td><td><input type="text" onchange="themeEditor.panelBase.setPanelBodyPadding(this.value);" value="15px" placeholder="15px" /></td>
+          </tr>
+          <tr>
+            <td>Panel Border Radius</td><td></td><td><input type="text" onchange="themeEditor.panelBase.setPanelBorderRadius(this.value);" value="4px" placeholder="4px" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- Misc Color Branding Panel End -->

@@ -1,0 +1,33 @@
+<!-- Jumbotron Panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#editorComponents" href="#editorJumbotron">
+          Jumbotron
+        </a>
+      </h4>
+    </div>
+    <div class="panel-collapse" id="editorJumbotron">
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Padding</td><td></td><td><input type="number" onchange="themeEditor.jumbotron.setPadding(this.value);" value="30" min="1" step="1" /></td>
+            </tr>
+            <tr>
+              <td>Color</td><td></td><td><input type="color" onchange="themeEditor.jumbotron.setColor(this.value);" /></td>
+            </tr>
+            <tr>
+              <td>Headings Color</td><td></td><td><input type="color" onchange="themeEditor.jumbotron.setHeadingColor(this.value);" /></td>
+            </tr>
+            <tr>
+              <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.jumbotron.setBackground(this.value);" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> <!--/ Jumbotron Panel -->

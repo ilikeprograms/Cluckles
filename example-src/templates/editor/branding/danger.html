@@ -1,0 +1,33 @@
+<!-- Danger Color Branding Panel -->
+<div class="panel panel-danger">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#brandColor" href="#dangerBrandingColor">
+        Danger
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="dangerBrandingColor">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Button Background</td><td><button class="btn btn-danger">Danger Btn</button></td><td><input type="color" onchange="themeEditor.branding.setDanger(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Alert/Panel Heading Background Color</td><td><div class="alert alert-danger"><strong>Danger!</strong> message</div></td><td><input type="color" onchange="themeEditor.formStates.danger.setHeadingBackground(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Heading/ Alert Text Color</td><td><span class="text-danger">Danger Text</span></td><td><input type="color" onchange="themeEditor.formStates.danger.setText(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.danger.setBorder(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!--/ Danger Color Branding Panel -->
