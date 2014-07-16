@@ -107,7 +107,7 @@ module.exports = function (grunt) {
 			main: {
 				files: [
                     // Copy the Example files
-                    {expand: true, src: "example-src/*", flatten: true, dest: 'build/example/'},
+                    {expand: true, src: "example-src/css/example.css", flatten: true, dest: 'build/example/'},
 
 					// JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'build/js/lib'},
