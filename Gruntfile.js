@@ -161,6 +161,73 @@ module.exports = function (grunt) {
                 ]
             }
 		},
+        
+        // Builds the main Example demo pages
+        htmlbuild: {
+            build: {
+                // Build the examplesrc/index.html file
+                src: '<%= examplesrc %>/index.html',
+                dest: 'build/example/', // Place the build files in build/example/
+                options: {
+                    beautify: true,
+                    
+                    styles: {
+                        example: [
+                            'build/example/example.css'
+                        ]
+                    },
+
+                    sections: {
+                        templates: {
+                            editor: {
+                                // Color Scheme/Branding Editors
+                                branding: {
+                                    default: '<%= examplesrc %>/templates/editor/branding/default.html',
+                                    primary: '<%= examplesrc %>/templates/editor/branding/primary.html',
+                                    success: '<%= examplesrc %>/templates/editor/branding/success.html',
+                                    info: '<%= examplesrc %>/templates/editor/branding/info.html',
+                                    warning: '<%= examplesrc %>/templates/editor/branding/warning.html',
+                                    danger: '<%= examplesrc %>/templates/editor/branding/danger.html',
+                                },
+                                
+                                // Components editors
+                                components: {
+                                    jumbotron: '<%= examplesrc %>/templates/editor/components/jumbotron.html',
+                                    listgroups: '<%= examplesrc %>/templates/editor/components/listgroup.html',
+                                    dropdowns: '<%= examplesrc %>/templates/editor/components/dropdowns.html',
+                                    breadcrumbs: '<%= examplesrc %>/templates/editor/components/breadcrumbs.html',
+                                    panels: '<%= examplesrc %>/templates/editor/components/panels.html',
+                                    navbars: '<%= examplesrc %>/templates/editor/components/navbars.html',
+                                    misc: '<%= examplesrc %>/templates/editor/components/misc.html',
+                                }
+                            },
+                            
+                            // Component Examples
+                            components: {
+                                jumbotron: '<%= examplesrc %>/templates/components/jumbotron.html',
+                                buttons: '<%= examplesrc %>/templates/components/buttons.html',
+                                thumbnails: '<%= examplesrc %>/templates/components/thumbnails.html',
+                                dropdowns: '<%= examplesrc %>/templates/components/dropdowns.html',
+                                navbars: '<%= examplesrc %>/templates/components/navbars.html',
+                                navs: '<%= examplesrc %>/templates/components/navs.html',
+                                breadcrumbs: '<%= examplesrc %>/templates/components/breadcrumbs.html',
+                                alerts: '<%= examplesrc %>/templates/components/alerts.html',
+                                progressbars: '<%= examplesrc %>/templates/components/progressbars.html',
+                                listgroups: '<%= examplesrc %>/templates/components/listgroups.html',
+                                panels: '<%= examplesrc %>/templates/components/panels.html',
+                                wells: '<%= examplesrc %>/templates/components/wells.html',
+                            },
+                            
+                            // Page Elements
+                            page: {
+                                navigation: '<%= examplesrc %>/templates/page/navigation.html',
+                                downloadpanel: '<%= examplesrc %>/templates/page/downloadpanel.html',
+                            }
+                        }
+                    }
+                }
+            }
+        },
 
         // Turn on JShint for the Javascript files in src/BootstrapThemeEditor/
 		jshint: {
@@ -179,9 +246,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-open');
+    grunt.loadNpmTasks('grunt-html-build');
 
     // Register the "default" Task
-	grunt.registerTask("default", ["jshint", "concat", "uglify", "copy", "express", "open", "watch"]);
+	grunt.registerTask("default", ["jshint", "concat", "uglify", "copy", "htmlbuild", "express", "open", "watch"]);
 
     grunt.registerTask("docs", ["jshint", "concat", "uglify", "copy:docs"]);
 };
