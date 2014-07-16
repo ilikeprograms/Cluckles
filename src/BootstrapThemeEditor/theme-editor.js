@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -17,6 +17,7 @@
      * 
      * @property {Export} export Manages the Theme exporting.
      * @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
+     * @property {Table} table Holds modifications to the Table component.
      * @property {Breadcrumbs} breadcrumbs Holds modifications to the Breadcrumbs component.
      * @property {Dropdown} dropdown Holds modifications to the Dropdown component.
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
@@ -51,6 +52,7 @@
 
         this.misc               = new Misc(this);
         // Component vars
+        this.table              = new Table(this);
         this.breadcrumbs        = new Breadcrumb(this);
         this.dropdown           = new Dropdown(this);
         this.jumbotron          = new Jumbotron(this);
@@ -144,6 +146,9 @@
         
         // Panel Base
         this.extractModifications(modifiers, this.panelBase);
+
+        // Table
+        this.extractModifications(modifiers, this.table);
 
         // Navbar Base
         this.extractModifications(modifiers, this.navbarBase);

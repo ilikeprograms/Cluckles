@@ -23,6 +23,7 @@ module.exports = function (grunt) {
                 src: [
                     'src/<%= pkg.name %>/theme-modifier.js',
                     'src/<%= pkg.name %>/misc.js',
+                    'src/<%= pkg.name %>/table.js',
                     'src/<%= pkg.name %>/breadcrumb.js',
                     'src/<%= pkg.name %>/panel.base.js',
                     'src/<%= pkg.name %>/navbar.base.js',
@@ -203,6 +204,7 @@ module.exports = function (grunt) {
                                     panels: '<%= examplesrc %>/templates/editor/components/panels.html',
                                     navbars: '<%= examplesrc %>/templates/editor/components/navbars.html',
                                     misc: '<%= examplesrc %>/templates/editor/components/misc.html',
+                                    tables: '<%= examplesrc %>/templates/editor/components/tables.html',
                                 }
                             },
                             
@@ -210,6 +212,7 @@ module.exports = function (grunt) {
                             components: {
                                 jumbotron: '<%= examplesrc %>/templates/components/jumbotron.html',
                                 buttons: '<%= examplesrc %>/templates/components/buttons.html',
+                                tables: '<%= examplesrc %>/templates/components/tables.html',
                                 thumbnails: '<%= examplesrc %>/templates/components/thumbnails.html',
                                 dropdowns: '<%= examplesrc %>/templates/components/dropdowns.html',
                                 navbars: '<%= examplesrc %>/templates/components/navbars.html',
