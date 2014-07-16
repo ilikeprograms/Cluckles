@@ -1,0 +1,39 @@
+<!-- Table Branding Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#tableModifiers">
+        Table
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="tableModifiers">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cell Padding</td><td></td><td><input type="number" value="8" min="0" step="1" onchange="themeEditor.table.setCellPadding(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Condensed Cell Padding</td><td></td><td><input type="number" value="5" min="0" step="1" onchange="themeEditor.table.setCondensedCellPadding(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Background</td><td></td><td><input type="color" onchange="themeEditor.table.setBackground(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Striped Background Color</td><td></td><td><input type="color" onchange="themeEditor.table.setAccentBackground(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Hover Background</td><td></td><td><input type="color" onchange="themeEditor.table.setHoverBackground(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Active Background Color</td><td></td><td><input type="color" onchange="themeEditor.table.setActiveBackground(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!--/ Table Branding Panel -->
