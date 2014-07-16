@@ -2,6 +2,9 @@ module.exports = function (grunt) {
 	// Setup
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
+        
+        // Example-src folder location
+        examplesrc: 'example-src',
 
         // Concat task to Contatenate all the bsThemeEditor files together
         concat: {
@@ -74,7 +77,7 @@ module.exports = function (grunt) {
         watch: {
             // Run the tasks when any of the example-src files are changed
             "example-src": {
-                files: 'example-src/*.*',
+                files: '<%= examplesrc %>/*.*',
                 tasks: ["jshint", "uglify", "copy"],
 
                 options: {
@@ -134,6 +137,7 @@ module.exports = function (grunt) {
 				}
 			},
 
+            // Copy the Build files required to the Docs folder
             docs: {
                 files: [
                     // Main JS File
@@ -143,7 +147,7 @@ module.exports = function (grunt) {
                     },
                     
                     // Copy the example.css file
-                    {src: "example-src/example.css", dest: 'docs/assets/css/example.css'},
+                    {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
                     
                     // JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'docs/assets/js/lib'},
