@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, FormState, ListGroup, Dropdown, Misc, PanelBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Button, FormState, ListGroup, Dropdown, Misc, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -24,8 +24,10 @@
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
      * @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
      * @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
-     * @property {Navbar} navbarBase Holds the changes to the General Navbar styling of Navbar Components.
+     * @property {NavbarBase} navbarBase Holds the changes to the General Navbar styling of Navbar Components.
+     * @property {ButtonBase} buttonBase Holds the changes to the General Button styling of Button Components.
      * @property {Object} navbar Holds Navbar instances which control the styling of Navbar Components.
+     * @property {Object} buttons Holds Button instances which control the styling of Button Components.
      * @property {Object} formStates Holds FormState instances which control the styling of various components, (Alerts/Panels).
      * @property {ListGroup} listGroup Holds the changes to the ListGroup component.
      * @property {object} modifiers Holds all of the Modifications to the whole theme.
@@ -60,9 +62,18 @@
         this.branding           = new BrandModifier(this);
         this.panelBase          = new PanelBase(this);
         this.navbarBase         = new NavbarBase(this);
+        this.buttonBase         = new ButtonBase(this);
         this.navbar = {
             'default':            new Navbar(this),
             'inverse':            new Navbar(this, 'inverse')
+        };
+        this.buttons = {
+            'default':            new Button(this, 'default'),
+            'primary':            new Button(this, 'primary'),
+            'success':            new Button(this, 'success'),
+            'info':               new Button(this, 'info'),
+            'warning':            new Button(this, 'warning'),
+            'danger':             new Button(this, 'danger')
         };
         this.formStates = {
             'default':            new FormState(this, 'default'),
@@ -114,6 +125,7 @@
     ThemeEditor.prototype.getModifiers = function () {
         var grayScale   = this.grayScale,
             navbar      = this.navbar,
+            buttons     = this.buttons,
             formStates  = this.formStates,
             modifiers   = this.modifiers;
 
@@ -143,6 +155,14 @@
 
             this.extractModifications(modifiers, formStatesStyle);
         }, this);
+
+        // Buttons
+        // Itterate over the object to extract modifications for each styles of Button
+        Object.keys(buttons).forEach(function (style) {
+            var buttonsStyle = buttons[style];
+
+            this.extractModifications(modifiers, buttonsStyle);
+        }, this);
         
         // Panel Base
         this.extractModifications(modifiers, this.panelBase);
@@ -152,6 +172,9 @@
 
         // Navbar Base
         this.extractModifications(modifiers, this.navbarBase);
+
+        // Button Base
+        this.extractModifications(modifiers, this.buttonBase);
 
         // Misc
         this.extractModifications(modifiers, this.misc);

@@ -1,0 +1,164 @@
+<!-- Buttons Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#buttonModifiers">
+        Buttons
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="buttonModifiers">
+    <div class="panel-body">
+      <!-- Button Tab Nav -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#baseButtonTab" data-toggle="tab">Base</a></li>
+        <li><a href="#defaultButtonTab" data-toggle="tab">Default</a></li>
+        <li><a href="#primaryButtonTab" data-toggle="tab">Primary</a></li>
+        <li><a href="#successButtonTab" data-toggle="tab">Success</a></li>
+        <li><a href="#infoButtonTab" data-toggle="tab">Info</a></li>
+        <li><a href="#warningButtonTab" data-toggle="tab">Warning</a></li>
+        <li><a href="#dangerButtonTab" data-toggle="tab">Danger</a></li>
+      </ul> <!-- Button Tab Nav End -->
+
+      <div class="tab-content">
+        <!-- Base Button Tab -->
+        <div class="tab-pane active fade in" id="baseButtonTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Button Font Weight</td><td></td><td><input type="number" onchange="themeEditor.buttonBase.setFontWeight(this.value);" value="50" min="1" step="1" /></td>
+              </tr>
+              <tr>
+                <td>Button Disabled Link Color</td><td></td><td><input type="number" onchange="themeEditor.buttonBase.setDisabledLinkColor(this.value);" value="30" min="1" step="1" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <!-- Base Button Tab End -->
+
+        <!-- Default Button Tab -->
+        <div class="tab-pane fade" id="defaultButtonTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.default.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.default.setBackground(this.value);" /></td>
+              </tr>
+              <!-- Why doesnt this work -->
+<!--              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.default.setBorder(this.value);" /></td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div> <!-- Default Button Tab End -->
+
+        <!-- Primary Button Tab -->
+        <div class="tab-pane fade" id="primaryButtonTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setBackground(this.value);" /></td>
+              </tr>
+<!--              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setBorder(this.value);" /></td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div> <!-- Primary Button Tab End -->
+
+        <!-- Success Button Tab -->
+        <div class="tab-pane fade" id="successButtonTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setBackground(this.value);" /></td>
+              </tr>
+<!--              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setBorder(this.value);" /></td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div> <!-- Success Button Tab End -->
+
+        <!-- Info Button Tab -->
+        <div class="tab-pane fade" id="infoButtonTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setBackground(this.value);" /></td>
+              </tr>
+<!--              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setBorder(this.value);" /></td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div> <!-- Info Button Tab End -->
+
+        <!-- Warning Button Tab -->
+        <div class="tab-pane fade" id="warningButtonTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setBackground(this.value);" /></td>
+              </tr>
+<!--              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setBorder(this.value);" /></td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div> <!-- Warning Button Tab End -->
+
+        <!-- Danger Button Tab -->
+        <div class="tab-pane fade" id="dangerButtonTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setBackground(this.value);" /></td>
+              </tr>
+<!--              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setBorder(this.value);" /></td>
+              </tr>-->
+            </tbody>
+          </table>
+        </div> <!-- Danger Button Tab End -->
+      </div>
+    </div>
+  </div>
+</div> <!--/ Buttons Panel -->
