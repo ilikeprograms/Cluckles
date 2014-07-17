@@ -214,6 +214,8 @@ module.exports = function (grunt) {
                                 buttons: '<%= examplesrc %>/templates/components/buttons.html',
                                 tables: '<%= examplesrc %>/templates/components/tables.html',
                                 thumbnails: '<%= examplesrc %>/templates/components/thumbnails.html',
+                                labels: '<%= examplesrc %>/templates/components/labels.html',
+                                badges: '<%= examplesrc %>/templates/components/badges.html',
                                 dropdowns: '<%= examplesrc %>/templates/components/dropdowns.html',
                                 navbars: '<%= examplesrc %>/templates/components/navbars.html',
                                 navs: '<%= examplesrc %>/templates/components/navs.html',
@@ -223,6 +225,7 @@ module.exports = function (grunt) {
                                 listgroups: '<%= examplesrc %>/templates/components/listgroups.html',
                                 panels: '<%= examplesrc %>/templates/components/panels.html',
                                 wells: '<%= examplesrc %>/templates/components/wells.html',
+                                carousel: '<%= examplesrc %>/templates/components/carousel.html',
                             },
                             
                             // Page Elements
