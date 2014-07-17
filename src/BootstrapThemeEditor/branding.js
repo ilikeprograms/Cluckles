@@ -14,7 +14,7 @@
 	 * @property {string} primary The @brand-primary variable which affects the primary styles.
 	 * @property {string} success The @brand-success variable which affects the success styles.
 	 * @property {string} info The @brand-info variable which affects the info styles.
-	 * @property {string} warning The @brand-default variable which affects the warning styles.
+	 * @property {string} warning The @brand-warning variable which affects the warning styles.
 	 * @property {string} danger The @brand-danger variable which affects the danger styles.
 	 * 
 	 * @returns {BrandModifier}
@@ -75,7 +75,7 @@
 	/**
 	 * Sets the Default branding color.
 	 * 
-	 * @param {string} color Sets the primary color.
+	 * @param {string} color Sets the Default color.
 	 * 
 	 * @returns {undefined}
 	 */
