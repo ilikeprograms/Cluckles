@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Button, FormState, ListGroup, Dropdown, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Button, FormState, ListGroup, Dropdown, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -23,6 +23,8 @@
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
      * @property {Navs} navs Holds the modifications to the Navs Components.
+     * @property {Tabs} tabs Holds the modifications to the Tabs Components.
+     * @property {Pills} tabs Holds the modifications to the Pills Components.
      * @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
      * @property {LabelBase} labelBase Holds the changes to the Label Components.
      * @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
@@ -62,6 +64,8 @@
         this.jumbotron          = new Jumbotron(this);
         this.grayScale          = new GrayScale(this);
         this.navs               = new Navs(this);
+        this.tabs               = new Tabs(this);
+        this.pills              = new Pills(this);
         this.branding           = new BrandModifier(this);
         this.labelBase          = new LabelBase(this);
         this.panelBase          = new PanelBase(this);
@@ -185,6 +189,12 @@
 
         // Navs
         this.extractModifications(modifiers, this.navs);
+
+        // Tabs
+        this.extractModifications(modifiers, this.tabs);
+
+        // Pills
+        this.extractModifications(modifiers, this.pills);
 
         // Branding
         this.extractModifications(modifiers, this.branding);

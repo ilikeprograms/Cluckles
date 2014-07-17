@@ -9,28 +9,92 @@
   </div>
   <div class="panel-collapse collapse" id="navsModifiers">
     <div class="panel-body">
-      <table class="table table-bordered">
-        <thead>
-          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Link Padding</td><td></td><td><input type="number" value="8" min="0" step="1" onchange="themeEditor.navs.setLinkPadding(this.value);" /></td>
-          </tr>
-          <tr>
-            <td>Link Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkHoverBackground(this.value);" /></td>
-          </tr>
-          <tr>
-            <td>Disabled Link Color</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkDisabledColor(this.value);" /></td>
-          </tr>
-          <tr>
-            <td>Disabled Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkDisabledHoverColor(this.value);" /></td>
-          </tr>
-          <tr>
-            <td>Open Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkOpenHoverColor(this.value);" /></td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Navs Tab Nav-->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#baseNavsTab" data-toggle="tab">Navs Base</a></li>
+        <li><a href="#tabsTab" data-toggle="tab">Tabs</a></li>
+        <li><a href="#pillsTab" data-toggle="tab">Pills</a></li>
+      </ul> <!--/ Navs Nav -->
+
+      <div class="tab-content">
+        <!-- Base Navs Tab -->
+        <div class="tab-pane fade active in" id="baseNavsTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Link Padding</td><td></td><td><input type="number" value="8" min="0" step="1" onchange="themeEditor.navs.setLinkPadding(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Hover Background</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkHoverBackground(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Disabled Link Color</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkDisabledColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Disabled Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkDisabledHoverColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Open Link Hover Color</td><td></td><td><input type="color" onchange="themeEditor.navs.setLinkOpenHoverColor(this.value);" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <!--/ Base Navs Tab -->
+
+        <!-- Tabs Tab -->
+        <div class="tab-pane fade" id="tabsTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.tabs.setBorderColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Hover Border Color</td><td></td><td><input type="color" onchange="themeEditor.tabs.setLinkHoverBorderColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Background Color</td><td></td><td><input type="color" onchange="themeEditor.tabs.setLinkActiveHoverBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Color</td><td></td><td><input type="color" onchange="themeEditor.tabs.setLinkActiveHoverColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Hover Border Color</td><td></td><td><input type="color" onchange="themeEditor.tabs.setLinkActiveHoverBorderColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Justified Border Color</td><td></td><td><input type="color" onchange="themeEditor.tabs.setLinkJustifiedBorderColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Justified Active Border Color</td><td></td><td><input type="color" onchange="themeEditor.tabs.setLinkJustifiedActiveBorderColor(this.value);" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <!--/ Tabs Tab -->
+
+        <!-- Pills Tab -->
+        <div class="tab-pane fade" id="pillsTab">
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Border Radius</td><td></td><td><input type="number" onchange="themeEditor.pills.setBorderRadius(this.value);" value="4" min="1" step="1" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Background Color</td><td></td><td><input type="color" onchange="themeEditor.pills.setLinkActiveHoverBackgroundColor(this.value);" /></td>
+              </tr>
+              <tr>
+                <td>Link Active Color</td><td></td><td><input type="color" onchange="themeEditor.pills.setLinkActiveHoverColor(this.value);" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div> <!--/ Pills Tab -->
+      </div>
     </div>
   </div>
 </div> <!--/ Navs Branding Panel -->
