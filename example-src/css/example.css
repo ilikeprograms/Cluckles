@@ -1,13 +1,20 @@
 body {
-  padding-bottom: 30px;
+    padding-bottom: 30px;
+    padding-top: 70px;
 }
 
 .theme-dropdown .dropdown-menu {
-  position: static;
-  display: block;
-  margin-bottom: 20px;
+    position: static;
+    display: block;
+    margin-bottom: 20px;
 }
 
 .theme-showcase > p > .btn {
-  margin: 5px 0;
+    margin: 5px 0;
+}
+
+.fixed-scroll-sidebar {
+    overflow: scroll;
+    height: 580px;
+    margin-bottom: 20px;
 }
