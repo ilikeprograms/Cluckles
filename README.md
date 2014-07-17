@@ -103,7 +103,6 @@ There are options that can be provided when a ThemeEditor instance is created an
 
 Miscellaneous Options
 
-{:.table .table-bordered .table-striped .default}
 | Field   | Type     | Default            | Desc                                       |
 | -----   |:--------:| ------------------ | ------------------------------------------ |
 | delay   | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates |
@@ -112,7 +111,6 @@ Miscellaneous Options
 
 Location to find the theme file to start editing (If editing existing theme).
 
-{:.table .table-bordered .table-striped .default}
 | Field | Type     | Default | Desc                         |
 | ----- |:--------:| ------- | ---------------------------- |
 | url   | `string` |         | URL to locate the theme file |
@@ -161,10 +159,11 @@ An optional success callback can also be provided to fire when the changes have 
 
 | Field          | Type       | Default           | Desc                                          |
 | -------------- |:----------:| ----------------- | --------------------------------------------- |
+| format         | `Array`    | `json`            | The formats to include in the export          |
 | target         | `string`   | export.target     | DOM Element target to append save Export link |
 | url (required) | `string`   |                   | URL to send the modified theme changes        |
 | method         | `string`   | `POST`            | HTTP method for the save request              |
-| callback       | `function` |                   | Optional success save callback                |
+| callback       | `Function` |                   | Optional success save callback                |
 | id             | `string`   | 'save_theme_link' | ID attribute to set on the save Export link   |
 | text           | `string`   | 'Save Theme'      | Text content for the save Export link         |
 

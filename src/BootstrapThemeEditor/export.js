@@ -18,6 +18,7 @@
      *   - id: ID attribute to set on the css Export link.
      *   - text: Text content for the css Export link.
      * - save: External JSON save request.
+     *   - formats: The formats to include in the export (Default: json).
      *   - target: DOM Element target to append save Export link, (export.target if undefined).
      *   - method: HTTP method for the save request.
      *   - url: (Required) URL to send the modified theme changes (JSON format).
@@ -35,9 +36,11 @@
         this.editor     = editor;
         this.options    = options;
 
-        this.jsonLink  = null;
+        this.jsonLink   = null;
         this.saveLink   = null;
         this.cssLink    = null;
+        
+        this.compiledCss = null;
 
         // If the download option was provided
         if (options.hasOwnProperty('json')) {
@@ -166,8 +169,11 @@
      * @returns {undefined}
      */
     Export.prototype.generateCssBlob = function (css) {
+        // Store the Compiled Css
+        this.compiledCss = css;
+
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(css));
+        this.cssLink.setAttribute('href', this.generateBlob(this.compiledCss));
     };
 
     /**
@@ -195,7 +201,8 @@
     Export.prototype.sendThemeData = function () {
         var options = this.options.save,
             method = options.method || 'POST', // Default to "POST"
-            saveXHR;
+            saveXHR,
+            exportData = {};
 
         // Throw an error if the URL option was not provided or was not a string
         if (typeof options.url !== 'string') {
@@ -220,8 +227,23 @@
             }
         }
 
+        // By Default only export JSON
+        if (!options.hasOwnProperty('formats')) {
+            exportData.json = this.editor.getModifiers();
+        } else {
+            // Export JSON if the format was provided
+            if (options.formats.indexOf('json') !== -1) {
+                exportData.json = this.editor.getModifiers();
+            }
+
+            // Export CSS if the format was provided
+            if (options.formats.indexOf('css') !== -1) {
+                exportData.css = this.compiledCss;
+            }
+        }
+
         // Send the JSON to the server
-        saveXHR.send(this.editor.getJSON());
+        saveXHR.send(JSON.stringify(exportData));
     };
 
     window.Export = Export;

@@ -147,6 +147,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 | Field          | Type       | Default           | Desc                                          |
 | -------------- |:----------:| ----------------- | --------------------------------------------- |
+| format         | `Array`    | `json`            | The formats to include in the export          |
 | target         | `string`   | export.target     | DOM Element target to append save Export link |
 | url (required) | `string`   |                   | URL to send the modified theme changes        |
 | method         | `string`   | `POST`            | HTTP method for the save request              |
