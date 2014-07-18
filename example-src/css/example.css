@@ -18,3 +18,13 @@ body {
     height: 580px;
     margin-bottom: 20px;
 }
+
+.example-modal-panel .example-modal {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    z-index: 1;
+    display: block;
+}

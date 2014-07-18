@@ -1,0 +1,51 @@
+<!-- Modal Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#editorModal">
+        Modals
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="editorModal">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Inner Padding</td><td></td><td><input type="number" value="20" min="0" step="1"  onchange="themeEditor.modal.setInnerPadding(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Title Padding</td><td></td><td><input type="number" value="15" min="0" step="1"  onchange="themeEditor.modal.setTitlePadding(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Title Line Height</td><td></td><td><input type="number" value="15" min="0" step="1"  onchange="themeEditor.modal.setTitleLineHeight(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Content Background Color</td><td></td><td><input type="color" onchange="themeEditor.modal.setContentBackgroundColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Content Border Color</td><td></td><td><input type="color" onchange="themeEditor.modal.setContentBorderColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Content Fallback Border Color</td><td></td><td><input type="color" onchange="themeEditor.modal.setContentFallbackBorderColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Backdrop Background Color</td><td></td><td><input type="color" onchange="themeEditor.modal.setBackdropBackgroundColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Backdrop Opacity</td><td></td><td><input type="text" placeholder=".5" value=".5" onchange="themeEditor.modal.setBackdropOpacity(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Header Border Color</td><td></td><td><input type="color" onchange="themeEditor.modal.setHeaderBorderColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Footer Border Color</td><td></td><td><input type="color" onchange="themeEditor.modal.setFooterBorderColor(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!--/ Modal Panel -->
