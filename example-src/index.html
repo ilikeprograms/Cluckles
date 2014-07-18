@@ -95,6 +95,9 @@
                 <!-- build:section templates.editor.components.tooltips -->
                 <!-- /build -->
                 
+                <!-- build:section templates.editor.components.popovers -->
+                <!-- /build -->
+                
                 <!-- build:section templates.editor.components.breadcrumbs -->
                 <!-- /build -->
                 
@@ -150,7 +153,7 @@
             
             <!-- build:section templates.components.pagination -->
             <!-- /build -->
-            
+
             <!-- build:section templates.components.breadcrumbs -->
             <!-- /build -->
             
@@ -159,13 +162,16 @@
             
             <!-- build:section templates.components.tooltips -->
             <!-- /build -->
-            
+
+            <!-- build:section templates.components.popovers -->
+            <!-- /build -->
+
             <!-- build:section templates.components.progressbars -->
             <!-- /build -->
-            
+
             <!-- build:section templates.components.panels -->
             <!-- /build -->
-            
+
             <!-- build:section templates.components.wells -->
             <!-- /build -->
 
@@ -211,6 +217,10 @@
     $('.example-tooltips').tooltip();
     $('.example-left-tooltip').tooltip({'trigger': 'manual'});
     $('.example-left-tooltip').tooltip('show');
+
+    $('.example-popovers').popover();
+    $('.example-left-popover').popover({'trigger': 'click'});
+    $('.example-left-popover').popover('show');
 
     var themeEditor = new ThemeEditor(less, {
       theme: {

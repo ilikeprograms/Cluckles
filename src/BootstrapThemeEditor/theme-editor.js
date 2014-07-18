@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Button, FormState, ListGroup, Dropdown, Tooltip, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -21,6 +21,7 @@
      * @property {Breadcrumbs} breadcrumbs Holds modifications to the Breadcrumbs component.
      * @property {Dropdown} dropdown Holds modifications to the Dropdown component.
      * @property {Tooltip} tooltip Holds modifications to the Tooltip component.
+     * @property {Popover} popover Holds modifications to the Popover component.
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
      * @property {Navs} navs Holds the modifications to the Navs Components.
@@ -65,6 +66,7 @@
         this.breadcrumbs        = new Breadcrumb(this);
         this.dropdown           = new Dropdown(this);
         this.tooltip            = new Tooltip(this);
+        this.popover            = new Popover(this);
         this.jumbotron          = new Jumbotron(this);
         this.grayScale          = new GrayScale(this);
         this.navs               = new Navs(this);
@@ -222,6 +224,9 @@
         
         // Tooltip
         this.extractModifications(modifiers, this.tooltip);
+        
+        // Popover
+        this.extractModifications(modifiers, this.popover);
 
         // Jumbotron
         this.extractModifications(modifiers, this.jumbotron);
