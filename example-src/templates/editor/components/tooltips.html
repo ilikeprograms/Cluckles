@@ -1,0 +1,39 @@
+<!-- Tooltip Panel -->
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#editorComponents" href="#editorTooltip">
+          Tooltips
+        </a>
+      </h4>
+    </div>
+    <div class="panel-collapse collapse in" id="editorTooltip">
+      <div class="panel-body">
+        <table class="table table-bordered">
+          <thead>
+            <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Max Width</td><td></td><td><input type="number" value="200" min="50" step="1" onchange="themeEditor.tooltip.setMaxWidth(this.value);" /></td>
+            </tr>
+            <tr>
+              <td>Color</td><td></td><td><input type="color" onchange="themeEditor.tooltip.setColor(this.value);" /></td>
+            </tr>
+            <tr>
+              <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.tooltip.setBackground(this.value);" /></td>
+            </tr>
+            <tr>
+              <td>Opacity</td><td></td><td><input type="text" placeholder=".9" value=".9" onchange="themeEditor.tooltip.setOpacity(this.value);" /></td>
+            </tr>
+            <tr>
+              <td>Arrow Width</td><td></td><td><input type="number" value="5" min="0" step="1" onchange="themeEditor.tooltip.setArrowWidth(this.value);" /></td>
+            </tr>
+            <tr>
+              <td>Arrow Color</td><td></td><td><input type="color" onchange="themeEditor.tooltip.setArrowColor(this.value);" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div> <!--/ Tooltip Panel -->

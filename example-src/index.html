@@ -92,6 +92,9 @@
                 <!-- build:section templates.editor.components.dropdowns -->
                 <!-- /build -->
                 
+                <!-- build:section templates.editor.components.tooltips -->
+                <!-- /build -->
+                
                 <!-- build:section templates.editor.components.breadcrumbs -->
                 <!-- /build -->
                 
@@ -154,6 +157,9 @@
             <!-- build:section templates.components.alerts -->
             <!-- /build -->
             
+            <!-- build:section templates.components.tooltips -->
+            <!-- /build -->
+            
             <!-- build:section templates.components.progressbars -->
             <!-- /build -->
             
@@ -202,6 +208,10 @@
   <script src="../bsThemeEditor-<%= pkg.version %>.js"></script>
   <!-- /build -->
   <script>
+    $('.example-tooltips').tooltip();
+    $('.example-left-tooltip').tooltip({'trigger': 'manual'});
+    $('.example-left-tooltip').tooltip('show');
+
     var themeEditor = new ThemeEditor(less, {
       theme: {
         src: 'theme.json'
