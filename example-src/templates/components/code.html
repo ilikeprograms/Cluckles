@@ -1,0 +1,25 @@
+<div class="page-header">
+  <h1>Code</h1>
+</div>
+<p>Example of the <code>Code</code> element.</p>
+<p>To switch directories, type <kbd>cd</kbd> followed by the name of the directory.</p>
+
+<pre class="pre-scrollable">
+  var themeEditor = new ThemeEditor(less, {
+    export: {
+      target: '#download-panel-footer',   // Fallback/General Target
+      json: {
+        target: '#download-panel-footer', // Custom Target
+        id: 'download-theme-json',        // Custom Id
+        text: 'Download Json'             // Custom Text
+      },
+      css: {}, // Blank Object provided makes the Css download button appear
+      save: {
+        url: "http://localhost:9000/example/",
+        callback: function () {
+          alert('Theme modifications have been saved');
+        }
+      }
+    }
+  });
+</pre>

@@ -1,0 +1,45 @@
+<!-- Code Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#codeModifiers">
+        Code
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="codeModifiers">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Code Color</td><td></td><td><input type="color" onchange="themeEditor.code.setCodeColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Code Background Color</td><td></td><td><input type="color" onchange="themeEditor.code.setCodeBackgroundColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Kbd Color</td><td></td><td><input type="color" onchange="themeEditor.code.setKbdColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Kbd Background Color</td><td></td><td><input type="color" onchange="themeEditor.code.setKbdBackgroundColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Pre Color</td><td></td><td><input type="color" onchange="themeEditor.code.setPreColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Pre Background Color</td><td></td><td><input type="color" onchange="themeEditor.code.setPreBackgroundColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Pre Border Color</td><td></td><td><input type="color" onchange="themeEditor.code.setPreBorderColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Pre Scrollable Max Height</td><td></td><td><input type="text" value="340" placeholder="340" onchange="themeEditor.code.setPreScrollableMaxHeight(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- Code Panel End -->
