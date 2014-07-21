@@ -1,0 +1,30 @@
+<!-- Blockquote Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#blockquoteModifiers">
+        Blockquote
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="blockquoteModifiers">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Small Color</td><td></td><td><input type="color" onchange="themeEditor.blockquote.setSmallColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Font Size</td><td></td><td><input type="number" value="21" min="12" step="1" onchange="themeEditor.blockquote.setFontSize(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.blockquote.setBorderColor(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- Blockquote Panel End -->

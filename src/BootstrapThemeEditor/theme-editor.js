@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -26,6 +26,7 @@
      * @property {Badge} badge Holds modifications to the Badge component.
      * @property {Carousel} carousel Holds modifications to the Carousel component.
      * @property {Code} carousel Holds modifications to the Code component.
+     * @property {Blockquote} blockquote Holds modifications to the Blockquote component.
      * @property {Modal} modal Holds modifications to the Modal component.
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
@@ -76,6 +77,7 @@
         this.badge              = new Badge(this);
         this.carousel           = new Carousel(this);
         this.code               = new Code(this);
+        this.blockquote         = new Blockquote(this);
         this.modal              = new Modal(this);
         this.jumbotron          = new Jumbotron(this);
         this.grayScale          = new GrayScale(this);
@@ -189,7 +191,7 @@
 
             this.extractModifications(modifiers, buttonsStyle);
         }, this);
-        
+
         // Panel Base
         this.extractModifications(modifiers, this.panelBase);
 
@@ -216,7 +218,7 @@
 
         // Pagination
         this.extractModifications(modifiers, this.pagination);
-        
+
         // Pager
         this.extractModifications(modifiers, this.pager);
 
@@ -231,25 +233,28 @@
 
         // Dropdown
         this.extractModifications(modifiers, this.dropdown);
-        
+
         // Tooltip
         this.extractModifications(modifiers, this.tooltip);
-        
+
         // Popover
         this.extractModifications(modifiers, this.popover);
-        
+
         // Thumbnail
         this.extractModifications(modifiers, this.thumbnail);
-        
+
         // Badge
         this.extractModifications(modifiers, this.badge);
-        
+
         // Carousel
         this.extractModifications(modifiers, this.carousel);
-        
+
         // Code
         this.extractModifications(modifiers, this.code);
-        
+
+        // Blockquote
+        this.extractModifications(modifiers, this.blockquote);
+
         // Modal
         this.extractModifications(modifiers, this.modal);
 

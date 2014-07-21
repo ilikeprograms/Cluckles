@@ -42,6 +42,7 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/badge.js',
                     'src/<%= pkg.name %>/carousel.js',
                     'src/<%= pkg.name %>/code.js',
+                    'src/<%= pkg.name %>/blockquote.js',
                     'src/<%= pkg.name %>/modal.js',
                     'src/<%= pkg.name %>/button.js',
                     'src/<%= pkg.name %>/form-state.js',
@@ -221,6 +222,7 @@ module.exports = function (grunt) {
                                     badges: '<%= examplesrc %>/templates/editor/components/badges.html',
                                     carousel: '<%= examplesrc %>/templates/editor/components/carousel.html',
                                     code: '<%= examplesrc %>/templates/editor/components/code.html',
+                                    blockquote: '<%= examplesrc %>/templates/editor/components/blockquote.html',
                                     modals: '<%= examplesrc %>/templates/editor/components/modals.html',
                                     labels: '<%= examplesrc %>/templates/editor/components/labels.html',
                                     navs: '<%= examplesrc %>/templates/editor/components/navs.html',
@@ -256,6 +258,7 @@ module.exports = function (grunt) {
                                 panels: '<%= examplesrc %>/templates/components/panels.html',
                                 wells: '<%= examplesrc %>/templates/components/wells.html',
                                 code: '<%= examplesrc %>/templates/components/code.html',
+                                blockquote: '<%= examplesrc %>/templates/components/blockquote.html',
                                 carousel: '<%= examplesrc %>/templates/components/carousel.html',
                             },
                             
