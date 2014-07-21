@@ -1,0 +1,39 @@
+<!-- Thumbnails Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#thumbnailsModifiers">
+        Thumbnails
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="thumbnailsModifiers">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Padding</td><td></td><td><input type="number" value="4" min="0" step="1" onchange="themeEditor.thumbnail.setPadding(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.thumbnail.setBackgroundColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.thumbnail.setBorderColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Border Radius</td><td></td><td><input type="text" value="4" onchange="themeEditor.thumbnail.setBorderRadius(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Caption Color</td><td></td><td><input type="color" onchange="themeEditor.thumbnail.setCaptionColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Caption Padding</td><td></td><td><input type="number" value="9" min="0" step="1" onchange="themeEditor.thumbnail.setCaptionPadding(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- Thumbnails Panel End -->
