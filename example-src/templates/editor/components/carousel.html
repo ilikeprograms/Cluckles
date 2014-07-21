@@ -1,0 +1,42 @@
+<!-- Carousel Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#carouselModifiers">
+        Carousel
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="carouselModifiers">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Control Color</td><td></td><td><input type="color" onchange="themeEditor.carousel.setControlColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Control Width</td><td></td><td><input type="text" value="15" placeholder="15" onchange="themeEditor.carousel.setControlWidth(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Control Opacity</td><td></td><td><input type="text" value=".5" placeholder=".5" onchange="themeEditor.carousel.setControlOpacity(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Control Font Size</td><td></td><td><input type="number" value="20" min="12" step="1" onchange="themeEditor.carousel.setControlFontSize(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Indicator Active Background Color</td><td></td><td><input type="color" onchange="themeEditor.carousel.setIndicatorActiveBackgroundColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Indicator Border Color</td><td></td><td><input type="color" onchange="themeEditor.carousel.setIndicatorBorderColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Caption Color</td><td></td><td><input type="color" onchange="themeEditor.carousel.setCaptionColor(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- Carousel Panel End -->

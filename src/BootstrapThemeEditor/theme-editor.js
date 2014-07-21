@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -24,6 +24,7 @@
      * @property {Popover} popover Holds modifications to the Popover component.
      * @property {Thumbnail} thumbnail Holds modifications to the Thumbnail component.
      * @property {Badge} badge Holds modifications to the Badge component.
+     * @property {Carousel} carousel Holds modifications to the Carousel component.
      * @property {Modal} modal Holds modifications to the Modal component.
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
@@ -72,6 +73,7 @@
         this.popover            = new Popover(this);
         this.thumbnail          = new Thumbnail(this);
         this.badge              = new Badge(this);
+        this.carousel           = new Carousel(this);
         this.modal              = new Modal(this);
         this.jumbotron          = new Jumbotron(this);
         this.grayScale          = new GrayScale(this);
@@ -239,6 +241,9 @@
         
         // Badge
         this.extractModifications(modifiers, this.badge);
+        
+        // Carousel
+        this.extractModifications(modifiers, this.carousel);
         
         // Modal
         this.extractModifications(modifiers, this.modal);
