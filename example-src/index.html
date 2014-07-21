@@ -88,7 +88,10 @@
                 
                 <!-- build:section templates.editor.components.pagination -->
                 <!-- /build -->
-                
+
+                <!-- build:section templates.editor.components.form -->
+                <!-- /build -->
+
                 <!-- build:section templates.editor.components.dropdowns -->
                 <!-- /build -->
                 
@@ -172,6 +175,9 @@
             <!-- build:section templates.components.pagination -->
             <!-- /build -->
 
+            <!-- build:section templates.components.form -->
+            <!-- /build -->
+
             <!-- build:section templates.components.breadcrumbs -->
             <!-- /build -->
             
@@ -250,9 +256,6 @@
     $('.example-left-popover').popover('show');
 
     var themeEditor = new ThemeEditor(less, {
-      theme: {
-        src: 'theme.json'
-      },
       export: {
         target: '#download-panel-footer',   // Fallback/General Target
         json: {
@@ -262,6 +265,7 @@
         },
         css: {}, // Blank Object provided makes the Css download button appear
         save: {
+//          formats: ['json', 'css'],
           url: "http://localhost:9000/example/",
           callback: function () {
             alert('Theme modifications have been saved');

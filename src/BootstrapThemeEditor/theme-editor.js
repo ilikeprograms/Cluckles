@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -35,6 +35,7 @@
      * @property {Pills} tabs Holds the modifications to the Pills Components.
      * @property {Pagination} pagination Holds the modifications to the Pagination Components.
      * @property {Pager} pager Holds the modifications to the Pager Components.
+     * @property {Form} form Holds the modifications to the Form Components.
      * @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
      * @property {LabelBase} labelBase Holds the changes to the Label Components.
      * @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
@@ -86,6 +87,7 @@
         this.pills              = new Pills(this);
         this.pagination         = new Pagination(this);
         this.pager              = new Pager(this);
+        this.form               = new Form(this);
         this.branding           = new BrandModifier(this);
         this.labelBase          = new LabelBase(this);
         this.panelBase          = new PanelBase(this);
@@ -221,6 +223,9 @@
 
         // Pager
         this.extractModifications(modifiers, this.pager);
+
+        // Form
+        this.extractModifications(modifiers, this.form);
 
         // Branding
         this.extractModifications(modifiers, this.branding);
