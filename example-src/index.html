@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0039)http://getbootstrap.com/examples/theme/ -->
 <html lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -12,8 +11,7 @@
 
   <title>Bootstrap Theme Editor</title>
 
-  <!-- build:style example -->
-  <!-- /build -->
+  <!-- build:style example --><!-- /build -->
   <link type="text/css" href="../less/bootstrap.less" rel="stylesheet/less" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,13 +25,14 @@
 <body role="document">
   <!-- build:section templates.page.navigation -->
   <!-- /build -->
+
   <!-- Main container -->
   <div class="container-fluid" id="mainContainer">
     <div class='row'>
       <!-- Theme Example Column -->
       <div class='col-md-9'>
         <div id='boostrap-theme-contain'>
-          <div class="container theme-showcase" role="main">
+          <div class="container" role="main">
             <!-- build:section templates.components.jumbotron -->
             <!-- /build -->
             
@@ -104,7 +103,7 @@
             <!-- /build -->
           </div> <!-- ./container -->
         </div>
-      </div> <!-- Theme Example Column -->
+      </div> <!-- /Theme Example Column -->
       
       <!-- Controls Column -->
       <div class='col-md-3'>
@@ -114,11 +113,13 @@
           <!-- /build -->
         </div> <!-- /Download Row -->
 
+        <!-- Editor Row -->
         <div class="row">
+          <!-- Editor Tabs -->
           <ul class="nav nav-tabs">
             <li class="active"><a href="#" data-toggle="tab" data-target="#brandingEditorTab">Branding</a></li>
             <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a></li>
-          </ul>
+          </ul> <!-- /Editor Tabs -->
           
           <div class="tab-content">
             <div class="tab-pane fade in active" id="brandingEditorTab">
@@ -198,26 +199,29 @@
                     <!-- build:section templates.editor.components.misc --><!-- /build -->
                   </div>
                 </div>
-              </div> <!--/ Components Panel -->
+              </div> <!-- /Components Panel -->
             </div>
           </div>
-        </div>
-      </div> <!-- Controls Column End-->
+        </div> <!-- /Editor Row -->
+      </div> <!-- /Controls Column-->
     </div>
-  </div> <!-- Main container -->
-  <!-- build:process -->
+  </div> <!-- /Main container -->
   <hr />
 
+  <!-- Page Footer-->
   <footer class="container text-center">
     <p>Project Created and Maintained by <a href="http://ilikeprograms.com" title="ilikeprograms Website">ilikeprograms</a> (Thomas Coleman)</p>
+
+    <!-- build:process -->
     <ul class="nav-justified">
       <li><a href="<%= pkg.homepage %>" title="BootstrapThemeEditor on Github">Github</a></li>
       <li><a href="<%= pkg.homepage %>/issues" title="BootstrapThemeEditor Issues on Github">Issues</a></li>
       <li><a href="<%= pkg.homepage %>/releases" title="BootstrapThemeEditor Releases on Github">Releases</a></li>
     </ul>
     <p>Licenced under <%= pkg.license %>.</p>
+    <!-- /build:process -->
   </footer>
-  <!-- /build:process -->
+  <!-- /Page Footer-->
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="../js/lib/jquery.min.js"><\/script>');</script>
@@ -268,7 +272,6 @@
         },
         css: {}, // Blank Object provided makes the Css download button appear
         save: {
-//          formats: ['json', 'css'],
           url: "http://localhost:9000/example/",
           callback: function () {
             alert('Theme modifications have been saved');
