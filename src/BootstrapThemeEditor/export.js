@@ -158,7 +158,7 @@
      */
     Export.prototype.generateJsonBlob = function () {
         // Update the href of the download link, this now points to the JSON data
-        this.jsonLink.setAttribute('href', this.generateBlob(this.editor.getJSON));
+        this.jsonLink.setAttribute('href', this.generateBlob(this.editor.getJSON()));
     };
 
     /**
