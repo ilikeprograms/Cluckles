@@ -13,12 +13,6 @@ body {
     margin: 5px 0;
 }
 
-.fixed-scroll-sidebar {
-    overflow: scroll;
-    height: 580px;
-    margin-bottom: 20px;
-}
-
 .example-modal-panel .example-modal {
     position: relative;
     top: auto;

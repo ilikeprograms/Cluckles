@@ -30,122 +30,8 @@
   <!-- Main container -->
   <div class="container-fluid" id="mainContainer">
     <div class='row'>
-      <!-- Controls Column -->
-      <div class='col-md-3' data-spy="affix" data-offset-top="100px">
-        <div class="row fixed-scroll-sidebar">
-          <!-- Branding Panel -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2>Branding</h2>
-            </div>
-            <div class="panel-body">
-              <div class='panel-group' id='brandColor'>
-                <!-- build:section templates.editor.branding.default -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.branding.primary -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.branding.success -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.branding.info -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.branding.warning -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.branding.danger -->
-                <!-- /build -->
-              </div>
-            </div>
-          </div> <!--/ Branding Panel End -->
-
-          <!-- Components Panel -->
-          <div class="panel panel-default">
-            <div class="panel-heading">
-              <h2>Components</h2>
-            </div>
-            <div class="panel-body">
-              <div class="panel-group" id="editorComponents">
-                <!-- build:section templates.editor.components.jumbotron -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.typography -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.listgroups -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.tables -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.buttons -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.labels -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.navs -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.pagination -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.form -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.dropdowns -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.tooltips -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.carousel -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.popovers -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.thumbnails -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.badges -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.code -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.blockquote -->
-                <!-- /build -->
-
-                <!-- build:section templates.editor.components.modals -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.breadcrumbs -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.panels -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.navbars -->
-                <!-- /build -->
-                
-                <!-- build:section templates.editor.components.misc -->
-                <!-- /build -->
-              </div>
-            </div>
-          </div> <!--/ Components Panel -->
-        </div>
-        
-        <div class="row">
-          <!-- build:section templates.page.downloadpanel -->
-          <!-- /build -->
-        </div>
-      </div> <!-- Controls Column End-->
-      
       <!-- Theme Example Column -->
-      <div class='col-md-9 col-md-offset-3'>
+      <div class='col-md-9'>
         <div id='boostrap-theme-contain'>
           <div class="container theme-showcase" role="main">
             <!-- build:section templates.components.jumbotron -->
@@ -219,8 +105,119 @@
           </div> <!-- ./container -->
         </div>
       </div> <!-- Theme Example Column -->
+      
+      <!-- Controls Column -->
+      <div class='col-md-3'>
+        <!-- Download Row -->
+        <div class="row">
+          <!-- build:section templates.page.downloadpanel -->
+          <!-- /build -->
+        </div> <!-- /Download Row -->
+
+        <div class="row">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#" data-toggle="tab" data-target="#brandingEditorTab">Branding</a></li>
+            <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a></li>
+          </ul>
+          
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="brandingEditorTab">
+              <!-- Branding Panel -->
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class='panel-group' id='brandColor'>
+                    <!-- build:section templates.editor.branding.default -->
+                    <!-- /build -->
+
+                    <!-- build:section templates.editor.branding.primary -->
+                    <!-- /build -->
+
+                    <!-- build:section templates.editor.branding.success -->
+                    <!-- /build -->
+
+                    <!-- build:section templates.editor.branding.info -->
+                    <!-- /build -->
+
+                    <!-- build:section templates.editor.branding.warning -->
+                    <!-- /build -->
+
+                    <!-- build:section templates.editor.branding.danger -->
+                    <!-- /build -->
+                  </div>
+                </div>
+              </div> <!--/ Branding Panel End -->
+            </div>
+            
+            <div class="tab-pane fade" id="componentsEditorTab">
+              <!-- Components Panel -->
+              <div class="panel panel-default">
+                <div class="panel-body">
+                  <div class="panel-group" id="editorComponents">
+                    <!-- build:section templates.editor.components.jumbotron --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.typography --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.listgroups --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.tables --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.buttons --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.labels --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.navs --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.pagination --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.form --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.dropdowns --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.tooltips --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.carousel --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.popovers --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.thumbnails --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.badges --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.code --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.blockquote --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.modals --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.breadcrumbs --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.panels --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.navbars --><!-- /build -->
+
+                    <!-- build:section templates.editor.components.misc --><!-- /build -->
+                  </div>
+                </div>
+              </div> <!--/ Components Panel -->
+            </div>
+          </div>
+        </div>
+      </div> <!-- Controls Column End-->
     </div>
   </div> <!-- Main container -->
+  <!-- build:process -->
+  <hr />
+
+  <footer class="container text-center">
+    <p>Project Created and Maintained by <a href="http://ilikeprograms.com" title="ilikeprograms Website">ilikeprograms</a> (Thomas Coleman)</p>
+    <ul class="nav-justified">
+      <li><a href="<%= pkg.homepage %>" title="BootstrapThemeEditor on Github">Github</a></li>
+      <li><a href="<%= pkg.homepage %>/issues" title="BootstrapThemeEditor Issues on Github">Issues</a></li>
+      <li><a href="<%= pkg.homepage %>/releases" title="BootstrapThemeEditor Releases on Github">Releases</a></li>
+    </ul>
+    <p>Licenced under <%= pkg.license %>.</p>
+  </footer>
+  <!-- /build:process -->
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="../js/lib/jquery.min.js"><\/script>');</script>
