@@ -12,18 +12,29 @@
 At the moment, the following Components can be styled directly:
 
 - [x] Base Styles
+- [x] Typography
+- [x] Tables
 - [x] Dropdowns
-- [ ] Inputs/Forms
-- [x] Links/Nav
+- [x] Buttons
+- [x] Inputs/Forms
+- [x] Links
+- [x] Navs
+  - [x] Tabs
+  - [x] Pills
+- [x] Pagination/Pager
 - [x] Navbars
 - [x] Breadcrumbs
-- [ ] Pagination
-- [ ] Labels
-- [ ] Badges
+- [x] Labels
+- [x] Badges
 - [x] Jumbotron
 - [x] Page Header
-- [ ] Thumbnails
+- [x] Thumbnails
 - [x] Alerts
+- [x] Tooltips
+- [x] Popovers
+- [x] Modals
+- [x] Code/Kbd/Pre
+- [x] Blockquotes
 - [x] Progress Bars
 - [x] List Groups
 - [x] Panels
@@ -159,7 +170,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 ```javascript
 <!-- Load our Fancy live editing ThemeEditor -->
-<script src="../bsThemeEditor-0.2.0.min.js"></script>
+<script src="../bsThemeEditor-0.3.4.js"></script>
 <script>
   var themeEditor = new ThemeEditor(less, {
     theme: {
