@@ -13,8 +13,8 @@ module.exports = function (grunt) {
                 banner: '/**\n' +
                         ' * <%= pkg.name %> <%= pkg.version %>:' +
                         ' Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.\n' +
-                        ' * Copyrite <%= grunt.template.today("yyyy") %> <%= pkg.author %> <tom@ilikeprograms.com>\n' +
-                        ' * Licence: GPL-3.0+\n' +
+                        ' * Copyrite <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+                        ' * Licence: <%= pkg.licence %>\n' +
                         ' */\n'
             },
             
@@ -22,6 +22,7 @@ module.exports = function (grunt) {
             main: {
                 src: [
                     'src/<%= pkg.name %>/theme-modifier.js',
+                    'src/<%= pkg.name %>/typography.js',
                     'src/<%= pkg.name %>/misc.js',
                     'src/<%= pkg.name %>/table.js',
                     'src/<%= pkg.name %>/breadcrumb.js',
@@ -138,6 +139,7 @@ module.exports = function (grunt) {
 					// Bootstrap less files
 					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'build/less', filter: 'isFile'},
 					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'build/less', filter: 'isFile'},
+					{expand: true, src: ['bower_components/bootstrap/fonts/*'], flatten: true, dest: 'build/fonts', filter: 'isFile'},
                     
                     // Custom Bootstrap variables file
 					{expand: true, src: 'src/variables-custom.less', flatten: true, dest: 'build/less/'},
@@ -214,6 +216,7 @@ module.exports = function (grunt) {
                                 
                                 // Components editors
                                 components: {
+                                    typography: '<%= examplesrc %>/templates/editor/components/typography.html',
                                     jumbotron: '<%= examplesrc %>/templates/editor/components/jumbotron.html',
                                     listgroups: '<%= examplesrc %>/templates/editor/components/listgroup.html',
                                     dropdowns: '<%= examplesrc %>/templates/editor/components/dropdowns.html',
@@ -240,6 +243,7 @@ module.exports = function (grunt) {
                             
                             // Component Examples
                             components: {
+                                typography: '<%= examplesrc %>/templates/components/typography.html',
                                 jumbotron: '<%= examplesrc %>/templates/components/jumbotron.html',
                                 buttons: '<%= examplesrc %>/templates/components/buttons.html',
                                 tables: '<%= examplesrc %>/templates/components/tables.html',

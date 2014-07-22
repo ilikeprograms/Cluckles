@@ -1,4 +1,4 @@
-/* global Export, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Typography, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -16,6 +16,7 @@
      * @param {Object} less The Global less object.
      * 
      * @property {Export} export Manages the Theme exporting.
+     * @property {Typography} typography Holds modifications to the Typography component.
      * @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
      * @property {Table} table Holds modifications to the Table component.
      * @property {Breadcrumbs} breadcrumbs Holds modifications to the Breadcrumbs component.
@@ -69,6 +70,7 @@
 
         this.misc               = new Misc(this);
         // Component vars
+        this.typography         = new Typography(this);
         this.table              = new Table(this);
         this.breadcrumbs        = new Breadcrumb(this);
         this.dropdown           = new Dropdown(this);
@@ -193,6 +195,9 @@
 
             this.extractModifications(modifiers, buttonsStyle);
         }, this);
+
+        // Typography
+        this.extractModifications(modifiers, this.typography);
 
         // Panel Base
         this.extractModifications(modifiers, this.panelBase);

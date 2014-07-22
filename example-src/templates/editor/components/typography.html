@@ -1,0 +1,42 @@
+<!-- Typography Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#typographyModifiers">
+        Typography
+      </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse" id="typographyModifiers">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Font Family Sans Serif</td><td></td><td><input type="text" value='Helvetica Neue", Helvetica, Arial, sans-serif' placeholder='"Helvetica Neue", Helvetica, Arial, sans-serif' onchange="themeEditor.typography.setFontFamilySansSerif(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Font Family Serif</td><td></td><td><input type="text" value='Georgia, "Times New Roman", Times, serif' placeholder='Georgia, "Times New Roman", Times, serif' onchange="themeEditor.typography.setFontFamilySerif(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Font Size Base</td><td></td><td><input type="number" value='14' min='9' step='1' onchange="themeEditor.typography.setFontSizeBase(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Headings Font Family</td><td></td><td><input type="text" value='inherit' placeholder='inherit' onchange="themeEditor.typography.setHeadingsFontFamily(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Headings Line Height</td><td></td><td><input type="number" value="1" min="0" step="0.1" placeholder="normal" onchange="themeEditor.typography.setHeadingsLineHeight(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Headings Font Weight</td><td></td><td><input type="text" value="normal" placeholder="normal" onchange="themeEditor.typography.setHeadingsFontWeight(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Headings Color</td><td></td><td><input type="color" onchange="themeEditor.typography.setHeadingsColor(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- Typography Panel End -->
