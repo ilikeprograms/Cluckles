@@ -13,7 +13,6 @@
      * @property {string} wellBg The @well-base-bg variable which sets the background color of the Well Component.
      * @property {string} bodyBg The @body-bg variable which sets the body background color.
      * @property {string} textColor The @text-color variable which sets the body text color.
-     * @property {string} headingsColor The @headings-color variable which sets the color of <h1>-<h6> tags.
      * @property {string} linkColor The @link-color variable which sets the link color.
      * @property {string} linkHoverColor The @link-hover-color variable which sets the link hover color.
      * @property {string} hrBorder The @hr-border variable which sets the color of the <hr> tag.
@@ -41,10 +40,6 @@
             variable: '@text-color',
             value: null
         };
-        this.headingsColor = {
-            variable: '@headings-color',
-            value: null
-        };
         this.linkColor = {
             variable: '@link-color',
             value: null
@@ -68,7 +63,6 @@
             wellBg:             this.wellBg,
             bodyBg:             this.bodyBg,
             textColor:          this.textColor,
-            headingsColor:      this.headingsColor,
             linkColor:          this.linkColor,
             linkHoverColor:     this.linkHoverColor,
             hrBorder:           this.hrBorder,
@@ -161,27 +155,6 @@
      */
     Misc.prototype.setTextColor = function (color) {
         this.modifiers.textColor.value = color;
-        this.editor.queueModifications();
-    };
-
-    /**
-     * Gets the Headings Text color.
-     * 
-     * @returns {String}
-     */
-    Misc.prototype.getHeadingsColor = function () {
-        return this.modifiers.headingsColor.value;
-    };
-
-    /**
-     * Sets the Headings Text color.
-     * 
-     * @param {string} color The Headings text color to set.
-     * 
-     * @returns {undefined}
-     */
-    Misc.prototype.setHeadingsColor = function (color) {
-        this.modifiers.headingsColor.value = color;
         this.editor.queueModifications();
     };
 
