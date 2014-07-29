@@ -15,6 +15,7 @@
      * @property {object} accentBg The @table-bg-accent variable which controls the Background Accent Color of the Table component.
      * @property {object} hoverBg The @table-bg-hover variable which controls the Background Hover Color of the Table component.
      * @property {object} activeBg The @table-bg-active variable which controls the Background Active Color of the Table component.
+     * @property {object} borderColor The @table-border-color variable which controls the Border Color of the Table component.
      * 
      * @returns {Table}
      */
@@ -45,6 +46,10 @@
             variable: '@table-bg-active',
             value: null
         };
+        this.borderColor = {
+            variable: '@table-border-color',
+            value: null
+        };
         
         this.modifiers = {
             cellPadding:            this.cellPadding,
@@ -52,7 +57,8 @@
             bg:                     this.bg,
             accentBg:               this.bgAccent,
             hoverBg:                this.bgHover,
-            activeBg:               this.bgActive
+            activeBg:               this.bgActive,
+            borderColor:            this.borderColor
         };
     };
 
@@ -185,6 +191,27 @@
 		this.modifiers.activeBg.value = activeBg;
 		this.editor.queueModifications();
 	};
+
+    /**
+     * Gets the Table Border Color.
+     * 
+     * @returns {String}
+     */
+    Table.prototype.getBorderColor = function () {
+        return this.modifiers.borderColor.value;
+    };
+
+    /**
+     * Sets the Table Border Color.
+     * 
+     * @param {string} borderColor Sets the Table Border Color.
+     * 
+     * @returns {undefined}
+     */
+    Table.prototype.setBorderColor = function (borderColor) {
+        this.modifiers.borderColor.value = borderColor;
+        this.editor.queueModifications();
+    };
 
     window.Table = Table;
 })(window);
