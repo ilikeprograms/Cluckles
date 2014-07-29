@@ -3,12 +3,13 @@
   <div class="panel-heading">
     <h4 class="panel-title">
     <a data-toggle="collapse" data-parent="#brandColor" href="#defaultBrandingEditor">
-      Grayscale
+      Base/Default
     </a>
     </h4>
   </div>
   <div class="panel-collapse collapse in" id="defaultBrandingEditor">
     <div class="panel-body">
+      <p>Grayscale</p>
       <table class="table table-bordered">
         <thead>
           <tr><th>Property</th><th>Example</th><th>Change</th></tr>
@@ -31,6 +32,27 @@
           </tr>
           <tr>
             <td>Lighter</td><td></td><td><input type="color" onchange="themeEditor.grayScale.lighter.setColor(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <p>Default</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+<!--          <tr>
+            <td>Button Background</td><td><button class="btn btn-default">Primary Btn</button></td><td><input type="color" onchange="themeEditor.branding.setPrimary(this.value);" /></td>
+          </tr>-->
+          <tr>
+            <td>Alert/Panel Background Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.default.setHeadingBackground(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Text Color</td><td><span class="text-default">Primary Text</span></td><td><input type="color" onchange="themeEditor.formStates.default.setText(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.formStates.default.setBorder(this.value);" /></td>
           </tr>
         </tbody>
       </table>
