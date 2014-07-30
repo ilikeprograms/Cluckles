@@ -3,16 +3,26 @@ layout: base
 description: 'BoostrapThemeEditor Demo page'
 ---
 
-<div class="jumbotron">
-  <h1>Bootstrap Theme Editor</h1>
-  <p><em>Bootstrap Theme Editor</em> allows live modification of <a href="http://getbootstrap.com/" target="_blank" title="Twitter Bootstrap Website">Twitter Bootstrap</a> themes so that you can customise them easily.</p>
+<div class="jumbotron seamless-jumbotron">
+  <div class="container">
+    <div style="text-align: center;">
+      <div style="display: inline-block">
+        <h1>{{ site.title }}</h1>
 
-  <p>The included files can be distributed and used in other projects to provide Live editing functionality for Bootstrap.</p>
-  <hr />
-  <p>I made this tool because I needed a way to Live edit Bootstrap in <em><a href="https://github.com/ilikeprograms/corvus" title="Corvus on Github">Corvus</a></em>. I couldn't find anything existing which I could integrate into the project, so I made <em>Bootstrap Theme Editor</em>.</p>
-  <p>If you find the project useful, feel free to fork it and extend it, or even donate to the project with <a href="https://www.gittip.com/ilikeprograms/" title="iLikePrograms on Gittip">Gittip</a> <img src="http://img.shields.io/gittip/ilikeprograms.svg" alt="ilikeprograms Gittip status" /></p>
-  
-  <a href="demo.html" class="btn btn-lg btn-primary" title="BootstrapThemeEditor Demo Page">Try the Demo</a>
+          <img src="{{ site.baseurl }}/assets/logo-new.png" width="323px" height="289px" />
+      </div>
+    </div>
+
+    <p><em>{{ site.title }}</em> is a Live Theme Editor for CSS Framework based on <a href="http://lesscss.org/" title="lesscss Website" target="_blank">Less</a> such as <a href="http://getbootstrap.com/" target="_blank" title="Twitter Bootstrap Website">Twitter Bootstrap</a>, and currently allows Bootstrap Themes to be completely customised <sup>(In the future I will look into adding support other CSS Frameworks).</sup>.</p>
+    <p>The included JS files can be distributed and used in other projects to provide Live editing functionality for Bootstrap. (An example site is also provided). <em>P.S. This website was completely Themed using Cluckles!</em></p>
+    <hr />
+
+    <div class="text-center">
+      <a href="demo.html" class="btn btn-lg btn-primary" title="{{ site.title }}Demo Page">Try the Demo</a>
+      <a href="{{ site.github.url }}/archive/v{{ site.tagversion }}.zip" class="btn btn-lg btn-default" title="{{ site.title }} latest Download">Download Source (zip)</a><br />
+      <small>Current release v{{ site.tagversion }}</small>
+    </div>
+  </div>
 </div>
 
 <div class="container">
