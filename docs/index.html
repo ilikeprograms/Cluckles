@@ -25,12 +25,106 @@ description: 'BoostrapThemeEditor Demo page'
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <!-- Main Content Panel -->
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        Bootstrap Theme Editor
+<!-- Main Body Container -->
+<div class="container-fluid">
+  <div class="row showcase-darker">
+    <div class="col-md-12">
+      <div class="container">
+        <h2>Getting started with {{ site.title }}</h2>
+
+        <p>To get started using {{ site.title }} download the <a href="{{ site.github.url }}/archive/v{{ site.tagversion }}.zip" class="btn btn-primary" title="{{ site.title }} latest Download">latest distribution file</a> or browse the <a href="{{ site.github.url }}/releases" title="{{ site.github.repo }} Releases on Github" target="_blank">Releases</a>
+          Now load up the Example site which is included or start composing your own:
+        </p>
+        
+        <!-- Getting Started Example -->
+        
+        {% highlight html %} 
+            <!DOCTYPE html>
+            <html>
+              <title>Example Cluckles</title>
+
+              // Include the Customised Bootstrap.less file, which includes custom variables
+              // build/less/bootstrap.less
+              <link type="text/css" href="../less/bootstrap.less" rel="stylesheet/less" />
+            </head>
+            <body>
+              // Page Markup and such
+
+              // Include Bootstrap and jQuery which are needed
+              <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+              <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+              // Configure the Less Global Object (Useful for Debugging)
+              <script>
+                less = {
+                    env: "development",
+                    logLevel: 2,
+                    async: false,
+                    fileAsync: false,
+                    poll: 1000,
+                    functions: {},
+                    dumpLineNumbers: "comments",
+                    relativeUrls: false,
+                };
+              </script>
+
+              // Now load Less so we can process it
+              <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
+              
+              // Load our Fancy live editing Script
+              <script src="../cluckles-{{ site.tagversion }}.js"></script>
+              <script>
+                var themeEditor = new ThemeEditor(less, {
+                    export: {
+                        target: '#download-panel-footer', // Fallback/General Target
+                        json: {
+                            target: '#download-panel-footer', // Custom Target
+                            id: 'download-theme-json', // Custom Id
+                            text: 'Download Json' // Custom Text
+                        },
+                        css: {}, // Blank Object provided makes the Css download button appear
+                        save: {
+                            url: "http://localhost:9000/example/",
+                            callback: function() {
+                                alert('Theme modifications have been saved');
+                            }
+                        }
+                    }
+                });
+              </script>
+            </body>
+        {% endhighlight %}
+        
+        <h3>Now Cluckles is loaded!</h3>
+        
+        <p>So we can go ahead and start using it. Cluckles has several API Components which can be used to interact with Bootstrap and change the styling. An example would be changing the body background color.</p>
+        {% highlight html %}
+            // Through a page element
+            <input type="color" onclick="themeEditor.misc.setBodyBackgroundColor(this.value);" />
+        {% endhighlight %}
+
+        {% highlight javascript %}
+            <script>
+              // Or Programmatically (type it in your browser's console/script)
+              themeEditor.misc.setBackgroundColor('#BFFF85');
+
+              // Or manipulate the property manually
+              themeEditor.misc.bodyBg.value = '#BFFF85';
+              themeEditor.applyModifications();
+            </script>
+        {% endhighlight %}
+        
+        <p>Now be amazed as {{ site.title }} restyles the page, and from this point you can get your Changes. If you have provided export options when you called <code>new ThemeEditor(options);</code>, you will have download buttons, if not you can programmatically extract the changes:</p>
+        {% highlight javascript %}
+          <script>
+            // Will give you the JSON of the modified parts
+            // { "@bodyBg": "#BFFF85"}
+            themeEditor.getJSON();
+            
+            // Property which holds the Compiled Css
+            themeEditor.export.compiledCss;
+          </script>
+        {% endhighlight %}
       </div>
       <div class="panel-body">
         {% capture readme_content %}
