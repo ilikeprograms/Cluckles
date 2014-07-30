@@ -1,4 +1,4 @@
-<div class="navbar navbar-inverse">
+<div class="navbar navbar-inverse" id="mainNavigation">
   <!-- Navbar Header -->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavigation">
@@ -13,8 +13,9 @@
   <!-- Navbar Nav -->
   <div class="collapse navbar-collapse" id="mainNavigation">
     <ul class="nav navbar-nav">
-      <li><a href="https://github.com/{{ site.github.username }}/{{ site.github.repo }}" target="_blank" title="{{ site.github.repo }} on Github">Github <sup><i class="fa fa-external-link"></i></sup></a></li>
-      <li><a href="demo.html" title="BootstrapThemeEditor Demo Page">Demo</a></li>
+      <li><a href="demo.html" title="{{ site.title }} Demo Page"><i class="fa fa-rocket"></i> Demo</a></li>
+      <li><a href="https://github.com/{{ site.github.username }}/{{ site.github.repo }}" target="_blank" title="{{ site.github.repo }} on Github"><i class="fa fa-github"></i> Github</a></li>
+      <li><a href="about.html" title="{{ site.title }} About Page"><i class="fa fa-question-circle"></i> About {{ site.title }}</a></li>
     </ul>
   </div> <!-- Navbar Nav -->
 </div>
