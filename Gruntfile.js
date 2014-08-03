@@ -166,7 +166,10 @@ module.exports = function (grunt) {
                         dest: 'docs/assets/js/bsThemeEditor.min.js'
                     },
                     
-                    // Copy the example.css file
+                    // Copy the Example files
+                    {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
+                    {src: "build/example/components.html", dest: 'docs/_includes/components.html'},
+                    {src: "build/example/editor.html", dest: 'docs/_includes/editor.html'},
                     {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
                     
                     // JS lib files
