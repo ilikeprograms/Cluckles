@@ -8,6 +8,13 @@ description: 'BoostrapThemeEditor Demo page'
   <p>Try Customising the current Theme using this example editor. Any feedback is welcome, and dont forget you can use {{ site.title }} in your own projects!</p>
 </div>
 
-{% include controls.html %}
-{% include example-components.html %}
+<!-- Main container -->
+  <div class="container-fluid" id="mainContainer">
+    <div class='row'>
+      {% include components.html %}
+
+      {% include editor.html %}
+    </div>
+  </div> <!-- /Main container -->
+
 {% include bs-theme-editor.html %}
