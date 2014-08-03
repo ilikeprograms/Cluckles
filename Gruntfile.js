@@ -188,59 +188,15 @@ module.exports = function (grunt) {
         
         // Builds the main Example demo pages
         htmlbuild: {
-            build: {
-                // Build the examplesrc/index.html file
-                src: '<%= examplesrc %>/index.html',
-                dest: 'build/example/', // Place the build files in build/example/
+            components: {
+                src: '<%= examplesrc %>/templates/components.html',
+                dest: 'build/example/',
+
                 options: {
                     beautify: true,
-                    
-                    styles: {
-                        example: [
-                            'build/example/example.css'
-                        ]
-                    },
 
                     sections: {
                         templates: {
-                            editor: {
-                                // Color Scheme/Branding Editors
-                                branding: {
-                                    default: '<%= examplesrc %>/templates/editor/branding/default.html',
-                                    primary: '<%= examplesrc %>/templates/editor/branding/primary.html',
-                                    success: '<%= examplesrc %>/templates/editor/branding/success.html',
-                                    info: '<%= examplesrc %>/templates/editor/branding/info.html',
-                                    warning: '<%= examplesrc %>/templates/editor/branding/warning.html',
-                                    danger: '<%= examplesrc %>/templates/editor/branding/danger.html',
-                                },
-                                
-                                // Components editors
-                                components: {
-                                    typography: '<%= examplesrc %>/templates/editor/components/typography.html',
-                                    jumbotron: '<%= examplesrc %>/templates/editor/components/jumbotron.html',
-                                    listgroups: '<%= examplesrc %>/templates/editor/components/listgroup.html',
-                                    dropdowns: '<%= examplesrc %>/templates/editor/components/dropdowns.html',
-                                    tooltips: '<%= examplesrc %>/templates/editor/components/tooltips.html',
-                                    popovers: '<%= examplesrc %>/templates/editor/components/popovers.html',
-                                    thumbnails: '<%= examplesrc %>/templates/editor/components/thumbnails.html',
-                                    badges: '<%= examplesrc %>/templates/editor/components/badges.html',
-                                    carousel: '<%= examplesrc %>/templates/editor/components/carousel.html',
-                                    code: '<%= examplesrc %>/templates/editor/components/code.html',
-                                    blockquote: '<%= examplesrc %>/templates/editor/components/blockquote.html',
-                                    modals: '<%= examplesrc %>/templates/editor/components/modals.html',
-                                    labels: '<%= examplesrc %>/templates/editor/components/labels.html',
-                                    navs: '<%= examplesrc %>/templates/editor/components/navs.html',
-                                    pagination: '<%= examplesrc %>/templates/editor/components/pagination.html',
-                                    form: '<%= examplesrc %>/templates/editor/components/form.html',
-                                    breadcrumbs: '<%= examplesrc %>/templates/editor/components/breadcrumbs.html',
-                                    panels: '<%= examplesrc %>/templates/editor/components/panels.html',
-                                    navbars: '<%= examplesrc %>/templates/editor/components/navbars.html',
-                                    buttons: '<%= examplesrc %>/templates/editor/components/buttons.html',
-                                    misc: '<%= examplesrc %>/templates/editor/components/misc.html',
-                                    tables: '<%= examplesrc %>/templates/editor/components/tables.html',
-                                }
-                            },
-                            
                             // Component Examples
                             components: {
                                 typography: '<%= examplesrc %>/templates/components/typography.html',
@@ -267,12 +223,89 @@ module.exports = function (grunt) {
                                 code: '<%= examplesrc %>/templates/components/code.html',
                                 blockquote: '<%= examplesrc %>/templates/components/blockquote.html',
                                 carousel: '<%= examplesrc %>/templates/components/carousel.html',
+                            }
+                        }
+                    }
+                }
+            },
+            
+            editor: {
+                src: '<%= examplesrc %>/templates/editor.html',
+                dest: 'build/example/',
+
+                options: {
+                    beautify: true,
+
+                    sections: {
+                        templates: {
+                            // Page Elements
+                            page: {
+                                downloadpanel: '<%= examplesrc %>/templates/page/downloadpanel.html',
                             },
+
+                            editor: {
+                                // Color Scheme/Branding Editors
+                                branding: {
+                                    default: '<%= examplesrc %>/templates/editor/branding/default.html',
+                                    primary: '<%= examplesrc %>/templates/editor/branding/primary.html',
+                                    success: '<%= examplesrc %>/templates/editor/branding/success.html',
+                                    info: '<%= examplesrc %>/templates/editor/branding/info.html',
+                                    warning: '<%= examplesrc %>/templates/editor/branding/warning.html',
+                                    danger: '<%= examplesrc %>/templates/editor/branding/danger.html',
+                                },
+
+                                // Components editors
+                                components: {
+                                    typography: '<%= examplesrc %>/templates/editor/components/typography.html',
+                                    jumbotron: '<%= examplesrc %>/templates/editor/components/jumbotron.html',
+                                    listgroups: '<%= examplesrc %>/templates/editor/components/listgroup.html',
+                                    dropdowns: '<%= examplesrc %>/templates/editor/components/dropdowns.html',
+                                    tooltips: '<%= examplesrc %>/templates/editor/components/tooltips.html',
+                                    popovers: '<%= examplesrc %>/templates/editor/components/popovers.html',
+                                    thumbnails: '<%= examplesrc %>/templates/editor/components/thumbnails.html',
+                                    badges: '<%= examplesrc %>/templates/editor/components/badges.html',
+                                    carousel: '<%= examplesrc %>/templates/editor/components/carousel.html',
+                                    code: '<%= examplesrc %>/templates/editor/components/code.html',
+                                    blockquote: '<%= examplesrc %>/templates/editor/components/blockquote.html',
+                                    modals: '<%= examplesrc %>/templates/editor/components/modals.html',
+                                    labels: '<%= examplesrc %>/templates/editor/components/labels.html',
+                                    navs: '<%= examplesrc %>/templates/editor/components/navs.html',
+                                    pagination: '<%= examplesrc %>/templates/editor/components/pagination.html',
+                                    form: '<%= examplesrc %>/templates/editor/components/form.html',
+                                    breadcrumbs: '<%= examplesrc %>/templates/editor/components/breadcrumbs.html',
+                                    panels: '<%= examplesrc %>/templates/editor/components/panels.html',
+                                    navbars: '<%= examplesrc %>/templates/editor/components/navbars.html',
+                                    buttons: '<%= examplesrc %>/templates/editor/components/buttons.html',
+                                    misc: '<%= examplesrc %>/templates/editor/components/misc.html',
+                                    tables: '<%= examplesrc %>/templates/editor/components/tables.html',
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+
+            build: {
+                // Build the examplesrc/index.html file
+                src: '<%= examplesrc %>/index.html',
+                dest: 'build/example/', // Place the build files in build/example/
+                options: {
+                    beautify: true,
+                    
+                    styles: {
+                        example: [
+                            'build/example/example.css'
+                        ]
+                    },
+
+                    sections: {
+                        templates: {
+                            components: 'build/example/components.html',
+                            editor: 'build/example/editor.html',
                             
                             // Page Elements
                             page: {
                                 navigation: '<%= examplesrc %>/templates/page/navigation.html',
-                                downloadpanel: '<%= examplesrc %>/templates/page/downloadpanel.html',
                             }
                         }
                     }
@@ -300,7 +333,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-html-build');
 
     // Register the "default" Task
-	grunt.registerTask("default", ["jshint", "concat", "uglify", "copy", "htmlbuild", "express", "open", "watch"]);
+	grunt.registerTask("default", ["jshint", "concat", "uglify", "copy", "htmlbuild:components", "htmlbuild:editor", "htmlbuild:build", "express", "open", "watch"]);
 
     grunt.registerTask("docs", ["jshint", "concat", "uglify", "copy:docs"]);
 };
