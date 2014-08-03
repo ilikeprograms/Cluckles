@@ -177,14 +177,8 @@ module.exports = function (grunt) {
 					{src: 'bower_components/bootstrap/dist/js/bootstrap.min.js', dest: 'docs/assets/js/lib/bootstrap.min.js'},
                     {src: 'bower_components/less.js/dist/less-1.7.3.min.js', dest: 'docs/assets/js/lib/less.min.js'},
                     
-                    // Bootstrap less files
-					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'docs/assets/less', filter: 'isFile'},
-                    
-                    // Custom Bootstrap variables file
-					{src: 'src/variables-custom.less', dest: 'docs/assets/less/variables-custom.less'},
-
-                    // Copy the Custom Bootstrap.less file which adds the theme.less as an import
-                    {src: "src/bootstrap.less", dest: 'docs/assets/less/bootstrap.less'}
+                    // Build Less Files
+                    {expand: true, src: ['build/less/*'], flatten: true, dest: 'docs/assets/less', filter: 'isFile'},
                 ]
             }
 		},
