@@ -1,10 +1,16 @@
 title: 'Cluckles'
 author: 'Thomas Coleman'
 email: 'tom@ilikeprograms.com'
+gittip:
+  url: 'https://www.gittip.com/ilikeprograms'
+  title: 'iLikePrograms on Gittip'
 github:
   username: 'ilikeprograms'
   repo:     'Cluckles'
   url: 'https://github.com/ilikeprograms/Cluckles'
+
+tagversion: 0.4.0
+licence: 'GPL-3.0+'
 
 baseurl: http://cluckles.com
 source:      docs
