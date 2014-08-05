@@ -182,7 +182,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 ```javascript
 <!-- Load our Fancy live editing ThemeEditor -->
-<script src="../bsThemeEditor-0.2.0.min.js"></script>
+<script src="../bsThemeEditor-0.4.0.js"></script>
 <script>
   var themeEditor = new ThemeEditor(less, {
     theme: {

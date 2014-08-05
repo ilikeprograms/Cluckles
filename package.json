@@ -1,6 +1,6 @@
 {
-  "version": "0.3.4",
   "name": "Cluckles",
+  "version": "0.4.0",
   "description": "Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
