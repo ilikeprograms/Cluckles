@@ -12,9 +12,9 @@ module.exports = function (grunt) {
                 separator: grunt.util.linefeed + grunt.util.linefeed,
                 banner: '/**\n' +
                         ' * <%= pkg.name %> <%= pkg.version %>:' +
-                        ' Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.\n' +
+                        ' Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap.\n' +
                         ' * Copyrite <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-                        ' * Licence: <%= pkg.licence %>\n' +
+                        ' * License: <%= pkg.license %>\n' +
                         ' */\n'
             },
             
