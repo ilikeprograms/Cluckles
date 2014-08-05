@@ -172,6 +172,9 @@ module.exports = function (grunt) {
                     {src: "build/example/editor.html", dest: 'docs/_includes/editor.html'},
                     {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
                     
+                    // Font files
+                    { src: "build/fonts/*", dest: 'docs/fonts', expand: true, flatten: true },
+                    
                     // JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'docs/assets/js/lib'},
 					{src: 'bower_components/bootstrap/dist/js/bootstrap.min.js', dest: 'docs/assets/js/lib/bootstrap.min.js'},
