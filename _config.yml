@@ -1,11 +1,12 @@
-title: 'Bootstrap Theme Editor'
+title: 'Cluckles'
 author: 'Thomas Coleman'
 email: 'tom@ilikeprograms.com'
 github:
   username: 'ilikeprograms'
-  repo:     'BootstrapThemeEditor'
+  repo:     'Cluckles'
+  url: 'https://github.com/ilikeprograms/Cluckles'
 
-baseurl: http://demo.ilikeprograms.com
+baseurl: http://cluckles.com
 source:      docs
 destination: _gh_pages
 include:     ['.htaccess']
