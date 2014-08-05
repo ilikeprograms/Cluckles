@@ -1,11 +1,11 @@
-Bootstrap Theme Editor
+Cluckles
 =====================
 
-Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
+Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap.
 There is an example page provided (`build/example/index.html`) which makes it easy to see it in action!
 
 There is also a Live demo which can be found at:
-`http://demo.ilikeprograms.com`
+`http://cluckles.com`
 
 The example demo page has a User Interface which has panels where you can change the different parts
 of bootstrap by using color pickers to change the styling. Simple and Easy.
@@ -14,7 +14,7 @@ The included files can be distributed and used in other projects to provide live
 
 ## Quick Start
 
-- Download the Project by either `cloning` or `forking`. (Then CD into BootstrapThemeEditor)
+- Download the Project by either `cloning` or `forking`. (Then CD into Cluckles)
 - Install dependencies by running `npm install` and `bower install`
 - Run `Grunt` to build the files and open the example demo page in the browser
 - Take a look at the demo!
@@ -61,8 +61,8 @@ To begin, download the repository from Git either by using the *Clone in Desktop
 ### Downloading
 
 ```shell
-git clone https://github.com/ilikeprograms/BootstrapThemeEditor
-cd BootstrapThemeEditor
+git clone https://github.com/ilikeprograms/Cluckles
+cd Cluckles
 ```
 
 ### Installing the Dependencies
