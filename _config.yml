@@ -12,6 +12,9 @@ github:
 tagversion: 0.4.0
 licence: 'GPL-3.0+'
 
+analytics:
+  trackingId: 'UA-24379431-3'
+
 baseurl: http://cluckles.com
 source:      docs
 destination: _gh_pages
