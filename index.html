@@ -4,12 +4,22 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Theme Editor</title>
+    <title>Live Theme Editor compatible with Bootstrap | Cluckles</title>
     
-    <meta name="description" content="BoostrapThemeEditor Demo page" />
+    <meta name="description" content="Cluckles Live Theme Editor compatible with Bootstrap. Open source and embeddable." />
     
     <meta name="author" content="Thomas Coleman <tom@ilikeprograms.com>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -17,17 +27,19 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <link type="text/css" href="/assets/css/syntax.css" rel="stylesheet" />
+    <link type="text/css" href="/assets/css/theme.css" rel="stylesheet" />
+    <link type="text/css" href="/assets/css/style.css" rel="stylesheet" />
     
-    <link type="text/css" href="http://demo.ilikeprograms.com/assets/css/style.css" rel="stylesheet" />
-    <link type="text/css" href="http://demo.ilikeprograms.com/assets/less/bootstrap.less" rel="stylesheet/less" />
-    <link type="text/css" href="http://demo.ilikeprograms.com/assets/css/example.css" rel="stylesheet" />
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="http://demo.ilikeprograms.com/assets/js/lib/jquery.min.js"><\/script>');</script>
+<script>window.jQuery || document.write('<script src="/assets/js/lib/jquery.min.js"><\/script>');</script>
 
 <!-- Load JS Libs which are required -->
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script>typeof $.fn.modal !== 'undefined' || document.write('<script src="http://demo.ilikeprograms.com/assets/js/lib/bootstrap.min.js"><\/script>');</script>
+<script>typeof $.fn.modal !== 'undefined' || document.write('<script src="/assets/js/lib/bootstrap.min.js"><\/script>');</script>
     <!-- Initialise Less with some default options, so we can start to live edit -->
 <script>
   less = {
@@ -44,10 +56,10 @@
 
 <!-- Load Less from the CDN -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js"></script>
-<script>less.hasOwnProperty('Parser') || document.write('<script src="http://demo.ilikeprograms.com/assets/js/lib/less.min.js"><\/script>');</script>    
+<script>less.hasOwnProperty('Parser') || document.write('<script src="/assets/js/lib/less.min.js"><\/script>');</script>
   </head>
   <body role="document">
-    <div class="navbar navbar-inverse">
+    <div class="navbar navbar-inverse" id="mainNavigation">
   <!-- Navbar Header -->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNavigation">
@@ -56,145 +68,184 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="index.html">Bootstrap Theme Editor</a>
+    <a class="navbar-brand" href="index.html" title="BootstrapThemeEditor Homepage">Cluckles</a>
   </div> <!-- Navbar Header -->
 
   <!-- Navbar Nav -->
   <div class="collapse navbar-collapse" id="mainNavigation">
     <ul class="nav navbar-nav">
-      <li><a href="https://github.com/ilikeprograms/BootstrapThemeEditor" target="_blank" title="BootstrapThemeEditor on Github">Github <sup><i class="fa fa-external-link"></i></sup></a></li>
-      <li><a href="demo.html">Demo</a></li>
+      <li><a href="demo.html" title="Cluckles Demo Page"><i class="fa fa-rocket"></i> Demo</a></li>
+      <li><a href="https://github.com/ilikeprograms/Cluckles" target="_blank" title="Cluckles on Github"><i class="fa fa-github"></i> Github</a></li>
+      <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About Cluckles</a></li>
     </ul>
   </div> <!-- Navbar Nav -->
-</div>    
-
-    <!-- Main container -->
-    <div class="container-fluid" id="mainContainer">
-      <div class='row'>
-        <div class="jumbotron">
-  <h1>BootstrapThemeEditor</h1>
-  <p>Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily. There is an example page provided (build/example/index.html) which makes it easy to see it in action!</p>
-
-  <p>The example deme page has a User Interface which has panels where you can change the different parts of bootstrap by using color pickers to change the styling. Simple and Easy.</p>
-
-  <p>The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.</p>
-  <hr />
-  <p>I made this tool because I needed a way to Live edit Bootstrap in <a href="https://github.com/ilikeprograms/corvus">Corvus</a>. I couldnt find anything existing which I could integrate into the project, so I made BootstrapThemeEditor.</p>
-  <p>If you find the project usefull, feel free to fork it and extend it, or even dontate to the project with <a href="https://www.gittip.com/ilikeprograms/">Gittip</a> <img src="http://img.shields.io/gittip/ilikeprograms.svg" alt="ilikeprograms Gittip status" /></p>
 </div>
 
-<div class="container">
-  <div class="row">
-    <!-- Main Content Panel -->
-    <div class="panel panel-info">
-      <div class="panel-heading">
-        Bootstrap Theme Editor
+    <!-- Main container -->
+        <div class="jumbotron seamless-jumbotron">
+  <div class="container">
+    <div style="text-align: center;">
+      <div style="display: inline-block">
+        <h1>Cluckles</h1>
+
+          <img src="/assets/logo-new.png" width="323" height="289" alt="Cluckles logo" />
       </div>
-      <div class="panel-body">
+    </div>
+
+    <p><em>Cluckles</em> is a Live Theme Editor for CSS Framework based on <a href="http://lesscss.org/" title="lesscss Website" target="_blank">Less</a> such as <a href="http://getbootstrap.com/" target="_blank" title="Twitter Bootstrap Website">Twitter Bootstrap</a>, and currently allows Bootstrap Themes to be completely customised <sup>(In the future I will look into adding support other CSS Frameworks).</sup>.</p>
+    <p>The included JS files can be distributed and used in other projects to provide Live editing functionality for Bootstrap. (An example site is also provided). <em>P.S. This website was completely Themed using Cluckles!</em></p>
+    <hr />
+
+    <div class="text-center">
+      <a href="demo.html" class="btn btn-lg btn-primary" title="ClucklesDemo Page">Try the Demo</a>
+      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.4.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a><br />
+      <small>Current release v0.4.0</small>
+    </div>
+  </div>
+</div>
+
+<!-- Main Body Container -->
+<div class="container-fluid">
+  <div class="row showcase-darker">
+    <div class="col-md-12">
+      <div class="container">
+        <h2>Getting started with Cluckles</h2>
+
+        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.4.0.zip" class="btn btn-primary" title="Cluckles latest Download">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
+          Now load up the Example site which is included or start composing your own:
+        </p>
         
+        <!-- Getting Started Example -->
         
-<p>Bootstrap Theme Editor allows live modification of Bootstrap themes so that you can customise them easily.
-There is an example page provided (<code>build/example/index.html</code>) which makes it easy to see it in action!</p>
+        <div class="highlight"><pre><code class="html"> 
+            <span class="cp">&lt;!DOCTYPE html&gt;</span>
+            <span class="nt">&lt;html&gt;</span>
+              <span class="nt">&lt;title&gt;</span>Example Cluckles<span class="nt">&lt;/title&gt;</span>
 
-<p>There is also a Live demo which can be found at:
-<code>http://demo.ilikeprograms.com</code></p>
+              // Include the Customised Bootstrap.less file, which includes custom variables
+              // build/less/bootstrap.less
+              <span class="nt">&lt;link</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;../less/bootstrap.less&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet/less&quot;</span> <span class="nt">/&gt;</span>
+            <span class="nt">&lt;/head&gt;</span>
+            <span class="nt">&lt;body&gt;</span>
+              // Page Markup and such
 
-<p>The example demo page has a User Interface which has panels where you can change the different parts
-of bootstrap by using color pickers to change the styling. Simple and Easy.</p>
+              // Include Bootstrap and jQuery which are needed
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
 
-<p>The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.</p>
+              // Configure the Less Global Object (Useful for Debugging)
+              <span class="nt">&lt;script&gt;</span>
+                <span class="nx">less</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="nx">env</span><span class="o">:</span> <span class="s2">&quot;development&quot;</span><span class="p">,</span>
+                    <span class="nx">logLevel</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+                    <span class="nx">async</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">fileAsync</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                    <span class="nx">poll</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
+                    <span class="nx">functions</span><span class="o">:</span> <span class="p">{},</span>
+                    <span class="nx">dumpLineNumbers</span><span class="o">:</span> <span class="s2">&quot;comments&quot;</span><span class="p">,</span>
+                    <span class="nx">relativeUrls</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="p">};</span>
+              <span class="nt">&lt;/script&gt;</span>
 
-<h2 id="quick-start">Quick Start</h2>
+              // Now load Less so we can process it
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+              
+              // Load our Fancy live editing Script
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.4.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+              <span class="nt">&lt;script&gt;</span>
+                <span class="kd">var</span> <span class="nx">themeEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ThemeEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
+                    <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Fallback/General Target</span>
+                        <span class="nx">json</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Custom Target</span>
+                            <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;download-theme-json&#39;</span><span class="p">,</span> <span class="c1">// Custom Id</span>
+                            <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Download Json&#39;</span> <span class="c1">// Custom Text</span>
+                        <span class="p">},</span>
+                        <span class="nx">css</span><span class="o">:</span> <span class="p">{},</span> <span class="c1">// Blank Object provided makes the Css download button appear</span>
+                        <span class="nx">save</span><span class="o">:</span> <span class="p">{</span>
+                            <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://localhost:9000/example/&quot;</span><span class="p">,</span>
+                            <span class="nx">callback</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+                                <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Theme modifications have been saved&#39;</span><span class="p">);</span>
+                            <span class="p">}</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">});</span>
+              <span class="nt">&lt;/script&gt;</span>
+            <span class="nt">&lt;/body&gt;</span>
+        
+</code></pre></div>
+        
+        <h3>Now Cluckles is loaded!</h3>
+        
+        <p>So we can go ahead and start using it. Cluckles has several API Components which can be used to interact with Bootstrap and change the styling. An example would be changing the body background color.</p>
+        <div class="highlight"><pre><code class="html">            // Through a page element
+            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;color&quot;</span> <span class="na">onclick=</span><span class="s">&quot;themeEditor.misc.setBodyBackgroundColor(this.value);&quot;</span> <span class="nt">/&gt;</span>
+        
+</code></pre></div>
 
-<ul>
-  <li>Download the Project by either <code>cloning</code> or <code>forking</code>. (Then CD into BootstrapThemeEditor)</li>
-  <li>Install dependencies by running <code>npm install</code> and <code>bower install</code></li>
-  <li>Run <code>Grunt</code> to build the files and open the example demo page in the browser</li>
-  <li>Take a look at the demo!</li>
-</ul>
+        <div class="highlight"><pre><code class="javascript">            <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+              <span class="c1">// Or Programmatically (type it in your browser&#39;s console/script)</span>
+              <span class="nx">themeEditor</span><span class="p">.</span><span class="nx">misc</span><span class="p">.</span><span class="nx">setBackgroundColor</span><span class="p">(</span><span class="s1">&#39;#BFFF85&#39;</span><span class="p">);</span>
 
-<h2 id="what-is-supported">What is Supported?</h2>
+              <span class="c1">// Or manipulate the property manually</span>
+              <span class="nx">themeEditor</span><span class="p">.</span><span class="nx">misc</span><span class="p">.</span><span class="nx">bodyBg</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;#BFFF85&#39;</span><span class="p">;</span>
+              <span class="nx">themeEditor</span><span class="p">.</span><span class="nx">applyModifications</span><span class="p">();</span>
+            <span class="o">&lt;</span><span class="err">/script&gt;</span>
+        
+</code></pre></div>
+        
+        <p>Now be amazed as Cluckles restyles the page, and from this point you can get your Changes. If you have provided export options when you called <code>new ThemeEditor(options);</code>, you will have download buttons, if not you can programmatically extract the changes:</p>
+        <div class="highlight"><pre><code class="javascript">          <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+            <span class="c1">// Will give you the JSON of the modified parts</span>
+            <span class="c1">// { &quot;@bodyBg&quot;: &quot;#BFFF85&quot;}</span>
+            <span class="nx">themeEditor</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">();</span>
+            
+            <span class="c1">// Property which holds the Compiled Css</span>
+            <span class="nx">themeEditor</span><span class="p">.</span><span class="kr">export</span><span class="p">.</span><span class="nx">compiledCss</span><span class="p">;</span>
+          <span class="o">&lt;</span><span class="err">/script&gt;</span>
+        
+</code></pre></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row showcase-lighter">
+    <div class="col-md-12">
+      <div class="container">
+        <h2>Started using Cluckles?</h2>
+        <p>We would love to hear from you, we might even feature you, or put your nice words up as a testimonial!</p>
 
-<p>At the moment, the following Components can be styled directly:</p>
+          <div class="row">
+            <div class="col-xs-6 col-md-4">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">
+              </a>
+            </div>
 
-<ul>
-  <li>[x] Base Styles</li>
-  <li>[x] Dropdowns</li>
-  <li>[ ] Inputs/Forms</li>
-  <li>[x] Links/Nav</li>
-  <li>[x] Navbars</li>
-  <li>[x] Breadcrumbs</li>
-  <li>[ ] Pagination</li>
-  <li>[ ] Labels</li>
-  <li>[ ] Badges</li>
-  <li>[x] Jumbotron</li>
-  <li>[x] Page Header</li>
-  <li>[ ] Thumbnails</li>
-  <li>[x] Alerts</li>
-  <li>[x] Progress Bars</li>
-  <li>[x] List Groups</li>
-  <li>[x] Panels</li>
-  <li>[x] Wells</li>
-  <li>[x] Headings</li>
-  <li>[x] Body Text Color/Background</li>
-</ul>
+            <div class="col-xs-6 col-md-4">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">
+              </a>
+            </div>
 
-<h2 id="getting-started">Getting started</h2>
+            <div class="col-xs-6 col-md-4">
+              <a href="#" class="thumbnail">
+                <img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">
+              </a>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
+</div> <!-- /Main Body Container -->
 
-<p>To begin, download the repository from Git either by using the <em>Clone in Desktop</em> button, or download from Github:</p>
-
-<h3 id="downloading">Downloading</h3>
-
-<p><code>shell
-git clone https://github.com/ilikeprograms/BootstrapThemeEditor
-cd BootstrapThemeEditor
-</code></p>
-
-<h3 id="installing-the-dependencies">Installing the Dependencies</h3>
-
-<p>Now you can start to install the dependencies. <code>Grunt</code> is used for build the JS files, and <code>Bower</code> for the JS files it depends on.
-This means that <code>Node.js</code> and <code>NPM</code> needs to be installed on your system. To get Grunt/Bower to work, run the following commands</p>
-
-<p><code>shell
-npm install
-bower install
-</code></p>
-
-<h3 id="build-files">Build Files</h3>
-
-<p>There should be a <em>build</em> directory which contains the <code>bsThemeEditor-x.x.x.js</code> file which is the main distribution file.
-This can be taken out from the project and will provide the live editing functionality.
-It does however rely on the files in <code>build/js/lib</code> and <code>build/less</code>. The <code>build/js/lib</code> files however could be replaced with newer versions and should work ok.
-If you have a dependency on a specific version of <code>jquery</code> for instance, just replace the file.</p>
-
-<h3 id="changing-the-build">Changing the Build</h3>
-
-<p>The files in <code>src</code> and <code>bower_components</code> directories are used in the Build process to create the files in the <code>build</code> directory.
-If you change the source files in the <code>src</code> directory, you will need to rebuild. <code>Grunt</code> is used for the build.</p>
-
-<p>To build the project files just run the <code>grunt</code> command from the main directory. This will then make grunt run the default task which will build the files.</p>
-
-<p>It will also automatically host a localhost server at http://localhost:9000/example which will host <code>the build/example/index.html</code> page
-and open a tab in the browser at the address. It will also watch for changes to the source file and automatically rebuild for you,
-if any changes are made.</p>
-
-<h3 id="changingviewing-docs-files">Changing/Viewing Docs Files</h3>
-
-<p>The docs are powered by <code>jekyll</code> and <code>Github pages</code>. When the project is build, the dist files are copied to the docs folder, that the build files can be used in the Live demo.  </p>
-
-<p>To preview the Live demo to test them, run the following command from the command line:
-<code>
-jekyll --serve --base-url=
-</code></p>
-
-<p>Then go to the browser and go to the url:<br />
-<code>http://localhost:4000</code></p>
-
-<h2 id="theme-editor-options">Theme Editor Options</h2>
-
-<p>There are options that can be provided when a ThemeEditor instance is created and are as follows:</p>
-
-<h2 id="theme-editor-options-1">Theme Editor Options</h2>
+<div class="container-fluid">
+  <div class="row showcase-darker">
+    <div class="col-md-12">
+      <div class="container">
+        
+        <h2 id="theme-editor-options">Theme Editor Options</h2>
 
 <p>There are options that can be provided when a ThemeEditor instance is created and are as follows:</p>
 
@@ -202,192 +253,271 @@ jekyll --serve --base-url=
 
 <p>Miscellaneous Options</p>
 
-<table class="table table-bordered table-striped default">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th style="text-align: center">Type</th>
-      <th>Default</th>
-      <th>Desc</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>delay</td>
-      <td style="text-align: center"><code>number</code></td>
-      <td>750 (milliseconds)</td>
-      <td>Milliseconds delay between refresh updates</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center">Type</th>
+<th>Default</th>
+<th>Desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>delay</td>
+<td style="text-align: center"><code>number</code></td>
+<td>750 (milliseconds)</td>
+<td>Milliseconds delay between refresh updates</td>
+</tr>
+</tbody></table>
 
 <h3 id="theme">Theme</h3>
 
 <p>Location to find the theme file to start editing (If editing existing theme).</p>
 
-<table class="table table-bordered table-striped default">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th style="text-align: center">Type</th>
-      <th>Default</th>
-      <th>Desc</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>url</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td> </td>
-      <td>URL to locate the theme file</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center">Type</th>
+<th>Default</th>
+<th>Desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>url</td>
+<td style="text-align: center"><code>string</code></td>
+<td></td>
+<td>URL to locate the theme file</td>
+</tr>
+</tbody></table>
 
-<h3 id="download">Download</h3>
+<h3 id="export">Export</h3>
 
-<p>The download link provided the ability to download the theme changes as a json file.<br />
-The DOM node to append the download link, the id and the text of the link can be customised.</p>
+<p>An export object can be provided to control the exporting options.</p>
 
-<table class="table table-bordered table-striped default">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th style="text-align: center">Type</th>
-      <th>Default</th>
-      <th>Desc</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>append</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td>body</td>
-      <td>Query selector of DOM element to append download link</td>
-    </tr>
-    <tr>
-      <td>id</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td>download_theme_link</td>
-      <td>ID attribute to set on the download link</td>
-    </tr>
-    <tr>
-      <td>text</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td>Download Theme</td>
-      <td>Text content for the download link</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center">Type</th>
+<th>Default</th>
+<th>Desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>target</td>
+<td style="text-align: center"><code>string</code></td>
+<td>&#39;body&#39;</td>
+<td>Optional General DOM Element target, to append Export links to</td>
+</tr>
+</tbody></table>
 
-<h3 id="save">Save</h3>
+<h3 id="export-json">Export Json</h3>
 
-<p>The save link provided the ability to send the theme changes to an URL.<br />
-The DOM node to append the save link, the id and the text of the link can be customised.  </p>
+<p>The export.json object can be provided to configure the options for Downloading the theme modifications in JSON format.<br>
+The DOM node to append the export as json link, the id and the text of the link can be customised.</p>
 
-<p>The url and method can be provided to alter the HTTP method and the location the changes are send. </p>
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center">Type</th>
+<th>Default</th>
+<th>Desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>target</td>
+<td style="text-align: center"><code>string</code></td>
+<td>export.target</td>
+<td>DOM Element target to append json Export link</td>
+</tr>
+<tr>
+<td>id</td>
+<td style="text-align: center"><code>string</code></td>
+<td>&#39;download_json_link&#39;</td>
+<td>ID attribute to set on the json Export link</td>
+</tr>
+<tr>
+<td>text</td>
+<td style="text-align: center"><code>string</code></td>
+<td>&#39;Download Json&#39;</td>
+<td>Text content for the json Export link</td>
+</tr>
+</tbody></table>
+
+<h3 id="export-css">Export Css</h3>
+
+<p>The export.css object can be provided to configure the options for Downloading the Compiled Theme in Css format. See <code>ThemeEditor#setupPostProcessor</code><br>
+The DOM node to append the export as css link, the id and the text of the link can be customised.</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center">Type</th>
+<th>Default</th>
+<th>Desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>target</td>
+<td style="text-align: center"><code>string</code></td>
+<td>export.target</td>
+<td>DOM Element target to append css Export link</td>
+</tr>
+<tr>
+<td>id</td>
+<td style="text-align: center"><code>string</code></td>
+<td>&#39;download_css_link&#39;</td>
+<td>ID attribute to set on the css Export link</td>
+</tr>
+<tr>
+<td>text</td>
+<td style="text-align: center"><code>string</code></td>
+<td>&#39;Download Css&#39;</td>
+<td>Text content for the css Export link</td>
+</tr>
+</tbody></table>
+
+<h4 id="export-save">Export Save</h4>
+
+<p>The export.save object can be provided to configure the options for Saving the theme
+modifications (as JSON) to an external URL.</p>
+
+<p>The DOM node to append the save link, the id and the text of the link can be customised.  </p>
+
+<p>The url and method can be provided to alter the HTTP method and the location the changes are send.  </p>
 
 <p>An optional success callback can also be provided to fire when the changes have been successfully received by the remote URL.</p>
 
-<table class="table table-bordered table-striped default">
-  <thead>
-    <tr>
-      <th>Field</th>
-      <th style="text-align: center">Type</th>
-      <th>Default</th>
-      <th>Desc</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>append</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td>body</td>
-      <td>Query selector of DOM element to append save link</td>
-    </tr>
-    <tr>
-      <td>url (required)</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td> </td>
-      <td>URL to send the modified theme changes</td>
-    </tr>
-    <tr>
-      <td>method</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td><code>POST</code></td>
-      <td>HTTP method for the save request</td>
-    </tr>
-    <tr>
-      <td>callback</td>
-      <td style="text-align: center"><code>function</code></td>
-      <td> </td>
-      <td>Optional success save callback</td>
-    </tr>
-    <tr>
-      <td>id</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td>save_theme_link</td>
-      <td>ID attribute to set on the download link</td>
-    </tr>
-    <tr>
-      <td>text</td>
-      <td style="text-align: center"><code>string</code></td>
-      <td>Save Theme</td>
-      <td>Text content for the download link</td>
-    </tr>
-  </tbody>
-</table>
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center">Type</th>
+<th>Default</th>
+<th>Desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>format</td>
+<td style="text-align: center"><code>Array</code></td>
+<td><code>json</code></td>
+<td>The formats to include in the export</td>
+</tr>
+<tr>
+<td>target</td>
+<td style="text-align: center"><code>string</code></td>
+<td>export.target</td>
+<td>DOM Element target to append save Export link</td>
+</tr>
+<tr>
+<td>url (required)</td>
+<td style="text-align: center"><code>string</code></td>
+<td></td>
+<td>URL to send the modified theme changes</td>
+</tr>
+<tr>
+<td>method</td>
+<td style="text-align: center"><code>string</code></td>
+<td><code>POST</code></td>
+<td>HTTP method for the save request</td>
+</tr>
+<tr>
+<td>callback</td>
+<td style="text-align: center"><code>function</code></td>
+<td></td>
+<td>Optional success save callback</td>
+</tr>
+<tr>
+<td>id</td>
+<td style="text-align: center"><code>string</code></td>
+<td>&#39;save_theme_link&#39;</td>
+<td>ID attribute to set on the save Export link</td>
+</tr>
+<tr>
+<td>text</td>
+<td style="text-align: center"><code>string</code></td>
+<td>&#39;Save Theme&#39;</td>
+<td>Text content for the save Export link</td>
+</tr>
+</tbody></table>
 
 <h4 id="example">Example</h4>
-
-<p><code>
-&lt;!-- Load our Fancy live editing ThemeEditor --&gt;
-&lt;script src="../bsThemeEditor-0.2.0.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-  var themeEditor = new ThemeEditor(less, {
-    delay: 2000,
-    theme: {
-      src: 'theme.json'
-    },
-    download: {
-      append: '#download-panel-footer'
-    },
-    save: {
-      append: '#download-panel-footer',
-      url: "http://localhost:9000/example/",
-      callback: function () {
-        alert('Theme modifications have been saved');
-      }
-    }
-  });
-&lt;/script&gt;
-</code></p>
-
+<div class="highlight"><pre><code class="javascript"><span class="c">&lt;!--</span> <span class="nx">Load</span> <span class="nx">our</span> <span class="nx">Fancy</span> <span class="nx">live</span> <span class="nx">editing</span> <span class="nx">ThemeEditor</span> <span class="o">--&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;../bsThemeEditor-0.3.4.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+  <span class="kd">var</span> <span class="nx">themeEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ThemeEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;theme.json&#39;</span>
+    <span class="p">},</span>
+    <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span>   <span class="c1">// Fallback/General Target</span>
+      <span class="nx">json</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Custom Target</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;download-theme-json&#39;</span><span class="p">,</span>        <span class="c1">// Custom Id</span>
+        <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Download Json&#39;</span>             <span class="c1">// Custom Text</span>
+      <span class="p">},</span>
+      <span class="nx">css</span><span class="o">:</span> <span class="p">{},</span> <span class="c1">// Blank Object provided makes the Css download button appear</span>
+      <span class="nx">save</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://localhost:9000/example/&quot;</span><span class="p">,</span>
+        <span class="nx">callback</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+          <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Theme modifications have been saved&#39;</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</code></pre></div>
 <h2 id="contributing">Contributing</h2>
 
 <p>I will happily accept contributions in any form, even if its just suggestions and I will have to work on them! Feel free to fork and submit a pull request.</p>
 
+<h2 id="licence">Licence</h2>
+
+<p>This project is licenced under the GPL-3.0+ Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.</p></p>
 
       </div>
-    </div> <!-- Main Content Panel End -->
+    </div>
   </div>
 </div>
-      </div>
-    </div> <!-- Main container -->
 
-    <footer id="pageFooter">
-      <div class="container">
-        <div class="row">
-          <p>This project is licenced under the GPLv3 Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.</p>
-          <p>Demo site powered by <a href="https://github.com/mojombo/jekyll">jekyll</a>. Hosted by <a href="https://github.com">Github <3</a></p>
-        </div>
-      </div>
-    </footer>
+<script>
+  $(function () {
+    [].slice.call(document.querySelectorAll('table')).forEach(function (table) {
+      table.classList.add('table');
+      table.classList.add('table-striped');
+      table.classList.add('table-bordered');
+    });
+  });
+</script>
+
+
+    <hr />
+
+<footer class="container text-center">
+  <p>Project Created and Maintained by <a href="http://ilikeprograms.com" title="ilikeprograms Website" target="_blank">ilikeprograms</a> (Thomas Coleman)</p>
+  <ul class="nav-justified">
+    <li><a href="https://github.com/ilikeprograms/Cluckles" title="Cluckles on Github" target="_blank">Github</a></li>
+    <li><a href="https://github.com/ilikeprograms/Cluckles/issues" title="Cluckles Issues on Github" target="_blank">Issues</a></li>
+    <li><a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a></li>
+  </ul>
+  <p>Licenced under GPL-3.0+.</p>
+</footer>
+
+    <script src="/assets/js/common.js"></script>
     
     
       <a href="http://github.com/ilikeprograms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" /></a>
     
 
+    
+      <!-- Google Universal Analytics -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-24379431-3', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- /Google Universal Analytics -->
     
   </body>
 </html>
