@@ -17,6 +17,9 @@
 	 * @property {object} headingsFontWeight The @headings-font-weight variable which controls the Headings Font Weight of the Typography component.
 	 * @property {object} headingsLineHeight The @headings-line-height variable which controls the Headings Line Height of the Typography component.
 	 * @property {object} headingsColor The @headings-color variable which controls the Headings Color of the Typography component.
+	 * @property {object} headingsSmallColor The @headings-small-color variable which controls the Headings Small Color of the Typography component.
+     * @property {string} textMuted The @text-muted variable which sets the text muted color.
+     * @property {string} abbrBorderColor The @abbr-border-color variable which sets the Abbreviations and acronyms border color.
 	 * 
 	 * @returns {Typography}
 	 */
@@ -56,6 +59,18 @@
 			variable: '@headings-color',
 			value: null
 		};
+        this.headingsSmallColor = {
+            variable: '@headings-small-color',
+            value: null
+        };
+        this.textMutedColor = {
+            variable: '@text-muted',
+            value: null
+        };
+        this.abbrBorderColor = {
+            variable: '@abbr-border-color',
+            value: null
+        };
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -66,7 +81,10 @@
             headingsFontFamily:     this.headingsFontFamily,
             headingsFontWeight:     this.headingsFontWeight,
             headingsLineHeight:     this.headingsLineHeight,
-            headingsColor:          this.headingsColor
+            headingsColor:          this.headingsColor,
+            headingsSmallColor:     this.headingsSmallColor,
+            textMutedColor:         this.textMutedColor,
+            abbrBorderColor:        this.abbrBorderColor
         };
 	};
 	
@@ -239,6 +257,69 @@
      */
     Typography.prototype.setHeadingsColor = function (headingsColor) {
         this.modifiers.headingsColor.value = headingsColor;
+        this.editor.queueModifications();
+    };
+
+    /**
+     * Gets the Headings Small Color of the Typography Component.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.getHeadingsSmallColor = function () {
+        return this.modifiers.headingsSmallColor.value;
+    };
+
+    /**
+     * Sets the Headings Small Color of the Typography Component.
+     * 
+     * @param {string} headingsSmallColor Sets the Typography Headings Small Color.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setHeadingsSmallColor = function (headingsSmallColor) {
+        this.modifiers.headingsSmallColor.value = headingsSmallColor;
+        this.editor.queueModifications();
+    };
+
+    /**
+     * Gets the Text Muted color of the Typography Component.
+     * 
+     * @returns {String}
+     */
+    Typography.prototype.getTextMutedColor = function () {
+        return this.modifiers.textMutedColor.value;
+    };
+
+    /**
+     * Sets the Text Muted color of the Typography Component.
+     * 
+     * @param {string} color Sets the Typography Text Muted Color.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setTextMutedColor = function (textMutedColor) {
+        this.modifiers.textMutedColor.value = textMutedColor;
+        this.editor.queueModifications();
+    };
+
+    /**
+     * Gets the Abbr Border Color of the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getAbbrBorderColor = function () {
+        return this.modifiers.abbrBorderColor.value;
+    };
+
+    /**
+     * Sets the Abbr Border Color of the Typography Component.
+     * 
+     * @param {string} abbrBorderColor Sets the Typography Abbr Border Color.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setAbbrBorderColor = function (abbrBorderColor) {
+        this.modifiers.abbrBorderColor.value = abbrBorderColor;
         this.editor.queueModifications();
     };
 
