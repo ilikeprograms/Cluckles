@@ -461,7 +461,7 @@ h6 .small,
 .h6 .small {
   font-weight: normal;
   line-height: 1;
-  color: #999999;
+  color: #aa6239;
 }
 /* line 24, http://localhost:9000/less/type.less */
 h1,
@@ -674,7 +674,7 @@ a.bg-danger:hover {
 .page-header {
   padding-bottom: 9px;
   margin: 40px 0 20px;
-  border-bottom: 1px solid #eeeeee;
+  border-bottom: 1px solid #551f00;
 }
 /* line 147, http://localhost:9000/less/type.less */
 ul,
