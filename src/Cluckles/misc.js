@@ -13,6 +13,7 @@
      * @property {string} wellBg The @well-base-bg variable which sets the background color of the Well Component.
      * @property {string} bodyBg The @body-bg variable which sets the body background color.
      * @property {string} textColor The @text-color variable which sets the body text color.
+     * @property {string} pageHeaderBorderColor The @page-header-border-color variable which sets the Page Header Border Color.
      * @property {string} linkColor The @link-color variable which sets the link color.
      * @property {string} linkHoverColor The @link-hover-color variable which sets the link hover color.
      * @property {string} hrBorder The @hr-border variable which sets the color of the <hr> tag.
@@ -40,6 +41,10 @@
             variable: '@text-color',
             value: null
         };
+        this.pageHeaderBorderColor = {
+            variable: '@page-header-border-color',
+            value: null
+        };
         this.linkColor = {
             variable: '@link-color',
             value: null
@@ -59,14 +64,15 @@
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
-            componentBaseBg:    this.componentBaseBg,
-            wellBg:             this.wellBg,
-            bodyBg:             this.bodyBg,
-            textColor:          this.textColor,
-            linkColor:          this.linkColor,
-            linkHoverColor:     this.linkHoverColor,
-            hrBorder:           this.hrBorder,
-            borderRadiusBase:   this.borderRadiusBase
+            componentBaseBg:        this.componentBaseBg,
+            wellBg:                 this.wellBg,
+            bodyBg:                 this.bodyBg,
+            textColor:              this.textColor,
+            pageHeaderBorderColor:  this.pageHeaderBorderColor,
+            linkColor:              this.linkColor,
+            linkHoverColor:         this.linkHoverColor,
+            hrBorder:               this.hrBorder,
+            borderRadiusBase:       this.borderRadiusBase
         };
     };
 
@@ -155,6 +161,27 @@
      */
     Misc.prototype.setTextColor = function (color) {
         this.modifiers.textColor.value = color;
+        this.editor.queueModifications();
+    };
+
+    /**
+     * Gets the Page Header Border Color.
+     * 
+     * @returns {string}
+     */
+    Misc.prototype.getPageHeaderColor = function () {
+        return this.modifiers.pageHeaderBorderColor.value;
+    };
+
+    /**
+     * Sets the Page Header Border Color.
+     * 
+     * @param {string} pageHeaderBorderColor Sets the Page Header Border Color.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setPageHeaderBorderColor = function (pageHeaderBorderColor) {
+        this.modifiers.pageHeaderBorderColor.value = pageHeaderBorderColor;
         this.editor.queueModifications();
     };
 
