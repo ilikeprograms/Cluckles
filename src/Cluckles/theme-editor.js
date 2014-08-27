@@ -1,4 +1,4 @@
-/* global Export, Typography, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, LabelBase, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Typography, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, Label, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -38,7 +38,7 @@
      * @property {Pager} pager Holds the modifications to the Pager Components.
      * @property {Form} form Holds the modifications to the Form Components.
      * @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
-     * @property {LabelBase} labelBase Holds the changes to the Label Components.
+     * @property {Label} label Holds the changes to the Label Components.
      * @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
      * @property {NavbarBase} navbarBase Holds the changes to the General Navbar styling of Navbar Components.
      * @property {ButtonBase} buttonBase Holds the changes to the General Button styling of Button Components.
@@ -91,7 +91,7 @@
         this.pager              = new Pager(this);
         this.form               = new Form(this);
         this.branding           = new BrandModifier(this);
-        this.labelBase          = new LabelBase(this);
+        this.label              = new Label(this);
         this.panelBase          = new PanelBase(this);
         this.navbarBase         = new NavbarBase(this);
         this.buttonBase         = new ButtonBase(this);
@@ -235,8 +235,8 @@
         // Branding
         this.extractModifications(modifiers, this.branding);
 
-        // LabelBase
-        this.extractModifications(modifiers, this.labelBase);
+        // Label
+        this.extractModifications(modifiers, this.label);
 
         // Breadcrumbs
         this.extractModifications(modifiers, this.breadcrumbs);

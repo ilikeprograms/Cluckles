@@ -4,7 +4,7 @@
     /**
      * Allows modification of the General Label Component Styling.
      * 
-     * @class LabelBase
+     * @class Label
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ThemeEditor} editor instance which manages the less modifications.
@@ -18,9 +18,9 @@
 	 * @property {string} warningBg The @label-warning-bg variable which affects the Warning label Background Color.
 	 * @property {string} dangerBg The @label-danger-bg variable which affects the Danger label Background Color.
      * 
-     * @returns {LabelBase}
+     * @returns {Label}
      */
-    var LabelBase = function (editor) {
+    var Label = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
         // Configure the Modifiers
@@ -71,15 +71,15 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    LabelBase.prototype = Object.create(ThemeModifier.prototype);
-    LabelBase.constructor = LabelBase;
+    Label.prototype = Object.create(ThemeModifier.prototype);
+    Label.constructor = Label;
 
     /**
      * Gets the Color of the Label Component.
      * 
      * @returns {string}
      */
-    LabelBase.prototype.getColor = function () {
+    Label.prototype.getColor = function () {
         return this.modifiers.color.value;
     };
 
@@ -89,7 +89,7 @@
      * @param {string} color The Label Color to set.
      * @returns {string}
      */
-    LabelBase.prototype.setColor = function (color) {
+    Label.prototype.setColor = function (color) {
         this.modifiers.color.value = color;
         this.editor.queueModifications();
     };
@@ -99,8 +99,8 @@
      * 
      * @returns {string}
      */
-    LabelBase.prototype.getLinkHoverColor = function () {
-        return this.modifiers.linkHoverColor;
+    Label.prototype.getLinkHoverColor = function () {
+        return this.modifiers.linkHoverColor.value;
     };
 
     /**
@@ -110,8 +110,8 @@
      * 
      * @returns {undefined}
      */
-    LabelBase.prototype.setLinkHoverColor = function (linkHoverColor) {
-        this.modifiers.linkHoverColor = linkHoverColor;
+    Label.prototype.setLinkHoverColor = function (linkHoverColor) {
+        this.modifiers.linkHoverColor.value = linkHoverColor;
         this.editor.queueModifications();
     };
 
@@ -120,7 +120,7 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	LabelBase.prototype.getDefaultBackground = function () {
+	Label.prototype.getDefaultBackground = function () {
 		return this.modifiers.defaultBg.value;
 	};
 
@@ -131,7 +131,7 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	LabelBase.prototype.setDefaultBackground = function (color) {
+	Label.prototype.setDefaultBackground = function (color) {
 		this.modifiers.defaultBg.value = color;
 		this.editor.queueModifications();
 	};
@@ -141,7 +141,7 @@
 	 * 
 	 * @returns {string}
 	 */
-	LabelBase.prototype.getPrimaryBackground = function () {
+	Label.prototype.getPrimaryBackground = function () {
 		return this.modifiers.primaryBg.value;
 	};
 
@@ -152,7 +152,7 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	LabelBase.prototype.setPrimaryBackground = function (color) {
+	Label.prototype.setPrimaryBackground = function (color) {
 		this.modifiers.primaryBg.value = color;
 		this.editor.queueModifications();
 	};
@@ -162,7 +162,7 @@
 	 * 
 	 * @returns {string}
 	 */
-	LabelBase.prototype.getSuccessBackground = function () {
+	Label.prototype.getSuccessBackground = function () {
 		return this.modifiers.successBg.value;
 	};
 
@@ -173,7 +173,7 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	LabelBase.prototype.setSuccessBackground = function (color) {
+	Label.prototype.setSuccessBackground = function (color) {
 		this.modifiers.successBg.value = color;
 		this.editor.queueModifications();
 	};
@@ -183,7 +183,7 @@
 	 * 
 	 * @returns {string}
 	 */
-	LabelBase.prototype.getInfoBackground = function () {
+	Label.prototype.getInfoBackground = function () {
 		return this.modifiers.infoBg.value;
 	};
 
@@ -194,7 +194,7 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	LabelBase.prototype.setInfoBackground = function (color) {
+	Label.prototype.setInfoBackground = function (color) {
 		this.modifiers.infoBg.value = color;
 		this.editor.queueModifications();
 	};
@@ -204,7 +204,7 @@
 	 * 
 	 * @returns {string}
 	 */
-	LabelBase.prototype.getWarningBackground = function () {
+	Label.prototype.getWarningBackground = function () {
 		return this.modifiers.warningBg.value;
 	};
 
@@ -215,7 +215,7 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	LabelBase.prototype.setWarningBackground = function (color) {
+	Label.prototype.setWarningBackground = function (color) {
 		this.modifiers.warningBg.value = color;
 		this.editor.queueModifications();
 	};
@@ -225,7 +225,7 @@
 	 * 
 	 * @returns {string}
 	 */
-	LabelBase.prototype.getDangerBackground = function () {
+	Label.prototype.getDangerBackground = function () {
 		return this.modifiers.dangerBg.value;
 	};
 
@@ -236,10 +236,10 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	LabelBase.prototype.setDangerBackground = function (color) {
+	Label.prototype.setDangerBackground = function (color) {
 		this.modifiers.dangerBg.value = color;
 		this.editor.queueModifications();
 	};
 	
-	window.LabelBase = LabelBase;
+	window.Label = Label;
 })(window);
