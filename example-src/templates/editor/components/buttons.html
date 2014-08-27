@@ -29,10 +29,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Button Font Weight</td><td></td><td><input type="number" onchange="themeEditor.buttonBase.setFontWeight(this.value);" value="50" min="1" step="1" /></td>
+                <td>Button Font Weight</td><td></td><td><input type="number" value="50" min="1" step="1" data-cluckles-buttonbase="font-weight" /></td>
               </tr>
               <tr>
-                <td>Button Disabled Link Color</td><td></td><td><input type="number" onchange="themeEditor.buttonBase.setDisabledLinkColor(this.value);" value="30" min="1" step="1" /></td>
+                <td>Button Disabled Link Color</td><td></td><td><input type="number" value="30" min="1" step="1" data-cluckles-buttonbase="disabled-link-color" /></td>
               </tr>
             </tbody>
           </table>
@@ -46,10 +46,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.default.setColor(this.value);" /></td>
+                <td>Color</td><td></td><td><input type="color" data-cluckles-button-default="color" /></td>
               </tr>
               <tr>
-                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.default.setBackground(this.value);" /></td>
+                <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-default="bg" /></td>
               </tr>
               <!-- Why doesnt this work -->
 <!--              <tr>
@@ -67,10 +67,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setColor(this.value);" /></td>
+                <td>Color</td><td></td><td><input type="color" data-cluckles-button-primary="color" /></td>
               </tr>
               <tr>
-                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setBackground(this.value);" /></td>
+                <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-primary="bg" /></td>
               </tr>
 <!--              <tr>
                 <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setBorder(this.value);" /></td>
@@ -87,10 +87,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setColor(this.value);" /></td>
+                <td>Color</td><td></td><td><input type="color" data-cluckles-button-success="color" /></td>
               </tr>
               <tr>
-                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setBackground(this.value);" /></td>
+                <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-success="bg" /></td>
               </tr>
 <!--              <tr>
                 <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setBorder(this.value);" /></td>
@@ -107,10 +107,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setColor(this.value);" /></td>
+                <td>Color</td><td></td><td><input type="color" data-cluckles-button-info="color" /></td>
               </tr>
               <tr>
-                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setBackground(this.value);" /></td>
+                <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-info="bg" /></td>
               </tr>
 <!--              <tr>
                 <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setBorder(this.value);" /></td>
@@ -127,10 +127,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setColor(this.value);" /></td>
+                <td>Color</td><td></td><td><input type="color" data-cluckles-button-warning="color" /></td>
               </tr>
               <tr>
-                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setBackground(this.value);" /></td>
+                <td>Background Color</td><td></td><td><input type="color" data-cluckles-warning-primary="bg" /></td>
               </tr>
 <!--              <tr>
                 <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setBorder(this.value);" /></td>
@@ -147,10 +147,10 @@
             </thead>
             <tbody>
               <tr>
-                <td>Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setColor(this.value);" /></td>
+                <td>Color</td><td></td><td><input type="color" data-cluckles-button-danger="color" /></td>
               </tr>
               <tr>
-                <td>Background Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setBackground(this.value);" /></td>
+                <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-danger="bg" /></td>
               </tr>
 <!--              <tr>
                 <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setBorder(this.value);" /></td>
