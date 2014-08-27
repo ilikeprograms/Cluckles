@@ -29,11 +29,12 @@
             </thead>
             <tbody>
               <tr>
-                <td>Button Font Weight</td><td></td><td><input type="number" value="50" min="1" step="1" data-cluckles-buttonbase="font-weight" /></td>
+                <td>Button Font Weight</td><td></td><td><input type="text" placeholder="normal" data-cluckles-buttonbase="font-weight" /></td>
               </tr>
-              <tr>
-                <td>Button Disabled Link Color</td><td></td><td><input type="number" value="30" min="1" step="1" data-cluckles-buttonbase="disabled-link-color" /></td>
-              </tr>
+              <!-- This doesnt seem to change? figure out why -->
+<!--              <tr>
+                <td>Button Disabled Link Color</td><td></td><td><input type="color" data-cluckles-buttonbase="disabled-link-color" /></td>
+              </tr>-->
             </tbody>
           </table>
         </div> <!-- Base Button Tab End -->
@@ -51,10 +52,9 @@
               <tr>
                 <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-default="bg" /></td>
               </tr>
-              <!-- Why doesnt this work -->
-<!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.default.setBorder(this.value);" /></td>
-              </tr>-->
+              <tr>
+                <td>Hover Border Color</td><td></td><td><input type="color" data-cluckles-button-default="hover-border-color" /></td>
+              </tr>
             </tbody>
           </table>
         </div> <!-- Default Button Tab End -->
@@ -72,9 +72,9 @@
               <tr>
                 <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-primary="bg" /></td>
               </tr>
-<!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setBorder(this.value);" /></td>
-              </tr>-->
+              <tr>
+                <td>Hover Border Color</td><td></td><td><input type="color" data-cluckles-button-primary="hover-border-color" /></td>
+              </tr>
             </tbody>
           </table>
         </div> <!-- Primary Button Tab End -->
@@ -92,9 +92,9 @@
               <tr>
                 <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-success="bg" /></td>
               </tr>
-<!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setBorder(this.value);" /></td>
-              </tr>-->
+              <tr>
+                <td>Hover Border Color</td><td></td><td><input type="color" data-cluckles-button-success="hover-border-color" /></td>
+              </tr>
             </tbody>
           </table>
         </div> <!-- Success Button Tab End -->
@@ -112,9 +112,9 @@
               <tr>
                 <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-info="bg" /></td>
               </tr>
-<!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setBorder(this.value);" /></td>
-              </tr>-->
+              <tr>
+                <td>Hover Border Color</td><td></td><td><input type="color" data-cluckles-button-info="hover-border-color" /></td>
+              </tr>
             </tbody>
           </table>
         </div> <!-- Info Button Tab End -->
@@ -132,9 +132,9 @@
               <tr>
                 <td>Background Color</td><td></td><td><input type="color" data-cluckles-warning-primary="bg" /></td>
               </tr>
-<!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setBorder(this.value);" /></td>
-              </tr>-->
+              <tr>
+                <td>Hover Border Color</td><td></td><td><input type="color" data-cluckles-button-primary="hover-border-color" /></td>
+              </tr>
             </tbody>
           </table>
         </div> <!-- Warning Button Tab End -->
@@ -152,9 +152,9 @@
               <tr>
                 <td>Background Color</td><td></td><td><input type="color" data-cluckles-button-danger="bg" /></td>
               </tr>
-<!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setBorder(this.value);" /></td>
-              </tr>-->
+              <tr>
+                <td>Hover Border Color</td><td></td><td><input type="color" data-cluckles-button-danger="hover-border-color" /></td>
+              </tr>
             </tbody>
           </table>
         </div> <!-- Danger Button Tab End -->
