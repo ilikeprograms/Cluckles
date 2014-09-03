@@ -18,18 +18,29 @@
 	var FormState = function (editor, type) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 		
+        this.subscriberDataAttribute = 'data-cluckles-formstate-' + type;
+        
         // Configure the Modifiers
 		this.headingBg = {
 			variable: '@state-' + type + '-bg',
-			value: null
+			subscribeProperty: 'heading-bg',
+            changeFn: this.setHeadingBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.text = {
 			variable: '@state-' + type + '-text',
-			value: null
+			subscribeProperty: 'text',
+            changeFn: this.setText.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.border = {
 			variable: '@state-' + type + '-border',
-			value: null
+			subscribeProperty: 'border-color',
+            changeFn: this.setBorder.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		
         // Configure the modifiers so they can be extracted easier
@@ -38,6 +49,8 @@
             text:       this.text,
             border:     this.border
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -62,7 +75,6 @@
 	 */
 	FormState.prototype.setHeadingBackground = function (color) {
 		this.modifiers.headingBg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -83,7 +95,6 @@
 	 */
 	FormState.prototype.setText = function (text) {
 		this.modifiers.text.value = text;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -104,7 +115,6 @@
 	 */
 	FormState.prototype.setBorder = function (border) {
 		this.modifiers.border.value = border;
-		this.editor.queueModifications();
 	};
 
 	window.FormState = FormState;

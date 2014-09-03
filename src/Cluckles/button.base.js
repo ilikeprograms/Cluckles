@@ -17,14 +17,22 @@
     var ButtonBase = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-buttonbase';
+
         // Configure the Modifiers
         this.fontWeight = {
             variable: '@btn-font-weight',
-            value: null
+            subscribeProperty: 'font-weight',
+            changeFn: this.setFontWeight.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.disabledLinkColor = {
             variable: '@btn-link-disabled-color',
-            value: null
+            subscribeProperty: 'disabled-link-color',
+            changeFn: this.setDisabledLinkColor.bind(this),
+            subscribers: [],
+			_value: null
         };
 
         // Configure the modifiers so they can be extracted easier
@@ -32,6 +40,8 @@
             fontWeight:         this.fontWeight,
             disabledLinkColor:  this.disabledLinkColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -55,8 +65,7 @@
      * @returns {undefined}
      */
     ButtonBase.prototype.setFontWeight = function (buttonFontWeight) {
-        this.modifiers.fontWeight = buttonFontWeight;
-        this.editor.queueModifications();
+        this.modifiers.fontWeight.value = buttonFontWeight;
     };
 
     /**
@@ -76,8 +85,7 @@
      * @returns {undefined}
      */
     ButtonBase.prototype.setDisabledLinkColor = function (disabledLinkColor) {
-        this.modifiers.disabledLinkColor = disabledLinkColor;
-        this.editor.queueModifications();
+        this.modifiers.disabledLinkColor.value = disabledLinkColor;
     };
 
     window.ButtonBase = ButtonBase;

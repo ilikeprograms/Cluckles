@@ -21,36 +21,71 @@
 	 */
 	var Pager = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-        
+
+        this.subscriberDataAttribute = 'data-cluckles-pager';
+
         this.bg = {
             variable: '@pager-bg',
-            value: null
+            subscribeProperty:  'bg',
+            changeFn:           this.setBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.borderColor = {
             variable: '@pager-border',
-            value: null
+            subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.borderRadius = {
             variable: '@pager-border-radius',
-            value: null
+            subscribeProperty:  'border-radius',
+            changeFn:           this.setBorderRadius.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.hoverBg = {
             variable: '@pager-hover-bg',
-            value: null
+            subscribeProperty:  'hover-bg',
+            changeFn:           this.setHoverBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.activeColor = {
             variable: '@pager-active-color',
-            value: null
+            subscribeProperty:  'active-color',
+            changeFn:           this.setActiveColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.activeBg = {
             variable: '@pager-active-bg',
-            value: null
+            subscribeProperty:  'active-bg',
+            changeFn:           this.setActiveBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.disabledColor = {
             variable: '@pager-disabled-color',
-            value: null
+            subscribeProperty:  'disabled-color',
+            changeFn:           this.setDisabledColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
-        
+
+        Object.defineProperty(this.borderRadius, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
         this.modifiers = {
             bg:             this.bg,
             borderColor:    this.borderColor,
@@ -60,6 +95,8 @@
             activeBg:       this.activeBg,
             disabledColor:  this.disabledColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -84,7 +121,6 @@
 	 */
 	Pager.prototype.setBackground = function (bg) {
 		this.modifiers.bg.value = bg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -105,7 +141,6 @@
 	 */
 	Pager.prototype.setBorderColor = function (borderColor) {
 		this.modifiers.borderColor.value = borderColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -125,8 +160,7 @@
 	 * @returns {undefined}
 	 */
 	Pager.prototype.setBorderRadius = function (borderRadius) {
-		this.modifiers.borderRadius.value = borderRadius + 'px';
-		this.editor.queueModifications();
+		this.modifiers.borderRadius.value = borderRadius;
 	};
 
     /**
@@ -147,7 +181,6 @@
 	 */
 	Pager.prototype.setHoverBackground = function (hoverBg) {
 		this.modifiers.hoverBg.value = hoverBg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -168,7 +201,6 @@
 	 */
 	Pager.prototype.setActiveColor = function (activeColor) {
 		this.modifiers.activeColor.value = activeColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -189,7 +221,6 @@
 	 */
 	Pager.prototype.setActiveBackground = function (activeBg) {
 		this.modifiers.activeBg.value = activeBg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -210,7 +241,6 @@
 	 */
 	Pager.prototype.setDisabledColor = function (disabledColor) {
 		this.modifiers.disabledColor.value = disabledColor;
-		this.editor.queueModifications();
 	};
 
     window.Pager = Pager;

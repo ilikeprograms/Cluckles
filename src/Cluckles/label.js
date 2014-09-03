@@ -23,38 +23,64 @@
     var Label = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-label';
+
         // Configure the Modifiers
         this.color = {
             variable: '@label-color',
-            value: null
+            subscribeProperty: 'color',
+            changeFn: this.setColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.linkHoverColor = {
             variable: '@label-link-hover-color',
-            value: null
+            subscribeProperty: 'link-hover-color',
+            changeFn: this.setLinkHoverColor.bind(this),
+            subscribers: [],
+			_value: null
         };
 		this.defaultBg = {
 			variable: '@label-default-bg',
-			value: null
+			subscribeProperty: 'default-bg',
+            changeFn: this.setDefaultBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.primaryBg = {
 			variable: '@label-primary-bg',
-			value: null
+			subscribeProperty: 'primary-bg',
+            changeFn: this.setPrimaryBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.successBg = {
 			variable: '@label-success-bg',
-			value: null
+			subscribeProperty: 'success-bg',
+            changeFn: this.setSuccessBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.infoBg = {
 			variable: '@label-info-bg',
-			value: null
+			subscribeProperty: 'info-bg',
+            changeFn: this.setInfoBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.warningBg = {
 			variable: '@label-warning-bg',
-			value: null
+			subscribeProperty: 'warning-bg',
+            changeFn: this.setWarningBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.dangerBg = {
 			variable: '@label-danger-bg',
-			value: null
+			subscribeProperty: 'danger-bg',
+            changeFn: this.setDangerBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 
         // Configure the modifiers so they can be extracted easier
@@ -68,6 +94,8 @@
             warningBg:      this.warningBg,
             dangerBg:       this.dangerBg
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -91,7 +119,6 @@
      */
     Label.prototype.setColor = function (color) {
         this.modifiers.color.value = color;
-        this.editor.queueModifications();
     };
 
     /**
@@ -112,7 +139,6 @@
      */
     Label.prototype.setLinkHoverColor = function (linkHoverColor) {
         this.modifiers.linkHoverColor.value = linkHoverColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -133,7 +159,6 @@
 	 */
 	Label.prototype.setDefaultBackground = function (color) {
 		this.modifiers.defaultBg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -154,7 +179,6 @@
 	 */
 	Label.prototype.setPrimaryBackground = function (color) {
 		this.modifiers.primaryBg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -175,7 +199,6 @@
 	 */
 	Label.prototype.setSuccessBackground = function (color) {
 		this.modifiers.successBg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -196,7 +219,6 @@
 	 */
 	Label.prototype.setInfoBackground = function (color) {
 		this.modifiers.infoBg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -217,7 +239,6 @@
 	 */
 	Label.prototype.setWarningBackground = function (color) {
 		this.modifiers.warningBg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -238,7 +259,6 @@
 	 */
 	Label.prototype.setDangerBackground = function (color) {
 		this.modifiers.dangerBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	window.Label = Label;

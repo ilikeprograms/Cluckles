@@ -22,44 +22,69 @@
 	var Tabs = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-tab';
+
         this.borderColor = {
             variable: '@nav-tabs-border-color',
-            value: null
+            subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.linkHoverBorderColor = {
             variable: '@nav-tabs-link-hover-border-color',
-            value: null
+            subscribeProperty:  'link-hover-border-color',
+            changeFn:           this.setLinkHoverBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
-        this.linkActiveHoverBg = {
+        this.linkActiveBg = {
             variable: '@nav-tabs-active-link-hover-bg',
-            value: null
+            subscribeProperty:  'link-active-bg',
+            changeFn:           this.setLinkActiveBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
-        this.linkActiveHoverColor = {
+        this.linkActiveColor = {
             variable: '@nav-tabs-active-link-hover-color',
-            value: null
+            subscribeProperty:  'link-active-color',
+            changeFn:           this.setLinkActiveColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
-        this.linkActiveHoverBorderColor = {
+        this.linkActiveBorderColor = {
             variable: '@nav-tabs-active-link-hover-border-color',
-            value: null
+            subscribeProperty:  'link-active-border-color',
+            changeFn:           this.setLinkActiveBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.linkJustifiedBorderColor = {
             variable: '@nav-tabs-justified-link-border-color',
-            value: null
+            subscribeProperty:  'link-justified-border-color',
+            changeFn:           this.setLinkJustifiedBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.linkJustifiedActiveBorderColor = {
             variable: '@nav-tabs-justified-active-link-border-color',
-            value: null
+            subscribeProperty:  'link-justified-active-border-color',
+            changeFn:           this.setLinkJustifiedActiveBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
 
         this.modifiers = {
             borderColor:                        this.borderColor,
             linkHoverBorderColor:               this.linkHoverBorderColor,
-            linkActiveHoverBg:                  this.linkActiveHoverBg,
-            linkActiveHoverColor:               this.linkActiveHoverColor,
-            linkActiveHoverBorderColor:         this.linkActiveHoverBorderColor,
+            linkActiveBg:                       this.linkActiveBg,
+            linkActiveColor:                    this.linkActiveColor,
+            linkActiveBorderColor:              this.linkActiveBorderColor,
             linkJustifiedBorderColor:           this.linkJustifiedBorderColor,
             linkJustifiedActiveBorderColor:     this.linkJustifiedActiveBorderColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -84,7 +109,6 @@
 	 */
 	Tabs.prototype.setBorderColor = function (borderColor) {
 		this.modifiers.borderColor.value = borderColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -105,70 +129,66 @@
 	 */
 	Tabs.prototype.setLinkHoverBorderColor = function (linkHoverBorderColor) {
 		this.modifiers.linkHoverBorderColor.value = linkHoverBorderColor;
-		this.editor.queueModifications();
 	};
 
     /**
-	 * Gets the Link Active Hover Background Color of the Tabs Component.
+	 * Gets the Link Active Background Color of the Tabs Component.
 	 * 
 	 * @returns {string}
 	 */
-	Tabs.prototype.getLinkActiveHoverBackgroundColor = function () {
+	Tabs.prototype.getLinkActiveBackgroundColor = function () {
 		return this.modifiers.linkActiveHoverBg.value;
 	};
 	
 	/**
-	 * Sets the Link Active Hover Background Color of the Tabs Component.
+	 * Sets the Link Active Background Color of the Tabs Component.
 	 * 
-	 * @param {string} color Sets the Link Active Hover Background Color.
+	 * @param {string} linkActiveBg Sets the Link Active Background Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	Tabs.prototype.setLinkActiveHoverBackgroundColor = function (linkActiveHoverBg) {
-		this.modifiers.linkActiveHoverBg.value = linkActiveHoverBg;
-		this.editor.queueModifications();
+	Tabs.prototype.setLinkActiveBackgroundColor = function (linkActiveBg) {
+		this.modifiers.linkActiveBg.value = linkActiveBg;
 	};
 
 	/**
-	 * Gets the Link Active Hover Color of the Tabs Component.
+	 * Gets the Link Active Color of the Tabs Component.
 	 * 
 	 * @returns {string}
 	 */
-	Tabs.prototype.getLinkActiveHoverColor = function () {
-		return this.modifiers.linkActiveHoverColor.value;
+	Tabs.prototype.getLinkActiveColor = function () {
+		return this.modifiers.linkActiveColor.value;
 	};
 	
 	/**
-	 * Sets the Link Active Hover Color of the Tabs Component.
+	 * Sets the Link Active Color of the Tabs Component.
 	 * 
-	 * @param {string} linkActiveHoverColor Sets the Link Active Hover Color.
+	 * @param {string} linkActiveColor Sets the Link Active Hover Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	Tabs.prototype.setLinkActiveHoverColor = function (linkActiveHoverColor) {
-		this.modifiers.linkActiveHoverColor.value = linkActiveHoverColor;
-		this.editor.queueModifications();
+	Tabs.prototype.setLinkActiveColor = function (linkActiveColor) {
+		this.modifiers.linkActiveColor.value = linkActiveColor;
 	};
 
 	/**
-	 * Gets the Link Active Hover Border Color of the Tabs Component.
+	 * Gets the Link Active Border Color of the Tabs Component.
 	 * 
 	 * @returns {string}
 	 */
-	Tabs.prototype.getLinkActiveHoverBorderColor = function () {
-		return this.modifiers.linkActiveHoverBorderColor.value;
+	Tabs.prototype.getLinkActiveBorderColor = function () {
+		return this.modifiers.linkActiveBorderColor.value;
 	};
 	
 	/**
-	 * Sets the Link Active Hover Border Color of the Tabs Component.
+	 * Sets the Link Active Border Color of the Tabs Component.
 	 * 
-	 * @param {string} linkActiveHoverBorderColor Sets the Link Active Hover Border Color.
+	 * @param {string} linkActiveBorderColor Sets the Link Active Hover Border Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	Tabs.prototype.setLinkActiveHoverBorderColor = function (linkActiveHoverBorderColor) {
-		this.modifiers.linkActiveHoverBorderColor.value = linkActiveHoverBorderColor;
-		this.editor.queueModifications();
+	Tabs.prototype.setLinkActiveBorderColor = function (linkActiveBorderColor) {
+		this.modifiers.linkActiveBorderColor.value = linkActiveBorderColor;
 	};
 
     /**
@@ -189,7 +209,6 @@
      */
     Tabs.prototype.setLinkJustifiedBorderColor = function (linkJustifiedBorderColor) {
         this.modifiers.linkJustifiedBorderColor.value = linkJustifiedBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -210,7 +229,6 @@
      */
     Tabs.prototype.setLinkJustifiedActiveBorderColor = function (linkJustifiedActiveBorderColor) {
         this.modifiers.linkJustifiedActiveBorderColor.value = linkJustifiedActiveBorderColor;
-        this.editor.queueModifications();
     };
 
     window.Tabs = Tabs;

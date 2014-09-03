@@ -24,47 +24,79 @@
 	 */
 	var Dropdown = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-		
+
+        this.subscriberDataAttribute = 'data-cluckles-dropdown';
+
         // Configure the Modifiers
 		this.bg = {
 			variable: '@dropdown-bg',
-			value: null
+            subscribeProperty: 'bg',
+            changeFn: this.setBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.headerColor = {
 			variable: '@dropdown-header-color',
-			value: null
+            subscribeProperty: 'header-color',
+            changeFn: this.setHeaderColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.border = {
 			variable: '@dropdown-border',
-			value: null
+            subscribeProperty: 'border-color',
+            changeFn: this.setBorder.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.divider = {
 			variable: '@dropdown-divider-bg',
-			value: null
+            subscribeProperty: 'divider',
+            changeFn: this.setDivider.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.linkColor = {
 			variable: '@dropdown-link-color',
-			value: null
+            subscribeProperty: 'link-color',
+            changeFn: this.setLinkColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.linkDisabledColor = {
 			variable: '@dropdown-link-disabled-color',
-			value: null
+            subscribeProperty: 'link-disabled-color',
+            changeFn: this.setLinkDisabledColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.linkHoverBg = {
 			variable: '@dropdown-link-hover-bg',
-			value: null
+            subscribeProperty: 'link-hover-bg',
+            changeFn: this.setLinkHoverBackgroundColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.linkHoverColor = {
 			variable: '@dropdown-link-hover-color',
-			value: null
+            subscribeProperty: 'link-hover-color',
+            changeFn: this.setLinkHoverColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.linkActiveBg = {
 			variable: '@dropdown-link-active-bg',
-			value: null
+            subscribeProperty: 'link-active-bg',
+            changeFn: this.setLinkActiveBackgroundColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
 		this.linkActiveColor = {
 			variable: '@dropdown-link-active-color',
-			value: null
+            subscribeProperty: 'link-active-color',
+            changeFn: this.setLinkActiveColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
 
         // Configure the modifiers so they can be extracted easier
@@ -80,6 +112,8 @@
             linkActiveBg:       this.linkActiveBg,
             linkActiveColor:    this.linkActiveColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -104,7 +138,6 @@
 	 */
 	Dropdown.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -125,7 +158,6 @@
 	 */
 	Dropdown.prototype.setHeaderColor = function (color) {
 		this.modifiers.headerColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -146,7 +178,6 @@
 	 */
 	Dropdown.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -167,7 +198,6 @@
 	 */
 	Dropdown.prototype.setDivider = function (color) {
 		this.modifiers.divider.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -188,7 +218,6 @@
 	 */
 	Dropdown.prototype.setLinkColor = function (color) {
 		this.modifiers.linkColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -209,7 +238,6 @@
 	 */
 	Dropdown.prototype.setLinkDisabledColor = function (color) {
 		this.modifiers.linkDisabledColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -217,7 +245,7 @@
 	 * 
 	 * @returns {string}
 	 */
-	Dropdown.prototype.getLinkHoverBackground = function () {
+	Dropdown.prototype.getLinkHoverBackgroundColor = function () {
 		return this.modifiers.linkHoverBg.value;
 	};
 	
@@ -228,9 +256,8 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	Dropdown.prototype.setLinkHoverBackground = function (color) {
+	Dropdown.prototype.setLinkHoverBackgroundColor = function (color) {
 		this.modifiers.linkHoverBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -251,7 +278,6 @@
 	 */
 	Dropdown.prototype.setLinkHoverColor = function (color) {
 		this.modifiers.linkHoverColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -259,7 +285,7 @@
 	 * 
 	 * @returns {string}
 	 */
-	Dropdown.prototype.getLinkActiveBackground = function () {
+	Dropdown.prototype.getLinkActiveBackgroundColor = function () {
 		return this.modifiers.linkActiveBg.value;
 	};
 	
@@ -270,9 +296,8 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	Dropdown.prototype.setLinkActiveBackground = function (color) {
+	Dropdown.prototype.setLinkActiveBackgroundColor = function (color) {
 		this.modifiers.linkActiveBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -293,7 +318,6 @@
 	 */
 	Dropdown.prototype.setLinkActiveColor = function (color) {
 		this.modifiers.linkActiveColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	window.Dropdown = Dropdown;

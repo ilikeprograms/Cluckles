@@ -25,46 +25,114 @@
     var Modal = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-modal';
+
         this.innerPadding = {
             variable: '@modal-inner-padding',
-            value: null
+            subscribeProperty: 'inner-padding',
+            changeFn: this.setInnerPadding.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.titlePadding = {
             variable: '@modal-title-padding',
-            value: null
+            subscribeProperty: 'title-padding',
+            changeFn: this.setTitlePadding.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.titleLineHeight = {
             variable: '@modal-title-line-height',
-            value: null
+            subscribeProperty: 'title-line-height',
+            changeFn: this.setTitleLineHeight.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.contentBg = {
             variable: '@modal-content-bg',
-            value: null
+            subscribeProperty: 'content-bg',
+            changeFn: this.setContentBackgroundColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.contentBorderColor = {
             variable: '@modal-content-border-color',
-            value: null
+            subscribeProperty: 'content-border-color',
+            changeFn: this.setContentBorderColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.contentFallbackBorderColor = {
             variable: '@modal-content-fallback-border-color',
-            value: null
+            subscribeProperty: 'content-fallback-border-color',
+            changeFn: this.setContentFallbackBorderColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.backdropBg = {
             variable: '@modal-backdrop-bg',
-            value: null
+            subscribeProperty: 'backdrop-bg',
+            changeFn: this.setBackdropBackgroundColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.backdropOpacity = {
             variable: '@modal-backdrop-opacity',
-            value: null
+            subscribeProperty: 'backdrop-opacity',
+            changeFn: this.setBackdropOpacity.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.headerBorderColor = {
             variable: '@modal-header-border-color',
-            value: null
+            subscribeProperty: 'header-border-color',
+            changeFn: this.setHeaderBorderColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.footerBorderColor = {
             variable: '@modal-footer-border-color',
-            value: null
+            subscribeProperty: 'footer-border-color',
+            changeFn: this.setFooterBorderColor.bind(this),
+            subscribers: [],
+			_value: null
         };
+
+        Object.defineProperty(this.innerPadding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
+        Object.defineProperty(this.titlePadding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
+        Object.defineProperty(this.titleLineHeight, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
 
         this.modifiers = {
             innerPadding:               this.innerPadding,
@@ -78,6 +146,8 @@
             headerBorderColor:          this.headerBorderColor,
             footerBorderColor:          this.footerBorderColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -101,8 +171,7 @@
      * @returns {string}
      */
     Modal.prototype.setInnerPadding = function (innerPadding) {
-        this.modifiers.innerPadding.value = innerPadding + 'px';
-        this.editor.queueModifications();
+        this.modifiers.innerPadding.value = innerPadding;
     };
 
     /**
@@ -122,8 +191,7 @@
      * @returns {string}
      */
     Modal.prototype.setTitlePadding = function (titlePadding) {
-        this.modifiers.titlePadding.value = titlePadding + 'px';
-        this.editor.queueModifications();
+        this.modifiers.titlePadding.value = titlePadding;
     };
 
     /**
@@ -143,8 +211,7 @@
      * @returns {string}
      */
     Modal.prototype.setTitleLineHeight = function (titleLineHeight) {
-        this.modifiers.titleLineHeight.value = titleLineHeight + 'px';
-        this.editor.queueModifications();
+        this.modifiers.titleLineHeight.value = titleLineHeight;
     };
 
     /**
@@ -165,7 +232,6 @@
      */
     Modal.prototype.setContentBackgroundColor = function (contentBg) {
         this.modifiers.contentBg.value = contentBg;
-        this.editor.queueModifications();
     };
 
     /**
@@ -186,7 +252,6 @@
      */
     Modal.prototype.setContentBorderColor = function (contentBorderColor) {
         this.modifiers.contentBorderColor.value = contentBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -207,7 +272,6 @@
      */
     Modal.prototype.setContentFallbackBorderColor = function (contentFallbackBorderColor) {
         this.modifiers.contentFallbackBorderColor.value = contentFallbackBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -228,7 +292,6 @@
      */
     Modal.prototype.setBackdropBackgroundColor = function (backdropBg) {
         this.modifiers.backdropBg.value = backdropBg;
-        this.editor.queueModifications();
     };
 
     /**
@@ -249,7 +312,6 @@
      */
     Modal.prototype.setBackdropOpacity = function (backdropOpacity) {
         this.modifiers.backdropOpacity.value = backdropOpacity;
-        this.editor.queueModifications();
     };
 
     /**
@@ -270,7 +332,6 @@
      */
     Modal.prototype.setHeaderBorderColor = function (headerBorderColor) {
         this.modifiers.headerBorderColor.value = headerBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -291,7 +352,6 @@
      */
     Modal.prototype.setFooterBorderColor = function (footerBorderColor) {
         this.modifiers.footerBorderColor.value = footerBorderColor;
-        this.editor.queueModifications();
     };
 
     window.Modal = Modal;

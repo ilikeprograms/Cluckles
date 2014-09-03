@@ -20,32 +20,88 @@
 	 */
 	var Thumbnail = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-		
+
+        this.subscriberDataAttribute = 'data-cluckles-thumbnail';
+
         // Configure the Modifiers
         this.padding = {
             variable: '@thumbnail-padding',
-            value: null
+            subscribeProperty:  'padding',
+            changeFn:           this.setPadding.bind(this),
+            subscribers:        [],
+			_value: null
         };
 		this.bg = {
 			variable: '@thumbnail-bg',
-			value: null
+			subscribeProperty:  'bg',
+            changeFn:           this.setBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.borderColor = {
 			variable: '@thumbnail-border',
-			value: null
+			subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.borderRadius = {
 			variable: '@thumbnail-border-radius',
-			value: null
+			subscribeProperty:  'border-radius',
+            changeFn:           this.setBorderRadius.bind(this),
+            subscribers:        [],
+			_value: null
 		};
         this.captionColor = {
             variable: '@thumbnail-caption-color',
-            value: null
+            subscribeProperty:  'caption-color',
+            changeFn:           this.setCaptionColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.captionPadding = {
             variable: '@thumbnail-caption-padding',
-            value: null
+            subscribeProperty:  'caption-padding',
+            changeFn:           this.setCaptionPadding.bind(this),
+            subscribers:        [],
+			_value: null
         };
+
+        Object.defineProperty(this.padding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
+
+        Object.defineProperty(this.borderRadius, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
+
+        Object.defineProperty(this.captionPadding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -56,6 +112,8 @@
             captionColor:   this.captionColor,
             captionPadding: this.captionPadding
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -79,8 +137,7 @@
 	 * @returns {undefined}
 	 */
 	Thumbnail.prototype.setPadding = function (color) {
-		this.modifiers.padding.value = color + 'px';
-		this.editor.queueModifications();
+		this.modifiers.padding.value = color;
 	};
 
 	/**
@@ -101,7 +158,6 @@
 	 */
 	Thumbnail.prototype.setBackgroundColor = function (bgColor) {
 		this.modifiers.bg.value = bgColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -122,7 +178,6 @@
 	 */
 	Thumbnail.prototype.setBorderColor = function (borderColor) {
 		this.modifiers.borderColor.value = borderColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -143,7 +198,6 @@
 	 */
 	Thumbnail.prototype.setBorderRadius = function (borderRadius) {
 		this.modifiers.borderRadius.value = borderRadius;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -164,7 +218,6 @@
      */
     Thumbnail.prototype.setCaptionColor = function (captionColor) {
         this.modifiers.captionColor.value = captionColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -184,8 +237,7 @@
      * @returns {undefined}
      */
     Thumbnail.prototype.setCaptionPadding = function (captionPadding) {
-        this.modifiers.captionPadding.value = captionPadding + 'px';
-        this.editor.queueModifications();
+        this.modifiers.captionPadding.value = captionPadding;
     };
 
 	window.Thumbnail = Thumbnail;

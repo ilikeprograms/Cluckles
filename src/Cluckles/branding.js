@@ -22,30 +22,50 @@
 	var BrandModifier = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-branding';
+
         // Configure the Modifiers
 		this.default = {
 			variable: '@brand-default',
-			value: null
+            subscribeProperty: 'default',
+            changeFn: this.setDefault.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.primary = {
 			variable: '@brand-primary',
-			value: null
+			subscribeProperty: 'primary',
+            changeFn: this.setPrimary.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.success = {
 			variable: '@brand-success',
-			value: null
+			subscribeProperty: 'success',
+            changeFn: this.setSuccess.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.info = {
-			variable: '@brand-info',
-			value: null
+            variable: '@brand-info',
+			subscribeProperty: 'info',
+            changeFn: this.setInfo.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.warning = {
-			variable: '@brand-warning',
-			value: null
+            variable: '@brand-warning',
+			subscribeProperty: 'warning',
+            changeFn: this.setWarning.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.danger	= {
-			variable: '@brand-danger',
-			value: null
+            variable: '@brand-danger',
+			subscribeProperty: 'danger',
+            changeFn: this.setDanger.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		
         // Configure the modifiers so they can be extracted easier
@@ -57,6 +77,8 @@
             warning:    this.warning,
             danger:     this.danger
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -81,7 +103,6 @@
 	 */
 	BrandModifier.prototype.setDefault = function (color) {
 		this.modifiers.default.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -102,7 +123,6 @@
 	 */
 	BrandModifier.prototype.setPrimary = function (color) {
 		this.modifiers.primary.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -123,7 +143,6 @@
 	 */
 	BrandModifier.prototype.setSuccess = function (color) {
 		this.modifiers.success.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -144,7 +163,6 @@
 	 */
 	BrandModifier.prototype.setInfo = function (color) {
 		this.modifiers.info.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -165,7 +183,6 @@
 	 */
 	BrandModifier.prototype.setWarning = function (color) {
 		this.modifiers.warning.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -186,7 +203,6 @@
 	 */
 	BrandModifier.prototype.setDanger = function (color) {
 		this.modifiers.danger.value = color;
-		this.editor.queueModifications();
 	};
 	
 	window.BrandModifier = BrandModifier;

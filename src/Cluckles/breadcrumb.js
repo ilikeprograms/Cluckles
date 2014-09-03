@@ -19,29 +19,45 @@
     var Breadcrumb = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-breadcrumb';
+
         this.bg = {
             variable: '@breadcrumb-bg',
-            value: null
+            subscribeProperty: 'bg',
+            changeFn: this.setBackground.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.color = {
             variable: '@breadcrumb-color',
-            value: null
+            subscribeProperty: 'color',
+            changeFn: this.setColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.activeColor = {
             variable: '@breadcrumb-active-color',
-            value: null
+            subscribeProperty: 'active-color',
+            changeFn: this.setActiveColor.bind(this),
+            subscribers: [],
+			_value: null
         };
-        this.seperator = {
-            variable: '@breadcrumb-seperator',
-            value: null
+        this.separator = {
+            variable: '@breadcrumb-separator',
+            subscribeProperty: 'separator',
+            changeFn: this.setSeparator.bind(this),
+            subscribers: [],
+			_value: null
         };
 
         this.modifiers = {
             bg:             this.bg,
             color:          this.color,
             activeColor:    this.activeColor,
-            seperator:      this.seperator
+            separator:      this.separator
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -66,7 +82,6 @@
 	 */
 	Breadcrumb.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -87,7 +102,6 @@
 	 */
 	Breadcrumb.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -108,28 +122,26 @@
 	 */
 	Breadcrumb.prototype.setActiveColor = function (activeColor) {
 		this.modifiers.activeColor.value = activeColor;
-		this.editor.queueModifications();
 	};
 
     /**
-	 * Gets the Breadcrumb Seperator Character.
+	 * Gets the Breadcrumb Separator Character.
 	 * 
 	 * @returns {string}
 	 */
 	Breadcrumb.prototype.getSeperator = function () {
-		return this.modifiers.seperator.value;
+		return this.modifiers.separator.value;
 	};
 	
 	/**
-	 * Sets the Breadcrumb Seperator Character.
+	 * Sets the Breadcrumb Separator Character.
 	 * 
-	 * @param {string} seperator Sets the Breadcrumb Seperator Character.
+	 * @param {string} separator Sets the Breadcrumb Separator Character.
 	 * 
 	 * @returns {undefined}
 	 */
-	Breadcrumb.prototype.setSeperator = function (seperator) {
-		this.modifiers.seperator.value = seperator;
-		this.editor.queueModifications();
+	Breadcrumb.prototype.setSeparator = function (separator) {
+		this.modifiers.separator.value = separator;
 	};
 
     window.Breadcrumb = Breadcrumb;

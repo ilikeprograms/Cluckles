@@ -20,27 +20,56 @@
     var Navs = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-nav';
+
         // Configure the Modifiers
         this.linkPadding = {
             variable: '@nav-link-padding',
-            value: null
+            subscribeProperty:  'link-padding',
+            changeFn:           this.setLinkPadding.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.linkHoverBg = {
             variable: '@nav-link-hover-bg',
-            value: null
+            subscribeProperty:  'link-hover-bg',
+            changeFn:           this.setLinkHoverBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.linkDisabledColor = {
             variable: '@nav-disabled-link-color',
-            value: null
+            subscribeProperty:  'link-disabled-color',
+            changeFn:           this.setLinkDisabledColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.linkDisabledHoverColor = {
             variable: '@nav-disabled-link-hover-color',
-            value: null
+            subscribeProperty:  'link-disabled-hover-color',
+            changeFn:           this.setLinkDisabledHoverColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.linkOpenHoverColor = {
             variable: '@nav-open-link-hover-color',
-            value: null
+            subscribeProperty:  'link-open-hover-color',
+            changeFn:           this.setLinkOpenHoverColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
+
+        Object.defineProperty(this.linkPadding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -50,6 +79,8 @@
             linkDisabledHoverColor: this.linkDisabledHoverColor,
             linkOpenHoverColor:     this.linkOpenHoverColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -73,8 +104,7 @@
      * @returns {undefined}
      */
     Navs.prototype.setLinkPadding = function (padding) {
-        this.modifiers.linkPadding.value = padding + 'px';
-        this.editor.queueModifications();
+        this.modifiers.linkPadding.value = padding;
     };
 
 	/**
@@ -95,7 +125,6 @@
 	 */
 	Navs.prototype.setLinkHoverBackground = function (linkHoverBg) {
 		this.modifiers.linkHoverBg.value = linkHoverBg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -116,7 +145,6 @@
 	 */
 	Navs.prototype.setLinkDisabledColor = function (linkDisabledColor) {
 		this.modifiers.linkDisabledColor.value = linkDisabledColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -137,7 +165,6 @@
 	 */
 	Navs.prototype.setLinkDisabledHoverColor = function (linkDisabledHoverColor) {
 		this.modifiers.linkDisabledHoverColor.value = linkDisabledHoverColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -157,7 +184,6 @@
      */
     Navs.prototype.setLinkOpenHoverColor = function (linkOpenHoverColor) {
         this.modifiers.linkOpenHoverColor.value = linkOpenHoverColor;
-        this.editor.queueModifications();
     };
 
     window.Navs = Navs;

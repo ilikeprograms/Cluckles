@@ -23,40 +23,78 @@
 	var Code = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-code';
+
         // Configure the Modifiers
 		this.codeColor = {
 			variable: '@code-color',
-			value: null
+            subscribeProperty: 'code-color',
+            changeFn: this.setCodeColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
         this.codeBg = {
 			variable: '@code-bg',
-			value: null
+            subscribeProperty: 'code-bg-color',
+            changeFn: this.setCodeBackgroundColor.bind(this),
+			subscribers: [],
+			_value: null
         };
 		this.kbdColor = {
 			variable: '@kbd-color',
-			value: null
+            subscribeProperty: 'kbd-color',
+            changeFn: this.setKbdColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
         this.kbdBg = {
 			variable: '@kbd-bg',
-			value: null
+            subscribeProperty: 'kbd-bg-color',
+            changeFn: this.setKbdBackgroundColor.bind(this),
+			subscribers: [],
+			_value: null
         };
 		this.preColor = {
 			variable: '@pre-color',
-			value: null
+            subscribeProperty: 'pre-color',
+            changeFn: this.setPreColor.bind(this),
+			subscribers: [],
+			_value: null
 		};
         this.preBg = {
 			variable: '@pre-bg',
-			value: null
+            subscribeProperty: 'pre-bg-color',
+            changeFn: this.setPreBackgroundColor.bind(this),
+			subscribers: [],
+			_value: null
         };
         this.preBorderColor = {
 			variable: '@pre-border-color',
-			value: null
+            subscribeProperty: 'pre-border-color',
+            changeFn: this.setPreBorderColor.bind(this),
+			subscribers: [],
+			_value: null
         };
         this.preScrollableMaxHeight = {
 			variable: '@pre-scrollable-max-height',
-			value: null
+            subscribeProperty: 'pre-scrollable-max-height',
+            changeFn: this.setPreScrollableMaxHeight.bind(this),
+			subscribers: [],
+			_value: null
         };
-		
+
+        Object.defineProperty(this.preScrollableMaxHeight, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             codeColor:              this.codeColor,
@@ -68,6 +106,8 @@
             preBorderColor:         this.preBorderColor,
             preScrollableMaxHeight: this.preScrollableMaxHeight
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -92,7 +132,6 @@
 	 */
 	Code.prototype.setCodeColor = function (codeColor) {
 		this.modifiers.codeColor.value = codeColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -113,7 +152,6 @@
 	 */
 	Code.prototype.setCodeBackgroundColor = function (codeBackgroundColor) {
 		this.modifiers.codeBg.value = codeBackgroundColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -134,7 +172,6 @@
 	 */
 	Code.prototype.setKbdColor = function (kbdColor) {
 		this.modifiers.kbdColor.value = kbdColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -155,7 +192,6 @@
 	 */
 	Code.prototype.setKbdBackgroundColor = function (kbdBackgroundColor) {
 		this.modifiers.kbdBg.value = kbdBackgroundColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -176,7 +212,6 @@
 	 */
 	Code.prototype.setPreColor = function (preColor) {
 		this.modifiers.preColor.value = preColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -197,7 +232,6 @@
 	 */
 	Code.prototype.setPreBackgroundColor = function (preBackgroundColor) {
 		this.modifiers.preBg.value = preBackgroundColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -218,7 +252,6 @@
 	 */
 	Code.prototype.setPreBorderColor = function (preBorderColor) {
 		this.modifiers.preBorderColor.value = preBorderColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -227,7 +260,7 @@
 	 * @returns {String}
 	 */
 	Code.prototype.getPreScrollableMaxHeight = function () {
-		return this.modifiers.preScrollableMaxHeightx.value;
+		return this.modifiers.preScrollableMaxHeight.value;
 	};
 
 	/**
@@ -238,8 +271,7 @@
 	 * @returns {undefined}
 	 */
 	Code.prototype.setPreScrollableMaxHeight = function (preScrollableMaxHeight) {
-		this.modifiers.preScrollableMaxHeight.value = preScrollableMaxHeight + 'px';
-		this.editor.queueModifications();
+		this.modifiers.preScrollableMaxHeight.value = preScrollableMaxHeight;
 	};
 
 	window.Code = Code;

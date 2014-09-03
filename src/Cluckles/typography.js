@@ -26,51 +26,98 @@
 	var Typography = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-typography';
+
         // Configure the Modifiers
 		this.fontFamilySansSerif = {
 			variable: '@font-family-sans-serif',
-			value: null
+			subscribeProperty:  'font-family-sans-serif',
+            changeFn:           this.setFontFamilySansSerif.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.fontFamilySerif = {
 			variable: '@font-family-serif',
-			value: null
+			subscribeProperty:  'font-family-serif',
+            changeFn:           this.setFontFamilySerif.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.fontFamilyMonospace = {
 			variable: '@font-family-monospace',
-			value: null
+			subscribeProperty:  'font-family-monospace',
+            changeFn:           this.setFontFamilyMonospace.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.fontSizeBase = {
 			variable: '@font-size-base',
-			value: null
+			subscribeProperty:  'font-size-base',
+            changeFn:           this.setFontSizeBase.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.headingsFontFamily = {
 			variable: '@headings-font-family',
-			value: null
+			subscribeProperty:  'headings-font-family',
+            changeFn:           this.setHeadingsFontFamily.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.headingsFontWeight = {
 			variable: '@headings-font-weight',
-			value: null
+			subscribeProperty:  'headings-font-weight',
+            changeFn:           this.setHeadingsFontWeight.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.headingsLineHeight = {
 			variable: '@headings-line-height',
-			value: null
+			subscribeProperty:  'headings-line-height',
+            changeFn:           this.setHeadingsLineHeight.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.headingsColor = {
 			variable: '@headings-color',
-			value: null
+			subscribeProperty:  'headings-color',
+            changeFn:           this.setHeadingsColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
         this.headingsSmallColor = {
             variable: '@headings-small-color',
-            value: null
+            subscribeProperty:  'headings-small-color',
+            changeFn:           this.setHeadingsSmallColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.textMutedColor = {
             variable: '@text-muted',
-            value: null
+            subscribeProperty:  'text-muted-color',
+            changeFn:           this.setTextMutedColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.abbrBorderColor = {
             variable: '@abbr-border-color',
-            value: null
+            subscribeProperty:  'abbr-border-color',
+            changeFn:           this.setAbbrBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
+
+        Object.defineProperty(this.fontSizeBase, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -86,6 +133,8 @@
             textMutedColor:         this.textMutedColor,
             abbrBorderColor:        this.abbrBorderColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -110,7 +159,6 @@
      */
     Typography.prototype.setFontFamilySansSerif = function (fontFamilySansSerif) {
         this.modifiers.fontFamilySansSerif.value = fontFamilySansSerif;
-        this.editor.queueModifications();
     };
 
     /**
@@ -131,7 +179,6 @@
      */
     Typography.prototype.setFontFamilySerif = function (fontFamilySerif) {
         this.modifiers.fontFamilySerif.value = fontFamilySerif;
-        this.editor.queueModifications();
     };
 
     /**
@@ -152,7 +199,6 @@
      */
     Typography.prototype.setFontFamilyMonospace = function (fontFamilyMonospace) {
         this.modifiers.fontFamilyMonospace.value = fontFamilyMonospace;
-        this.editor.queueModifications();
     };
 
     /**
@@ -172,8 +218,7 @@
      * @returns {undefined}
      */
     Typography.prototype.setFontSizeBase = function (fontSizeBase) {
-        this.modifiers.fontSizeBase.value = fontSizeBase + 'px';
-        this.editor.queueModifications();
+        this.modifiers.fontSizeBase.value = fontSizeBase;
     };
 
     /**
@@ -194,7 +239,6 @@
      */
     Typography.prototype.setHeadingsFontFamily = function (headingsFontFamily) {
         this.modifiers.headingsFontFamily.value = headingsFontFamily;
-        this.editor.queueModifications();
     };
 
     /**
@@ -215,7 +259,6 @@
      */
     Typography.prototype.setHeadingsFontWeight = function (headingsFontWeight) {
         this.modifiers.headingsFontWeight.value = headingsFontWeight;
-        this.editor.queueModifications();
     };
 
     /**
@@ -236,7 +279,6 @@
      */
     Typography.prototype.setHeadingsLineHeight = function (headingsLineHeight) {
         this.modifiers.headingsLineHeight.value = headingsLineHeight;
-        this.editor.queueModifications();
     };
 
     /**
@@ -257,7 +299,6 @@
      */
     Typography.prototype.setHeadingsColor = function (headingsColor) {
         this.modifiers.headingsColor.value = headingsColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -278,7 +319,6 @@
      */
     Typography.prototype.setHeadingsSmallColor = function (headingsSmallColor) {
         this.modifiers.headingsSmallColor.value = headingsSmallColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -299,7 +339,6 @@
      */
     Typography.prototype.setTextMutedColor = function (textMutedColor) {
         this.modifiers.textMutedColor.value = textMutedColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -320,7 +359,6 @@
      */
     Typography.prototype.setAbbrBorderColor = function (abbrBorderColor) {
         this.modifiers.abbrBorderColor.value = abbrBorderColor;
-        this.editor.queueModifications();
     };
 
 	window.Typography = Typography;

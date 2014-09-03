@@ -19,23 +19,85 @@
     var NavbarBase = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-navbar';
+
         // Define the Modifiers
         this.height = {
             variable: '@navbar-height',
-            value: null
+            subscribeProperty:  'height',
+            changeFn:           this.setHeight.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.marginBottom = {
             variable: '@navbar-margin-bottom',
-            value: null
+            subscribeProperty:  'margin-bottom',
+            changeFn:           this.setMarginBottom.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.borderRadius = {
             variable: '@navbar-border-radius',
-            value: null
+            subscribeProperty:  'border-radius',
+            changeFn:           this.setBorderRadius.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.collapseMaxHeight = {
             variable: '@navbar-collapse-max-height',
-            value: null
+            subscribeProperty:  'collapse-max-height',
+            changeFn:           this.setCollapseMaxHeight.bind(this),
+            subscribers:        [],
+			_value: null
         };
+
+        Object.defineProperty(this.height, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
+        Object.defineProperty(this.marginBottom, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
+        Object.defineProperty(this.borderRadius, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
+
+        Object.defineProperty(this.collapseMaxHeight, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -44,6 +106,8 @@
             borderRadius:       this.borderRadius,
             collapseMaxHeight:  this.collapseMaxHeight
         };
+
+        this.setupDataBinding();
     };
     
     // Inherit from parent Prototype and preserve constructor
@@ -67,8 +131,7 @@
      * @returns {undefined}
      */
     NavbarBase.prototype.setHeight = function (height) {
-        this.modifiers.height.value = height + 'px';
-        this.editor.queueModifications();
+        this.modifiers.height.value = height;
     };
     
     /**
@@ -88,8 +151,7 @@
      * @returns {undefined}
      */
     NavbarBase.prototype.setMarginBottom = function (marginBottom) {
-        this.modifiers.marginBottom.value = marginBottom + 'px';
-        this.editor.queueModifications();
+        this.modifiers.marginBottom.value = marginBottom;
     };
 
     /**
@@ -110,7 +172,6 @@
      */
     NavbarBase.prototype.setBorderRadius = function (borderRadius) {
         this.modifiers.borderRadius.value = borderRadius;
-        this.editor.queueModifications();
     };
     
     /**
@@ -130,8 +191,7 @@
      * @returns {undefined}
      */
     NavbarBase.prototype.setCollapseMaxHeight = function (collapseMaxHeight) {
-        this.modifiers.collapseMaxHeight.value = collapseMaxHeight + 'px';
-        this.editor.queueModifications();
+        this.modifiers.collapseMaxHeight.value = collapseMaxHeight;
     };
 
     window.NavbarBase = NavbarBase;

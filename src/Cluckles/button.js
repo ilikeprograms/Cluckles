@@ -18,7 +18,9 @@
 	 */
 	var Button = function (editor, style) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-		
+
+        this.subscriberDataAttribute = 'data-cluckles-button-' + style;
+
         if (style === undefined) {
             throw new TypeError('ThemeEditor.button.js: style cannot be undefined');
         }
@@ -26,15 +28,24 @@
         // Configure the Modifiers
 		this.bg = {
 			variable: '@btn-' + style + '-bg',
-			value: null
+			subscribeProperty: 'bg',
+            changeFn: this.setBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.color = {
 			variable: '@btn-' + style + '-color',
-			value: null
+			subscribeProperty: 'color',
+            changeFn: this.setColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.border = {
 			variable: '@btn-' + style + '-border',
-			value: null
+			subscribeProperty: 'hover-border-color',
+            changeFn: this.setBorder.bind(this),
+            subscribers: [],
+			_value: null
 		};
 
         // Configure the modifiers so they can be extracted easier
@@ -43,6 +54,8 @@
             color:              this.color,
             border:             this.border
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -67,7 +80,6 @@
 	 */
 	Button.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -88,7 +100,6 @@
 	 */
 	Button.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -109,7 +120,6 @@
 	 */
 	Button.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
-		this.editor.queueModifications();
 	};
 
     window.Button = Button;

@@ -24,48 +24,116 @@
 	 */
 	var Popover = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-		
+
+        this.subscriberDataAttribute = 'data-cluckles-popover';
+
         // Configure the Modifiers
         this.bg = {
 			variable: '@popover-bg',
-			value: null
+			subscribeProperty:  'bg',
+            changeFn:           this.setBackground.bind(this),
+            subscribers:        [],
+			_value: null
 		};
         this.maxWidth = {
             variable: '@popover-max-width',
-            value: null
+            subscribeProperty:  'max-width',
+            changeFn:           this.setMaxWidth.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.borderColor = {
             variable: '@popover-border-color',
-            value: null
+            subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.fallbackBorderColor = {
             variable: '@popover-fallback-border-color',
-            value: null
+            subscribeProperty:  'fallback-border-color',
+            changeFn:           this.setFallbackBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.titleBg = {
             variable: '@popover-title-bg',
-            value: null
+            subscribeProperty:  'title-bg',
+            changeFn:           this.setTitleBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.arrowWidth = {
             variable: '@popover-arrow-width',
-            value: null
+            subscribeProperty:  'arrow-width',
+            changeFn:           this.setArrowWidth.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.arrowColor = {
             variable: '@popover-arrow-color',
-            value: null
+            subscribeProperty:  'arrow-color',
+            changeFn:           this.setArrowColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.arrowOuterWidth = {
             variable: '@popover-arrow-outer-width',
-            value: null
+            subscribeProperty:  'arrow-outer-width',
+            changeFn:           this.setArrowOuterWidth.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.arrowOuterColor = {
             variable: '@popover-arrow-outer-color',
-            value: null
+            subscribeProperty:  'arrow-outer-color',
+            changeFn:           this.setArrowOuterColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.arrowOuterFallbackColor = {
             variable: '@popover-arrow-outer-fallback-color',
-            value: null
+            subscribeProperty:  'arrow-outer-fallback-color-',
+            changeFn:           this.setArrowOuterFallbackColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
+
+        Object.defineProperty(this.maxWidth, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
+        Object.defineProperty(this.arrowWidth, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
+        Object.defineProperty(this.arrowOuterWidth, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -80,6 +148,8 @@
             arrowOuterColor:            this.arrowOuterColor,
             arrowOuterFallbackColor:    this.arrowOuterFallbackColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -104,7 +174,6 @@
 	 */
 	Popover.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 
 /**
@@ -124,8 +193,7 @@
      * @returns {undefined}
      */
     Popover.prototype.setMaxWidth = function (maxWidth) {
-        this.modifiers.maxWidth.value = maxWidth + 'px';
-        this.editor.queueModifications();
+        this.modifiers.maxWidth.value = maxWidth;
     };
     
     /**
@@ -146,7 +214,6 @@
      */
     Popover.prototype.setBorderColor = function (borderColor) {
         this.modifiers.borderColor.value = borderColor;
-        this.editor.queueModifications();
     };
     
     /**
@@ -167,7 +234,6 @@
      */
     Popover.prototype.setFallbackBorderColor = function (fallbackBorderColor) {
         this.modifiers.fallbackBorderColor.value = fallbackBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -188,7 +254,6 @@
      */
     Popover.prototype.setTitleBackgroundColor = function (titleBg) {
         this.modifiers.titleBg.value = titleBg;
-        this.editor.queueModifications();
     };
 
     /**
@@ -208,8 +273,7 @@
      * @returns {undefined}
      */
     Popover.prototype.setArrowWidth = function (arrowWidth) {
-        this.modifiers.arrowWidth.value = arrowWidth + 'px';
-        this.editor.queueModifications();
+        this.modifiers.arrowWidth.value = arrowWidth;
     };
     
     /**
@@ -230,7 +294,6 @@
      */
     Popover.prototype.setArrowColor = function (arrowColor) {
         this.modifiers.arrowColor.value = arrowColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -250,8 +313,7 @@
      * @returns {undefined}
      */
     Popover.prototype.setArrowOuterWidth = function (arrowOuterWidth) {
-        this.modifiers.arrowOuterWidth.value = arrowOuterWidth + 'px';
-        this.editor.queueModifications();
+        this.modifiers.arrowOuterWidth.value = arrowOuterWidth;
     };
     
     /**
@@ -272,7 +334,6 @@
      */
     Popover.prototype.setArrowOuterColor = function (arrowOuterColor) {
         this.modifiers.arrowOuterColor.value = arrowOuterColor;
-        this.editor.queueModifications();
     };
     
     /**
@@ -293,7 +354,6 @@
      */
     Popover.prototype.setArrowOuterFallbackColor = function (arrowOuterFallbackColor) {
         this.modifiers.arrowOuterFallbackColor.value = arrowOuterFallbackColor;
-        this.editor.queueModifications();
     };
 
 	window.Popover = Popover;

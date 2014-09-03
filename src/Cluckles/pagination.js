@@ -26,54 +26,92 @@
 	 */
 	var Pagination = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-        
+
+        this.subscriberDataAttribute = 'data-cluckles-pagination';
+
         this.color = {
             variable: '@pagination-color',
-            value: null
+            subscribeProperty:  'color',
+            changeFn:           this.setColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.bg = {
             variable: '@pagination-bg',
-            value: null
+            subscribeProperty:  'bg',
+            changeFn:           this.setBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.borderColor = {
             variable: '@pagination-border',
-            value: null
+            subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.hoverColor = {
             variable: '@pagination-hover-color',
-            value: null
+            subscribeProperty:  'hover-color',
+            changeFn:           this.setHoverColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.hoverBg = {
             variable: '@pagination-hover-bg',
-            value: null
+            subscribeProperty:  'hover-bg',
+            changeFn:           this.setHoverBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.hoverBorderColor = {
             variable: '@pagination-hover-border',
-            value: null
+            subscribeProperty:  'hover-border-color',
+            changeFn:           this.setHoverBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.activeColor = {
             variable: '@pagination-active-color',
-            value: null
+            subscribeProperty:  'active-color',
+            changeFn:           this.setActiveColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.activeBg = {
             variable: '@pagination-active-bg',
-            value: null
+            subscribeProperty:  'active-bg',
+            changeFn:           this.setActiveBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.activeBorderColor = {
             variable: '@pagination-active-border',
-            value: null
+            subscribeProperty:  'active-border',
+            changeFn:           this.setActiveBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.disabledColor = {
             variable: '@pagination-disabled-color',
-            value: null
+            subscribeProperty:  'disabled-color',
+            changeFn:           this.setDisabledColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.disabledBg = {
             variable: '@pagination-disabled-bg',
-            value: null
+            subscribeProperty:  'disabled-bg',
+            changeFn:           this.setDisabledBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.disabledBorderColor = {
             variable: '@pagination-disabled-border',
-            value: null
+            subscribeProperty:  'disabled-border-color',
+            changeFn:           this.setDisabledBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
         
         this.modifiers = {
@@ -90,6 +128,8 @@
             disabledBg:             this.disabledBg,
             disabledBorderColor:    this.disabledBorderColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -114,7 +154,6 @@
 	 */
 	Pagination.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -135,7 +174,6 @@
 	 */
 	Pagination.prototype.setBackground = function (bg) {
 		this.modifiers.bg.value = bg;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -156,7 +194,6 @@
 	 */
 	Pagination.prototype.setBorderColor = function (borderColor) {
 		this.modifiers.borderColor.value = borderColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -177,7 +214,6 @@
 	 */
 	Pagination.prototype.setHoverColor = function (hoverColor) {
 		this.modifiers.hoverColor.value = hoverColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -198,7 +234,6 @@
 	 */
 	Pagination.prototype.setHoverBackground = function (hoverBg) {
 		this.modifiers.hoverBg.value = hoverBg;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -219,7 +254,6 @@
 	 */
 	Pagination.prototype.setHoverBorderColor = function (hoverBorderColor) {
 		this.modifiers.hoverBorderColor.value = hoverBorderColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -240,7 +274,6 @@
 	 */
 	Pagination.prototype.setActiveColor = function (activeColor) {
 		this.modifiers.activeColor.value = activeColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -261,7 +294,6 @@
 	 */
 	Pagination.prototype.setActiveBackground = function (activeBg) {
 		this.modifiers.activeBg.value = activeBg;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -282,7 +314,6 @@
 	 */
 	Pagination.prototype.setActiveBorderColor = function (activeBorderColor) {
 		this.modifiers.activeBorderColor.value = activeBorderColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -303,7 +334,6 @@
 	 */
 	Pagination.prototype.setDisabledColor = function (disabledColor) {
 		this.modifiers.disabledColor.value = disabledColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -324,7 +354,6 @@
 	 */
 	Pagination.prototype.setDisabledBackground = function (disabledBg) {
 		this.modifiers.disabledBg.value = disabledBg;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -345,7 +374,6 @@
 	 */
 	Pagination.prototype.setDisabledBorderColor = function (disabledBorderColor) {
 		this.modifiers.disabledBorderColor.value = disabledBorderColor;
-		this.editor.queueModifications();
 	};
 
     window.Pagination = Pagination;

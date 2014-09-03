@@ -22,35 +22,82 @@
     var Table = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-table';
+
         this.cellPadding = {
             variable: '@table-cell-padding',
-            value: null
+            subscribeProperty:  'cell-padding',
+            changeFn:           this.setCellPadding.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.condensedCellPadding = {
             variable: '@table-condensed-cell-padding',
-            value: null
+            subscribeProperty:  'condensed-cell-padding',
+            changeFn:           this.setCondensedCellPadding.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.bg = {
             variable: '@table-bg',
-            value: null
+            subscribeProperty:  'bg',
+            changeFn:           this.setBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.bgAccent = {
             variable: '@table-bg-accent',
-            value: null
+            subscribeProperty:  'striped-bg',
+            changeFn:           this.setAccentBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.bgHover = {
             variable: '@table-bg-hover',
-            value: null
+            subscribeProperty:  'hover-bg',
+            changeFn:           this.setHoverBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.bgActive = {
             variable: '@table-bg-active',
-            value: null
+            subscribeProperty:  'active-bg',
+            changeFn:           this.setActiveBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.borderColor = {
             variable: '@table-border-color',
-            value: null
+            subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
-        
+
+        Object.defineProperty(this.cellPadding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
+
+        Object.defineProperty(this.condensedCellPadding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
         this.modifiers = {
             cellPadding:            this.cellPadding,
             condensedCellPadding:   this.condensedCellPadding,
@@ -60,6 +107,8 @@
             activeBg:               this.bgActive,
             borderColor:            this.borderColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -83,8 +132,7 @@
      * @returns {undefined}
      */
     Table.prototype.setCellPadding = function (cellPadding) {
-        this.modifiers.cellPadding.value = cellPadding + 'px';
-        this.editor.queueModifications();
+        this.modifiers.cellPadding.value = cellPadding;
     };
 
     /**
@@ -104,8 +152,7 @@
      * @returns {undefined}
      */
     Table.prototype.setCondensedCellPadding = function (condensedCellPadding) {
-        this.modifiers.condensedCellPadding.value = condensedCellPadding + 'px';
-        this.editor.queueModifications();
+        this.modifiers.condensedCellPadding.value = condensedCellPadding;
     };
 
     /**
@@ -126,7 +173,6 @@
 	 */
 	Table.prototype.setBackground = function (bg) {
 		this.modifiers.bg.value = bg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -147,7 +193,6 @@
 	 */
 	Table.prototype.setAccentBackground = function (accentBg) {
 		this.modifiers.accentBg.value = accentBg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -168,7 +213,6 @@
 	 */
 	Table.prototype.setHoverBackground = function (hoverBg) {
 		this.modifiers.hoverBg.value = hoverBg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -189,7 +233,6 @@
 	 */
 	Table.prototype.setActiveBackground = function (activeBg) {
 		this.modifiers.activeBg.value = activeBg;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -210,7 +253,6 @@
      */
     Table.prototype.setBorderColor = function (borderColor) {
         this.modifiers.borderColor.value = borderColor;
-        this.editor.queueModifications();
     };
 
     window.Table = Table;

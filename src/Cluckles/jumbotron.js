@@ -18,25 +18,51 @@
 	 */
 	var Jumbotron = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-		
+
+        this.subscriberDataAttribute = 'data-cluckles-jumbotron';
+
         // Configure the Modifiers
         this.padding = {
-            variable: '@jumbotron-padding',
-            value: null
+            variable:           '@jumbotron-padding',
+            subscribeProperty:  'padding',
+            changeFn:           this.setPadding.bind(this),
+            subscribers:        [],
+            _value: null
         };
 		this.bg = {
-			variable: '@jumbotron-bg',
-			value: null
+			variable:           '@jumbotron-bg',
+            subscribeProperty:  'bg',
+            changeFn:           this.setBackground.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.headingColor = {
-			variable: '@jumbotron-heading-color',
-			value: null
+			variable:           '@jumbotron-heading-color',
+            subscribeProperty:  'heading-color',
+            changeFn:           this.setHeadingColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.color = {
-			variable: '@jumbotron-color',
-			value: null
+			variable:           '@jumbotron-color',
+            subscribeProperty:  'color',
+            changeFn:           this.setColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
-		
+
+        Object.defineProperty(this.padding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             padding:        this.padding,
@@ -44,6 +70,8 @@
             headingColor:   this.headingColor,
             color:          this.color
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -67,8 +95,7 @@
 	 * @returns {undefined}
 	 */
 	Jumbotron.prototype.setPadding = function (color) {
-		this.modifiers.padding.value = color + 'px';
-		this.editor.queueModifications();
+		this.modifiers.padding.value = color;
 	};
 
 	/**
@@ -89,7 +116,6 @@
 	 */
 	Jumbotron.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -110,7 +136,6 @@
 	 */
 	Jumbotron.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -131,7 +156,6 @@
 	 */
 	Jumbotron.prototype.setHeadingColor = function (color) {
 		this.modifiers.headingColor.value = color;
-		this.editor.queueModifications();
 	};
 
 	window.Jumbotron = Jumbotron;

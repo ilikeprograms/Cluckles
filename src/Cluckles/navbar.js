@@ -28,69 +28,116 @@
 	 */
 	var Navbar = function (editor, style) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-		
+
 		var navbarStyle = style === undefined ? 'default' : 'inverse';
+
+        this.subscriberDataAttribute = 'data-cluckles-navbar-' + navbarStyle;
 
         // Configure the Modifiers
 		this.bg = {
 			variable: 'navbar-' + navbarStyle + '-bg',
-			value: null
+			subscribeProperty:  'bg',
+            changeFn:           this.setBackground.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.color = {
 			variable: 'navbar-' + navbarStyle + '-color',
-			value: null
+			subscribeProperty:  'color',
+            changeFn:           this.setColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.border = {
 			variable: 'navbar-' + navbarStyle + '-border',
-			value: null
+			subscribeProperty:  'border',
+            changeFn:           this.setBorder.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkColor = {
 			variable: 'navbar-' + navbarStyle + '-link-color',
-			value: null
+			subscribeProperty:  'link-color',
+            changeFn:           this.setLinkColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkHoverColor = {
 			variable: 'navbar-' + navbarStyle + '-link-hover-color',
-			value: null
+			subscribeProperty:  'link-hover-color',
+            changeFn:           this.setLinkHoverColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkHoverBg = {
 			variable: 'navbar-' + navbarStyle + '-link-hover-bg',
-			value: null
+			subscribeProperty:  'link-hover-bg',
+            changeFn:           this.setLinkHoverBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkActiveColor = {
 			variable: 'navbar-' + navbarStyle + '-link-active-color',
-			value: null
+			subscribeProperty:  'link-active-color',
+            changeFn:           this.setLinkActiveColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkActiveBg = {
 			variable: 'navbar-' + navbarStyle + '-link-active-bg',
-			value: null
+			subscribeProperty:  'link-active-bg',
+            changeFn:           this.setLinkActiveBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkHoverColor = {
 			variable: 'navbar-' + navbarStyle + '-link-hover-color',
-			value: null
+			subscribeProperty:  'link-hover-color',
+            changeFn:           this.setLinkHoverColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkHoverBg = {
 			variable: 'navbar-' + navbarStyle + '-link-hover-bg',
-			value: null
+			subscribeProperty:  'link-hover-bg',
+            changeFn:           this.setLinkHoverBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkDisabledColor = {
 			variable: 'navbar-' + navbarStyle + '-link-disabled-color',
-			value: null
+			subscribeProperty:  'link-disabled-color',
+            changeFn:           this.setLinkDisabledColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.linkDisabledBg = {
 			variable: 'navbar-' + navbarStyle + '-link-disabled-bg',
-			value: null
+			subscribeProperty:  'link-disabled-bg',
+            changeFn:           this.setLinkDisabledBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.brandColor = {
 			variable: 'navbar-' + navbarStyle + '-brand-color',
-			value: null
+			subscribeProperty:  'brand-color',
+            changeFn:           this.setBrandColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.brandHoverColor = {
 			variable: 'navbar-' + navbarStyle + '-brand-hover-color',
-			value: null
+			subscribeProperty:  'brand-hover-color',
+            changeFn:           this.setBrandHoverColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.brandHoverBg = {
 			variable: 'navbar-' + navbarStyle + '-brand-hover-bg',
-			value: null
+			subscribeProperty:  'brand-hover-bg',
+            changeFn:           this.setBrandHoverBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		
         // Configure the modifiers so they can be extracted easier
@@ -109,6 +156,8 @@
             brandHoverColor:    this.brandHoverColor,
             brandHoverBg:       this.brandHoverBg
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -133,7 +182,6 @@
 	 */
 	Navbar.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -154,7 +202,6 @@
 	 */
 	Navbar.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -175,7 +222,6 @@
 	 */
 	Navbar.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -196,7 +242,6 @@
 	 */
 	Navbar.prototype.setLinkColor = function (color) {
 		this.modifiers.linkColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -217,7 +262,6 @@
 	 */
 	Navbar.prototype.setLinkHoverColor = function (color) {
 		this.modifiers.linkHoverColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -238,7 +282,6 @@
 	 */
 	Navbar.prototype.setLinkHoverBackgroundColor = function (color) {
 		this.modifiers.linkHoverBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -259,7 +302,6 @@
 	 */
 	Navbar.prototype.setLinkActiveColor = function (color) {
 		this.modifiers.linkActiveColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -280,7 +322,6 @@
 	 */
 	Navbar.prototype.setLinkActiveBackgroundColor = function (color) {
 		this.modifiers.linkActiveBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -301,7 +342,6 @@
 	 */
 	Navbar.prototype.setLinkDisabledColor = function (color) {
 		this.modifiers.linkDisabledColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -322,7 +362,6 @@
 	 */
 	Navbar.prototype.setLinkDisabledBackgroundColor = function (color) {
 		this.modifiers.linkDisabledBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 		
@@ -344,7 +383,6 @@
 	 */
 	Navbar.prototype.setBrandColor = function (color) {
 		this.modifiers.brandColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 		
@@ -366,7 +404,6 @@
 	 */
 	Navbar.prototype.setBrandHoverColor = function (color) {
 		this.modifiers.brandHoverColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -387,7 +424,6 @@
 	 */
 	Navbar.prototype.setBrandHoverBackgroundColor = function (color) {
 		this.modifiers.brandHoverBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	window.Navbar = Navbar;

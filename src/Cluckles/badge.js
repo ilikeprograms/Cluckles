@@ -23,39 +23,77 @@
 	var Badge = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-badge';
+
         // Configure the Modifiers
 		this.color = {
 			variable: '@badge-color',
-			value: null
+            subscribeProperty: 'color',
+            changeFn: this.setColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
         this.linkHoverColor = {
 			variable: '@badge-link-hover-color',
-			value: null
+            subscribeProperty: 'link-hover-color',
+            changeFn: this.setLinkHoverColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
         this.bg = {
 			variable: '@badge-bg',
-			value: null
+            subscribeProperty: 'bg',
+            changeFn: this.setBackgroundColor.bind(this),
+            subscribers: [],
+			_value: null
         };
 		this.activeColor = {
 			variable: '@badge-active-color',
-			value: null
+            subscribeProperty: 'active-color',
+            changeFn: this.setActiveColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.activeBg = {
 			variable: '@badge-active-bg',
-			value: null
+            subscribeProperty: 'active-bg-color',
+            changeFn: this.setActiveBackgroundColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.fontWeight = {
 			variable: '@badge-font-weight',
-			value: null
+            subscribeProperty: 'font-weight',
+            changeFn: this.setFontWeight.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.lineHeight = {
 			variable: '@badge-line-height',
-			value: null
+            subscribeProperty: 'line-height',
+            changeFn: this.setLineHeight.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.borderRadius = {
 			variable: '@badge-border-radius',
-			value: null
+            subscribeProperty: 'border-radius',
+            changeFn: this.setBorderRadius.bind(this),
+            subscribers: [],
+			_value: null
 		};
+
+        Object.defineProperty(this.borderRadius, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -68,6 +106,8 @@
             lineHeight:     this.lineHeight,
             borderRadius:   this.borderRadius
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -92,7 +132,6 @@
 	 */
 	Badge.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -113,7 +152,6 @@
 	 */
 	Badge.prototype.setLinkHoverColor = function (linkHoverColor) {
 		this.modifiers.linkHoverColor.value = linkHoverColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -134,7 +172,6 @@
 	 */
 	Badge.prototype.setBackgroundColor = function (backgroundColor) {
 		this.modifiers.bg.value = backgroundColor;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -155,7 +192,6 @@
 	 */
 	Badge.prototype.setActiveColor = function (activeColor) {
 		this.modifiers.activeColor.value = activeColor;
-		this.editor.queueModifications();
     };
 
 	/**
@@ -176,7 +212,6 @@
 	 */
 	Badge.prototype.setActiveBackgroundColor = function (activeBg) {
 		this.modifiers.activeBg.value = activeBg;
-		this.editor.queueModifications();
     };
 
     /**
@@ -197,7 +232,6 @@
      */
     Badge.prototype.setFontWeight = function (fontWeight) {
         this.modifiers.fontWeight.value = fontWeight;
-        this.editor.queueModifications();
     };
 
     /**
@@ -218,7 +252,6 @@
      */
     Badge.prototype.setLineHeight = function (lineHeight) {
         this.modifiers.lineHeight.value = lineHeight;
-        this.editor.queueModifications();
     };
 
     /**
@@ -238,8 +271,7 @@
      * @returns {undefined}
      */
     Badge.prototype.setBorderRadius = function (borderRadius) {
-        this.modifiers.borderRadius.value = borderRadius + 'px';
-        this.editor.queueModifications();
+        this.modifiers.borderRadius.value = borderRadius;
     };
 
 	window.Badge = Badge;

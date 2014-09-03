@@ -18,24 +18,61 @@
     var PanelBase = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-panelbase';
+
         this.panelFooterBg = {
             variable: '@panel-footer-bg',
-            value: null
+            subscribeProperty:  'footer-bg',
+            changeFn:           this.setPanelFooterBackground.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.panelBodyPadding = {
             variable: '@panel-body-padding',
-            value: null
+            subscribeProperty:  'body-padding',
+            changeFn:           this.setPanelBodyPadding.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.panelBorderRadius = {
             variable: '@panel-border-radius',
-            value: null
+            subscribeProperty:  'border-radius',
+            changeFn:           this.setPanelBorderRadius.bind(this),
+            subscribers:        [],
+			_value: null
         };
+
+        Object.defineProperty(this.panelBodyPadding, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
+        Object.defineProperty(this.panelBorderRadius, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
         
         this.modifiers = {
             panelFooterBg: this.panelFooterBg,
             panelBodyPadding: this.panelBodyPadding,
             panelBorderRadius: this.panelBorderRadius
         };
+
+        this.setupDataBinding();
     };
     
     // Inherit from parent Prototype and preserve constructor
@@ -81,7 +118,6 @@
      */
     PanelBase.prototype.setPanelBodyPadding = function (panelBodyPadding) {
         this.modifiers.panelBodyPadding.value = panelBodyPadding;
-        this.editor.queueModifications();
     };
     
     /**
@@ -102,7 +138,6 @@
      */
     PanelBase.prototype.setPanelBorderRadius = function (panelBorderRadius) {
         this.modifiers.panelBorderRadius.value = panelBorderRadius;
-        this.editor.queueModifications();
     };
 
     window.PanelBase = PanelBase;

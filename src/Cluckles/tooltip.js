@@ -20,32 +20,76 @@
 	 */
 	var Tooltip = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
-		
+
+        this.subscriberDataAttribute = 'data-cluckles-tooltip';
+
         // Configure the Modifiers
         this.maxWidth = {
             variable: '@tooltip-max-width',
-            value: null
+            subscribeProperty:  'max-width',
+            changeFn:           this.setMaxWidth.bind(this),
+            subscribers:        [],
+			_value: null
         };
 		this.bg = {
 			variable: '@tooltip-bg',
-			value: null
+			subscribeProperty:  'bg',
+            changeFn:           this.setBackground.bind(this),
+            subscribers:        [],
+			_value: null
 		};
 		this.color = {
 			variable: '@tooltip-color',
-			value: null
+			subscribeProperty:  'color',
+            changeFn:           this.setColor.bind(this),
+            subscribers:        [],
+			_value: null
 		};
         this.opacity = {
             variable: '@tooltip-opacity',
-            value: null
+            subscribeProperty:  'opacity',
+            changeFn:           this.setOpacity.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.arrowWidth = {
             variable: '@tooltip-arrow-width',
-            value: null
+            subscribeProperty:  'arrow-width',
+            changeFn:           this.setArrowWidth.bind(this),
+            subscribers:        [],
+			_value: null
         };
         this.arrowColor = {
             variable: '@tooltip-arrow-color',
-            value: null
+            subscribeProperty:  'arrow-color',
+            changeFn:           this.setArrowColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
+
+        Object.defineProperty(this.maxWidth, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
+
+        Object.defineProperty(this.arrowWidth, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -56,6 +100,8 @@
             arrowWidth: this.arrowWidth,
             arrowColor: this.arrowColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -78,8 +124,7 @@
      * @returns {undefined}
      */
     Tooltip.prototype.setMaxWidth = function (maxWidth) {
-        this.modifiers.maxWidth.value = maxWidth + 'px';
-        this.editor.queueModifications();
+        this.modifiers.maxWidth.value = maxWidth;
     };
 
 	/**
@@ -100,7 +145,6 @@
 	 */
 	Tooltip.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 
 	/**
@@ -121,7 +165,6 @@
 	 */
 	Tooltip.prototype.setColor = function (color) {
 		this.modifiers.color.value = color;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -142,7 +185,6 @@
      */
     Tooltip.prototype.setOpacity = function (opacity) {
         this.modifiers.opacity.value = opacity;
-        this.editor.queueModifications();
     };
     
     /**
@@ -162,8 +204,7 @@
      * @returns {undefined}
      */
     Tooltip.prototype.setArrowWidth = function (arrowWidth) {
-        this.modifiers.arrowWidth.value = arrowWidth + 'px';
-        this.editor.queueModifications();
+        this.modifiers.arrowWidth.value = arrowWidth;
     };
     
     /**
@@ -184,7 +225,6 @@
      */
     Tooltip.prototype.setArrowColor = function (arrowColor) {
         this.modifiers.arrowColor.value = arrowColor;
-        this.editor.queueModifications();
     };
 
 	window.Tooltip = Tooltip;

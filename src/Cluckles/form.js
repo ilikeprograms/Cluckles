@@ -26,51 +26,98 @@
 	var Form = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-form';
+
         // Configure the Modifiers
 		this.inputBg = {
 			variable: '@input-bg',
-			value: null
+			subscribeProperty: 'input-bg',
+            changeFn: this.setInputBackgroundColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputDisabledBg = {
 			variable: '@input-bg-disabled',
-			value: null
+			subscribeProperty: 'input-disabled-bg',
+            changeFn: this.setInputDisabledBackgroundColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputColor = {
 			variable: '@input-color',
-			value: null
+			subscribeProperty: 'input-color',
+            changeFn: this.setInputColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputBorderColor = {
 			variable: '@input-border',
-			value: null
+			subscribeProperty: 'input-border-color',
+            changeFn: this.setInputBorderColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputBorderRadius = {
 			variable: '@input-border-radius',
-			value: null
+			subscribeProperty: 'input-border-radius',
+            changeFn: this.setInputBorderRadius.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputBorderFocusColor = {
 			variable: '@input-border-focus',
-			value: null
+			subscribeProperty: 'input-border-focus-color',
+            changeFn: this.setInputBorderFocusColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputPlaceholderColor = {
 			variable: '@input-color-placeholder',
-			value: null
+			subscribeProperty: 'input-placeholder-color',
+            changeFn: this.setInputPlaceholderColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.legendColor = {
 			variable: '@legend-color',
-			value: null
+			subscribeProperty: 'legend-color',
+            changeFn: this.setLegendColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.legendBorderColor = {
 			variable: '@legend-border-color',
-			value: null
+			subscribeProperty: 'legend-border-color',
+            changeFn: this.setLegendBorderColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputGroupAddonBgColor = {
 			variable: '@input-group-addon-bg',
-			value: null
+			subscribeProperty: 'input-group-addon-bg',
+            changeFn: this.setInputGroupAddonBackgroundColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.inputGroupAddonBorderColor = {
 			variable: '@input-group-addon-border-color',
-			value: null
+			subscribeProperty: 'input-group-addon-border-color',
+            changeFn: this.setInputGroupAddonBorderColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
+
+        Object.defineProperty(this.inputBorderRadius, 'value', {
+           get: function () { return this._value; },
+           set: function (val) {
+               this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+           }
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -86,6 +133,8 @@
             inputGroupAddonBgColor:     this.inputGroupAddonBgColor,
             inputGroupAddonBorderColor: this.inputGroupAddonBorderColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -110,7 +159,6 @@
 	 */
 	Form.prototype.setInputBackgroundColor = function (inputBackgroundColor) {
 		this.modifiers.inputBg.value = inputBackgroundColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -131,7 +179,6 @@
 	 */
 	Form.prototype.setInputDisabledBackgroundColor = function (disabledInputBackgroundColor) {
 		this.modifiers.inputDisabledBg.value = disabledInputBackgroundColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -152,7 +199,6 @@
 	 */
 	Form.prototype.setInputColor = function (inputColor) {
 		this.modifiers.inputColor.value = inputColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -173,7 +219,6 @@
 	 */
 	Form.prototype.setInputBorderColor = function (inputBorderColor) {
 		this.modifiers.inputBorderColor.value = inputBorderColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -193,8 +238,7 @@
 	 * @returns {undefined}
 	 */
 	Form.prototype.setInputBorderRadius = function (inputBorderRadius) {
-		this.modifiers.inputBorderRadius.value = inputBorderRadius + 'px';
-		this.editor.queueModifications();
+		this.modifiers.inputBorderRadius.value = inputBorderRadius;
 	};
 
     /**
@@ -215,7 +259,6 @@
 	 */
 	Form.prototype.setInputBorderFocusColor = function (inputBorderFocusColor) {
 		this.modifiers.inputBorderFocusColor.value = inputBorderFocusColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -236,7 +279,6 @@
      */
     Form.prototype.setInputPlaceholderColor = function (inputPlaceholderColor) {
         this.modifiers.inputPlaceholderColor.value = inputPlaceholderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -257,7 +299,6 @@
      */
     Form.prototype.setLegendColor = function (legendColor) {
         this.modifiers.legendColor.value = legendColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -278,7 +319,6 @@
      */
     Form.prototype.setLegendBorderColor = function (legendBorderColor) {
         this.modifiers.legendBorderColor.value = legendBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -299,7 +339,6 @@
      */
     Form.prototype.setInputGroupAddonBackgroundColor = function (inputGroupAddonBgColor) {
         this.modifiers.inputGroupAddonBgColor.value = inputGroupAddonBgColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -320,7 +359,6 @@
      */
     Form.prototype.setInputGroupAddonBorderColor = function (inputGroupAddonBorderColor) {
         this.modifiers.inputGroupAddonBorderColor.value = inputGroupAddonBorderColor;
-        this.editor.queueModifications();
     };
 
 	window.Form = Form;

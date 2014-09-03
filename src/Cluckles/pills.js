@@ -18,24 +18,49 @@
 	var Pills = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-pill';
+
         this.borderRadius = {
             variable: '@nav-pills-border-radius',
-            value: null
+            subscribeProperty:  'border-radius',
+            changeFn:           this.setBorderRadius.bind(this),
+            subscribers:        [],
+			_value: null
         };
-        this.linkActiveHoverBg = {
+        this.linkActiveBg = {
             variable: '@nav-pills-active-link-hover-bg',
-            value: null
+            subscribeProperty:  'link-active-bg',
+            changeFn:           this.setLinkActiveBackgroundColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
-        this.linkActiveHoverColor = {
+        this.linkActiveColor = {
             variable: '@nav-pills-active-link-hover-color',
-            value: null
+            subscribeProperty:  'link-active-color',
+            changeFn:           this.setLinkActiveColor.bind(this),
+            subscribers:        [],
+			_value: null
         };
 
+        Object.defineProperty(this.borderRadius, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+
         this.modifiers = {
-            borderRadius:           this.borderRadius,
-            linkActiveHoverBg:      this.linkActiveHoverBg,
-            linkActiveHoverColor:   this.linkActiveHoverColor
+            borderRadius:       this.borderRadius,
+            linkActiveBg:       this.linkActiveBg,
+            linkActiveColor:    this.linkActiveColor
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -59,50 +84,47 @@
 	 * @returns {undefined}
 	 */
 	Pills.prototype.setBorderRadius = function (borderRadius) {
-		this.modifiers.borderRadius.value = borderRadius + 'px';
-		this.editor.queueModifications();
+		this.modifiers.borderRadius.value = borderRadius;
 	};
 
     /**
-	 * Gets the Link Active Hover Background Color of the Pills Component.
+	 * Gets the Link Active Background Color of the Pills Component.
 	 * 
 	 * @returns {string}
 	 */
-	Pills.prototype.getLinkActiveHoverBackgroundColor = function () {
-		return this.modifiers.linkActiveHoverBg.value;
+	Pills.prototype.getLinkActiveBackgroundColor = function () {
+		return this.modifiers.linkActiveBg.value;
 	};
 	
 	/**
-	 * Sets the Link Active Hover Background Color of the Pills Component.
+	 * Sets the Link Active Background Color of the Pills Component.
 	 * 
-	 * @param {string} color Sets the Link Active Hover Background Color.
+	 * @param {string} linkActiveBg Sets the Link Active Background Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pills.prototype.setLinkActiveHoverBackgroundColor = function (linkActiveHoverBg) {
-		this.modifiers.linkActiveHoverBg.value = linkActiveHoverBg;
-		this.editor.queueModifications();
+	Pills.prototype.setLinkActiveBackgroundColor = function (linkActiveBg) {
+		this.modifiers.linkActiveBg.value = linkActiveBg;
 	};
 
 	/**
-	 * Gets the Link Active Hover Color of the Pills Component.
+	 * Gets the Link Active Color of the Pills Component.
 	 * 
 	 * @returns {string}
 	 */
-	Pills.prototype.getLinkActiveHoverColor = function () {
-		return this.modifiers.linkActiveHoverColor.value;
+	Pills.prototype.getLinkActiveColor = function () {
+		return this.modifiers.linkActiveColor.value;
 	};
 	
 	/**
-	 * Sets the Link Active Hover Color of the Pills Component.
+	 * Sets the Link Active Color of the Pills Component.
 	 * 
-	 * @param {string} linkActiveHoverColor Sets the Link Active Hover Color.
+	 * @param {string} linkActiveColor Sets the Link Active Hover Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pills.prototype.setLinkActiveHoverColor = function (linkActiveHoverColor) {
-		this.modifiers.linkActiveHoverColor.value = linkActiveHoverColor;
-		this.editor.queueModifications();
+	Pills.prototype.setLinkActiveColor = function (linkActiveColor) {
+		this.modifiers.linkActiveColor.value = linkActiveColor;
 	};
 
     window.Pills = Pills;

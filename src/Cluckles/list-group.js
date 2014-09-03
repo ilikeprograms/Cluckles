@@ -24,42 +24,71 @@
 	var ListGroup = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-listgroup';
+
         // Configure the Modifiers
 		this.bg = {
 			variable: '@list-group-bg',
-			value: null
+			subscribeProperty: 'bg',
+            changeFn: this.setBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.border = {
 			variable: '@list-group-border',
-			value: null
+			subscribeProperty: 'border',
+            changeFn: this.setBorder.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.hoverBg = {
 			variable: '@list-group-hover-bg',
-			value: null
+			subscribeProperty: 'hover-bg',
+            changeFn: this.setHoverBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.linkHeadingColor = {
 			variable: '@list-group-link-heading-color',
-			value: null
+			subscribeProperty: 'link-heading-color',
+            changeFn: this.setLinkHeadingColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.linkColor = {
 			variable: '@list-group-link-color',
-			value: null
+			subscribeProperty: 'link-color',
+            changeFn: this.setLinkColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.activeBg = {
 			variable: '@list-group-active-bg',
-			value: null
+			subscribeProperty: 'active-bg',
+            changeFn: this.setActiveBackground.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.activeBorder = {
 			variable: '@list-group-active-border',
-			value: null
+			subscribeProperty: 'active-border',
+            changeFn: this.setActiveBorder.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.activeColor = {
 			variable: '@list-group-active-color',
-			value: null
+			subscribeProperty: 'active-color',
+            changeFn: this.setActiveColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.activeTextColor = {
 			variable: '@list-group-active-text-color',
-			value: null
+			subscribeProperty: 'active-text-color',
+            changeFn: this.setActiveTextColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		
         // Configure the modifiers so they can be extracted easier
@@ -74,6 +103,8 @@
             activeColor:        this.activeColor,
             activeTextColor:    this.activeTextColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -98,7 +129,6 @@
 	 */
 	ListGroup.prototype.setBackground = function (color) {
 		this.modifiers.bg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -119,7 +149,6 @@
 	 */
 	ListGroup.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -140,7 +169,6 @@
 	 */
 	ListGroup.prototype.setHoverBackground = function (color) {
 		this.modifiers.hoverBg.value = color;
-		this.editor.queueModifications();
 	};
 	
  	/**
@@ -161,7 +189,6 @@
 	 */
 	ListGroup.prototype.setLinkColor = function (color) {
 		this.modifiers.linkColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -182,7 +209,6 @@
 	 */
 	ListGroup.prototype.setLinkHeadingColor = function (color) {
 		this.modifiers.linkHeadingColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -203,7 +229,6 @@
 	 */
 	ListGroup.prototype.setActiveBackground = function (color) {
 		this.modifiers.activeBg.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -224,7 +249,6 @@
 	 */
 	ListGroup.prototype.setActiveBorder = function (color) {
 		this.modifiers.activeBorder.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -245,7 +269,6 @@
 	 */
 	ListGroup.prototype.setActiveColor = function (color) {
 		this.modifiers.activeColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	/**
@@ -266,7 +289,6 @@
 	 */
 	ListGroup.prototype.setActiveTextColor = function (color) {
 		this.modifiers.activeTextColor.value = color;
-		this.editor.queueModifications();
 	};
 	
 	window.ListGroup = ListGroup;

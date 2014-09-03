@@ -18,19 +18,42 @@
 	var Blockquote = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-blockquote';
+
         // Configure the Modifiers
 		this.smallColor = {
 			variable: '@blockquote-small-color',
-			value: null
+            subscribeProperty: 'small-color',
+            changeFn: this.setSmallColor.bind(this),
+            subscribers: [],
+			_value: null
         };
 		this.fontSize = {
 			variable: '@blockquote-font-size',
-			value: null
+            subscribeProperty: 'font-size',
+            changeFn: this.setFontSize.bind(this),
+            subscribers: [],
+			_value: null
 		};
 		this.borderColor = {
 			variable: '@blockquote-border-color',
-			value: null
+            subscribeProperty: 'border-color',
+            changeFn: this.setBorderColor.bind(this),
+            subscribers: [],
+			_value: null
 		};
+
+        Object.defineProperty(this.fontSize, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -38,6 +61,8 @@
             fontSize:       this.fontSize,
             borderColor:    this.borderColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -62,7 +87,6 @@
 	 */
 	Blockquote.prototype.setSmallColor = function (smallColor) {
 		this.modifiers.smallColor.value = smallColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -82,8 +106,7 @@
      * @returns {undefined}
      */
     Blockquote.prototype.setFontSize = function (fontSize) {
-        this.modifiers.fontSize.value = fontSize + 'px';
-        this.editor.queueModifications();
+        this.modifiers.fontSize.value = fontSize;
     };
 
     /**
@@ -104,7 +127,6 @@
      */
     Blockquote.prototype.setBorderColor = function (borderColor) {
         this.modifiers.borderColor.value = borderColor;
-        this.editor.queueModifications();
     };
 
 	window.Blockquote = Blockquote;

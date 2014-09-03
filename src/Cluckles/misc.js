@@ -24,43 +24,84 @@
     var Misc = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-misc';
+
         // Define the Modifiers
         this.componentBaseBg = {
             variable: '@state-base-bg',
-            value: null
+            subscribeProperty: 'component-base-bg',
+            changeFn: this.setComponentBaseBackground.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.wellBg = {
             variable: '@well-base-bg',
-            value: null
+            subscribeProperty: 'well-base-bg',
+            changeFn: this.setWellBackground.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.bodyBg = {
             variable: '@body-bg',
-            value: null
+            subscribeProperty: 'body-bg',
+            changeFn: this.setBodyBackground.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.textColor = {
             variable: '@text-color',
-            value: null
+            subscribeProperty: 'text-color',
+            changeFn: this.setTextColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.pageHeaderBorderColor = {
             variable: '@page-header-border-color',
-            value: null
+            subscribeProperty: 'page-header-border-color',
+            changeFn: this.setPageHeaderBorderColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.linkColor = {
             variable: '@link-color',
-            value: null
+            subscribeProperty: 'link-color',
+            changeFn: this.setLinkColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.linkHoverColor = {
             variable: '@link-hover-color',
-            value: null
+            subscribeProperty: 'link-hover-color',
+            changeFn: this.setLinkHoverColor.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.hrBorder = {
             variable: '@hr-border',
-            value: null
+            subscribeProperty: 'hr-rule-color',
+            changeFn: this.setHrBorder.bind(this),
+            subscribers: [],
+			_value: null
         };
         this.borderRadiusBase = {
             variable: '@border-radius-base',
-            value: null
+            subscribeProperty: 'border-radius-base',
+            changeFn: this.setBorderRadiusBase.bind(this),
+            subscribers: [],
+			_value: null
         };
+
+        Object.defineProperty(this.borderRadiusBase, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            }
+        });
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -74,6 +115,8 @@
             hrBorder:               this.hrBorder,
             borderRadiusBase:       this.borderRadiusBase
         };
+
+        this.setupDataBinding();
     };
 
     // Inherit from parent Prototype and preserve constructor
@@ -98,7 +141,6 @@
      */
     Misc.prototype.setComponentBaseBackground = function (bg) {
         this.modifiers.componentBaseBg.value = bg;
-        this.editor.queueModifications();
     };
 
     /**
@@ -119,7 +161,6 @@
      */
     Misc.prototype.setWellBackground = function (bg) {
         this.modifiers.wellBg.value = bg;
-        this.editor.queueModifications();
     };
 
     /**
@@ -140,7 +181,6 @@
      */
     Misc.prototype.setBodyBackground = function (bg) {
         this.modifiers.bodyBg.value = bg;
-        this.editor.queueModifications();
     };
 
     /**
@@ -161,7 +201,6 @@
      */
     Misc.prototype.setTextColor = function (color) {
         this.modifiers.textColor.value = color;
-        this.editor.queueModifications();
     };
 
     /**
@@ -182,7 +221,6 @@
      */
     Misc.prototype.setPageHeaderBorderColor = function (pageHeaderBorderColor) {
         this.modifiers.pageHeaderBorderColor.value = pageHeaderBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -203,7 +241,6 @@
      */
     Misc.prototype.setLinkColor = function (linkColor) {
         this.modifiers.linkColor.value = linkColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -224,7 +261,6 @@
      */
     Misc.prototype.setLinkHoverColor = function (linkHoverColor) {
         this.modifiers.linkHoverColor.value = linkHoverColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -245,7 +281,6 @@
      */
     Misc.prototype.setHrBorder = function (hrBorder) {
         this.modifiers.hrBorder.value = hrBorder;
-        this.editor.queueModifications();
     };
 
     /**
@@ -266,7 +301,6 @@
      */
     Misc.prototype.setBorderRadiusBase = function (borderRadiusBase) {
         this.modifiers.borderRadiusBase.value = borderRadiusBase;
-        this.editor.queueModifications();
     };
 
     window.Misc = Misc;

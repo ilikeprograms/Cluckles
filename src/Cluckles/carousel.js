@@ -22,35 +22,81 @@
 	var Carousel = function (editor) {
 		ThemeModifier.call(this, editor); // Call parent constructor
 
+        this.subscriberDataAttribute = 'data-cluckles-carousel';
+
         // Configure the Modifiers
 		this.controlColor = {
 			variable: '@carousel-control-color',
-			value: null
+            subscribeProperty: 'control-color',
+            changeFn: this.setControlColor.bind(this),
+			subscribers: [],
+            _value: null
 		};
 		this.controlWidth = {
 			variable: '@carousel-control-width',
-			value: null
+            subscribeProperty: 'control-width',
+            changeFn: this.setControlWidth.bind(this),
+			subscribers: [],
+            _value: null
 		};
 		this.controlOpacity = {
 			variable: '@carousel-control-opacity',
-			value: null
+			subscribeProperty: 'control-opacity',
+            changeFn: this.setControlOpacity.bind(this),
+            subscribers: [],
+            _value: null
 		};
 		this.controlFontSize = {
 			variable: '@carousel-control-font-size',
-			value: null
+            subscribeProperty: 'control-font-size',
+            changeFn: this.setControlFontSize.bind(this),
+			subscribers: [],
+            _value: null
 		};
         this.indicatorActiveBg = {
             variable: '@carousel-indicator-active-bg',
-            value: null
+            subscribeProperty: 'indicator-active-bg-color',
+            changeFn: this.setIndicatorActiveBackgroundColor.bind(this),
+            subscribers: [],
+            _value: null
         };
         this.indicatorBorderColor = {
             variable: '@carousel-indicator-border-color',
-            value: null
+            subscribeProperty: 'indicator-border-color',
+            changeFn: this.setIndicatorBorderColor.bind(this),
+            subscribers: [],
+            _value: null
         };
         this.captionColor = {
             variable: '@carousel-caption-color',
-            value: null
+            subscribeProperty: 'caption-color',
+            changeFn: this.setCaptionColor.bind(this),
+            subscribers: [],
+            _value: null
         };
+
+        Object.defineProperty(this.controlWidth, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + '%';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
+        Object.defineProperty(this.controlFontSize, 'value', {
+            get: function () { return this._value; },
+            set: function (val) {
+                this._value = val + 'px';
+                editor.queueModifications();
+
+                this.subscribers.forEach(function (subscriber) {
+                    subscriber.value = val;
+                });
+            } 
+        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -60,8 +106,10 @@
             controlFontSize:        this.controlFontSize,
             indicatorActiveBg:      this.indicatorActiveBg,
             indicatorBorderColor:   this.indicatorBorderColor,
-            captionColor:           this.captionColor,
+            captionColor:           this.captionColor
         };
+
+        this.setupDataBinding();
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
@@ -86,7 +134,6 @@
 	 */
 	Carousel.prototype.setControlColor = function (controlColor) {
 		this.modifiers.controlColor.value = controlColor;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -106,8 +153,7 @@
 	 * @returns {undefined}
 	 */
 	Carousel.prototype.setControlWidth = function (controlWidth) {
-		this.modifiers.controlWidth.value = controlWidth + '%';
-		this.editor.queueModifications();
+		this.modifiers.controlWidth.value = controlWidth;
 	};
 
     /**
@@ -128,7 +174,6 @@
 	 */
 	Carousel.prototype.setControlOpacity = function (controlOpacity) {
 		this.modifiers.controlOpacity.value = controlOpacity;
-		this.editor.queueModifications();
 	};
 
     /**
@@ -148,8 +193,7 @@
 	 * @returns {undefined}
 	 */
 	Carousel.prototype.setControlFontSize = function (controlFontSize) {
-		this.modifiers.controlFontSize.value = controlFontSize + 'px';
-		this.editor.queueModifications();
+		this.modifiers.controlFontSize.value = controlFontSize;
 	};
 
     /**
@@ -170,7 +214,6 @@
      */
     Carousel.prototype.setIndicatorActiveBackgroundColor = function (indicatorActiveBg) {
         this.modifiers.indicatorActiveBg.value = indicatorActiveBg;
-        this.editor.queueModifications();
     };
 
     /**
@@ -191,7 +234,6 @@
      */
     Carousel.prototype.setIndicatorBorderColor = function (indicatorBorderColor) {
         this.modifiers.indicatorBorderColor.value = indicatorBorderColor;
-        this.editor.queueModifications();
     };
 
     /**
@@ -212,7 +254,6 @@
      */
     Carousel.prototype.setCaptionColor = function (captionColor) {
         this.modifiers.captionColor.value = captionColor;
-        this.editor.queueModifications();
     };
 
 	window.Carousel = Carousel;
