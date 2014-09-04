@@ -77,7 +77,7 @@ bower install
 
 ### Build Files
 
-There should be a *build* directory which contains the `bsThemeEditor-x.x.x.js` file which is the main distribution file.
+There should be a *build* directory which contains the `cluckles-x.x.x.js` file which is the main distribution file.
 This can be taken out from the project and will provide the live editing functionality.
 It does however rely on the files in `build/js/lib` and `build/less`. The `build/js/lib` files however could be replaced with newer versions and should work ok.
 If you have a dependency on a specific version of `jquery` for instance, just replace the file.
@@ -182,7 +182,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 ```javascript
 <!-- Load our Fancy live editing ThemeEditor -->
-<script src="../bsThemeEditor-0.4.0.js"></script>
+<script src="../cluckles-0.4.0.js"></script>
 <script>
   var themeEditor = new ThemeEditor(less, {
     theme: {

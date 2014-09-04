@@ -6,7 +6,7 @@ module.exports = function (grunt) {
         // Example-src folder location
         examplesrc: 'example-src',
 
-        // Concat task to Contatenate all the bsThemeEditor files together
+        // Concat task to Contatenate all the Cluckles files together
         concat: {
             options: {
                 separator: grunt.util.linefeed + grunt.util.linefeed,
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
                 footer: '\n})(window);'
             },
             
-            // The Main lib files used to make bsThemeEditor.js
+            // The Main lib files used to make cluckles.js
             main: {
                 src: [
                     'src/<%= pkg.name %>/theme-modifier.js',
@@ -58,7 +58,7 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/export.js',
                     'src/<%= pkg.name %>/theme-editor.js',
                 ],
-                dest: 'build/bsThemeEditor-<%= pkg.version %>.js'
+                dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.js'
             }
         },
 
@@ -71,7 +71,7 @@ module.exports = function (grunt) {
 			build: {
                 // Theme Editor Files
 				src: '<%= concat.main.dest %>',
-                dest: 'build/bsThemeEditor-<%= pkg.version %>.min.js'
+                dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.min.js'
 			}
 		},
         
@@ -164,8 +164,8 @@ module.exports = function (grunt) {
                 files: [
                     // Main JS File
                     {
-                        src: 'build/bsThemeEditor-<%= pkg.version %>.min.js',
-                        dest: 'docs/assets/js/bsThemeEditor.min.js'
+                        src: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.min.js',
+                        dest: 'docs/assets/js/<%= pkg.nameLower %>.min.js'
                     },
                     
                     // Copy the Example files
@@ -320,7 +320,7 @@ module.exports = function (grunt) {
 			options: {
 				jshintrc: true,
 			},
-			files: ['build/bsThemeEditor-<%= pkg.version %>.js']
+			files: ['build/<%= pkg.nameLower %>-<%= pkg.version %>.js']
 		}
 	});
 
