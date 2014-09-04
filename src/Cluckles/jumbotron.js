@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modifications of the Jumbotron component styling in Bootstrap.
 	 * 
@@ -157,6 +154,3 @@
 	Jumbotron.prototype.setHeadingColor = function (color) {
 		this.modifiers.headingColor.value = color;
 	};
-
-	window.Jumbotron = Jumbotron;
-})(window);

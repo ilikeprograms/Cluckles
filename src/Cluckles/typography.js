@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of the Typography component in Bootstrap.
 	 * 
@@ -360,6 +357,3 @@
     Typography.prototype.setAbbrBorderColor = function (abbrBorderColor) {
         this.modifiers.abbrBorderColor.value = abbrBorderColor;
     };
-
-	window.Typography = Typography;
-})(window);

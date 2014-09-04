@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of the Dropdown Component styling.
 	 * 
@@ -319,6 +316,3 @@
 	Dropdown.prototype.setLinkActiveColor = function (color) {
 		this.modifiers.linkActiveColor.value = color;
 	};
-	
-	window.Dropdown = Dropdown;
-})(window);

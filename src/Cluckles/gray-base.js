@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of the base @gray-{shade} variables which affect the
 	 * base colors of the bootstrap Theme.
@@ -68,6 +65,3 @@
 
 		this.grayScale.editor.queueModifications();
 	};
-	
-	window.GrayScale = GrayScale;
-})(window);

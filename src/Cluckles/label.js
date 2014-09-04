@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
      * Allows modification of the General Label Component Styling.
      * 
@@ -260,6 +257,3 @@
 	Label.prototype.setDangerBackground = function (color) {
 		this.modifiers.dangerBg.value = color;
 	};
-	
-	window.Label = Label;
-})(window);

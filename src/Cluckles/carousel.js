@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Carousel component in Bootstrap.
 	 * 
@@ -255,6 +252,3 @@
     Carousel.prototype.setCaptionColor = function (captionColor) {
         this.modifiers.captionColor.value = captionColor;
     };
-
-	window.Carousel = Carousel;
-})(window);

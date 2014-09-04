@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
      * Allows modification of the General Button Component Styling.
      * 
@@ -87,6 +84,3 @@
     ButtonBase.prototype.setDisabledLinkColor = function (disabledLinkColor) {
         this.modifiers.disabledLinkColor.value = disabledLinkColor;
     };
-
-    window.ButtonBase = ButtonBase;
-})(window);

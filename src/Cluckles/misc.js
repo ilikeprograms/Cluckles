@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
      * Allows modifications of the Miscellaneous parts of Bootstrap.
      * 
@@ -302,6 +299,3 @@
     Misc.prototype.setBorderRadiusBase = function (borderRadiusBase) {
         this.modifiers.borderRadiusBase.value = borderRadiusBase;
     };
-
-    window.Misc = Misc;
-})(window);

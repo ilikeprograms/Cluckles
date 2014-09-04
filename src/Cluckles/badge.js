@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Badge component in Bootstrap.
 	 * 
@@ -273,6 +270,3 @@
     Badge.prototype.setBorderRadius = function (borderRadius) {
         this.modifiers.borderRadius.value = borderRadius;
     };
-
-	window.Badge = Badge;
-})(window);

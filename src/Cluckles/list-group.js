@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modifications of the ListGroup Component styling.
 	 * 
@@ -290,6 +287,3 @@
 	ListGroup.prototype.setActiveTextColor = function (color) {
 		this.modifiers.activeTextColor.value = color;
 	};
-	
-	window.ListGroup = ListGroup;
-})(window);

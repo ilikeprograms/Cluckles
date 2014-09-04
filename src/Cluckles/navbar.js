@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Navbar component in Bootstrap.
 	 * 
@@ -425,6 +422,3 @@
 	Navbar.prototype.setBrandHoverBackgroundColor = function (color) {
 		this.modifiers.brandHoverBg.value = color;
 	};
-	
-	window.Navbar = Navbar;
-})(window);

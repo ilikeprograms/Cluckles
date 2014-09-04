@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
      * Allows modification of the General Panel Component Styling.
      * 
@@ -139,6 +136,3 @@
     PanelBase.prototype.setPanelBorderRadius = function (panelBorderRadius) {
         this.modifiers.panelBorderRadius.value = panelBorderRadius;
     };
-
-    window.PanelBase = PanelBase;
-})(window);

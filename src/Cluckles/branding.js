@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows editing of the @brand-{style} variables which affect alerts/panel headers,
 	 * the Primary branding, however affects more, such as the ListGroup background, links etc.
@@ -204,6 +201,3 @@
 	BrandModifier.prototype.setDanger = function (color) {
 		this.modifiers.danger.value = color;
 	};
-	
-	window.BrandModifier = BrandModifier;
-})(window);

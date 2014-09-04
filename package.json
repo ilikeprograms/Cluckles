@@ -1,5 +1,6 @@
 {
   "name": "Cluckles",
+  "name-lower": "cluckles",
   "version": "0.4.0",
   "description": "Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap",
   "scripts": {

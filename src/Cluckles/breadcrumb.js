@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
 	 * Allows modification of a Breadcrumb component in Bootstrap.
 	 * 
@@ -143,6 +140,3 @@
 	Breadcrumb.prototype.setSeparator = function (separator) {
 		this.modifiers.separator.value = separator;
 	};
-
-    window.Breadcrumb = Breadcrumb;
-})(window);

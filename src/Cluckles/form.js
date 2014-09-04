@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of the Form component in Bootstrap.
 	 * 
@@ -360,6 +357,3 @@
     Form.prototype.setInputGroupAddonBorderColor = function (inputGroupAddonBorderColor) {
         this.modifiers.inputGroupAddonBorderColor.value = inputGroupAddonBorderColor;
     };
-
-	window.Form = Form;
-})(window);

@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Pill component in Bootstrap.
 	 * 
@@ -126,6 +123,3 @@
 	Pill.prototype.setLinkActiveColor = function (linkActiveColor) {
 		this.modifiers.linkActiveColor.value = linkActiveColor;
 	};
-
-    window.Pill = Pill;
-})(window);

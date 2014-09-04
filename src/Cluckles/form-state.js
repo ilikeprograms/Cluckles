@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows Alerts/Panels to be styled and affects the @state-{type}-{property} variables.
 	 * 
@@ -116,6 +113,3 @@
 	FormState.prototype.setBorder = function (border) {
 		this.modifiers.border.value = border;
 	};
-
-	window.FormState = FormState;
-})(window);

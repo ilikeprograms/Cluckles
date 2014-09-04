@@ -1,7 +1,4 @@
-(function (window) {
-	"use strict";
-
-	/**
+    /**
 	 * Allows modification of a Button component in Bootstrap.
 	 * 
 	 * @class Button
@@ -121,6 +118,3 @@
 	Button.prototype.setBorder = function (color) {
 		this.modifiers.border.value = color;
 	};
-
-    window.Button = Button;
-})(window);

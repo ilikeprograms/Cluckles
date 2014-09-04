@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modifications of the Tooltip component styling in Bootstrap.
 	 * 
@@ -226,6 +223,3 @@
     Tooltip.prototype.setArrowColor = function (arrowColor) {
         this.modifiers.arrowColor.value = arrowColor;
     };
-
-	window.Tooltip = Tooltip;
-})(window);

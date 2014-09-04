@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modifications of the Thumbnail component styling in Bootstrap.
 	 * 
@@ -239,6 +236,3 @@
     Thumbnail.prototype.setCaptionPadding = function (captionPadding) {
         this.modifiers.captionPadding.value = captionPadding;
     };
-
-	window.Thumbnail = Thumbnail;
-})(window);

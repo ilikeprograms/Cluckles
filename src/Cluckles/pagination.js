@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Pagination component in Bootstrap.
 	 * 
@@ -375,6 +372,3 @@
 	Pagination.prototype.setDisabledBorderColor = function (disabledBorderColor) {
 		this.modifiers.disabledBorderColor.value = disabledBorderColor;
 	};
-
-    window.Pagination = Pagination;
-})(window);

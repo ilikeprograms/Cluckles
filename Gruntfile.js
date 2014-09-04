@@ -15,7 +15,9 @@ module.exports = function (grunt) {
                         ' Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.\n' +
                         ' * Copyrite <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
                         ' * License: <%= pkg.license %>\n' +
-                        ' */\n'
+                        ' */\n' +
+                        '(function (window) {\n',
+                footer: '\n})(window);'
             },
             
             // The Main lib files used to make bsThemeEditor.js
@@ -313,12 +315,12 @@ module.exports = function (grunt) {
             }
         },
 
-        // Turn on JShint for the Javascript files in src/BootstrapThemeEditor/
+        // Turn on JShint for the build cluckles.js file
 		jshint: {
 			options: {
 				jshintrc: true,
 			},
-			files: ['src/<%= pkg.name %>/*.js']
+			files: ['build/bsThemeEditor-<%= pkg.version %>.js']
 		}
 	});
 
@@ -333,7 +335,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-html-build');
 
     // Register the "default" Task
-	grunt.registerTask("default", ["jshint", "concat", "uglify", "copy", "htmlbuild:components", "htmlbuild:editor", "htmlbuild:build", "express", "open", "watch"]);
+	grunt.registerTask("default", ["concat", "jshint", "uglify", "copy", "htmlbuild:components", "htmlbuild:editor", "htmlbuild:build", "express", "open", "watch"]);
 
-    grunt.registerTask("docs", ["jshint", "concat", "uglify", "copy:docs"]);
+    grunt.registerTask("docs", ["concat", "jshint", "uglify", "copy:docs"]);
 };

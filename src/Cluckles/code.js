@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Code component in Bootstrap.
 	 * 
@@ -273,6 +270,3 @@
 	Code.prototype.setPreScrollableMaxHeight = function (preScrollableMaxHeight) {
 		this.modifiers.preScrollableMaxHeight.value = preScrollableMaxHeight;
 	};
-
-	window.Code = Code;
-})(window);

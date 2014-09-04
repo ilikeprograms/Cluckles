@@ -1,4 +1,3 @@
-(function (window) {
     var ThemeModifier = function (editor) {
         Object.defineProperties(this, {
             'editor': {
@@ -103,6 +102,3 @@
             }, this);
         }, this);
     };
-
-    window.ThemeModifier = ThemeModifier;
-})(window);

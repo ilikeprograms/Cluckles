@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
      * Allows modifications of the Table Components in Bootstrap.
      * 
@@ -254,6 +251,3 @@
     Table.prototype.setBorderColor = function (borderColor) {
         this.modifiers.borderColor.value = borderColor;
     };
-
-    window.Table = Table;
-})(window);

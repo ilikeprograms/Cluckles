@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
      * Allows modification of the General Navbar Component Styling.
      * 
@@ -193,6 +190,3 @@
     NavbarBase.prototype.setCollapseMaxHeight = function (collapseMaxHeight) {
         this.modifiers.collapseMaxHeight.value = collapseMaxHeight;
     };
-
-    window.NavbarBase = NavbarBase;
-})(window);

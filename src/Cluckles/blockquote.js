@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Blockquote omponent in Bootstrap.
 	 * 
@@ -128,6 +125,3 @@
     Blockquote.prototype.setBorderColor = function (borderColor) {
         this.modifiers.borderColor.value = borderColor;
     };
-
-	window.Blockquote = Blockquote;
-})(window);

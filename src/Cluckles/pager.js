@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Pager component in Bootstrap.
 	 * 
@@ -242,6 +239,3 @@
 	Pager.prototype.setDisabledColor = function (disabledColor) {
 		this.modifiers.disabledColor.value = disabledColor;
 	};
-
-    window.Pager = Pager;
-})(window);

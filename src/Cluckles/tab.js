@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modification of a Tab component in Bootstrap.
 	 * 
@@ -230,6 +227,3 @@
     Tab.prototype.setLinkJustifiedActiveBorderColor = function (linkJustifiedActiveBorderColor) {
         this.modifiers.linkJustifiedActiveBorderColor.value = linkJustifiedActiveBorderColor;
     };
-
-    window.Tab = Tab;
-})(window);

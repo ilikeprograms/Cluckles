@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
      * Allows modifications of the Nav Components in Bootstrap.
      * 
@@ -185,6 +182,3 @@
     Nav.prototype.setLinkOpenHoverColor = function (linkOpenHoverColor) {
         this.modifiers.linkOpenHoverColor.value = linkOpenHoverColor;
     };
-
-    window.Nav = Nav;
-})(window);

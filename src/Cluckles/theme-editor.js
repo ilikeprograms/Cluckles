@@ -1,7 +1,3 @@
-/* global Export, Typography, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Nav, Tab, Pill, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, Label, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
-(function (window) {
-    "use strict";
-
     /**
      * ThemeEditor class holds the modifications to the less theme using sub classes
      * which hold information about the modifications, for each different part of the theme.
@@ -371,4 +367,3 @@
     };
 
     window.ThemeEditor = ThemeEditor;
-})(window);

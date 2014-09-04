@@ -1,6 +1,3 @@
-(function(window) {
-    "use strict";
-
     /**
      * Manages the Exporting of the Theme data, in JSON (modifications only)/Compiled CSS format,
      * aswell as creating the Download Blob's and the Links/Buttons to trigger the download.
@@ -245,6 +242,3 @@
         // Send the JSON to the server
         saveXHR.send(JSON.stringify(exportData));
     };
-
-    window.Export = Export;
-})(window);

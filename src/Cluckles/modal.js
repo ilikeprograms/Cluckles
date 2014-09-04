@@ -1,6 +1,3 @@
-(function (window) {
-    "use strict";
-
     /**
 	 * Allows modification of a Modal component in Bootstrap.
 	 * 
@@ -353,6 +350,3 @@
     Modal.prototype.setFooterBorderColor = function (footerBorderColor) {
         this.modifiers.footerBorderColor.value = footerBorderColor;
     };
-
-    window.Modal = Modal;
-})(window);

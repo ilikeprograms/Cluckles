@@ -1,6 +1,3 @@
-(function (window) {
-	"use strict";
-
 	/**
 	 * Allows modifications of the Popover component styling in Bootstrap.
 	 * 
@@ -355,6 +352,3 @@
     Popover.prototype.setArrowOuterFallbackColor = function (arrowOuterFallbackColor) {
         this.modifiers.arrowOuterFallbackColor.value = arrowOuterFallbackColor;
     };
-
-	window.Popover = Popover;
-})(window);
