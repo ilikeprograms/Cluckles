@@ -168,7 +168,7 @@ module.exports = function (grunt) {
                     
                     // Copy the Example files
                     {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
-                    {src: "build/example/components.html", dest: 'docs/_includes/components.html'},
+                    {src: "build/example/component.html", dest: 'docs/_includes/component.html'},
                     {src: "build/example/editor.html", dest: 'docs/_includes/editor.html'},
                     {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
                     
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
         // Builds the main Example demo pages
         htmlbuild: {
             components: {
-                src: '<%= examplesrc %>/templates/components.html',
+                src: '<%= examplesrc %>/templates/component.html',
                 dest: 'build/example/',
 
                 options: {
@@ -198,31 +198,31 @@ module.exports = function (grunt) {
                     sections: {
                         templates: {
                             // Component Examples
-                            components: {
-                                typography: '<%= examplesrc %>/templates/components/typography.html',
-                                jumbotron: '<%= examplesrc %>/templates/components/jumbotron.html',
-                                buttons: '<%= examplesrc %>/templates/components/buttons.html',
-                                tables: '<%= examplesrc %>/templates/components/tables.html',
-                                thumbnails: '<%= examplesrc %>/templates/components/thumbnails.html',
-                                labels: '<%= examplesrc %>/templates/components/labels.html',
-                                badges: '<%= examplesrc %>/templates/components/badges.html',
-                                dropdowns: '<%= examplesrc %>/templates/components/dropdowns.html',
-                                navbars: '<%= examplesrc %>/templates/components/navbars.html',
-                                navs: '<%= examplesrc %>/templates/components/navs.html',
-                                pagination: '<%= examplesrc %>/templates/components/pagination.html',
-                                form: '<%= examplesrc %>/templates/components/form.html',
-                                breadcrumbs: '<%= examplesrc %>/templates/components/breadcrumbs.html',
-                                alerts: '<%= examplesrc %>/templates/components/alerts.html',
-                                tooltips: '<%= examplesrc %>/templates/components/tooltips.html',
-                                popovers: '<%= examplesrc %>/templates/components/popovers.html',
-                                modals: '<%= examplesrc %>/templates/components/modals.html',
-                                progressbars: '<%= examplesrc %>/templates/components/progressbars.html',
-                                listgroups: '<%= examplesrc %>/templates/components/listgroups.html',
-                                panels: '<%= examplesrc %>/templates/components/panels.html',
-                                wells: '<%= examplesrc %>/templates/components/wells.html',
-                                code: '<%= examplesrc %>/templates/components/code.html',
-                                blockquote: '<%= examplesrc %>/templates/components/blockquote.html',
-                                carousel: '<%= examplesrc %>/templates/components/carousel.html',
+                            component: {
+                                typography: '<%= examplesrc %>/templates/component/typography.html',
+                                jumbotron: '<%= examplesrc %>/templates/component/jumbotron.html',
+                                button: '<%= examplesrc %>/templates/component/button.html',
+                                table: '<%= examplesrc %>/templates/component/table.html',
+                                thumbnail: '<%= examplesrc %>/templates/component/thumbnail.html',
+                                label: '<%= examplesrc %>/templates/component/label.html',
+                                badge: '<%= examplesrc %>/templates/component/badge.html',
+                                dropdown: '<%= examplesrc %>/templates/component/dropdown.html',
+                                navbar: '<%= examplesrc %>/templates/component/navbar.html',
+                                nav: '<%= examplesrc %>/templates/component/nav.html',
+                                pagination: '<%= examplesrc %>/templates/component/pagination.html',
+                                form: '<%= examplesrc %>/templates/component/form.html',
+                                breadcrumb: '<%= examplesrc %>/templates/component/breadcrumb.html',
+                                alert: '<%= examplesrc %>/templates/component/alert.html',
+                                tooltip: '<%= examplesrc %>/templates/component/tooltip.html',
+                                popover: '<%= examplesrc %>/templates/component/popover.html',
+                                modal: '<%= examplesrc %>/templates/component/modal.html',
+                                progressbar: '<%= examplesrc %>/templates/component/progressbar.html',
+                                listgroup: '<%= examplesrc %>/templates/component/listgroup.html',
+                                panel: '<%= examplesrc %>/templates/component/panel.html',
+                                well: '<%= examplesrc %>/templates/component/well.html',
+                                code: '<%= examplesrc %>/templates/component/code.html',
+                                blockquote: '<%= examplesrc %>/templates/component/blockquote.html',
+                                carousel: '<%= examplesrc %>/templates/component/carousel.html',
                             }
                         }
                     }
@@ -254,30 +254,30 @@ module.exports = function (grunt) {
                                     danger: '<%= examplesrc %>/templates/editor/branding/danger.html',
                                 },
 
-                                // Components editors
-                                components: {
-                                    typography: '<%= examplesrc %>/templates/editor/components/typography.html',
-                                    jumbotron: '<%= examplesrc %>/templates/editor/components/jumbotron.html',
-                                    listgroups: '<%= examplesrc %>/templates/editor/components/listgroup.html',
-                                    dropdowns: '<%= examplesrc %>/templates/editor/components/dropdowns.html',
-                                    tooltips: '<%= examplesrc %>/templates/editor/components/tooltips.html',
-                                    popovers: '<%= examplesrc %>/templates/editor/components/popovers.html',
-                                    thumbnails: '<%= examplesrc %>/templates/editor/components/thumbnails.html',
-                                    badges: '<%= examplesrc %>/templates/editor/components/badges.html',
-                                    carousel: '<%= examplesrc %>/templates/editor/components/carousel.html',
-                                    code: '<%= examplesrc %>/templates/editor/components/code.html',
-                                    blockquote: '<%= examplesrc %>/templates/editor/components/blockquote.html',
-                                    modals: '<%= examplesrc %>/templates/editor/components/modals.html',
-                                    labels: '<%= examplesrc %>/templates/editor/components/labels.html',
-                                    navs: '<%= examplesrc %>/templates/editor/components/navs.html',
-                                    pagination: '<%= examplesrc %>/templates/editor/components/pagination.html',
-                                    form: '<%= examplesrc %>/templates/editor/components/form.html',
-                                    breadcrumbs: '<%= examplesrc %>/templates/editor/components/breadcrumbs.html',
-                                    panels: '<%= examplesrc %>/templates/editor/components/panels.html',
-                                    navbars: '<%= examplesrc %>/templates/editor/components/navbars.html',
-                                    buttons: '<%= examplesrc %>/templates/editor/components/buttons.html',
-                                    misc: '<%= examplesrc %>/templates/editor/components/misc.html',
-                                    tables: '<%= examplesrc %>/templates/editor/components/tables.html',
+                                // Component editors
+                                component: {
+                                    typography: '<%= examplesrc %>/templates/editor/component/typography.html',
+                                    jumbotron: '<%= examplesrc %>/templates/editor/component/jumbotron.html',
+                                    listgroup: '<%= examplesrc %>/templates/editor/component/listgroup.html',
+                                    dropdown: '<%= examplesrc %>/templates/editor/component/dropdowns.html',
+                                    tooltip: '<%= examplesrc %>/templates/editor/component/tooltip.html',
+                                    popover: '<%= examplesrc %>/templates/editor/component/popover.html',
+                                    thumbnail: '<%= examplesrc %>/templates/editor/component/thumbnail.html',
+                                    badge: '<%= examplesrc %>/templates/editor/component/badge.html',
+                                    carousel: '<%= examplesrc %>/templates/editor/component/carousel.html',
+                                    code: '<%= examplesrc %>/templates/editor/component/code.html',
+                                    blockquote: '<%= examplesrc %>/templates/editor/component/blockquote.html',
+                                    modal: '<%= examplesrc %>/templates/editor/component/modal.html',
+                                    label: '<%= examplesrc %>/templates/editor/component/label.html',
+                                    nav: '<%= examplesrc %>/templates/editor/component/nav.html',
+                                    pagination: '<%= examplesrc %>/templates/editor/component/pagination.html',
+                                    form: '<%= examplesrc %>/templates/editor/component/form.html',
+                                    breadcrumb: '<%= examplesrc %>/templates/editor/component/breadcrumb.html',
+                                    panel: '<%= examplesrc %>/templates/editor/component/panel.html',
+                                    navbar: '<%= examplesrc %>/templates/editor/component/navbar.html',
+                                    button: '<%= examplesrc %>/templates/editor/component/button.html',
+                                    misc: '<%= examplesrc %>/templates/editor/component/misc.html',
+                                    table: '<%= examplesrc %>/templates/editor/component/table.html',
                                 }
                             }
                         }
@@ -300,7 +300,7 @@ module.exports = function (grunt) {
 
                     sections: {
                         templates: {
-                            components: 'build/example/components.html',
+                            component: 'build/example/component.html',
                             editor: 'build/example/editor.html',
                             
                             // Page Elements
