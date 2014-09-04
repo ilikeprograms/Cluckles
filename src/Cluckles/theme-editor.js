@@ -1,4 +1,4 @@
-/* global Export, Typography, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Navs, Tabs, Pills, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, Label, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
+/* global Export, Typography, Jumbotron, Table, GrayScale, BrandModifier, Navbar, Nav, Tab, Pill, Pagination, Pager, Form, Button, FormState, ListGroup, Dropdown, Tooltip, Popover, Thumbnail, Badge, Carousel, Code, Blockquote, Modal, Misc, Label, PanelBase, ButtonBase, NavbarBase, Breadcrumb */
 (function (window) {
     "use strict";
 
@@ -31,9 +31,9 @@
      * @property {Modal} modal Holds modifications to the Modal component.
      * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
      * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
-     * @property {Navs} navs Holds the modifications to the Navs Components.
-     * @property {Tabs} tabs Holds the modifications to the Tabs Components.
-     * @property {Pills} tabs Holds the modifications to the Pills Components.
+     * @property {Nav} navs Holds the modifications to the Nav Components.
+     * @property {Tab} tab Holds the modifications to the Tab Components.
+     * @property {Pill} pill Holds the modifications to the Pill Components.
      * @property {Pagination} pagination Holds the modifications to the Pagination Components.
      * @property {Pager} pager Holds the modifications to the Pager Components.
      * @property {Form} form Holds the modifications to the Form Components.
@@ -84,9 +84,9 @@
         this.modal              = new Modal(this);
         this.jumbotron          = new Jumbotron(this);
         this.grayScale          = new GrayScale(this);
-        this.navs               = new Navs(this);
-        this.tabs               = new Tabs(this);
-        this.pills              = new Pills(this);
+        this.nav                = new Nav(this);
+        this.tab                = new Tab(this);
+        this.pill               = new Pill(this);
         this.pagination         = new Pagination(this);
         this.pager              = new Pager(this);
         this.form               = new Form(this);
@@ -214,14 +214,14 @@
         // Misc
         this.extractModifications(modifiers, this.misc);
 
-        // Navs
-        this.extractModifications(modifiers, this.navs);
+        // Nav
+        this.extractModifications(modifiers, this.nav);
 
-        // Tabs
-        this.extractModifications(modifiers, this.tabs);
+        // Tab
+        this.extractModifications(modifiers, this.tab);
 
-        // Pills
-        this.extractModifications(modifiers, this.pills);
+        // Pill
+        this.extractModifications(modifiers, this.pill);
 
         // Pagination
         this.extractModifications(modifiers, this.pagination);

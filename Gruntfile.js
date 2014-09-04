@@ -12,7 +12,7 @@ module.exports = function (grunt) {
                 separator: grunt.util.linefeed + grunt.util.linefeed,
                 banner: '/**\n' +
                         ' * <%= pkg.name %> <%= pkg.version %>:' +
-                        ' Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap.\n' +
+                        ' Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.\n' +
                         ' * Copyrite <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
                         ' * License: <%= pkg.license %>\n' +
                         ' */\n'
@@ -30,12 +30,12 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/navbar.base.js',
                     'src/<%= pkg.name %>/button.base.js',
                     'src/<%= pkg.name %>/label.js',
-                    'src/<%= pkg.name %>/navs.js',
+                    'src/<%= pkg.name %>/nav.js',
                     'src/<%= pkg.name %>/pagination.js',
                     'src/<%= pkg.name %>/pager.js',
                     'src/<%= pkg.name %>/form.js',
-                    'src/<%= pkg.name %>/tabs.js',
-                    'src/<%= pkg.name %>/pills.js',
+                    'src/<%= pkg.name %>/tab.js',
+                    'src/<%= pkg.name %>/pill.js',
                     'src/<%= pkg.name %>/branding.js',
                     'src/<%= pkg.name %>/dropdown.js',
                     'src/<%= pkg.name %>/tooltip.js',

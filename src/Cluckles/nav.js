@@ -2,22 +2,22 @@
     "use strict";
 
     /**
-     * Allows modifications of the Navs Components in Bootstrap.
+     * Allows modifications of the Nav Components in Bootstrap.
      * 
-	 * @class Navs
+	 * @class Nav
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ThemeEditor} editor instance which manages the less modifications.
      * 
      * @property {object} linkPadding The @nav-link-padding variable which controls the Link Padd of the Nav component.
-     * @property {object} linkHoverBg The @nav-link-hover-bg variable which controls the Link Hover Color of the Navs component.
-     * @property {object} linkDisabledColor The @nav-disabled-link-color variable which controls the Disabled Link Color of the Navs component.
-     * @property {object} linkDisabledHoverColor The @nav-disabled-link-hover-color variable which controls the Disabled Link Hover Color of the Navs component.
-     * @property {object} linkOpenHoverColor The @nav-open-link-hover-color variable which controls the Open Link Hover Color of the Navs component.
+     * @property {object} linkHoverBg The @nav-link-hover-bg variable which controls the Link Hover Color of the Nav component.
+     * @property {object} linkDisabledColor The @nav-disabled-link-color variable which controls the Disabled Link Color of the Nav component.
+     * @property {object} linkDisabledHoverColor The @nav-disabled-link-hover-color variable which controls the Disabled Link Hover Color of the Nav component.
+     * @property {object} linkOpenHoverColor The @nav-open-link-hover-color variable which controls the Open Link Hover Color of the Nav component.
      * 
-     * @returns {Navs}
+     * @returns {Nav}
      */
-    var Navs = function (editor) {
+    var Nav = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
 
         this.subscriberDataAttribute = 'data-cluckles-nav';
@@ -84,107 +84,107 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    Navs.prototype = Object.create(ThemeModifier.prototype);
-    Navs.constructor = Navs;
+    Nav.prototype = Object.create(ThemeModifier.prototype);
+    Nav.constructor = Nav;
 
     /**
-     * Gets the Link Padding of the Navs Components.
+     * Gets the Link Padding of the Nav Components.
      * 
      * @returns {String}
      */
-    Navs.prototype.getLinkPadding = function () {
+    Nav.prototype.getLinkPadding = function () {
         return this.modifiers.linkPadding.value;
     };
     
     /**
-     * Sets the Link Padding of the Navs Components.
+     * Sets the Link Padding of the Nav Components.
      * 
-     * @param {string} padding The Navs Link Padding to set.
+     * @param {string} padding The Nav Link Padding to set.
      * 
      * @returns {undefined}
      */
-    Navs.prototype.setLinkPadding = function (padding) {
+    Nav.prototype.setLinkPadding = function (padding) {
         this.modifiers.linkPadding.value = padding;
     };
 
 	/**
-	 * Gets the the Link Hover Background of the Navs Components.
+	 * Gets the the Link Hover Background of the Nav Components.
 	 * 
 	 * @returns {string}
 	 */
-	Navs.prototype.getLinkHoverBackground = function () {
+	Nav.prototype.getLinkHoverBackground = function () {
 		return this.modifiers.linkHoverBg.value;
 	};
 	
 	/**
-	 * Sets the Link Hover Background of the Navs Components.
+	 * Sets the Link Hover Background of the Nav Components.
 	 * 
-	 * @param {string} color The Navs Link Hover Color to set.
+	 * @param {string} color The Nav Link Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navs.prototype.setLinkHoverBackground = function (linkHoverBg) {
+	Nav.prototype.setLinkHoverBackground = function (linkHoverBg) {
 		this.modifiers.linkHoverBg.value = linkHoverBg;
 	};
 
     /**
-	 * Gets the Link Disabled Color of the Navs Components.
+	 * Gets the Link Disabled Color of the Nav Components.
 	 * 
 	 * @returns {string}
 	 */
-	Navs.prototype.getLinkDisabledColor = function () {
+	Nav.prototype.getLinkDisabledColor = function () {
 		return this.modifiers.linkDisabledColor.value;
 	};
 	
 	/**
-	 * Sets the Link Disabled Color of the Navs Components.
+	 * Sets the Link Disabled Color of the Nav Components.
 	 * 
-	 * @param {string} color Set the Navs Link Disabled Color.
+	 * @param {string} color Set the Nav Link Disabled Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navs.prototype.setLinkDisabledColor = function (linkDisabledColor) {
+	Nav.prototype.setLinkDisabledColor = function (linkDisabledColor) {
 		this.modifiers.linkDisabledColor.value = linkDisabledColor;
 	};
 
 	/**
-	 * Gets the Link Disabled Hover Color of the Navs Components.
+	 * Gets the Link Disabled Hover Color of the Nav Components.
 	 * 
 	 * @returns {string}
 	 */
-	Navs.prototype.getLinkDisabledHoverColor = function () {
+	Nav.prototype.getLinkDisabledHoverColor = function () {
 		return this.modifiers.linkDisabledHoverColor.value;
 	};
 	
 	/**
-	 * Sets the Link Disabled Hover Color of the Navs Components.
+	 * Sets the Link Disabled Hover Color of the Nav Components.
 	 * 
-	 * @param {string} color Sets the Navs Link Disabled Hover Color.
+	 * @param {string} color Sets the Nav Link Disabled Hover Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navs.prototype.setLinkDisabledHoverColor = function (linkDisabledHoverColor) {
+	Nav.prototype.setLinkDisabledHoverColor = function (linkDisabledHoverColor) {
 		this.modifiers.linkDisabledHoverColor.value = linkDisabledHoverColor;
 	};
 
     /**
-     * Gets the Link Open Hover Color of the Navs Components.
+     * Gets the Link Open Hover Color of the Nav Components.
      * 
      * @returns {string}
      */
-    Navs.prototype.getLinkOpenHoverColor = function () {
+    Nav.prototype.getLinkOpenHoverColor = function () {
         return this.modifiers.linkOpenHoverColor.value;
     };
 
     /**
-     * Sets the Link Open Hover Color of the Navs Components.
+     * Sets the Link Open Hover Color of the Nav Components.
      * 
-     * @param {string} linkOpenHoverColor Sets the Navs Link Open Hover Color.
+     * @param {string} linkOpenHoverColor Sets the Nav Link Open Hover Color.
      * @returns {string}
      */
-    Navs.prototype.setLinkOpenHoverColor = function (linkOpenHoverColor) {
+    Nav.prototype.setLinkOpenHoverColor = function (linkOpenHoverColor) {
         this.modifiers.linkOpenHoverColor.value = linkOpenHoverColor;
     };
 
-    window.Navs = Navs;
+    window.Nav = Nav;
 })(window);
