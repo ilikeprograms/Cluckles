@@ -98,10 +98,10 @@ description: 'Cluckles Live Theme Editor compatible with Bootstrap. Open source 
         
         <h3>Now Cluckles is loaded!</h3>
         
-        <p>So we can go ahead and start using it. Cluckles has several API Components which can be used to interact with Bootstrap and change the styling. An example would be changing the body background color.</p>
+        <p>So we can go ahead and start using it. {{ site.title }} has several API Components which can be used to interact with Bootstrap and change the styling. An example would be changing the body background color.</p>
         {% highlight html %}
-            // Through a page element
-            <input type="color" onclick="themeEditor.misc.setBodyBackgroundColor(this.value);" />
+            // Through a page element, using the data-cluckles-{type}={bind-property} two way databinding
+            <input type="color" data-cluckles-misc="body-bg" />
         {% endhighlight %}
 
         {% highlight javascript %}
@@ -133,7 +133,7 @@ description: 'Cluckles Live Theme Editor compatible with Bootstrap. Open source 
   <div class="row showcase-lighter">
     <div class="col-md-12">
       <div class="container">
-        <h2>Started using Cluckles?</h2>
+        <h2>Started using {{ site.title }}?</h2>
         <p>We would love to hear from you, we might even feature you, or put your nice words up as a testimonial!</p>
 
           <div class="row">
