@@ -75,7 +75,7 @@ description: 'Cluckles Live Theme Editor compatible with Bootstrap. Open source 
               // Load our Fancy live editing Script
               <script src="../cluckles-{{ site.tagversion }}.js"></script>
               <script>
-                var themeEditor = new ThemeEditor(less, {
+                var clucklesEditor = new ClucklesEditor(less, {
                     export: {
                         target: '#download-panel-footer', // Fallback/General Target
                         json: {
@@ -107,23 +107,23 @@ description: 'Cluckles Live Theme Editor compatible with Bootstrap. Open source 
         {% highlight javascript %}
             <script>
               // Or Programmatically (type it in your browser's console/script)
-              themeEditor.misc.setBackgroundColor('#BFFF85');
+              clucklesEditor.misc.setBackgroundColor('#BFFF85');
 
               // Or manipulate the property manually
-              themeEditor.misc.bodyBg.value = '#BFFF85';
-              themeEditor.applyModifications();
+              clucklesEditor.misc.bodyBg.value = '#BFFF85';
+              clucklesEditor.applyModifications();
             </script>
         {% endhighlight %}
         
-        <p>Now be amazed as {{ site.title }} restyles the page, and from this point you can get your Changes. If you have provided export options when you called <code>new ThemeEditor(options);</code>, you will have download buttons, if not you can programmatically extract the changes:</p>
+        <p>Now be amazed as {{ site.title }} restyles the page, and from this point you can get your Changes. If you have provided export options when you called <code>new ClucklesEditor(options);</code>, you will have download buttons, if not you can programmatically extract the changes:</p>
         {% highlight javascript %}
           <script>
             // Will give you the JSON of the modified parts
             // { "@bodyBg": "#BFFF85"}
-            themeEditor.getJSON();
+            clucklesEditor.getJSON();
             
             // Property which holds the Compiled Css
-            themeEditor.export.compiledCss;
+            clucklesEditor.export.compiledCss;
           </script>
         {% endhighlight %}
       </div>

@@ -4,7 +4,7 @@
 	 * @class Modal
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} innerPadding The @modal-inner-padding variable which controls the Inner Padding of the Modal component.
 	 * @property {object} titlePadding The @modal-title-padding variable which controls the Title Padding of the Modal component.

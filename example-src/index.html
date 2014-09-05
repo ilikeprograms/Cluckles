@@ -42,9 +42,9 @@
 
     <!-- build:process -->
     <ul class="nav-justified">
-      <li><a href="<%= pkg.homepage %>" title="BootstrapThemeEditor on Github">Github</a></li>
-      <li><a href="<%= pkg.homepage %>/issues" title="BootstrapThemeEditor Issues on Github">Issues</a></li>
-      <li><a href="<%= pkg.homepage %>/releases" title="BootstrapThemeEditor Releases on Github">Releases</a></li>
+      <li><a href="<%= pkg.homepage %>" title="Cluckles on Github">Github</a></li>
+      <li><a href="<%= pkg.homepage %>/issues" title="Cluckles Issues on Github">Issues</a></li>
+      <li><a href="<%= pkg.homepage %>/releases" title="Cluckles Releases on Github">Releases</a></li>
     </ul>
     <p>Licenced under <%= pkg.license %>.</p>
     <!-- /build:process -->
@@ -90,7 +90,7 @@
     $('.example-left-popover').popover({'trigger': 'click'});
     $('.example-left-popover').popover('show');
 
-    var themeEditor = new ThemeEditor(less, {
+    var clucklesEditor = new ClucklesEditor(less, {
       export: {
         target: '#download-panel-footer',   // Fallback/General Target
         json: {

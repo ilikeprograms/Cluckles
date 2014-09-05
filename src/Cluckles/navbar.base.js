@@ -4,7 +4,7 @@
      * @class NavbarBase
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @property {string} height The @navbar-height variable which sets the height of Navbar Components.
      * @property {string} marginBottom The @navbar-margin-bottom variable which sets the margin-bottom of Navbar Components.

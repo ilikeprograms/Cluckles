@@ -25,7 +25,7 @@
      * 
 	 * @extends ThemeModifiers
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @returns {Editor}
      */
@@ -186,7 +186,7 @@
     };
 
     /**
-     * Sends the Theme Data to the URL provided by the "save" option to ThemeEditor(options.export).
+     * Sends the Theme Data to the URL provided by the "save" option to ClucklesEditor(options.export).
      * 
      * Save options:
      * - method:    {string}    The HTTP method for the save request. Default "POST".
@@ -203,7 +203,7 @@
 
         // Throw an error if the URL option was not provided or was not a string
         if (typeof options.url !== 'string') {
-            throw new TypeError('ThemeEditor.export.sendThemeData: The save url was not provided, or was not a string');
+            throw new TypeError('ClucklesEditor.export.sendThemeData: The save url was not provided, or was not a string');
         }
 
         // Create an XMLHttpRequest to send the Theme json to the server

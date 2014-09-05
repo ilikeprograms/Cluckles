@@ -42,13 +42,13 @@
      * 
      * Example of Two Way Databinding:
      * 
-     * themeEditor.jumbotron.setBackgroundColor('#000000'); // Will Update the modifier and all Subscribers
+     * editor.jumbotron.setBackgroundColor('#000000'); // Will Update the modifier and all Subscribers
      * <input type="color" data-cluckles-jumbotron="bg" /> // Will Update the modifier and all Subscribers
      * 
      * @returns {undefined}
      */
     ThemeModifier.prototype.setupDataBinding = function () {
-        var themeEditor = this.editor, // ThemeEditor instance
+        var editor = this.editor, // ClucklesEditor instance
             // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
             subscribers = Array.prototype.slice.call(document.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
@@ -67,7 +67,7 @@
                         this._value = val;
                         
                         // Queue the modifications to be applied by less
-                        themeEditor.queueModifications();
+                        editor.queueModifications();
 
                         // Notify each of the Subscribers of the value change
                         this.subscribers.forEach(function (subscriber) {

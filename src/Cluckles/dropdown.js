@@ -4,7 +4,7 @@
 	 * @class Dropdown
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} bg The @dropdown-bg variable which sets the dropdown background color.
 	 * @property {object} headerColor The @dropdown-header-color variable which sets the dropdown header color.

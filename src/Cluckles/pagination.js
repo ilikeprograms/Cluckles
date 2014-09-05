@@ -4,7 +4,7 @@
 	 * @class Pagination
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} color The @pagination-color variable which controls the Color of the Pagination component.
 	 * @property {object} bg The @pagination-bg variable which controls the Background Color of the Pagination component.

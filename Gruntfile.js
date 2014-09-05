@@ -56,7 +56,7 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/navbar.js',
                     'src/<%= pkg.name %>/theme-modifier.js',
                     'src/<%= pkg.name %>/export.js',
-                    'src/<%= pkg.name %>/theme-editor.js',
+                    'src/<%= pkg.name %>/cluckles.editor.js',
                 ],
                 dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.js'
             }
@@ -116,9 +116,9 @@ module.exports = function (grunt) {
                 }
             },
             
-            // Run the tasks when the ThemeEditor JS files change
+            // Run the tasks when the Cluckles JS files change
             scripts: {
-                files: "src/BootstrapThemeEditor/*",
+                files: "src/<%= pkg.nameLower %>/*",
                 tasks: ["jshint", "uglify", "copy"],
                 options: {
                     livereload: true,

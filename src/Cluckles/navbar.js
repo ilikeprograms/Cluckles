@@ -4,7 +4,7 @@
 	 * @class Navbar
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * @param {string} string The style of Navbar Component to modify.
 	 * 
 	 * @property {object} bg The @navbar-{style}-bg variable which controls the background color of the Navbar component.

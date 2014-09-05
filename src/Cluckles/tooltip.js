@@ -4,7 +4,7 @@
 	 * @class Tooltip
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} maxWidth The @tooltip-max-width variable which sets the Max Width of the Tooltip component.
 	 * @property {object} bg The @tooltip-bg variable which sets the Background of the Tooltip component.

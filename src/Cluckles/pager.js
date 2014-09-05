@@ -4,7 +4,7 @@
 	 * @class Pager
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} bg The @pager-bg variable which controls the Background Color of the Pager component.
 	 * @property {object} borderColor The @pager-border variable which controls the Border Color of the Pager component.

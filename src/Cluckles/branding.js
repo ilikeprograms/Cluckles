@@ -5,7 +5,7 @@
 	 * @class Dropdown
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {string} default The @brand-default variable which affects the default styles.
 	 * @property {string} primary The @brand-primary variable which affects the primary styles.

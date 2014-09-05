@@ -4,7 +4,7 @@
 	 * @class Jumbotron
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} padding The @jumbotron-padding variable which sets the Padding of the Jumbotron component.
 	 * @property {object} bg The @jumbotron-bg variable which sets the Background of the Jumbotron component.

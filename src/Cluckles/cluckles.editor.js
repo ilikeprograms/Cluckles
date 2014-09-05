@@ -1,10 +1,10 @@
     /**
-     * ThemeEditor class holds the modifications to the less theme using sub classes
+     * ClucklesEditor class holds the modifications to the less theme using sub classes
      * which hold information about the modifications, for each different part of the theme.
      * Such as branding, base colors, navbar, etc etc. These modifications can then be
      * retrieved or applied to the current page.
      * 
-     * @class ThemeEditor
+     * @class ClucklesEditor
      * 
      * Generic Options:
      * - delay: {Number} Milliseconds delay between refresh updates (Default: 750)
@@ -44,9 +44,9 @@
      * @property {ListGroup} listGroup Holds the changes to the ListGroup component.
      * @property {object} modifiers Holds all of the Modifications to the whole theme.
      * 
-     * @returns {ThemeEditor}
+     * @returns {ClucklesEditor}
      */
-    var ThemeEditor = function (less, options) {
+    var ClucklesEditor = function (less, options) {
         this.lessGlobal         = less;
         this.options            = options;
         
@@ -137,7 +137,7 @@
      * 
      * @returns {undefined}
      */
-    ThemeEditor.prototype.setupPostProcessor = function (less) {
+    ClucklesEditor.prototype.setupPostProcessor = function (less) {
         // Provide less with the postProcessor callback we want to executre
         less.postProcessor = function (css) {
             // Generate a Download blob from the Compiled CSS
@@ -150,7 +150,7 @@
      * 
      * @returns {Object}
      */
-    ThemeEditor.prototype.getModifiers = function () {
+    ClucklesEditor.prototype.getModifiers = function () {
         var grayScale   = this.grayScale,
             navbar      = this.navbar,
             buttons     = this.buttons,
@@ -275,14 +275,14 @@
 
     /**
      * Extracts the Modifications for the particular style/component by using
-     * ThemeModifier.prototype.getModifications() and adds them to ThemeEditor.modifications.
+     * ThemeModifier.prototype.getModifications() and adds them to ClucklesEditor.modifications.
      * 
      * @param {Object} modifiers All of the modifications to the theme.
      * @param {Obejct} modifiersType The object which holds the modifications for a particular style/components.
      * 
      * @returns {undefined}
      */
-    ThemeEditor.prototype.extractModifications = function (modifiers, modifiersType) {
+    ClucklesEditor.prototype.extractModifications = function (modifiers, modifiersType) {
         var modifiersOfType = modifiersType.getModifications();
         Object.keys(modifiersOfType).forEach(function (modifier) {
             var modifierObject = modifiersOfType[modifier];
@@ -295,7 +295,7 @@
      * 
      * @returns {String}
      */
-    ThemeEditor.prototype.getJSON = function () {
+    ClucklesEditor.prototype.getJSON = function () {
         return JSON.stringify(this.getModifiers());
     };
 
@@ -305,7 +305,7 @@
      * 
      * @returns {undefined}
      */
-    ThemeEditor.prototype.queueModifications = function () {
+    ClucklesEditor.prototype.queueModifications = function () {
         // If an update is allowed right now, apply the modifications
         if (this.refreshMonitor.readyState === 0) {
             this.applyModifications();
@@ -327,7 +327,7 @@
      * 
      * @returns {undefined}
      */
-    ThemeEditor.prototype.applyModifications = function () {
+    ClucklesEditor.prototype.applyModifications = function () {
         this.export.generateJsonBlob();
         this.lessGlobal.modifyVars(this.getModifiers());
     };
@@ -339,12 +339,12 @@
      * 
      * @returns {undefined}
      */
-    ThemeEditor.prototype.parseThemeFile = function (themeUrl) {
+    ClucklesEditor.prototype.parseThemeFile = function (themeUrl) {
         var themeXHR;
 
         // If an url to the theme.json file was not provided, or was not a string
         if (typeof themeUrl !== 'string') {
-            throw new TypeError('ThemeEditor.parseThemeFile: The theme file options provided is not a string');
+            throw new TypeError('ClucklesEditor.parseThemeFile: The theme file options provided is not a string');
         }
 
         // Create a new XMLHttpRequest to fetch the theme.json file data
@@ -366,4 +366,4 @@
         themeXHR.send(null);
     };
 
-    window.ThemeEditor = ThemeEditor;
+    window.ClucklesEditor = ClucklesEditor;

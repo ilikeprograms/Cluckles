@@ -4,7 +4,7 @@
 	 * @class Breadcrumb
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} bg The @breadcrumb-bg variable which controls the Background color of the Breadcrumb component.
 	 * @property {object} color The @breadcrumb-color variable which controls the Color of the Breadcrumb component.

@@ -4,7 +4,7 @@
 	 * @class Popover
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
      * @property {object} bg The @popover-bg variable which sets the Background of the Popover component.
 	 * @property {object} maxWidth The @popover-max-width variable which sets the Max Width of the Popover component.

@@ -4,7 +4,7 @@
 	 * @class Thumbnail
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} padding The @thumbnail-padding variable which sets the Padding of the Thumbnail Component.
 	 * @property {object} bg The @thumbnail-bg variable which sets the Background Color of the Thumbnail Component.

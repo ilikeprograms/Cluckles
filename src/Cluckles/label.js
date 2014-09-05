@@ -4,7 +4,7 @@
      * @class Label
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @property {string} color The @label-color variable which sets the Color of Label Components.
      * @property {string} linkHoverColor The @label-link-hover-color variable which sets the Link Hover Color of Label Components.

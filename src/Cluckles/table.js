@@ -4,7 +4,7 @@
 	 * @class Table
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @property {object} cellPadding The @table-cell-padding variable which controls the Cell Padding of the Table component.
      * @property {object} condensedCellPadding The @table-condensed-cell-padding variable which controls the Condensed Cell Padding of the Table component.

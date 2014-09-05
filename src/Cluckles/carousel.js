@@ -4,7 +4,7 @@
 	 * @class Carousel
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} controlColor The @carousel-control-color variable which controls the Control Color of the Carousel component.
 	 * @property {object} controlWidth The @carousel-control-width variable which controls the Control Width of the Carousel component.

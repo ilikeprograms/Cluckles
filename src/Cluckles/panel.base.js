@@ -4,7 +4,7 @@
      * @class PanelBase
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @property {string} panelFooterBg The @panel-footer-bg variable which sets the footer background color of Panel Components.
      * @property {string} panelBodyPadding The @panel-body-padding variable which sets the body padding of Panel Components.

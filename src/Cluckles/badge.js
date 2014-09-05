@@ -4,7 +4,7 @@
 	 * @class Badge
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} color The @badge-color variable which controls the Color of the Badge component.
 	 * @property {object} linkHoverColor The @badge-link-hover-color variable which controls the Link Hover Color of the Badge component.

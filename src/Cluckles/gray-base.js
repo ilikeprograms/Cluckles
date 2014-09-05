@@ -4,7 +4,7 @@
 	 * 
 	 * @class GrayScale
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {string} base The @gray-base variable which influence all the others
 	 * @property {string} darker The @gray-darker variable which is the darkest after base.
@@ -16,7 +16,7 @@
 	 * @returns {GrayScale}
 	 */
 	var GrayScale = function (editor) {
-		this.editor		= editor; // ThemeEditor
+		this.editor		= editor; // ClucklesEditor
 
 		// Different gray shades which affect the Theme
 		this.base		= new GrayShade(this);

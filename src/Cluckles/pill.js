@@ -4,7 +4,7 @@
 	 * @class Pill
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} borderRadius The @nav-pills-border-radius variable which controls the Border Radius of the Pill component.
 	 * @property {object} linkActiveHoverBg The @nav-pills-active-link-hover-bg variable which controls the Link Active Hover Background Color of the Pill component.

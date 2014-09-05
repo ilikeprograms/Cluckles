@@ -4,7 +4,7 @@
      * @class Misc
      * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @property {string} componentBaseBg The @state-base-bg variable which sets the background color of bootstrap components.
      * @property {string} wellBg The @well-base-bg variable which sets the background color of the Well Component.

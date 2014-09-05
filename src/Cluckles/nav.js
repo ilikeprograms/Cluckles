@@ -4,7 +4,7 @@
 	 * @class Nav
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @property {object} linkPadding The @nav-link-padding variable which controls the Link Padd of the Nav component.
      * @property {object} linkHoverBg The @nav-link-hover-bg variable which controls the Link Hover Color of the Nav component.

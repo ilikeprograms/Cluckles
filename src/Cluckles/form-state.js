@@ -4,7 +4,7 @@
 	 * @class FormState
 	 * @extends ThemeModifiers
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} headingBg @state-{type}-bg variable which sets the Heading Background color of alerts/panel headers.
 	 * @property {object} text @state-{type}-text variable which sets the Text color of alerts/panel headers.

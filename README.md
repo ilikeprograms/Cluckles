@@ -108,7 +108,7 @@ Then go to the browser and go to the url:
 
 ## Theme Editor Options
 
-There are options that can be provided when a ThemeEditor instance is created and are as follows:
+There are options that can be provided when a Cluckles instance is created and are as follows:
 
 ### Misc
 
@@ -148,7 +148,7 @@ The DOM node to append the export as json link, the id and the text of the link 
 
 ### Export Css
 
-The export.css object can be provided to configure the options for Downloading the Compiled Theme in Css format. See `ThemeEditor#setupPostProcessor`  
+The export.css object can be provided to configure the options for Downloading the Compiled Theme in Css format. See `Cluckles#setupPostProcessor`  
 The DOM node to append the export as css link, the id and the text of the link can be customised.
 
 | Field  | Type     | Default             | Desc                                         |
@@ -181,10 +181,10 @@ An optional success callback can also be provided to fire when the changes have 
 #### Example
 
 ```javascript
-<!-- Load our Fancy live editing ThemeEditor -->
+<!-- Load our Fancy live editing Cluckles -->
 <script src="../cluckles-0.4.0.js"></script>
 <script>
-  var themeEditor = new ThemeEditor(less, {
+  var clucklesEditor = new ClucklesEditor(less, {
     theme: {
       src: 'theme.json'
     },

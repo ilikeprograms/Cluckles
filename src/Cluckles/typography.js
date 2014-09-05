@@ -4,7 +4,7 @@
 	 * @class Typography
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} fontFamilySansSerif The @font-family-sans-serif variable which controls the Font Family Sans Serif of the Typography component.
 	 * @property {object} fontFamilySerif The @font-family-serif variable which controls the Font Family Serif of the Typography component.

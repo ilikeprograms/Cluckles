@@ -4,7 +4,7 @@
 	 * @class Form
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} inputBg The @input-bg variable which controls the Input Background Color of the Form component.
 	 * @property {object} inputDisabledBg The @input-bg-disabled variable which controls the Input Disabled Background Color of the Form component.

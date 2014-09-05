@@ -4,7 +4,7 @@
      * @class ButtonBase
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
      * @property {string} fontWeight The @btn-font-weight variable which sets the Font weight of Button Components.
      * @property {string} disabledLinkColor The @btn-link-disabled-color variable which sets the Disabled Link color of Button Components.

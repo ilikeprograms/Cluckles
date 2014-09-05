@@ -4,7 +4,7 @@
 	 * @class Tab
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} borderColor The @nav-tabs-border-color variable which controls the Border Color of the Tab component.
 	 * @property {object} linkHoverBorderColor The @nav-tabs-link-hover-border-color variable which controls the Link Hover Border Color of the Tab component.

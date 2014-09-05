@@ -4,7 +4,7 @@
 	 * @class Blockquote
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} smallColor The @blockquote-color variable which controls the Small Color of the Blockquote component.
 	 * @property {object} fontSize The @blockquote-font-size variable which controls the Font Size of the Blockquote component.

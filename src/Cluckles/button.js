@@ -4,7 +4,7 @@
 	 * @class Button
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * @param {string} string The style of Button Component to modify.
 	 * 
 	 * @property {object} bg The @btn-{style}-bg variable which controls the Background color of the Button component.
@@ -19,7 +19,7 @@
         this.subscriberDataAttribute = 'data-cluckles-button-' + style;
 
         if (style === undefined) {
-            throw new TypeError('ThemeEditor.button.js: style cannot be undefined');
+            throw new TypeError('ClucklesEditor.button.js: style cannot be undefined');
         }
 
         // Configure the Modifiers

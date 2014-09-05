@@ -4,7 +4,7 @@
 	 * @class Code
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} codeColor The @code-color variable which controls the Code Color of the Code component.
 	 * @property {object} codeBg The @code-bg variable which controls the Code Background Color of the Code component.

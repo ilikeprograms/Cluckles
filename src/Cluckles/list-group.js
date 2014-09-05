@@ -4,7 +4,7 @@
 	 * @class ListGroup
 	 * @extends ThemeModifier
 	 * 
-	 * @param {ThemeEditor} editor instance which manages the less modifications.
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
 	 * @property {object} bg The @list-group-bg variable which sets the background color of list group.
 	 * @property {object} border The @list-group-border variable which sets the border of the list group.
