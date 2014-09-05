@@ -1,6 +1,8 @@
 Cluckles
 =====================
 
+[![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=ilikeprograms&url=https://github.com/ilikeprograms/Cluckles&title=Cluckled Live Theme Editor&tags=github&category=software)
+
 Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap.
 There is an example page provided (`build/example/index.html`) which makes it easy to see it in action!
 
