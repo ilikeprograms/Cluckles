@@ -147,6 +147,7 @@ module.exports = function (grunt) {
                     
                     // Custom Bootstrap variables file
 					{expand: true, src: 'src/variables-custom.less', flatten: true, dest: 'build/less/'},
+					{expand: true, src: 'src/theme.less', flatten: true, dest: 'build/less/'},
 
                     // Copy the Custom Bootstrap.less file which adds the theme.less as an import
                     {expand: true, src: "src/bootstrap.less", flatten: true, dest: 'build/less/'},
