@@ -110,6 +110,39 @@
         };
         this.listGroup          = new ListGroup(this);
 
+        this.components = [
+            this.misc,
+            this.typography,
+            this.table,
+            this.breadcrumbs,
+            this.dropdown,
+            this.tooltip,
+            this.popover,
+            this.thumbnail,
+            this.badge,
+            this.carousel,
+            this.code,
+            this.blockquote,
+            this.modal,
+            this.jumbotron,
+            this.grayScale,
+            this.nav,
+            this.tab,
+            this.pill,
+            this.pagination,
+            this.pager,
+            this.form,
+            this.branding,
+            this.label,
+            this.panelBase,
+            this.navbarBase,
+            this.buttonBase,
+            this.navbar,
+            this.buttons,
+            this.formStates,
+            this.listGroup
+        ];
+
         // All modifier vars
         this.modifiers = {};
 
