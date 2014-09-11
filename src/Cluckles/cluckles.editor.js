@@ -51,14 +51,14 @@
         this.options            = options;
         
         /**
-         * Monitors the refreshing of the less files, enables it to be block for x duration between refreshes. To avoid crashing the brower :).
+         * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
          * 
          * @property readyState {Number} Tracks whether or not another refresh can be performed. (0 = ready, 1 = on delaying).
-         * @propery delay {Number} Milliseconds delay between refresh updates (Default: 750).
+         * @property delay {Number} Milliseconds delay between refresh updates (Default: 750).
          */
         this.refreshMonitor     = {
             readyState: 0,
-            delay: options.refreshDelay || 750
+            delay: options.delay || 750
         };
 
         this.misc               = new Misc(this);
