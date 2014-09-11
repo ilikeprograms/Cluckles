@@ -137,9 +137,20 @@
             this.panelBase,
             this.navbarBase,
             this.buttonBase,
-            this.navbar,
-            this.buttons,
-            this.formStates,
+            this.navbar.default,
+            this.navbar.inverse,
+            this.buttons.default,
+            this.buttons.primary,
+            this.buttons.success,
+            this.buttons.info,
+            this.buttons.warning,
+            this.buttons.danger,
+            this.formStates.default,
+            this.formStates.primary,
+            this.formStates.success,
+            this.formStates.info,
+            this.formStates.warning,
+            this.formStates.danger,
             this.listGroup
         ];
 
