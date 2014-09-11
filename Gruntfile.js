@@ -56,7 +56,8 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/navbar.js',
                     'src/<%= pkg.name %>/theme-modifier.js',
                     'src/<%= pkg.name %>/export.js',
-                    'src/<%= pkg.name %>/cluckles.editor.js',
+                    'src/<%= pkg.name %>/import.js',
+                    'src/<%= pkg.name %>/cluckles.editor.js'
                 ],
                 dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.js'
             }

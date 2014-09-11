@@ -60,9 +60,6 @@
             readyState: 0,
             delay: options.refreshDelay || 750
         };
-        
-        // Export
-        this.export             = new Export(this, options.export);
 
         this.misc               = new Misc(this);
         // Component vars
@@ -116,15 +113,8 @@
         // All modifier vars
         this.modifiers = {};
 
-        // If the theme option was provided
-        if (options.hasOwnProperty('theme')) {
-
-            // If the theme.src option was provided
-            if (options.theme.hasOwnProperty('src')) {
-                // Attempt to load and parse the theme file at the theme.src URL
-                this.parseThemeFile(options.theme.src);
-            }
-        }
+        this.export             = new Export(this, options.export);
+        this.import             = new Import(this, options.theme);
 
         // Configure the Post Processor for when Less finished Processing Changes to the Theme
         this.setupPostProcessor(this.lessGlobal);
@@ -330,40 +320,6 @@
     ClucklesEditor.prototype.applyModifications = function () {
         this.export.generateJsonBlob();
         this.lessGlobal.modifyVars(this.getModifiers());
-    };
-
-    /**
-     * Prases a theme.json file located at the themeURL, by default uses "GET" as the method.
-     * 
-     * @param {string} themeUrl The url to locate the theme.json file and download the content.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.parseThemeFile = function (themeUrl) {
-        var themeXHR;
-
-        // If an url to the theme.json file was not provided, or was not a string
-        if (typeof themeUrl !== 'string') {
-            throw new TypeError('ClucklesEditor.parseThemeFile: The theme file options provided is not a string');
-        }
-
-        // Create a new XMLHttpRequest to fetch the theme.json file data
-        themeXHR = new XMLHttpRequest();
-        themeXHR.overrideMimeType('application/json'); // Make sure were expecting JSON data
-        themeXHR.open('GET', themeUrl, true);
-
-        // When the File has loaded succesfully
-        themeXHR.onreadystatechange = function () {
-            if (themeXHR.readyState === 4 && themeXHR.status === 200) {
-                // Parse the json and store it in this.modifiers
-                this.modifiers = JSON.parse(themeXHR.responseText);
-
-                // Now apply the modifications to style the page with the theme.json
-                this.queueModifications();
-            }
-        }.bind(this);
-
-        themeXHR.send(null);
     };
 
     window.ClucklesEditor = ClucklesEditor;
