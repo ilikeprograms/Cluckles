@@ -15,7 +15,7 @@
      * @property {Typography} typography Holds modifications to the Typography component.
      * @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
      * @property {Table} table Holds modifications to the Table component.
-     * @property {Breadcrumbs} breadcrumbs Holds modifications to the Breadcrumbs component.
+     * @property {Breadcrumb} breadcrumb Holds modifications to the Breadcrumb component.
      * @property {Dropdown} dropdown Holds modifications to the Dropdown component.
      * @property {Tooltip} tooltip Holds modifications to the Tooltip component.
      * @property {Popover} popover Holds modifications to the Popover component.
@@ -65,7 +65,7 @@
         // Component vars
         this.typography         = new Typography(this);
         this.table              = new Table(this);
-        this.breadcrumbs        = new Breadcrumb(this);
+        this.breadcrumb         = new Breadcrumb(this);
         this.dropdown           = new Dropdown(this);
         this.tooltip            = new Tooltip(this);
         this.popover            = new Popover(this);
@@ -114,7 +114,7 @@
             this.misc,
             this.typography,
             this.table,
-            this.breadcrumbs,
+            this.breadcrumb,
             this.dropdown,
             this.tooltip,
             this.popover,
@@ -268,8 +268,8 @@
         // Label
         this.extractModifications(modifiers, this.label);
 
-        // Breadcrumbs
-        this.extractModifications(modifiers, this.breadcrumbs);
+        // Breadcrumb
+        this.extractModifications(modifiers, this.breadcrumb);
 
         // Dropdown
         this.extractModifications(modifiers, this.dropdown);
