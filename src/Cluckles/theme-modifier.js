@@ -35,6 +35,35 @@
     };
 
     /**
+     * Loads the modifiers input (by setting the value) into this components modifiers, if the modifier
+     * variable names match.
+     * 
+     * @param {object} importModifiers The parsed theme modifiers to load into this component.
+     * 
+     * @returns {undefined}
+     */
+    ThemeModifier.prototype.loadModifiers = function (importModifiers) {
+        var modifierNames = Object.keys(importModifiers);
+
+        // Itterate over each importModifier name
+        modifierNames.forEach(function (modifierName) {
+            // All of the modifiers of the current component
+            var componentModifiers = this.modifiers;
+
+            // Itterate over each component modifer name
+            Object.keys(componentModifiers).forEach(function (componentModifierName) {
+                // If this component modifier (e.g. this.bg) variable property (e.g. '@jumbotron-bg')
+                // matches the import modifier variable name, then set the value
+                // of the component modifier, which will set the value and trigger
+                // the data binding and update the data subscribers
+                if (this[componentModifierName].variable === modifierName) {
+                    this[componentModifierName].value = importModifiers[modifierName];
+                }
+            }, componentModifiers);            
+        }, this);
+    };
+
+    /**
      * Configured the Two Way Databinding for the modifiers, which includes
      * binding multiple DOM Element subscribers which have the "data-cluckles-{{type}}" attribute,
      * which makes them update when the modifiers change, and changing the modifiers when the DOM
