@@ -131,7 +131,7 @@ module.exports = function (grunt) {
 			main: {
 				files: [
                     // Copy the Example files
-                    {expand: true, src: "example-src/css/example.css", flatten: true, dest: 'build/example/'},
+                    {expand: true, src: "example-src/css/*", flatten: true, dest: 'build/example/css'},
                     {expand: true, src: "example-src/js/*", flatten: true, dest: 'build/example/js'},
 
 					// JS lib files
@@ -170,11 +170,10 @@ module.exports = function (grunt) {
                     },
                     
                     // Copy the Example files
-                    {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
+                    {src: "<%= examplesrc %>/css/example.css", dest: 'docs/assets/css/example.css'},
                     {src: "<%= examplesrc %>/js/component-example-fix.js", dest: 'docs/assets/js/component-example-fix.js'},
                     {src: "build/example/component.html", dest: 'docs/_includes/component.html'},
                     {src: "build/example/editor.html", dest: 'docs/_includes/editor.html'},
-                    {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
                     
                     // Font files
                     { src: "build/fonts/*", dest: 'docs/fonts', expand: true, flatten: true },
@@ -298,7 +297,7 @@ module.exports = function (grunt) {
                     
                     styles: {
                         example: [
-                            'build/example/example.css'
+                            'build/example/css/example.css'
                         ]
                     },
 
