@@ -2,32 +2,31 @@
      * Manages the Exporting of the Theme data, in JSON (modifications only)/Compiled CSS format,
      * aswell as creating the Download Blob's and the Links/Buttons to trigger the download.
      * 
-     * @class Editor
+     * @class Export
      * 
      * Export Options:
-     * - target: Optional General DOM Element target, to append Export links to (Body if undefined).
+     * - target:     {string}   Optional General DOM Element target, to append Export links to (Body if undefined).
      * - json: Json Export link options.
-     *   - target: DOM Element target to append json Export link, (export.target if undefined).
-     *   - id: ID attribute to set on the json Export link.
-     *   - text: Text content for the json Export link.
+     *   - target:   {string}   DOM Element target to append json Export link, (export.target if undefined).
+     *   - id:       {string}   ID attribute to set on the json Export link.
+     *   - text:     {string}   Text content for the json Export link.
      * - css: Css Export link options.
-     *   - target: DOM Element target to append css Export link, (export.target if undefined).
-     *   - id: ID attribute to set on the css Export link.
-     *   - text: Text content for the css Export link.
+     *   - target:   {string}   DOM Element target to append css Export link, (export.target if undefined).
+     *   - id:       {string}   ID attribute to set on the css Export link.
+     *   - text:     {string}   Text content for the css Export link.
      * - save: External JSON save request.
-     *   - formats: The formats to include in the export (Default: json).
-     *   - target: DOM Element target to append save Export link, (export.target if undefined).
-     *   - method: HTTP method for the save request.
-     *   - url: (Required) URL to send the modified theme changes (JSON format).
-     *   - callback: Optional success save callback.
-     *   - id: ID attribute to set on the save Export link.
-     *   - text: Text content for the save Export link.
-     * 
-	 * @extends ThemeModifiers
+     *   - formats:  {Array}    The formats to include in the export (Default: json).
+     *   - target:   {string}   DOM Element target to append save Export link, (export.target if undefined).
+     *   - method:   {string}   HTTP method for the save request.
+     *   - url:      {string}   (Required) URL to send the modified theme changes (JSON format).
+     *   - callback: {Function} Optional success save callback.
+     *   - id:       {string}   ID attribute to set on the save Export link.
+     *   - text:     {string}   Text content for the save Export link.
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
+     * @param {object} options Export options.
      * 
-     * @returns {Editor}
+     * @returns {Export}
      */
     var Export = function (editor, options) {
         this.editor     = editor;
@@ -39,18 +38,17 @@
         
         this.compiledCss = null;
 
-        // If the download option was provided
+        // If either of the Export formats were provided
         if (options.hasOwnProperty('json')) {
             this.jsonLink = this.createExportLink('json', options.json);
+        }
+        if (options.hasOwnProperty('css')) {
+            this.cssLink = this.createExportLink('css', options.css);
         }
 
         // If the Save option was provided
         if (options.hasOwnProperty('save')) {
             this.createSaveLink();
-        }
-
-        if (options.hasOwnProperty('css')) {
-            this.cssLink = this.createExportLink('css', options.css);
         }
     };
     
@@ -177,7 +175,8 @@
      * Generates a New Blob and ObjectURL with the given contents.
      * 
      * @param {string} contents The text contents to blobify.
-     * @returns {unresolved}
+     * 
+     * @returns {DOMString}
      */
     Export.prototype.generateBlob = function (contents) {
         var blob = new Blob([contents]); // Create a Blob with the contents
