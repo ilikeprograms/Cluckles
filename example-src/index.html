@@ -99,15 +99,8 @@
   <!-- Load our Fancy live editing ThemeEditor -->
   <script src="../<%= pkg.nameLower %>-<%= pkg.version %>.js"></script>
   <!-- /build -->
+  <script src="js/component-example-fix.js"></script>
   <script>
-    $('.example-tooltips').tooltip();
-    $('.example-left-tooltip').tooltip({'trigger': 'manual'});
-    $('.example-left-tooltip').tooltip('show');
-
-    $('.example-popovers').popover();
-    $('.example-left-popover').popover({'trigger': 'click'});
-    $('.example-left-popover').popover('show');
-
     var clucklesEditor = new ClucklesEditor(less, {
       export: {
         target: '#download-panel-footer',   // Fallback/General Target

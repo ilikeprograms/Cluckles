@@ -132,6 +132,7 @@ module.exports = function (grunt) {
 				files: [
                     // Copy the Example files
                     {expand: true, src: "example-src/css/example.css", flatten: true, dest: 'build/example/'},
+                    {expand: true, src: "example-src/js/*", flatten: true, dest: 'build/example/js'},
 
 					// JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'build/js/lib'},
@@ -170,6 +171,7 @@ module.exports = function (grunt) {
                     
                     // Copy the Example files
                     {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
+                    {src: "<%= examplesrc %>/js/component-example-fix.js", dest: 'docs/assets/js/component-example-fix.js'},
                     {src: "build/example/component.html", dest: 'docs/_includes/component.html'},
                     {src: "build/example/editor.html", dest: 'docs/_includes/editor.html'},
                     {src: "<%= examplesrc %>/example.css", dest: 'docs/assets/css/example.css'},
