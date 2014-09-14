@@ -1,6 +1,7 @@
 {
    "@text-color": "#FFCC99",
-   "@text-muted-color": "#996633",
+   "@text-muted": "#996633",
+   "@abbr-border-color": "#990000",
    "@body-bg":"#C58C3B",
    "@jumbotron-bg":"#430400",
    "@jumbotron-color":"#993300",
@@ -98,5 +99,10 @@
    "@list-group-active-color":"#CC6600",
    "@list-group-active-text-color":"#FFCC99",
    "@page-header-border-color":"#462900",
-   "@headings-small-color":"#794700"
+   "@headings-small-color":"#794700",
+   "@tooltip-bg": "#993300",
+   "@tooltip-color": "#CC9933",
+   "@carousel-caption-color": "#FF6600",
+   "@carousel-indicator-active-bg": "#330000",
+   "@carousel-indicator-border-color": "#FF6600"
 }
