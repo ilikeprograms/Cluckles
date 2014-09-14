@@ -6,13 +6,13 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} controlColor The @carousel-control-color variable which controls the Control Color of the Carousel component.
-	 * @property {object} controlWidth The @carousel-control-width variable which controls the Control Width of the Carousel component.
-	 * @property {object} controlOpacity The @carousel-control-opacity variable which controls the Control Opacity of the Carousel component.
-	 * @property {object} controlFontSize The @carousel-control-font-size variable which controls the Control Font Size of the Carousel component.
-	 * @property {object} indicatorActiveBg The @carousel-indicator-active-bg variable which controls the Indicator Active Background Color of the Carousel component.
-	 * @property {object} indicatorBorderColor The @carousel-indicator-border-color variable which controls the Indicator Border Color of the Carousel component.
-	 * @property {object} captionColor The @carousel-caption-color variable which controls the Caption Color of the Carousel component.
+	 * @property {object} controlColor          The @carousel-control-color variable which controls the Control Color of the Carousel Component.
+	 * @property {object} controlWidth          The @carousel-control-width variable which controls the Control Width of the Carousel Component.
+	 * @property {object} controlOpacity        The @carousel-control-opacity variable which controls the Control Opacity of the Carousel Component.
+	 * @property {object} controlFontSize       The @carousel-control-font-size variable which controls the Control Font Size of the Carousel Component.
+	 * @property {object} indicatorActiveBg     The @carousel-indicator-active-bg variable which controls the Indicator Active Background Color of the Carousel Component.
+	 * @property {object} indicatorBorderColor  The @carousel-indicator-border-color variable which controls the Indicator Border Color of the Carousel Component.
+	 * @property {object} captionColor          The @carousel-caption-color variable which controls the Caption Color of the Carousel Component.
 	 * 
 	 * @returns {Carousel}
 	 */
@@ -23,53 +23,53 @@
 
         // Configure the Modifiers
 		this.controlColor = {
-			variable: '@carousel-control-color',
-            subscribeProperty: 'control-color',
-            changeFn: this.setControlColor.bind(this),
-			subscribers: [],
-            _value: null
+			variable:           '@carousel-control-color',
+            subscribeProperty:  'control-color',
+            changeFn:           this.setControlColor.bind(this),
+			subscribers:        [],
+            _value:             null
 		};
 		this.controlWidth = {
-			variable: '@carousel-control-width',
-            subscribeProperty: 'control-width',
-            changeFn: this.setControlWidth.bind(this),
-			subscribers: [],
-            _value: null
+			variable:           '@carousel-control-width',
+            subscribeProperty:  'control-width',
+            changeFn:           this.setControlWidth.bind(this),
+			subscribers:        [],
+            _value:             null
 		};
 		this.controlOpacity = {
-			variable: '@carousel-control-opacity',
-			subscribeProperty: 'control-opacity',
-            changeFn: this.setControlOpacity.bind(this),
-            subscribers: [],
-            _value: null
+			variable:           '@carousel-control-opacity',
+			subscribeProperty:  'control-opacity',
+            changeFn:           this.setControlOpacity.bind(this),
+            subscribers:        [],
+            _value:             null
 		};
 		this.controlFontSize = {
-			variable: '@carousel-control-font-size',
-            subscribeProperty: 'control-font-size',
-            changeFn: this.setControlFontSize.bind(this),
-			subscribers: [],
-            _value: null
+			variable:           '@carousel-control-font-size',
+            subscribeProperty:  'control-font-size',
+            changeFn:           this.setControlFontSize.bind(this),
+			subscribers:        [],
+            _value:             null
 		};
         this.indicatorActiveBg = {
-            variable: '@carousel-indicator-active-bg',
-            subscribeProperty: 'indicator-active-bg-color',
-            changeFn: this.setIndicatorActiveBackgroundColor.bind(this),
-            subscribers: [],
-            _value: null
+            variable:           '@carousel-indicator-active-bg',
+            subscribeProperty:  'indicator-active-bg-color',
+            changeFn:           this.setIndicatorActiveBackgroundColor.bind(this),
+            subscribers:        [],
+            _value:             null
         };
         this.indicatorBorderColor = {
-            variable: '@carousel-indicator-border-color',
-            subscribeProperty: 'indicator-border-color',
-            changeFn: this.setIndicatorBorderColor.bind(this),
-            subscribers: [],
-            _value: null
+            variable:           '@carousel-indicator-border-color',
+            subscribeProperty:  'indicator-border-color',
+            changeFn:           this.setIndicatorBorderColor.bind(this),
+            subscribers:        [],
+            _value:             null
         };
         this.captionColor = {
-            variable: '@carousel-caption-color',
-            subscribeProperty: 'caption-color',
-            changeFn: this.setCaptionColor.bind(this),
-            subscribers: [],
-            _value: null
+            variable:           '@carousel-caption-color',
+            subscribeProperty:  'caption-color',
+            changeFn:           this.setCaptionColor.bind(this),
+            subscribers:        [],
+            _value:             null
         };
 
         Object.defineProperty(this.controlWidth, 'value', {
@@ -110,8 +110,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Carousel.prototype = Object.create(ThemeModifier.prototype);
-	Carousel.constructor = Carousel;
+	Carousel.prototype              = Object.create(ThemeModifier.prototype);
+	Carousel.prototype.constructor  = Carousel;
 
     /**
 	 * Gets the Control Color of the Carousel Component.
@@ -125,7 +125,7 @@
 	/**
 	 * Sets the Control Color of the Carousel Component.
 	 * 
-	 * @param {string} controlColor Sets the Carousel Control Color.
+	 * @param {string} controlColor The Carousel Control Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -145,7 +145,7 @@
 	/**
 	 * Sets the Control Width of the Carousel Component.
 	 * 
-	 * @param {string} controlWidth Sets the Carousel Control Width.
+	 * @param {string} controlWidth The Carousel Control Width to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -165,7 +165,7 @@
 	/**
 	 * Sets the Control Opacity of the Carousel Component.
 	 * 
-	 * @param {string} controlOpacity Sets the Carousel Control Opacity.
+	 * @param {string} controlOpacity The Carousel Control Opacity to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -185,7 +185,7 @@
 	/**
 	 * Sets the Control Font Size of the Carousel Component.
 	 * 
-	 * @param {string} controlFontSize Sets the Carousel Control Font Size.
+	 * @param {string} controlFontSize The Carousel Control Font Size to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -205,12 +205,12 @@
     /**
      * Sets the Indicator Background Color of the Carousel Component.
      * 
-     * @param {string} indicatorActiveBg Sets the Carousel Indicator Background Color.
+     * @param {string} indicatorActiveBackgroundColor The Carousel Indicator Background Color to set.
      * 
      * @returns {undefined}
      */
-    Carousel.prototype.setIndicatorActiveBackgroundColor = function (indicatorActiveBg) {
-        this.modifiers.indicatorActiveBg.value = indicatorActiveBg;
+    Carousel.prototype.setIndicatorActiveBackgroundColor = function (indicatorActiveBackgroundColor) {
+        this.modifiers.indicatorActiveBg.value = indicatorActiveBackgroundColor;
     };
 
     /**
@@ -225,7 +225,7 @@
     /**
      * Sets the Indicator Border Color of the Carousel Component.
      * 
-     * @param {string} indicatorBorderColor Sets the Carousel Border Color.
+     * @param {string} indicatorBorderColor The Carousel Border Color to set.
      * 
      * @returns {undefined}
      */
@@ -243,9 +243,9 @@
     };
 
     /**
-     * Sets the Caption Color of the Carousef Component.
+     * Sets the Caption Color of the Carousel Component.
      * 
-     * @param {string} captionColor Sets the Carousel Caption Color.
+     * @param {string} captionColor The Carousel Caption Color to set.
      * 
      * @returns {undefined}
      */

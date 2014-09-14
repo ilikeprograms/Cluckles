@@ -1,23 +1,23 @@
 	/**
-	 * Allows modification of a Pagination component in Bootstrap.
+	 * Allows modification of the Pagination component in Bootstrap.
 	 * 
 	 * @class Pagination
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} color The @pagination-color variable which controls the Color of the Pagination component.
-	 * @property {object} bg The @pagination-bg variable which controls the Background Color of the Pagination component.
-	 * @property {object} borderColor The @pagination-border variable which controls the Border Color of the Pagination component.
-	 * @property {object} hoverColor The @pagination-hover-color variable which controls the Hover Color of the Pagination component.
-	 * @property {object} hoverBg The @pagination-hover-bg variable which controls the Hover Background Color of the Pagination component.
-	 * @property {object} hoverBorderColor The @pagination-hover-border variable which controls the Hover Border Color of the Pagination component.
-	 * @property {object} activeColor The @pagination-active-color variable which controls the Active Color of the Pagination component.
-	 * @property {object} activeBg The @pagination-active-bg variable which controls the Active Background Color of the Pagination component.
-	 * @property {object} activeBorderColor The @pagination-active-border variable which controls the Active Border Color of the Pagination component.
-	 * @property {object} disabledColor The @pagination-disabled-color variable which controls the Disabled Color of the Pagination component.
-	 * @property {object} disabledBg The @pagination-disabled-bg variable which controls the Disabled Background Color of the Pagination component.
-	 * @property {object} disabledBorderColor The @pagination-disabled-border variable which controls the Disabled Border Color of the Pagination component.
+	 * @property {object} color                 The @pagination-color variable which controls the Color of the Pagination Component.
+	 * @property {object} bg                    The @pagination-bg variable which controls the Background Color of the Pagination Component.
+	 * @property {object} borderColor           The @pagination-border variable which controls the Border Color of the Pagination Component.
+	 * @property {object} hoverColor            The @pagination-hover-color variable which controls the Hover Color of the Pagination Component.
+	 * @property {object} hoverBg               The @pagination-hover-bg variable which controls the Hover Background Color of the Pagination Component.
+	 * @property {object} hoverBorderColor      The @pagination-hover-border variable which controls the Hover Border Color of the Pagination Component.
+	 * @property {object} activeColor           The @pagination-active-color variable which controls the Active Color of the Pagination Component.
+	 * @property {object} activeBg              The @pagination-active-bg variable which controls the Active Background Color of the Pagination Component.
+	 * @property {object} activeBorderColor     The @pagination-active-border variable which controls the Active Border Color of the Pagination Component.
+	 * @property {object} disabledColor         The @pagination-disabled-color variable which controls the Disabled Color of the Pagination Component.
+	 * @property {object} disabledBg            The @pagination-disabled-bg variable which controls the Disabled Background Color of the Pagination Component.
+	 * @property {object} disabledBorderColor   The @pagination-disabled-border variable which controls the Disabled Border Color of the Pagination Component.
 	 * 
 	 * @returns {Pagination}
 	 */
@@ -27,88 +27,88 @@
         this.subscriberDataAttribute = 'data-cluckles-pagination';
 
         this.color = {
-            variable: '@pagination-color',
+            variable:           '@pagination-color',
             subscribeProperty:  'color',
             changeFn:           this.setColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.bg = {
-            variable: '@pagination-bg',
+            variable:           '@pagination-bg',
             subscribeProperty:  'bg',
-            changeFn:           this.setBackground.bind(this),
+            changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.borderColor = {
-            variable: '@pagination-border',
+            variable:           '@pagination-border',
             subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.hoverColor = {
-            variable: '@pagination-hover-color',
+            variable:           '@pagination-hover-color',
             subscribeProperty:  'hover-color',
             changeFn:           this.setHoverColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.hoverBg = {
-            variable: '@pagination-hover-bg',
+            variable:           '@pagination-hover-bg',
             subscribeProperty:  'hover-bg',
-            changeFn:           this.setHoverBackground.bind(this),
+            changeFn:           this.setHoverBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.hoverBorderColor = {
-            variable: '@pagination-hover-border',
+            variable:           '@pagination-hover-border',
             subscribeProperty:  'hover-border-color',
             changeFn:           this.setHoverBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.activeColor = {
-            variable: '@pagination-active-color',
+            variable:           '@pagination-active-color',
             subscribeProperty:  'active-color',
             changeFn:           this.setActiveColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.activeBg = {
-            variable: '@pagination-active-bg',
+            variable:           '@pagination-active-bg',
             subscribeProperty:  'active-bg',
-            changeFn:           this.setActiveBackground.bind(this),
+            changeFn:           this.setActiveBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.activeBorderColor = {
-            variable: '@pagination-active-border',
+            variable:           '@pagination-active-border',
             subscribeProperty:  'active-border',
             changeFn:           this.setActiveBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.disabledColor = {
-            variable: '@pagination-disabled-color',
+            variable:           '@pagination-disabled-color',
             subscribeProperty:  'disabled-color',
             changeFn:           this.setDisabledColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.disabledBg = {
-            variable: '@pagination-disabled-bg',
+            variable:           '@pagination-disabled-bg',
             subscribeProperty:  'disabled-bg',
-            changeFn:           this.setDisabledBackground.bind(this),
+            changeFn:           this.setDisabledBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.disabledBorderColor = {
-            variable: '@pagination-disabled-border',
+            variable:           '@pagination-disabled-border',
             subscribeProperty:  'disabled-border-color',
             changeFn:           this.setDisabledBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         
         this.modifiers = {
@@ -130,8 +130,8 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-	Pagination.prototype = Object.create(ThemeModifier.prototype);
-	Pagination.constructor = Pagination;
+	Pagination.prototype                = Object.create(ThemeModifier.prototype);
+	Pagination.prototype.constructor    = Pagination;
 
     /**
 	 * Gets the Color of the Pagination Component.
@@ -145,7 +145,7 @@
 	/**
 	 * Gets the Color of the Pagination Component.
 	 * 
-	 * @param {string} color Sets the Pagination Color.
+	 * @param {string} color The Pagination Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -158,19 +158,19 @@
 	 * 
 	 * @returns {string}
 	 */
-	Pagination.prototype.getBackground = function () {
+	Pagination.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
 	 * Sets the Background Color of the Pagination Component.
 	 * 
-	 * @param {string} bg Sets the Pagination Background Color.
+	 * @param {string} backgroundColor The Pagination Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pagination.prototype.setBackground = function (bg) {
-		this.modifiers.bg.value = bg;
+	Pagination.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
 	/**
@@ -185,7 +185,7 @@
 	/**
 	 * Sets the Border color of the Pagination Component.
 	 * 
-	 * @param {string} borderColor Sets the Pagination Border Color.
+	 * @param {string} borderColor The Pagination Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -205,7 +205,7 @@
 	/**
 	 * Gets the Hover Color of the Pagination Component.
 	 * 
-	 * @param {string} color Sets the Pagination Hover Color.
+	 * @param {string} hoverColor The Pagination Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -218,19 +218,19 @@
 	 * 
 	 * @returns {string}
 	 */
-	Pagination.prototype.getHoverBackground = function () {
+	Pagination.prototype.getHoverBackgroundColor = function () {
 		return this.modifiers.hoverBg.value;
 	};
 
 	/**
 	 * Sets the Background Hover Color of the Pagination Component.
 	 * 
-	 * @param {string} hoverBg Sets the Pagination Background Hover Color.
+	 * @param {string} hoverBackgroundColor The Pagination Background Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pagination.prototype.setHoverBackground = function (hoverBg) {
-		this.modifiers.hoverBg.value = hoverBg;
+	Pagination.prototype.setHoverBackgroundColor = function (hoverBackgroundColor) {
+		this.modifiers.hoverBg.value = hoverBackgroundColor;
 	};
 
 	/**
@@ -245,7 +245,7 @@
 	/**
 	 * Sets the Hover Border color of the Pagination Component.
 	 * 
-	 * @param {string} hoverBorderColor Sets the Pagination Border Hover Color.
+	 * @param {string} hoverBorderColor The Pagination Border Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -265,7 +265,7 @@
 	/**
 	 * Gets the Active Color of the Pagination Component.
 	 * 
-	 * @param {string} color Sets the Pagination Active Color.
+	 * @param {string} activeColor The Pagination Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -278,23 +278,23 @@
 	 * 
 	 * @returns {string}
 	 */
-	Pagination.prototype.getActiveBackground = function () {
+	Pagination.prototype.getActiveBackgroundColor = function () {
 		return this.modifiers.activeBg.value;
 	};
 
 	/**
 	 * Sets the Background Active Color of the Pagination Component.
 	 * 
-	 * @param {string} activeBg Sets the Pagination Background Active Color.
+	 * @param {string} activeBackgroundColor The Pagination Background Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pagination.prototype.setActiveBackground = function (activeBg) {
-		this.modifiers.activeBg.value = activeBg;
+	Pagination.prototype.setActiveBackgroundColor = function (activeBackgroundColor) {
+		this.modifiers.activeBg.value = activeBackgroundColor;
 	};
 
 	/**
-	 * Gets the Active Border color of the Pagination Component.
+	 * Gets the Active Border Color of the Pagination Component.
 	 * 
 	 * @returns {string}
 	 */
@@ -303,9 +303,9 @@
 	};
 
 	/**
-	 * Sets the Active Border color of the Pagination Component.
+	 * Sets the Active Border Color of the Pagination Component.
 	 * 
-	 * @param {string} activeBorderColor Sets the Pagination Border Active Color.
+	 * @param {string} activeBorderColor The Pagination Border Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -325,7 +325,7 @@
 	/**
 	 * Gets the Disabled Color of the Pagination Component.
 	 * 
-	 * @param {string} color Sets the Pagination Disabled Color.
+	 * @param {string} disabledColor The Pagination Disabled Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -338,19 +338,19 @@
 	 * 
 	 * @returns {string}
 	 */
-	Pagination.prototype.getDisabledBackground = function () {
+	Pagination.prototype.getDisabledBackgroundColor = function () {
 		return this.modifiers.disabledBg.value;
 	};
 
 	/**
 	 * Sets the Background Disabled Color of the Pagination Component.
 	 * 
-	 * @param {string} disabledBg Sets the Pagination Background Disabled Color.
+	 * @param {string} disabledBackgroundColor The Pagination Background Disabled Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pagination.prototype.setDisabledBackground = function (disabledBg) {
-		this.modifiers.disabledBg.value = disabledBg;
+	Pagination.prototype.setDisabledBackgroundColor = function (disabledBackgroundColor) {
+		this.modifiers.disabledBg.value = disabledBackgroundColor;
 	};
 
 	/**
@@ -365,7 +365,7 @@
 	/**
 	 * Sets the Disabled Border color of the Pagination Component.
 	 * 
-	 * @param {string} disabledBorderColor Sets the Pagination Border Disabled Color.
+	 * @param {string} disabledBorderColor The Pagination Border Disabled Color to set.
 	 * 
 	 * @returns {undefined}
 	 */

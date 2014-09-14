@@ -6,12 +6,12 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {string} base The @gray-base variable which influence all the others
-	 * @property {string} darker The @gray-darker variable which is the darkest after base.
-	 * @property {string} dark The @gray-dark variable which is 2nd darkest after base.
-	 * @property {string} gray The @gray variable which is ~30% gray lighter than base.
-	 * @property {string} light The @gray-light variable which is ~60% lighter than base.
-	 * @property {string} lighter The @gray-lighter variable which is ~90% lighter than base.
+	 * @property {string} base      The @gray-base variable which influence all the others
+	 * @property {string} darker    The @gray-darker variable which is the darkest after base.
+	 * @property {string} dark      The @gray-dark variable which is 2nd darkest after base.
+	 * @property {string} gray      The @gray variable which is ~30% gray lighter than base.
+	 * @property {string} light     The @gray-light variable which is ~60% lighter than base.
+	 * @property {string} lighter   The @gray-lighter variable which is ~90% lighter than base.
 	 * 
 	 * @returns {GrayScale}
 	 */

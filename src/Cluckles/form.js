@@ -6,17 +6,17 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} inputBg The @input-bg variable which controls the Input Background Color of the Form component.
-	 * @property {object} inputDisabledBg The @input-bg-disabled variable which controls the Input Disabled Background Color of the Form component.
-	 * @property {object} inputColor The @input-color variable which controls the Input Color of the Form component.
-	 * @property {object} inputBorderColor The @input-border variable which controls the Input Border Color of the Form component.
-	 * @property {object} inputBorderRadius The @input-border-radius variable which controls the Input Border Radius of the Form component.
-	 * @property {object} inputBorderFocusColor The @input-border-focus variable which controls the Input Border Focus Color of the Form component.
-	 * @property {object} inputPlaceholderColor The @input-color-placeholder variable which controls the Input Placeholder Color of the Form component.
-	 * @property {object} legendColor The @legend-color variable which controls the Legend Color of the Form component.
-	 * @property {object} legendBorderColor The @legend-border-color variable which controls the Legend Border Color of the Form component.
-	 * @property {object} inputGroupAddonBgColor The @input-group-addon-bg variable which controls the Input Group Addon Background Color of the Form component.
-	 * @property {object} inputGroupAddonBorderColor The @input-group-addon-border-color variable which controls the Input Group Addon Border Color of the Form component.
+	 * @property {object} inputBg                       The @input-bg variable which controls the Input Background Color of the Form Component.
+	 * @property {object} inputDisabledBg               The @input-bg-disabled variable which controls the Input Disabled Background Color of the Form Component.
+	 * @property {object} inputColor                    The @input-color variable which controls the Input Color of the Form Component.
+	 * @property {object} inputBorderColor              The @input-border variable which controls the Input Border Color of the Form Component.
+	 * @property {object} inputBorderRadius             The @input-border-radius variable which controls the Input Border Radius of the Form Component.
+	 * @property {object} inputBorderFocusColor         The @input-border-focus variable which controls the Input Border Focus Color of the Form Component.
+	 * @property {object} inputPlaceholderColor         The @input-color-placeholder variable which controls the Input Placeholder Color of the Form Component.
+	 * @property {object} legendColor                   The @legend-color variable which controls the Legend Color of the Form Component.
+	 * @property {object} legendBorderColor             The @legend-border-color variable which controls the Legend Border Color of the Form Component.
+	 * @property {object} inputGroupAddonBgColor        The @input-group-addon-bg variable which controls the Input Group Addon Background Color of the Form Component.
+	 * @property {object} inputGroupAddonBorderColor    The @input-group-addon-border-color variable which controls the Input Group Addon Border Color of the Form Component.
 	 * 
 	 * @returns {Form}
 	 */
@@ -27,81 +27,81 @@
 
         // Configure the Modifiers
 		this.inputBg = {
-			variable: '@input-bg',
-			subscribeProperty: 'input-bg',
-            changeFn: this.setInputBackgroundColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-bg',
+			subscribeProperty:  'input-bg',
+            changeFn:           this.setInputBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputDisabledBg = {
-			variable: '@input-bg-disabled',
-			subscribeProperty: 'input-disabled-bg',
-            changeFn: this.setInputDisabledBackgroundColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-bg-disabled',
+			subscribeProperty:  'input-disabled-bg',
+            changeFn:           this.setInputDisabledBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputColor = {
-			variable: '@input-color',
-			subscribeProperty: 'input-color',
-            changeFn: this.setInputColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-color',
+			subscribeProperty:  'input-color',
+            changeFn:           this.setInputColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputBorderColor = {
-			variable: '@input-border',
-			subscribeProperty: 'input-border-color',
-            changeFn: this.setInputBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-border',
+			subscribeProperty:  'input-border-color',
+            changeFn:           this.setInputBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputBorderRadius = {
-			variable: '@input-border-radius',
-			subscribeProperty: 'input-border-radius',
-            changeFn: this.setInputBorderRadius.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-border-radius',
+			subscribeProperty:  'input-border-radius',
+            changeFn:           this.setInputBorderRadius.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputBorderFocusColor = {
-			variable: '@input-border-focus',
-			subscribeProperty: 'input-border-focus-color',
-            changeFn: this.setInputBorderFocusColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-border-focus',
+			subscribeProperty:  'input-border-focus-color',
+            changeFn:           this.setInputBorderFocusColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputPlaceholderColor = {
-			variable: '@input-color-placeholder',
-			subscribeProperty: 'input-placeholder-color',
-            changeFn: this.setInputPlaceholderColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-color-placeholder',
+			subscribeProperty:  'input-placeholder-color',
+            changeFn:           this.setInputPlaceholderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.legendColor = {
-			variable: '@legend-color',
-			subscribeProperty: 'legend-color',
-            changeFn: this.setLegendColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@legend-color',
+			subscribeProperty:  'legend-color',
+            changeFn:           this.setLegendColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.legendBorderColor = {
-			variable: '@legend-border-color',
-			subscribeProperty: 'legend-border-color',
-            changeFn: this.setLegendBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@legend-border-color',
+			subscribeProperty:  'legend-border-color',
+            changeFn:           this.setLegendBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputGroupAddonBgColor = {
-			variable: '@input-group-addon-bg',
-			subscribeProperty: 'input-group-addon-bg',
-            changeFn: this.setInputGroupAddonBackgroundColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-group-addon-bg',
+			subscribeProperty:  'input-group-addon-bg',
+            changeFn:           this.setInputGroupAddonBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.inputGroupAddonBorderColor = {
-			variable: '@input-group-addon-border-color',
-			subscribeProperty: 'input-group-addon-border-color',
-            changeFn: this.setInputGroupAddonBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@input-group-addon-border-color',
+			subscribeProperty:  'input-group-addon-border-color',
+            changeFn:           this.setInputGroupAddonBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 
         Object.defineProperty(this.inputBorderRadius, 'value', {
@@ -135,8 +135,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Form.prototype = Object.create(ThemeModifier.prototype);
-	Form.constructor = Form;
+	Form.prototype              = Object.create(ThemeModifier.prototype);
+	Form.prototype.constructor  = Form;
 
     /**
 	 * Gets the Input Background Color of the Form Component.
@@ -150,7 +150,7 @@
 	/**
 	 * Sets the Input Background Color of the Form Component.
 	 * 
-	 * @param {string} inputBackgroundColor Sets the Input Background Color of the Form Component.
+	 * @param {string} inputBackgroundColor The Form Input Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -159,7 +159,7 @@
 	};
 
     /**
-	 * Gets the Disabled Background Color of the Form Component.
+	 * Gets the Disabled Input Background Color of the Form Component.
 	 * 
 	 * @returns {String}
 	 */
@@ -168,9 +168,9 @@
 	};
 
 	/**
-	 * Sets the Input Background Color of the Form Component.
+	 * Sets the Disabled Input Background Color of the Form Component.
 	 * 
-	 * @param {string} disabledInputBackgroundColor Sets the Input Background Color of the Form Component.
+	 * @param {string} disabledInputBackgroundColor The Form Disabled Input Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -190,7 +190,7 @@
 	/**
 	 * Sets the Input Color of the Form Component.
 	 * 
-	 * @param {string} inputColor Sets the Form Input Color.
+	 * @param {string} inputColor The Form Input Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -210,7 +210,7 @@
 	/**
 	 * Sets the Input Border Color of the Form Component.
 	 * 
-	 * @param {string} inputBorderColor Sets the Form Input Border Color.
+	 * @param {string} inputBorderColor The Form Input Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -230,7 +230,7 @@
 	/**
 	 * Sets the Input Border Radius of the Form Component.
 	 * 
-	 * @param {string} inputBorderRadius Sets the Form Input Border Radius.
+	 * @param {string} inputBorderRadius The Form Input Border Radius to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -250,7 +250,7 @@
 	/**
 	 * Sets the Input Border Focus Color of the Form Component.
 	 * 
-	 * @param {string} inputBorderFocusColor Sets the Form Input Border Focus Color.
+	 * @param {string} inputBorderFocusColor The Form Input Border Focus Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -270,7 +270,7 @@
     /**
      * Sets the Input Placeholder Color of the Form Component.
      * 
-     * @param {string} inputPlaceholderColor Sets the Form Input Placeholder Color.
+     * @param {string} inputPlaceholderColor The Form Input Placeholder Color to set.
      * 
      * @returns {undefined}
      */
@@ -290,7 +290,7 @@
     /**
      * Sets the Legend Color of the Form Component.
      * 
-     * @param {string} legendColor Sets the Form Legend Color.
+     * @param {string} legendColor The Form Legend Color to set.
      * 
      * @returns {undefined}
      */
@@ -310,7 +310,7 @@
     /**
      * Sets the Legend Border Color of the Form Component.
      * 
-     * @param {string} legendBorderColor Sets the Form Legend Border Color.
+     * @param {string} legendBorderColor The Form Legend Border Color to set.
      * 
      * @returns {undefined}
      */
@@ -330,7 +330,7 @@
     /**
      * Sets the Input Group Addon Background Color of the Form Component.
      * 
-     * @param {string} inputGroupAddonBgColor Sets the Form Input Group Addon Background Color.
+     * @param {string} inputGroupAddonBgColor The Form Input Group Addon Background Color to set.
      * 
      * @returns {undefined}
      */
@@ -350,7 +350,7 @@
     /**
      * Sets the Input Group Addon Border Color of the Form Component.
      * 
-     * @param {string} inputGroupAddonBorderColor Sets the Form Input Group Addon Border Color.
+     * @param {string} inputGroupAddonBorderColor The Form Input Group Addon Border Color to set.
      * 
      * @returns {undefined}
      */

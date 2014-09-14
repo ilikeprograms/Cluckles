@@ -1,17 +1,17 @@
     /**
-	 * Allows modification of a Breadcrumb component in Bootstrap.
+	 * Allows modification of the Breadcrumb Component in Bootstrap.
 	 * 
 	 * @class Breadcrumb
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} bg The @breadcrumb-bg variable which controls the Background color of the Breadcrumb component.
-	 * @property {object} color The @breadcrumb-color variable which controls the Color of the Breadcrumb component.
-	 * @property {object} activeColor The @breadcrumb-active-color variable which controls the Active Color of the Breadcrumb component.
-	 * @property {object} seperator The @breadcrumb-seperator variable which controls the Seperator Character of the Breadcrumb component.
+	 * @property {object} bg            The @breadcrumb-bg variable which controls the Background Color of the Breadcrumb Component.
+	 * @property {object} color         The @breadcrumb-color variable which controls the Color of the Breadcrumb Component.
+	 * @property {object} activeColor   The @breadcrumb-active-color variable which controls the Active Color of the Breadcrumb Component.
+	 * @property {object} separator     The @breadcrumb-seperator variable which controls the Separator Character of the Breadcrumb Component.
      * 
-     * @returns {undefined}
+     * @returns {Breadcrumb}
      */
     var Breadcrumb = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
@@ -19,32 +19,32 @@
         this.subscriberDataAttribute = 'data-cluckles-breadcrumb';
 
         this.bg = {
-            variable: '@breadcrumb-bg',
-            subscribeProperty: 'bg',
-            changeFn: this.setBackground.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@breadcrumb-bg',
+            subscribeProperty:  'bg',
+            changeFn:           this.setBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.color = {
-            variable: '@breadcrumb-color',
-            subscribeProperty: 'color',
-            changeFn: this.setColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@breadcrumb-color',
+            subscribeProperty:  'color',
+            changeFn:           this.setColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.activeColor = {
-            variable: '@breadcrumb-active-color',
-            subscribeProperty: 'active-color',
-            changeFn: this.setActiveColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@breadcrumb-active-color',
+            subscribeProperty:  'active-color',
+            changeFn:           this.setActiveColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.separator = {
-            variable: '@breadcrumb-separator',
-            subscribeProperty: 'separator',
-            changeFn: this.setSeparator.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@breadcrumb-separator',
+            subscribeProperty:  'separator',
+            changeFn:           this.setSeparator.bind(this),
+            subscribers:        [],
+			_value:             null
         };
 
         this.modifiers = {
@@ -58,31 +58,31 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    Breadcrumb.prototype = Object.create(ThemeModifier.prototype);
-    Breadcrumb.constructor = Breadcrumb;
+    Breadcrumb.prototype                = Object.create(ThemeModifier.prototype);
+    Breadcrumb.prototype.constructor    = Breadcrumb;
 
     /**
-	 * Gets the Breadcrumb Background color.
+	 * Gets the Background Color of the Breadcrumb Component.
 	 * 
 	 * @returns {String}
 	 */
-	Breadcrumb.prototype.getBackground = function () {
+	Breadcrumb.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
-	 * Sets the Breadcrumb Background color.
+	 * Sets the Background Color of the Breadcrumb Component.
 	 * 
-	 * @param {string} color Sets the Breadcrumb Background color.
+	 * @param {string} backgroundColor The Breadcrumb Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Breadcrumb.prototype.setBackground = function (color) {
-		this.modifiers.bg.value = color;
+	Breadcrumb.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
     /**
-	 * Gets the Breadcrumb Color.
+	 * Gets the Color of the Breadcrumb Component.
 	 * 
 	 * @returns {string}
 	 */
@@ -91,9 +91,9 @@
 	};
 
 	/**
-	 * Sets the Breadcrumb Color.
+	 * Sets the Color of the Breadcrumb Component.
 	 * 
-	 * @param {string} color Sets the Breadcrumb Color.
+	 * @param {string} color The Breadcrumb Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -102,7 +102,7 @@
 	};
 
     /**
-	 * Gets the Breadcrumb Active Color.
+	 * Gets the Active Color of the Breadcrumb Component.
 	 * 
 	 * @returns {string}
 	 */
@@ -111,9 +111,9 @@
 	};
 
 	/**
-	 * Sets the Breadcrumb Active Color.
+	 * Sets the Active Color of the Breadcrumb Component.
 	 * 
-	 * @param {string} activeColor Sets the Breadcrumb Active Color.
+	 * @param {string} activeColor The Breadcrumb Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -122,7 +122,7 @@
 	};
 
     /**
-	 * Gets the Breadcrumb Separator Character.
+	 * Gets the Separator Character of the Breadcrumb Component.
 	 * 
 	 * @returns {string}
 	 */
@@ -131,9 +131,9 @@
 	};
 	
 	/**
-	 * Sets the Breadcrumb Separator Character.
+	 * Sets the Separator Character of the Breadcrumb Component.
 	 * 
-	 * @param {string} separator Sets the Breadcrumb Separator Character.
+	 * @param {string} separator The Breadcrumb Separator Character to set.
 	 * 
 	 * @returns {undefined}
 	 */

@@ -6,9 +6,9 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} borderRadius The @nav-pills-border-radius variable which controls the Border Radius of the Pill component.
-	 * @property {object} linkActiveHoverBg The @nav-pills-active-link-hover-bg variable which controls the Link Active Hover Background Color of the Pill component.
-	 * @property {object} linkActiveHoverColor The @nav-pills-active-link-hover-color variable which controls the Link Active Hover Color of the Pill component.
+	 * @property {object} borderRadius          The @nav-pills-border-radius variable which controls the Border Radius of the Pill cComponent.
+	 * @property {object} linkActiveHoverBg     The @nav-pills-active-link-hover-bg variable which controls the Link Active Hover Background Color of the Pill Component.
+	 * @property {object} linkActiveHoverColor  The @nav-pills-active-link-hover-color variable which controls the Link Active Hover Color of the Pill Component.
 	 * 
 	 * @returns {Pill}
 	 */
@@ -18,25 +18,25 @@
         this.subscriberDataAttribute = 'data-cluckles-pill';
 
         this.borderRadius = {
-            variable: '@nav-pills-border-radius',
+            variable:           '@nav-pills-border-radius',
             subscribeProperty:  'border-radius',
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkActiveBg = {
-            variable: '@nav-pills-active-link-hover-bg',
+            variable:           '@nav-pills-active-link-hover-bg',
             subscribeProperty:  'link-active-bg',
             changeFn:           this.setLinkActiveBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkActiveColor = {
-            variable: '@nav-pills-active-link-hover-color',
+            variable:           '@nav-pills-active-link-hover-color',
             subscribeProperty:  'link-active-color',
             changeFn:           this.setLinkActiveColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.borderRadius, 'value', {
@@ -61,8 +61,8 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-	Pill.prototype = Object.create(ThemeModifier.prototype);
-	Pill.constructor = Pill;
+	Pill.prototype              = Object.create(ThemeModifier.prototype);
+	Pill.prototype.constructor  = Pill;
 
 	/**
 	 * Gets the Border Radius of the Pill Component.
@@ -76,7 +76,7 @@
 	/**
 	 * Sets the Border Radius of the Pill Component.
 	 * 
-	 * @param {string} borderRadius Sets the Pill Border Radius.
+	 * @param {string} borderRadius The Pill Border Radius to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -96,7 +96,7 @@
 	/**
 	 * Sets the Link Active Background Color of the Pill Component.
 	 * 
-	 * @param {string} linkActiveBg Sets the Link Active Background Color.
+	 * @param {string} linkActiveBg The Pill Link Active Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -116,7 +116,7 @@
 	/**
 	 * Sets the Link Active Color of the Pill Component.
 	 * 
-	 * @param {string} linkActiveColor Sets the Link Active Hover Color.
+	 * @param {string} linkActiveColor The Pill Link Active Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */

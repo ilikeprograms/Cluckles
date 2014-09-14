@@ -6,16 +6,16 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-     * @property {object} bg The @popover-bg variable which sets the Background of the Popover component.
-	 * @property {object} maxWidth The @popover-max-width variable which sets the Max Width of the Popover component.
-	 * @property {object} borderColor The @popover-border-color variable which sets the Border Color of the Popover component.
-	 * @property {object} fallbackBorderColor The @popover-fallback-border-color variable which sets the Fallback Border Color of the Popover component.
-	 * @property {object} titleBg The @popover-title-bg variable which sets the Title Background Color of the Popover component.
-	 * @property {object} arrowWidth The @popover-arrow-width variable which sets the Arrow Width of the Popover component.
-	 * @property {object} arrowColor The @popover-arrow-color variable which sets the Arrow Color of the Popover component.
-	 * @property {object} arrowOuterWidth The @popover-arrow-outer-width variable which sets the Arrow Outer Width of the Popover component.
-	 * @property {object} arrowOuterColor The @popover-arrow-outer-color variable which sets the Arrow Outer Color of the Popover component.
-	 * @property {object} arrowOuterFallbackColor The @popover-arrow-outer-fallback-color variable which sets the Arrow Outer Fallback Color of the Popover component.
+     * @property {object} bg                        The @popover-bg variable which sets the Background Color of the Popover Component.
+	 * @property {object} maxWidth                  The @popover-max-width variable which sets the Max Width of the Popover Component.
+	 * @property {object} borderColor               The @popover-border-color variable which sets the Border Color of the Popover Component.
+	 * @property {object} fallbackBorderColor       The @popover-fallback-border-color variable which sets the Fallback Border Color of the Popover Component.
+	 * @property {object} titleBg                   The @popover-title-bg variable which sets the Title Background Color of the Popover Component.
+	 * @property {object} arrowWidth                The @popover-arrow-width variable which sets the Arrow Width of the Popover Component.
+	 * @property {object} arrowColor                The @popover-arrow-color variable which sets the Arrow Color of the Popover Component.
+	 * @property {object} arrowOuterWidth           The @popover-arrow-outer-width variable which sets the Arrow Outer Width of the Popover Component.
+	 * @property {object} arrowOuterColor           The @popover-arrow-outer-color variable which sets the Arrow Outer Color of the Popover Component.
+	 * @property {object} arrowOuterFallbackColor   The @popover-arrow-outer-fallback-color variable which sets the Arrow Outer Fallback Color of the Popover Component.
 	 * 
 	 * @returns {Popover}
 	 */
@@ -26,74 +26,74 @@
 
         // Configure the Modifiers
         this.bg = {
-			variable: '@popover-bg',
+			variable:           '@popover-bg',
 			subscribeProperty:  'bg',
-            changeFn:           this.setBackground.bind(this),
+            changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
         this.maxWidth = {
-            variable: '@popover-max-width',
+            variable:           '@popover-max-width',
             subscribeProperty:  'max-width',
             changeFn:           this.setMaxWidth.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.borderColor = {
-            variable: '@popover-border-color',
+            variable:           '@popover-border-color',
             subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.fallbackBorderColor = {
-            variable: '@popover-fallback-border-color',
+            variable:           '@popover-fallback-border-color',
             subscribeProperty:  'fallback-border-color',
             changeFn:           this.setFallbackBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.titleBg = {
-            variable: '@popover-title-bg',
+            variable:           '@popover-title-bg',
             subscribeProperty:  'title-bg',
             changeFn:           this.setTitleBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.arrowWidth = {
-            variable: '@popover-arrow-width',
+            variable:           '@popover-arrow-width',
             subscribeProperty:  'arrow-width',
             changeFn:           this.setArrowWidth.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.arrowColor = {
-            variable: '@popover-arrow-color',
+            variable:           '@popover-arrow-color',
             subscribeProperty:  'arrow-color',
             changeFn:           this.setArrowColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.arrowOuterWidth = {
-            variable: '@popover-arrow-outer-width',
+            variable:           '@popover-arrow-outer-width',
             subscribeProperty:  'arrow-outer-width',
             changeFn:           this.setArrowOuterWidth.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.arrowOuterColor = {
-            variable: '@popover-arrow-outer-color',
+            variable:           '@popover-arrow-outer-color',
             subscribeProperty:  'arrow-outer-color',
             changeFn:           this.setArrowOuterColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.arrowOuterFallbackColor = {
-            variable: '@popover-arrow-outer-fallback-color',
+            variable:           '@popover-arrow-outer-fallback-color',
             subscribeProperty:  'arrow-outer-fallback-color-',
             changeFn:           this.setArrowOuterFallbackColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.maxWidth, 'value', {
@@ -150,30 +150,30 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Popover.prototype = Object.create(ThemeModifier.prototype);
-	Popover.constructor = Popover;
+	Popover.prototype               = Object.create(ThemeModifier.prototype);
+	Popover.prototype.constructor   = Popover;
 
 	/**
-	 * Gets the Background of the Popover Component.
+	 * Gets the Background Color of the Popover Component.
 	 * 
 	 * @returns {string}
 	 */
-	Popover.prototype.getBackground = function () {
+	Popover.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
-	 * Sets the Background of the Popover Component.
+	 * Sets the Background Color of the Popover Component.
 	 * 
-	 * @param {string} color The color to set the Background.
+	 * @param {string} backgroundColor The Popover Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Popover.prototype.setBackground = function (color) {
-		this.modifiers.bg.value = color;
+	Popover.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
-/**
+    /**
      * Gets the Max Width of the Popover Components.
      * 
      * @returns {string}
@@ -185,7 +185,7 @@
     /**
      * Sets the Max Width of the Popover Components.
      * 
-     * @param {string} maxWidth Sets the Popover Max Width.
+     * @param {string} maxWidth The Popover Max Width to set.
      * 
      * @returns {undefined}
      */
@@ -205,7 +205,7 @@
     /**
      * Sets the Border Color of the Popover Component.
      * 
-     * @param {string} borderColor Sets the Popover Border Color.
+     * @param {string} borderColor The Popover Border Color to set.
      * 
      * @returns {undefined}
      */
@@ -225,7 +225,7 @@
     /**
      * Sets the Fallback Border Color of the Popover Component.
      * 
-     * @param {string} fallbackBorderColor Sets the Popover Fallback Border Color.
+     * @param {string} fallbackBorderColor The Popover Fallback Border Color to set.
      * 
      * @returns {undefined}
      */
@@ -245,12 +245,12 @@
     /**
      * Sets the Title Background Color of the Popover Component.
      * 
-     * @param {string} titleBg Sets the Popover Title Background Color.
+     * @param {string} titleBackgroundColor The Popover Title Background Color to set.
      * 
      * @returns {undefined}
      */
-    Popover.prototype.setTitleBackgroundColor = function (titleBg) {
-        this.modifiers.titleBg.value = titleBg;
+    Popover.prototype.setTitleBackgroundColor = function (titleBackgroundColor) {
+        this.modifiers.titleBg.value = titleBackgroundColor;
     };
 
     /**
@@ -265,7 +265,7 @@
     /**
      * Sets the Arrow Width of the Popover Component.
      * 
-     * @param {string} arrow Sets the Popover Arrow Width.
+     * @param {string} arrowWidth The Popover Arrow Width to set.
      * 
      * @returns {undefined}
      */
@@ -285,7 +285,7 @@
     /**
      * Sets the Arrow Color of the Popover Component.
      * 
-     * @param {string} arrowColor Sets the Popover Arrow Color.
+     * @param {string} arrowColor The Popover Arrow Color to set.
      * 
      * @returns {undefined}
      */
@@ -305,7 +305,7 @@
     /**
      * Sets the Arrow Outer Width of the Popover Component.
      * 
-     * @param {string} arrow Sets the Popover Arrow Outer Width.
+     * @param {string} arrowOuterWidth The Popover Arrow Outer Width to set.
      * 
      * @returns {undefined}
      */
@@ -325,7 +325,7 @@
     /**
      * Sets the Arrow Outer Color of the Popover Component.
      * 
-     * @param {string} arrowOuterColor Sets the Popover Outer Arrow Color.
+     * @param {string} arrowOuterColor The Popover Outer Arrow Color to set.
      * 
      * @returns {undefined}
      */
@@ -345,7 +345,7 @@
     /**
      * Sets the Arrow Outer Fallback Color of the Popover Component.
      * 
-     * @param {string} arrowOuterFallbackColor Sets the Popover Outer Arrow Color.
+     * @param {string} arrowOuterFallbackColor The Popover Arrow Outer Fallback Color to set.
      * 
      * @returns {undefined}
      */

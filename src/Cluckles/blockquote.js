@@ -1,14 +1,14 @@
 	/**
-	 * Allows modification of a Blockquote omponent in Bootstrap.
+	 * Allows modification of the Blockquote component in Bootstrap.
 	 * 
 	 * @class Blockquote
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} smallColor The @blockquote-color variable which controls the Small Color of the Blockquote component.
-	 * @property {object} fontSize The @blockquote-font-size variable which controls the Font Size of the Blockquote component.
-	 * @property {object} borderColor The @blockquote-border-color variable which controls the Border Color of the Blockquote component.
+	 * @property {object} smallColor    The @blockquote-color variable which controls the Small Color of the Blockquote Component.
+	 * @property {object} fontSize      The @blockquote-font-size variable which controls the Font Size of the Blockquote Component.
+	 * @property {object} borderColor   The @blockquote-border-color variable which controls the Border Color of the Blockquote Component.
 	 * 
 	 * @returns {Blockquote}
 	 */
@@ -19,25 +19,25 @@
 
         // Configure the Modifiers
 		this.smallColor = {
-			variable: '@blockquote-small-color',
-            subscribeProperty: 'small-color',
-            changeFn: this.setSmallColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@blockquote-small-color',
+            subscribeProperty:  'small-color',
+            changeFn:           this.setSmallColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
 		this.fontSize = {
-			variable: '@blockquote-font-size',
-            subscribeProperty: 'font-size',
-            changeFn: this.setFontSize.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@blockquote-font-size',
+            subscribeProperty:  'font-size',
+            changeFn:           this.setFontSize.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.borderColor = {
-			variable: '@blockquote-border-color',
-            subscribeProperty: 'border-color',
-            changeFn: this.setBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@blockquote-border-color',
+            subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 
         Object.defineProperty(this.fontSize, 'value', {
@@ -63,8 +63,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Blockquote.prototype = Object.create(ThemeModifier.prototype);
-	Blockquote.constructor = Blockquote;
+	Blockquote.prototype                = Object.create(ThemeModifier.prototype);
+	Blockquote.prototype.constructor    = Blockquote;
 
     /**
 	 * Gets the Small Color of the Blockquote Component.
@@ -78,7 +78,7 @@
 	/**
 	 * Sets the Small Color of the Blockquote Component.
 	 * 
-	 * @param {string} smallColor Sets the Blockquote Small Color.
+	 * @param {string} smallColor The Blockquote Small Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -98,7 +98,7 @@
     /**
      * Sets the Font Size of the Blockquote Component.
      * 
-     * @param {string} fontSize Sets the Blockquote Font Size.
+     * @param {string} fontSize The Blockquote Font Size to set.
      * 
      * @returns {undefined}
      */
@@ -118,7 +118,7 @@
     /**
      * Sets the Border Color of the Blockquote Component.
      * 
-     * @param {string} borderColor Sets the Blockquote Border Color.
+     * @param {string} borderColor The Blockquote Border Color to set.
      * 
      * @returns {undefined}
      */

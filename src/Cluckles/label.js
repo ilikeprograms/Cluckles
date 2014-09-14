@@ -6,14 +6,14 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {string} color The @label-color variable which sets the Color of Label Components.
-     * @property {string} linkHoverColor The @label-link-hover-color variable which sets the Link Hover Color of Label Components.
-     * @property {string} defaultBg The @label-default-bg variable which affects the Default label Background Color.
-	 * @property {string} primaryBg The @label-primary-bg variable which affects the Primary label Background Color.
-	 * @property {string} successBg The @label-success-bg variable which affects the Success label Background Color.
-	 * @property {string} infoBg The @label-info-bg variable which affects the Info label Background Color.
-	 * @property {string} warningBg The @label-warning-bg variable which affects the Warning label Background Color.
-	 * @property {string} dangerBg The @label-danger-bg variable which affects the Danger label Background Color.
+     * @property {string} color             The @label-color variable which sets the Color of Label Components.
+     * @property {string} linkHoverColor    The @label-link-hover-color variable which sets the Link Hover Color of Label Components.
+     * @property {string} defaultBg         The @label-default-bg variable which affects the Default Label Background Color.
+	 * @property {string} primaryBg         The @label-primary-bg variable which affects the Primary Label Background Color.
+	 * @property {string} successBg         The @label-success-bg variable which affects the Success Label Background Color.
+	 * @property {string} infoBg            The @label-info-bg variable which affects the Info Label Background Color.
+	 * @property {string} warningBg         The @label-warning-bg variable which affects the Warning Label Background Color.
+	 * @property {string} dangerBg          The @label-danger-bg variable which affects the Danger Label Background Color.
      * 
      * @returns {Label}
      */
@@ -24,60 +24,60 @@
 
         // Configure the Modifiers
         this.color = {
-            variable: '@label-color',
-            subscribeProperty: 'color',
-            changeFn: this.setColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@label-color',
+            subscribeProperty:  'color',
+            changeFn:           this.setColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.linkHoverColor = {
-            variable: '@label-link-hover-color',
-            subscribeProperty: 'link-hover-color',
-            changeFn: this.setLinkHoverColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@label-link-hover-color',
+            subscribeProperty:  'link-hover-color',
+            changeFn:           this.setLinkHoverColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
 		this.defaultBg = {
-			variable: '@label-default-bg',
-			subscribeProperty: 'default-bg',
-            changeFn: this.setDefaultBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@label-default-bg',
+			subscribeProperty:  'default-bg',
+            changeFn:           this.setDefaultBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.primaryBg = {
-			variable: '@label-primary-bg',
-			subscribeProperty: 'primary-bg',
-            changeFn: this.setPrimaryBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@label-primary-bg',
+			subscribeProperty:  'primary-bg',
+            changeFn:           this.setPrimaryBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.successBg = {
-			variable: '@label-success-bg',
-			subscribeProperty: 'success-bg',
-            changeFn: this.setSuccessBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@label-success-bg',
+			subscribeProperty:  'success-bg',
+            changeFn:           this.setSuccessBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.infoBg = {
-			variable: '@label-info-bg',
-			subscribeProperty: 'info-bg',
-            changeFn: this.setInfoBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@label-info-bg',
+			subscribeProperty:  'info-bg',
+            changeFn:           this.setInfoBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.warningBg = {
-			variable: '@label-warning-bg',
-			subscribeProperty: 'warning-bg',
-            changeFn: this.setWarningBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@label-warning-bg',
+			subscribeProperty:  'warning-bg',
+            changeFn:           this.setWarningBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.dangerBg = {
-			variable: '@label-danger-bg',
-			subscribeProperty: 'danger-bg',
-            changeFn: this.setDangerBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@label-danger-bg',
+			subscribeProperty:  'danger-bg',
+            changeFn:           this.setDangerBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 
         // Configure the modifiers so they can be extracted easier
@@ -96,8 +96,8 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    Label.prototype = Object.create(ThemeModifier.prototype);
-    Label.constructor = Label;
+    Label.prototype             = Object.create(ThemeModifier.prototype);
+    Label.prototype.constructor = Label;
 
     /**
      * Gets the Color of the Label Component.
@@ -112,6 +112,7 @@
      * Sets the Color of the Label Component.
      * 
      * @param {string} color The Label Color to set.
+     * 
      * @returns {string}
      */
     Label.prototype.setColor = function (color) {
@@ -143,19 +144,19 @@
 	 * 
 	 * @returns {undefined}
 	 */
-	Label.prototype.getDefaultBackground = function () {
+	Label.prototype.getDefaultBackgroundColor = function () {
 		return this.modifiers.defaultBg.value;
 	};
 
 	/**
 	 * Sets the Default Label Background Color.
 	 * 
-	 * @param {string} color Sets the Default Label Background olor.
+	 * @param {string} defaultBackgroundColor The Label Default Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Label.prototype.setDefaultBackground = function (color) {
-		this.modifiers.defaultBg.value = color;
+	Label.prototype.setDefaultBackgroundColor = function (defaultBackgroundColor) {
+		this.modifiers.defaultBg.value = defaultBackgroundColor;
 	};
 
 	/**
@@ -163,39 +164,39 @@
 	 * 
 	 * @returns {string}
 	 */
-	Label.prototype.getPrimaryBackground = function () {
+	Label.prototype.getPrimaryBackgroundColor = function () {
 		return this.modifiers.primaryBg.value;
 	};
 
 	/**
 	 * Sets the Primary Label Background Color.
 	 * 
-	 * @param {string} color Sets the Primary Label Background Color.
+	 * @param {string} primaryBackgroundColor The Label Primary Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Label.prototype.setPrimaryBackground = function (color) {
-		this.modifiers.primaryBg.value = color;
+	Label.prototype.setPrimaryBackgroundColor = function (primaryBackgroundColor) {
+		this.modifiers.primaryBg.value = primaryBackgroundColor;
 	};
 
 	/**
-	 * gets the Success Label Background Color.
+	 * Gets the Success Label Background Color.
 	 * 
 	 * @returns {string}
 	 */
-	Label.prototype.getSuccessBackground = function () {
+	Label.prototype.getSuccessBackgroundColor = function () {
 		return this.modifiers.successBg.value;
 	};
 
 	/**
 	 * Sets the Success Label Background Color.
 	 * 
-	 * @param {string} color Sets the Success Label Background Color.
+	 * @param {string} successBackgroundColor The Label Success Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Label.prototype.setSuccessBackground = function (color) {
-		this.modifiers.successBg.value = color;
+	Label.prototype.setSuccessBackgroundColor = function (successBackgroundColor) {
+		this.modifiers.successBg.value = successBackgroundColor;
 	};
 
 	/**
@@ -203,19 +204,19 @@
 	 * 
 	 * @returns {string}
 	 */
-	Label.prototype.getInfoBackground = function () {
+	Label.prototype.getInfoBackgroundColor = function () {
 		return this.modifiers.infoBg.value;
 	};
 
 	/**
 	 * Sets the Info Label Background Color.
 	 * 
-	 * @param {string} color Sets the Info Label Background Color.
+	 * @param {string} infoBackgroundColor The Label Info Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Label.prototype.setInfoBackground = function (color) {
-		this.modifiers.infoBg.value = color;
+	Label.prototype.setInfoBackgroundColor = function (infoBackgroundColor) {
+		this.modifiers.infoBg.value = infoBackgroundColor;
 	};
 
 	/**
@@ -223,19 +224,19 @@
 	 * 
 	 * @returns {string}
 	 */
-	Label.prototype.getWarningBackground = function () {
+	Label.prototype.getWarningBackgroundColor = function () {
 		return this.modifiers.warningBg.value;
 	};
 
 	/**
 	 * Sets the Warning Label Background Color.
 	 * 
-	 * @param {type} color Sets the Warning Label Background Color.
+	 * @param {type} warningBackgroundColor The Label Warning Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Label.prototype.setWarningBackground = function (color) {
-		this.modifiers.warningBg.value = color;
+	Label.prototype.setWarningBackgroundColor = function (warningBackgroundColor) {
+		this.modifiers.warningBg.value = warningBackgroundColor;
 	};
 
 	/**
@@ -243,17 +244,17 @@
 	 * 
 	 * @returns {string}
 	 */
-	Label.prototype.getDangerBackground = function () {
+	Label.prototype.getDangerBackgroundColor = function () {
 		return this.modifiers.dangerBg.value;
 	};
 
 	/**
 	 * Sets the Danger Label Background Color.
 	 * 
-	 * @param {string} color Sets the Danger Label Background Color.
+	 * @param {string} dangerBackgroundColor The Label Danger Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Label.prototype.setDangerBackground = function (color) {
-		this.modifiers.dangerBg.value = color;
+	Label.prototype.setDangerBackgroundColor = function (dangerBackgroundColor) {
+		this.modifiers.dangerBg.value = dangerBackgroundColor;
 	};

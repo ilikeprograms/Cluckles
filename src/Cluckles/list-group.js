@@ -6,15 +6,15 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} bg The @list-group-bg variable which sets the background color of list group.
-	 * @property {object} border The @list-group-border variable which sets the border of the list group.
-	 * @property {object} hoverBg The @list-group-hover-bg variable which sets the hover background of the list group.
-	 * @property {object} linkHeadingColor The @list-group-link-heading-color variable which sets the color of <h4> inside list groups.
-	 * @property {object} linkColor The @list-group-link-color variable which sets the color of <a> inside list groups.
-	 * @property {object} activeBg The @list-group-active-bg variable which sets the background color of <a> inside list groups.
-	 * @property {object} activeBorder The @list-group-active-border variable which sets the active border of list groups.
-	 * @property {object} activeColor The @list-group-active-color variable which sets the color of <a> inside list groups.
-	 * @property {object} activeTextColor The @list-group-active-text-color variable which sets the color of <a> > <p> inside list groups.
+	 * @property {object} bg                The @list-group-bg variable which sets the Background Color of the ListGroup Component.
+	 * @property {object} border            The @list-group-border variable which sets the Border Color of the ListGroup Component.
+	 * @property {object} hoverBg           The @list-group-hover-bg variable which sets the Hover Background of the ListGroup Component.
+	 * @property {object} linkHeadingColor  The @list-group-link-heading-color variable which sets the Color of <h4> inside ListGroups.
+	 * @property {object} linkColor         The @list-group-link-color variable which sets the Color of <a> inside ListGroups.
+	 * @property {object} activeBg          The @list-group-active-bg variable which sets the Background Color of <a> inside ListGroups.
+	 * @property {object} activeBorder      The @list-group-active-border variable which sets the Active Border of the ListGroup Component.
+	 * @property {object} activeColor       The @list-group-active-color variable which sets the Color of <a> inside ListGroups.
+	 * @property {object} activeTextColor   The @list-group-active-text-color variable which sets the Color of <a> > <p> inside ListGroups.
 	 * 
 	 * @returns {ListGroup}
 	 */
@@ -25,67 +25,67 @@
 
         // Configure the Modifiers
 		this.bg = {
-			variable: '@list-group-bg',
-			subscribeProperty: 'bg',
-            changeFn: this.setBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-bg',
+			subscribeProperty:  'bg',
+            changeFn:           this.setBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.border = {
-			variable: '@list-group-border',
-			subscribeProperty: 'border',
-            changeFn: this.setBorder.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-border',
+			subscribeProperty:  'border',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.hoverBg = {
-			variable: '@list-group-hover-bg',
-			subscribeProperty: 'hover-bg',
-            changeFn: this.setHoverBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-hover-bg',
+			subscribeProperty:  'hover-bg',
+            changeFn:           this.setHoverBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.linkHeadingColor = {
-			variable: '@list-group-link-heading-color',
-			subscribeProperty: 'link-heading-color',
-            changeFn: this.setLinkHeadingColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-link-heading-color',
+			subscribeProperty:  'link-heading-color',
+            changeFn:           this.setLinkHeadingColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.linkColor = {
-			variable: '@list-group-link-color',
-			subscribeProperty: 'link-color',
-            changeFn: this.setLinkColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-link-color',
+			subscribeProperty:  'link-color',
+            changeFn:           this.setLinkColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.activeBg = {
-			variable: '@list-group-active-bg',
-			subscribeProperty: 'active-bg',
-            changeFn: this.setActiveBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-active-bg',
+			subscribeProperty:  'active-bg',
+            changeFn:           this.setActiveBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.activeBorder = {
-			variable: '@list-group-active-border',
-			subscribeProperty: 'active-border',
-            changeFn: this.setActiveBorder.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-active-border',
+			subscribeProperty:  'active-border',
+            changeFn:           this.setActiveBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.activeColor = {
-			variable: '@list-group-active-color',
-			subscribeProperty: 'active-color',
-            changeFn: this.setActiveColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-active-color',
+			subscribeProperty:  'active-color',
+            changeFn:           this.setActiveColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.activeTextColor = {
-			variable: '@list-group-active-text-color',
-			subscribeProperty: 'active-text-color',
-            changeFn: this.setActiveTextColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@list-group-active-text-color',
+			subscribeProperty:  'active-text-color',
+            changeFn:           this.setActiveTextColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		
         // Configure the modifiers so they can be extracted easier
@@ -105,71 +105,71 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	ListGroup.prototype = Object.create(ThemeModifier.prototype);
-	ListGroup.constructor = ListGroup;
+	ListGroup.prototype             = Object.create(ThemeModifier.prototype);
+	ListGroup.prototype.constructor = ListGroup;
 	
 	/**
-	 * Gets the Background color.
+	 * Gets the Background Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
 	 */
-	ListGroup.prototype.getBackground = function () {
+	ListGroup.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 	
 	/**
-	 * Sets the Background color.
+	 * Sets the Background Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Background color.
+	 * @param {string} backgroundColor The ListGroup Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setBackground = function (color) {
-		this.modifiers.bg.value = color;
+	ListGroup.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 	
 	/**
-	 * Gets the Border color.
+	 * Gets the Border Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
 	 */
-	ListGroup.prototype.getBorder = function () {
+	ListGroup.prototype.getBorderColor = function () {
 		return this.modifiers.border.value;
 	};
 	
 	/**
-	 * Sets the Border color.
+	 * Sets the Border Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Border color.
+	 * @param {string} borderColor The ListGroup the Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setBorder = function (color) {
-		this.modifiers.border.value = color;
+	ListGroup.prototype.setBorderColor = function (borderColor) {
+		this.modifiers.border.value = borderColor;
 	};
 	
 	/**
-	 * Gets the Hover Background color.
+	 * Gets the Hover Background Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
 	 */
-	ListGroup.prototype.getHoverBackground = function () {
+	ListGroup.prototype.getHoverBackgroundColor = function () {
 		return this.modifiers.hoverBg.value;
 	};
 	
 	/**
-	 * Sets the Hover Background color.
+	 * Sets the Hover Background Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Hover Background color.
+	 * @param {string} hoverBackgroundColor The ListGroup Hover Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setHoverBackground = function (color) {
-		this.modifiers.hoverBg.value = color;
+	ListGroup.prototype.setHoverBackgroundColor = function (hoverBackgroundColor) {
+		this.modifiers.hoverBg.value = hoverBackgroundColor;
 	};
 	
  	/**
-	 * Gets the linkColor value.
+	 * Gets the Link Color of the ListGroup Component.
 	 * 
 	 * @returns {String}
 	 */
@@ -178,18 +178,18 @@
 	};
 	
 	/**
-	 * Sets the Link color of the ListGroup Component.
+	 * Sets the Link Color of the ListGroup Component.
 	 * 
-	 * @param {string} color The color to set the Link color.
+	 * @param {string} linkColor The ListGroup Link Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setLinkColor = function (color) {
-		this.modifiers.linkColor.value = color;
+	ListGroup.prototype.setLinkColor = function (linkColor) {
+		this.modifiers.linkColor.value = linkColor;
 	};
 	
 	/**
-	 * Gets the linkHeadingColor value.
+	 * Gets the Link Heading Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
 	 */
@@ -198,58 +198,58 @@
 	};
 
 	/**
-	 * Sets the Link Heading color of the ListGroup Component.
+	 * Sets the Link Heading Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Link Heading color.
+	 * @param {string} linkHeadingColor The ListGroup Link Heading Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setLinkHeadingColor = function (color) {
-		this.modifiers.linkHeadingColor.value = color;
+	ListGroup.prototype.setLinkHeadingColor = function (linkHeadingColor) {
+		this.modifiers.linkHeadingColor.value = linkHeadingColor;
 	};
 	
 	/**
-	 * Gets the activeBackground color value.
+	 * Gets the Active Background Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
 	 */
-	ListGroup.prototype.getActiveBackgound = function () {
+	ListGroup.prototype.getActiveBackgoundColor = function () {
 		return this.modifiers.activeBg.value;
 	};
 	
 	/**
-	 * Sets the activeBackground color value.
+	 * Sets the Active Background Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Active Background color.
+	 * @param {string} activeBackgroundColor The ListGroup Active Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setActiveBackground = function (color) {
-		this.modifiers.activeBg.value = color;
+	ListGroup.prototype.setActiveBackgroundColor = function (activeBackgroundColor) {
+		this.modifiers.activeBg.value = activeBackgroundColor;
 	};
 	
 	/**
-	 * Gets the Active Border color value.
+	 * Gets the Active Border Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
 	 */
-	ListGroup.prototype.getActiveBorder = function () {
+	ListGroup.prototype.getActiveBorderColor = function () {
 		return this.modifiers.activeBorder.value;
 	};
 	
 	/**
-	 * Sets the Active Border color value.
+	 * Sets the Active Border Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Active Border color.
+	 * @param {string} activeBorderColor The ListGroup Active Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setActiveBorder = function (color) {
-		this.modifiers.activeBorder.value = color;
+	ListGroup.prototype.setActiveBorderColor = function (activeBorderColor) {
+		this.modifiers.activeBorder.value = activeBorderColor;
 	};
 	
 	/**
-	 * Gets the activeColor value.
+	 * Gets the Active Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
 	 */
@@ -258,18 +258,18 @@
 	};
 	
 	/**
-	 * Sets the activeColor value.
+	 * Sets the Active Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Active Color value.
+	 * @param {string} activeColor The ListGroup Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setActiveColor = function (color) {
-		this.modifiers.activeColor.value = color;
+	ListGroup.prototype.setActiveColor = function (activeColor) {
+		this.modifiers.activeColor.value = activeColor;
 	};
 	
 	/**
-	 * Gets the activeTextColor value.
+	 * Gets the Active Text Color of the ListGroup Component.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -278,12 +278,12 @@
 	};
 	
 	/**
-	 * Sets the activeTextColor value.
+	 * Sets the Active Text Color of the ListGroup Component.
 	 * 
-	 * @param {string} color Sets the Active Text Color value.
+	 * @param {string} activeTextColor The ListGroup Active Text Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	ListGroup.prototype.setActiveTextColor = function (color) {
-		this.modifiers.activeTextColor.value = color;
+	ListGroup.prototype.setActiveTextColor = function (activeTextColor) {
+		this.modifiers.activeTextColor.value = activeTextColor;
 	};

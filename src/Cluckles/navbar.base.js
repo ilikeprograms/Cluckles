@@ -6,10 +6,10 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {string} height The @navbar-height variable which sets the height of Navbar Components.
-     * @property {string} marginBottom The @navbar-margin-bottom variable which sets the margin-bottom of Navbar Components.
-     * @property {string} borderRadius The @navbar-border-radius variable which sets the border radius of Navbar Components.
-     * @property {string} collapseMaxHeight The @navbar-collapse-max-height variable which sets the max height of the Navbar Collapse Components.
+     * @property {string} height            The @navbar-height variable which sets the Height of Navbar Components.
+     * @property {string} marginBottom      The @navbar-margin-bottom variable which sets the Margin Bottom of Navbar Components.
+     * @property {string} borderRadius      The @navbar-border-radius variable which sets the Border Radius of Navbar Components.
+     * @property {string} collapseMaxHeight The @navbar-collapse-max-height variable which sets the Max Height of the Navbar Collapse Components.
      * 
      * @returns {NavbarBase}
      */
@@ -20,32 +20,32 @@
 
         // Define the Modifiers
         this.height = {
-            variable: '@navbar-height',
+            variable:           '@navbar-height',
             subscribeProperty:  'height',
             changeFn:           this.setHeight.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.marginBottom = {
-            variable: '@navbar-margin-bottom',
+            variable:           '@navbar-margin-bottom',
             subscribeProperty:  'margin-bottom',
             changeFn:           this.setMarginBottom.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.borderRadius = {
-            variable: '@navbar-border-radius',
+            variable:           '@navbar-border-radius',
             subscribeProperty:  'border-radius',
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.collapseMaxHeight = {
-            variable: '@navbar-collapse-max-height',
+            variable:           '@navbar-collapse-max-height',
             subscribeProperty:  'collapse-max-height',
             changeFn:           this.setCollapseMaxHeight.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.height, 'value', {
@@ -108,8 +108,8 @@
     };
     
     // Inherit from parent Prototype and preserve constructor
-    NavbarBase.prototype = Object.create(ThemeModifier.prototype);
-    NavbarBase.constructor = NavbarBase;
+    NavbarBase.prototype                = Object.create(ThemeModifier.prototype);
+    NavbarBase.prototype.constructor    = NavbarBase;
 
     /**
      * Gets the Height of the Navbar Components.
@@ -121,7 +121,7 @@
     };
 
     /**
-     * Gets the Height of the Navbar Components.
+     * Sets the Height of the Navbar Components.
      * 
      * @param {string} height The Navbar Height to set.
      * 
@@ -141,7 +141,7 @@
     };
 
     /**
-     * Gets the Margin Bottom of the Navbar Components.
+     * Sets the Margin Bottom of the Navbar Components.
      * 
      * @param {string} marginBottom The Navbar Margin Bottom to set.
      * 
@@ -161,7 +161,7 @@
     };
 
     /**
-     * Gets the Border Radius of the Navbar Components.
+     * Sets the Border Radius of the Navbar Components.
      * 
      * @param {string} borderRadius The Navbar Border Radius to set.
      * 
@@ -181,9 +181,9 @@
     };
 
     /**
-     * Gets the Collapse Max Height of the Navbar Components.
+     * Sets the Collapse Max Height of the Navbar Components.
      * 
-     * @param {string} collapseMaxHeight The Navbar CollapseMaxHeight to set.
+     * @param {string} collapseMaxHeight The Navbar Collapse Max Height to set.
      * 
      * @returns {undefined}
      */

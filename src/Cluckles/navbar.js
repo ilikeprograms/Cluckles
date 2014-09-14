@@ -1,25 +1,25 @@
 	/**
-	 * Allows modification of a Navbar component in Bootstrap.
+	 * Allows modification of the Navbar Component in Bootstrap.
 	 * 
 	 * @class Navbar
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
-     * @param {string} string The style of Navbar Component to modify.
+     * @param {string} style The style of Navbar Component to modify.
 	 * 
-	 * @property {object} bg The @navbar-{style}-bg variable which controls the background color of the Navbar component.
-	 * @property {object} color The @navbar-{style}-color variable which controls the color of the Navbar component.
-	 * @property {object} border The @navbar-{style}-border variable which controls the border of the Navbar component.
-	 * @property {object} linkColor The @navbar-{style}-link-color variable which controls the link color of the Navbar component.
-	 * @property {object} linkHoverColor The @navbar-{style}-link-hover-color variable which controls the link hover color of the Navbar component.
-	 * @property {object} linkHoverBg The @navbar-{style}-link-hover-bg variable which controls the link hover background of the Navbar component.
-	 * @property {object} linkActiveColor The @navbar-{style}-link-active-color variable which controls the link active color of the Navbar component.
-	 * @property {object} linkActiveBg The @navbar-{style}-link-active-bg variable which controls the link active background of the Navbar component.
-	 * @property {object} linkDisabledColor The @navbar-{style}-link-disabled-color variable which controls the link disabled color of the Navbar component.
-	 * @property {object} linkDisabledBg The @navbar-{style}-link-disabled-bg variable which controls the link disabled background of the Navbar component.
-	 * @property {object} brandColor The @navbar-{style}-brand-color variable which controls the brand color of the Navbar component.
-	 * @property {object} brandHoverColor The @navbar-{style}-brand-hover-color variable which controls the brand hover color of the Navbar component.
-	 * @property {object} brandHoverBg The @navbar-{style}-brand-hover-bg variable which controls the brand hover background of the Navbar component.
+	 * @property {object} bg                The @navbar-{style}-bg variable which controls the Background Color of the Navbar Component.
+	 * @property {object} color             The @navbar-{style}-color variable which controls the Color of the Navbar Component.
+	 * @property {object} border            The @navbar-{style}-border variable which controls the Border Color of the Navbar Component.
+	 * @property {object} linkColor         The @navbar-{style}-link-color variable which controls the Link Color of the Navbar Component.
+	 * @property {object} linkHoverColor    The @navbar-{style}-link-hover-color variable which controls the Link Hover Color of the Navbar Component.
+	 * @property {object} linkHoverBg       The @navbar-{style}-link-hover-bg variable which controls the Link Hover Background of the Navbar Component.
+	 * @property {object} linkActiveColor   The @navbar-{style}-link-active-color variable which controls the Link Active Color of the Navbar Component.
+	 * @property {object} linkActiveBg      The @navbar-{style}-link-active-bg variable which controls the Link Active Background of the Navbar Component.
+	 * @property {object} linkDisabledColor The @navbar-{style}-link-disabled-color variable which controls the Link Disabled Color of the Navbar Component.
+	 * @property {object} linkDisabledBg    The @navbar-{style}-link-disabled-bg variable which controls the Link Disabled Background of the Navbar Component.
+	 * @property {object} brandColor        The @navbar-{style}-brand-color variable which controls the Brand Color of the Navbar Component.
+	 * @property {object} brandHoverColor   The @navbar-{style}-brand-hover-color variable which controls the Brand Hover Color of the Navbar Component.
+	 * @property {object} brandHoverBg      The @navbar-{style}-brand-hover-bg variable which controls the Brand Hover Background of the Navbar Component.
 	 * 
 	 * @returns {Navbar}
 	 */
@@ -32,111 +32,111 @@
 
         // Configure the Modifiers
 		this.bg = {
-			variable: 'navbar-' + navbarStyle + '-bg',
+			variable:           'navbar-' + navbarStyle + '-bg',
 			subscribeProperty:  'bg',
-            changeFn:           this.setBackground.bind(this),
+            changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.color = {
-			variable: 'navbar-' + navbarStyle + '-color',
+			variable:           'navbar-' + navbarStyle + '-color',
 			subscribeProperty:  'color',
             changeFn:           this.setColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.border = {
-			variable: 'navbar-' + navbarStyle + '-border',
+			variable:           'navbar-' + navbarStyle + '-border',
 			subscribeProperty:  'border',
-            changeFn:           this.setBorder.bind(this),
+            changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkColor = {
-			variable: 'navbar-' + navbarStyle + '-link-color',
+			variable:           'navbar-' + navbarStyle + '-link-color',
 			subscribeProperty:  'link-color',
             changeFn:           this.setLinkColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkHoverColor = {
-			variable: 'navbar-' + navbarStyle + '-link-hover-color',
+			variable:           'navbar-' + navbarStyle + '-link-hover-color',
 			subscribeProperty:  'link-hover-color',
             changeFn:           this.setLinkHoverColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkHoverBg = {
-			variable: 'navbar-' + navbarStyle + '-link-hover-bg',
+			variable:           'navbar-' + navbarStyle + '-link-hover-bg',
 			subscribeProperty:  'link-hover-bg',
             changeFn:           this.setLinkHoverBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkActiveColor = {
-			variable: 'navbar-' + navbarStyle + '-link-active-color',
+			variable:           'navbar-' + navbarStyle + '-link-active-color',
 			subscribeProperty:  'link-active-color',
             changeFn:           this.setLinkActiveColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkActiveBg = {
-			variable: 'navbar-' + navbarStyle + '-link-active-bg',
+			variable:           'navbar-' + navbarStyle + '-link-active-bg',
 			subscribeProperty:  'link-active-bg',
             changeFn:           this.setLinkActiveBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkHoverColor = {
-			variable: 'navbar-' + navbarStyle + '-link-hover-color',
+			variable:           'navbar-' + navbarStyle + '-link-hover-color',
 			subscribeProperty:  'link-hover-color',
             changeFn:           this.setLinkHoverColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkHoverBg = {
-			variable: 'navbar-' + navbarStyle + '-link-hover-bg',
+			variable:           'navbar-' + navbarStyle + '-link-hover-bg',
 			subscribeProperty:  'link-hover-bg',
             changeFn:           this.setLinkHoverBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkDisabledColor = {
-			variable: 'navbar-' + navbarStyle + '-link-disabled-color',
+			variable:           'navbar-' + navbarStyle + '-link-disabled-color',
 			subscribeProperty:  'link-disabled-color',
             changeFn:           this.setLinkDisabledColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.linkDisabledBg = {
-			variable: 'navbar-' + navbarStyle + '-link-disabled-bg',
+			variable:           'navbar-' + navbarStyle + '-link-disabled-bg',
 			subscribeProperty:  'link-disabled-bg',
             changeFn:           this.setLinkDisabledBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.brandColor = {
-			variable: 'navbar-' + navbarStyle + '-brand-color',
+			variable:           'navbar-' + navbarStyle + '-brand-color',
 			subscribeProperty:  'brand-color',
             changeFn:           this.setBrandColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.brandHoverColor = {
-			variable: 'navbar-' + navbarStyle + '-brand-hover-color',
+			variable:           'navbar-' + navbarStyle + '-brand-hover-color',
 			subscribeProperty:  'brand-hover-color',
             changeFn:           this.setBrandHoverColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.brandHoverBg = {
-			variable: 'navbar-' + navbarStyle + '-brand-hover-bg',
+			variable:           'navbar-' + navbarStyle + '-brand-hover-bg',
 			subscribeProperty:  'brand-hover-bg',
             changeFn:           this.setBrandHoverBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
-		
+
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             bg:                 this.bg,
@@ -158,27 +158,27 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Navbar.prototype = Object.create(ThemeModifier.prototype);
-	Navbar.constructor = Navbar;
+	Navbar.prototype                = Object.create(ThemeModifier.prototype);
+	Navbar.prototype.constructor    = Navbar;
 
 	/**
-	 * Gets the Background color.
+	 * Gets the Background Color of this Navbar instance.
 	 * 
 	 * @returns {String}
 	 */
-	Navbar.prototype.getBackground = function () {
+	Navbar.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
-	 * Sets the Background color of this Navbar instance.
+	 * Sets the Background Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Background color.
+	 * @param {string} backgroundColor The Navbar instance Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setBackground = function (color) {
-		this.modifiers.bg.value = color;
+	Navbar.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 	
 	/**
@@ -193,7 +193,7 @@
 	/**
 	 * Sets the Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Color.
+	 * @param {string} color The Navbar instance Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -202,23 +202,23 @@
 	};
 	
 	/**
-	 * Gets the Border of this Navbar instance.
+	 * Gets the Border Color of this Navbar instance.
 	 * 
 	 * @returns {string}
 	 */
-	Navbar.prototype.getBorder = function () {
+	Navbar.prototype.getBorderColor = function () {
 		return this.modifiers.border.value;
 	};
 	
 	/**
-	 * Sets the Border of this Navbar instance.
+	 * Sets the Border Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Border.
+	 * @param {string} borderColor The Navbar instance Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setBorder = function (color) {
-		this.modifiers.border.value = color;
+	Navbar.prototype.setBorderColor = function (borderColor) {
+		this.modifiers.border.value = borderColor;
 	};
 	
 	/**
@@ -233,12 +233,12 @@
 	/**
 	 * Sets the Link Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Link Color.
+	 * @param {string} linkColor The Navbar instance Link Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setLinkColor = function (color) {
-		this.modifiers.linkColor.value = color;
+	Navbar.prototype.setLinkColor = function (linkColor) {
+		this.modifiers.linkColor.value = linkColor;
 	};
 	
 	/**
@@ -253,12 +253,12 @@
 	/**
 	 * Sets the Link Hover Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Link Hover Color.
+	 * @param {string} linkHoverColor The Navbar instance Link Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setLinkHoverColor = function (color) {
-		this.modifiers.linkHoverColor.value = color;
+	Navbar.prototype.setLinkHoverColor = function (linkHoverColor) {
+		this.modifiers.linkHoverColor.value = linkHoverColor;
 	};
 	
 	/**
@@ -273,12 +273,12 @@
 	/**
 	 * Sets the Link Hover Background Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Link Hover Background Color.
+	 * @param {string} linkHoverBackgroundColor The Navbar instance Link Hover Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setLinkHoverBackgroundColor = function (color) {
-		this.modifiers.linkHoverBg.value = color;
+	Navbar.prototype.setLinkHoverBackgroundColor = function (linkHoverBackgroundColor) {
+		this.modifiers.linkHoverBg.value = linkHoverBackgroundColor;
 	};
 	
 	/**
@@ -293,12 +293,12 @@
 	/**
 	 * Sets the Link Active Color of this Navbar instance.
 	 * 
-	 * @param {string} color Set the Link Active Color.
+	 * @param {string} linkActiveColor The Navbar instance Link Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setLinkActiveColor = function (color) {
-		this.modifiers.linkActiveColor.value = color;
+	Navbar.prototype.setLinkActiveColor = function (linkActiveColor) {
+		this.modifiers.linkActiveColor.value = linkActiveColor;
 	};
 	
 	/**
@@ -313,12 +313,12 @@
 	/**
 	 * Sets the Link Active Background Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Link Active Background Color.
+	 * @param {string} linkActiveBackgroundColor The Navbar instance Link Active Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setLinkActiveBackgroundColor = function (color) {
-		this.modifiers.linkActiveBg.value = color;
+	Navbar.prototype.setLinkActiveBackgroundColor = function (linkActiveBackgroundColor) {
+		this.modifiers.linkActiveBg.value = linkActiveBackgroundColor;
 	};
 	
 	/**
@@ -333,12 +333,12 @@
 	/**
 	 * Sets the Link Disabled Color of this Navbar instance.
 	 * 
-	 * @param {string} color Set the Link Disabled Color.
+	 * @param {string} linkDisabledColor The Navbar instance Link Disabled Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setLinkDisabledColor = function (color) {
-		this.modifiers.linkDisabledColor.value = color;
+	Navbar.prototype.setLinkDisabledColor = function (linkDisabledColor) {
+		this.modifiers.linkDisabledColor.value = linkDisabledColor;
 	};
 	
 	/**
@@ -353,12 +353,12 @@
 	/**
 	 * Sets the Link Disabled Background Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Link Disabled Background Color.
+	 * @param {string} linkDisabledBackgroundColor The Navbar instance Link Disabled Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setLinkDisabledBackgroundColor = function (color) {
-		this.modifiers.linkDisabledBg.value = color;
+	Navbar.prototype.setLinkDisabledBackgroundColor = function (linkDisabledBackgroundColor) {
+		this.modifiers.linkDisabledBg.value = linkDisabledBackgroundColor;
 	};
 	
 		
@@ -374,12 +374,12 @@
 	/**
 	 * Sets the Brand Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Brand Color.
+	 * @param {string} brandColor The Navbar instance Brand Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setBrandColor = function (color) {
-		this.modifiers.brandColor.value = color;
+	Navbar.prototype.setBrandColor = function (brandColor) {
+		this.modifiers.brandColor.value = brandColor;
 	};
 	
 		
@@ -395,12 +395,12 @@
 	/**
 	 * Sets the Brand Hover Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Brand Hover Color.
+	 * @param {string} brandHoverColor The Navbar instance Brand Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setBrandHoverColor = function (color) {
-		this.modifiers.brandHoverColor.value = color;
+	Navbar.prototype.setBrandHoverColor = function (brandHoverColor) {
+		this.modifiers.brandHoverColor.value = brandHoverColor;
 	};
 	
 	/**
@@ -415,10 +415,10 @@
 	/**
 	 * Sets the Brand Hover Background Color of this Navbar instance.
 	 * 
-	 * @param {string} color Sets the Brand Hover Background Color.
+	 * @param {string} brandHoverBackgroundColor The Navbar instance Brand Hover Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Navbar.prototype.setBrandHoverBackgroundColor = function (color) {
-		this.modifiers.brandHoverBg.value = color;
+	Navbar.prototype.setBrandHoverBackgroundColor = function (brandHoverBackgroundColor) {
+		this.modifiers.brandHoverBg.value = brandHoverBackgroundColor;
 	};

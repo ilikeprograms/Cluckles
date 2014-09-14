@@ -6,14 +6,14 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} codeColor The @code-color variable which controls the Code Color of the Code component.
-	 * @property {object} codeBg The @code-bg variable which controls the Code Background Color of the Code component.
-	 * @property {object} kbdColor The @kbd-color variable which controls the Kbd Color of the Code component.
-	 * @property {object} kbdBg The @kbd-bg variable which controls the Kdb Background Color of the Code component.
-	 * @property {object} preColor The @pre-color variable which controls the Pre Color of the Code component.
-	 * @property {object} preBg The @pre-bg variable which controls the Pre Background Color of the Code component.
-	 * @property {object} preBorderColor The @pre-border-color variable which controls the Pre Border Color of the Code component.
-	 * @property {object} preScrollableMaxHeight The @pre-scrollable-max-height variable which controls the Pre Scrollable Max Height of the Code component.
+	 * @property {object} codeColor                 The @code-color variable which controls the Code Color of the Code Component.
+	 * @property {object} codeBg                    The @code-bg variable which controls the Code Background Color of the Code Component.
+	 * @property {object} kbdColor                  The @kbd-color variable which controls the Kbd Color of the Code Component.
+	 * @property {object} kbdBg                     The @kbd-bg variable which controls the Kdb Background Color of the Code Component.
+	 * @property {object} preColor                  The @pre-color variable which controls the Pre Color of the Code Component.
+	 * @property {object} preBg                     The @pre-bg variable which controls the Pre Background Color of the Code Component.
+	 * @property {object} preBorderColor            The @pre-border-color variable which controls the Pre Border Color of the Code Component.
+	 * @property {object} preScrollableMaxHeight    The @pre-scrollable-max-height variable which controls the Pre Scrollable Max Height of the Code Component.
 	 * 
 	 * @returns {Code}
 	 */
@@ -24,60 +24,60 @@
 
         // Configure the Modifiers
 		this.codeColor = {
-			variable: '@code-color',
-            subscribeProperty: 'code-color',
-            changeFn: this.setCodeColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@code-color',
+            subscribeProperty:  'code-color',
+            changeFn:           this.setCodeColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
         this.codeBg = {
-			variable: '@code-bg',
-            subscribeProperty: 'code-bg-color',
-            changeFn: this.setCodeBackgroundColor.bind(this),
-			subscribers: [],
-			_value: null
+			variable:           '@code-bg',
+            subscribeProperty:  'code-bg-color',
+            changeFn:           this.setCodeBackgroundColor.bind(this),
+			subscribers:        [],
+			_value:             null
         };
 		this.kbdColor = {
-			variable: '@kbd-color',
-            subscribeProperty: 'kbd-color',
-            changeFn: this.setKbdColor.bind(this),
-			subscribers: [],
-			_value: null
+			variable:           '@kbd-color',
+            subscribeProperty:  'kbd-color',
+            changeFn:           this.setKbdColor.bind(this),
+			subscribers:        [],
+			_value:             null
 		};
         this.kbdBg = {
-			variable: '@kbd-bg',
-            subscribeProperty: 'kbd-bg-color',
-            changeFn: this.setKbdBackgroundColor.bind(this),
-			subscribers: [],
-			_value: null
+			variable:           '@kbd-bg',
+            subscribeProperty:  'kbd-bg-color',
+            changeFn:           this.setKbdBackgroundColor.bind(this),
+			subscribers:        [],
+			_value:             null
         };
 		this.preColor = {
-			variable: '@pre-color',
-            subscribeProperty: 'pre-color',
-            changeFn: this.setPreColor.bind(this),
-			subscribers: [],
-			_value: null
+			variable:           '@pre-color',
+            subscribeProperty:  'pre-color',
+            changeFn:           this.setPreColor.bind(this),
+			subscribers:        [],
+			_value:             null
 		};
         this.preBg = {
-			variable: '@pre-bg',
-            subscribeProperty: 'pre-bg-color',
-            changeFn: this.setPreBackgroundColor.bind(this),
-			subscribers: [],
-			_value: null
+			variable:           '@pre-bg',
+            subscribeProperty:  'pre-bg-color',
+            changeFn:           this.setPreBackgroundColor.bind(this),
+			subscribers:        [],
+			_value:             null
         };
         this.preBorderColor = {
-			variable: '@pre-border-color',
-            subscribeProperty: 'pre-border-color',
-            changeFn: this.setPreBorderColor.bind(this),
-			subscribers: [],
-			_value: null
+			variable:           '@pre-border-color',
+            subscribeProperty:  'pre-border-color',
+            changeFn:           this.setPreBorderColor.bind(this),
+			subscribers:        [],
+			_value:             null
         };
         this.preScrollableMaxHeight = {
-			variable: '@pre-scrollable-max-height',
-            subscribeProperty: 'pre-scrollable-max-height',
-            changeFn: this.setPreScrollableMaxHeight.bind(this),
-			subscribers: [],
-			_value: null
+			variable:           '@pre-scrollable-max-height',
+            subscribeProperty:  'pre-scrollable-max-height',
+            changeFn:           this.setPreScrollableMaxHeight.bind(this),
+			subscribers:        [],
+			_value:             null
         };
 
         Object.defineProperty(this.preScrollableMaxHeight, 'value', {
@@ -108,8 +108,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Code.prototype = Object.create(ThemeModifier.prototype);
-	Code.constructor = Code;
+	Code.prototype              = Object.create(ThemeModifier.prototype);
+	Code.prototype.constructor  = Code;
 
     /**
 	 * Gets the Code Color of the Code Component.
@@ -123,7 +123,7 @@
 	/**
 	 * Sets the Code Color of the Code Component.
 	 * 
-	 * @param {string} codeColor Sets the Code Color.
+	 * @param {string} codeColor The Code Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -143,7 +143,7 @@
 	/**
 	 * Sets the Code Background Color of the Code Component.
 	 * 
-	 * @param {string} codeBackgroundColor Sets the Code Background Color.
+	 * @param {string} codeBackgroundColor The Code Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -163,7 +163,7 @@
 	/**
 	 * Sets the Kbd Color of the Code Component.
 	 * 
-	 * @param {string} kbdColor Sets the Code Kbd Color.
+	 * @param {string} kbdColor The Code Kbd Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -183,7 +183,7 @@
 	/**
 	 * Sets the Kbd Background Color of the Code Component.
 	 * 
-	 * @param {string} kbdBackgroundColor Sets the Code Kbd Background Color.
+	 * @param {string} kbdBackgroundColor The Code Kbd Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -203,7 +203,7 @@
 	/**
 	 * Sets the Pre Color of the Code Component.
 	 * 
-	 * @param {string} preColor Sets the Code Pre Color.
+	 * @param {string} preColor The Code Pre Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -223,7 +223,7 @@
 	/**
 	 * Sets the Pre Background Color of the Code Component.
 	 * 
-	 * @param {string} preBackgroundColor Sets the Code Pre Background Color.
+	 * @param {string} preBackgroundColor The Code Pre Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -243,7 +243,7 @@
 	/**
 	 * Sets the Pre Border Color of the Code Component.
 	 * 
-	 * @param {string} preBorderColor Sets the Code Pre Border Color.
+	 * @param {string} preBorderColor The Code Pre Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -263,7 +263,7 @@
 	/**
 	 * Sets the Pre Scrollable Max Height of the Code Component.
 	 * 
-	 * @param {string} preScrollableMaxHeight Sets the Code Pre Scrollable Max Height.
+	 * @param {string} preScrollableMaxHeight The Code Pre Scrollable Max Height to set.
 	 * 
 	 * @returns {undefined}
 	 */

@@ -1,19 +1,19 @@
 	/**
-	 * Allows modification of a Badge component in Bootstrap.
+	 * Allows modification of the Badge component in Bootstrap.
 	 * 
 	 * @class Badge
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} color The @badge-color variable which controls the Color of the Badge component.
-	 * @property {object} linkHoverColor The @badge-link-hover-color variable which controls the Link Hover Color of the Badge component.
-	 * @property {object} bg The @badge-bg variable which controls the Background Color of the Badge component.
-	 * @property {object} activeColor The @badge-active-color variable which controls the Active Color of the Badge component.
-	 * @property {object} activeBg The @badge-active-bg variable which controls the Active Background Color of the Badge component.
-	 * @property {object} fontWeight The @badge-font-weight variable which controls the Font Weight of the Badge component.
-	 * @property {object} lineHeight The @badge-line-height variable which controls the Line Height of the Badge component.
-	 * @property {object} borderRadius The @badge-border-radius variable which controls the Border Radius of the Badge component.
+	 * @property {object} color             The @badge-color variable which controls the Color of the Badge Component.
+	 * @property {object} linkHoverColor    The @badge-link-hover-color variable which controls the Link Hover Color of the Badge Component.
+	 * @property {object} bg                The @badge-bg variable which controls the Background Color of the Badge Component.
+	 * @property {object} activeColor       The @badge-active-color variable which controls the Active Color of the Badge Component.
+	 * @property {object} activeBg          The @badge-active-bg variable which controls the Active Background Color of the Badge Component.
+	 * @property {object} fontWeight        The @badge-font-weight variable which controls the Font Weight of the Badge Component.
+	 * @property {object} lineHeight        The @badge-line-height variable which controls the Line Height of the Badge Component.
+	 * @property {object} borderRadius      The @badge-border-radius variable which controls the Border Radius of the Badge Component.
 	 * 
 	 * @returns {Badge}
 	 */
@@ -24,60 +24,60 @@
 
         // Configure the Modifiers
 		this.color = {
-			variable: '@badge-color',
-            subscribeProperty: 'color',
-            changeFn: this.setColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-color',
+            subscribeProperty:  'color',
+            changeFn:           this.setColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
         this.linkHoverColor = {
-			variable: '@badge-link-hover-color',
-            subscribeProperty: 'link-hover-color',
-            changeFn: this.setLinkHoverColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-link-hover-color',
+            subscribeProperty:  'link-hover-color',
+            changeFn:           this.setLinkHoverColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
         this.bg = {
-			variable: '@badge-bg',
-            subscribeProperty: 'bg',
-            changeFn: this.setBackgroundColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-bg',
+            subscribeProperty:  'bg',
+            changeFn:           this.setBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
 		this.activeColor = {
-			variable: '@badge-active-color',
-            subscribeProperty: 'active-color',
-            changeFn: this.setActiveColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-active-color',
+            subscribeProperty:  'active-color',
+            changeFn:           this.setActiveColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.activeBg = {
-			variable: '@badge-active-bg',
-            subscribeProperty: 'active-bg-color',
-            changeFn: this.setActiveBackgroundColor.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-active-bg',
+            subscribeProperty:  'active-bg-color',
+            changeFn:           this.setActiveBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.fontWeight = {
-			variable: '@badge-font-weight',
-            subscribeProperty: 'font-weight',
-            changeFn: this.setFontWeight.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-font-weight',
+            subscribeProperty:  'font-weight',
+            changeFn:           this.setFontWeight.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.lineHeight = {
-			variable: '@badge-line-height',
-            subscribeProperty: 'line-height',
-            changeFn: this.setLineHeight.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-line-height',
+            subscribeProperty:  'line-height',
+            changeFn:           this.setLineHeight.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.borderRadius = {
-			variable: '@badge-border-radius',
-            subscribeProperty: 'border-radius',
-            changeFn: this.setBorderRadius.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@badge-border-radius',
+            subscribeProperty:  'border-radius',
+            changeFn:           this.setBorderRadius.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 
         Object.defineProperty(this.borderRadius, 'value', {
@@ -108,8 +108,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Badge.prototype = Object.create(ThemeModifier.prototype);
-	Badge.constructor = Badge;
+	Badge.prototype             = Object.create(ThemeModifier.prototype);
+	Badge.prototype.constructor = Badge;
 
     /**
 	 * Gets the Color of the Badge Component.
@@ -123,7 +123,7 @@
 	/**
 	 * Sets the Color of the Badge Component.
 	 * 
-	 * @param {string} color Sets the Color.
+	 * @param {string} color The Badge Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -143,7 +143,7 @@
 	/**
 	 * Sets the Link Hover Color of the Badge Component.
 	 * 
-	 * @param {string} linkHoverColor Sets the Link Hover Color.
+	 * @param {string} linkHoverColor The Badge Link Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -163,7 +163,7 @@
 	/**
 	 * Sets the Background Color of the Badge Component.
 	 * 
-	 * @param {string} backgroundColor Sets the Background Color of the Badge Component.
+	 * @param {string} backgroundColor The Badge Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -183,7 +183,7 @@
 	/**
 	 * Sets the Active Color of the Badge Component.
 	 * 
-	 * @param {string} activeColor Sets the Badge Active Color.
+	 * @param {string} activeColor The Badge Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -203,12 +203,12 @@
 	/**
 	 * Sets the Active BackgroundColor of the Badge Component.
 	 * 
-	 * @param {string} activeBg Sets the Badge Active Background Color.
+	 * @param {string} activeBackgroundColor The Badge Active Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Badge.prototype.setActiveBackgroundColor = function (activeBg) {
-		this.modifiers.activeBg.value = activeBg;
+	Badge.prototype.setActiveBackgroundColor = function (activeBackgroundColor) {
+		this.modifiers.activeBg.value = activeBackgroundColor;
     };
 
     /**
@@ -223,7 +223,7 @@
     /**
      * Sets the Font Weight of the Badge Component.
      * 
-     * @param {string} fontWeight Sets the Badge Font Weight.
+     * @param {string} fontWeight The Badge Font Weight to set.
      * 
      * @returns {undefined}
      */
@@ -243,7 +243,7 @@
     /**
      * Sets the Line Height of the Badge Component.
      * 
-     * @param {string} lineHeight Sets the Badge Line Height.
+     * @param {string} lineHeight The Badge Line Height to set.
      * 
      * @returns {undefined}
      */
@@ -263,7 +263,7 @@
     /**
      * Sets the Border Radius of the Badge Component.
      * 
-     * @param {string} borderRadius Sets the Badge Border Radius.
+     * @param {string} borderRadius The Badge Border Radius to set.
      * 
      * @returns {undefined}
      */

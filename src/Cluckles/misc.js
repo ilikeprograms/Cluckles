@@ -6,15 +6,15 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {string} componentBaseBg The @state-base-bg variable which sets the background color of bootstrap components.
-     * @property {string} wellBg The @well-base-bg variable which sets the background color of the Well Component.
-     * @property {string} bodyBg The @body-bg variable which sets the body background color.
-     * @property {string} textColor The @text-color variable which sets the body text color.
+     * @property {string} componentBaseBg       The @state-base-bg variable which sets the Background Color of bootstrap Components.
+     * @property {string} wellBg                The @well-base-bg variable which sets the Background Color of the Well Component.
+     * @property {string} bodyBg                The @body-bg variable which sets the Body Background color.
+     * @property {string} textColor             The @text-color variable which sets the Body Text color.
      * @property {string} pageHeaderBorderColor The @page-header-border-color variable which sets the Page Header Border Color.
-     * @property {string} linkColor The @link-color variable which sets the link color.
-     * @property {string} linkHoverColor The @link-hover-color variable which sets the link hover color.
-     * @property {string} hrBorder The @hr-border variable which sets the color of the <hr> tag.
-     * @property {string} borderRadiusBase The @border-radius-base variable which sets the base border radius.
+     * @property {string} linkColor             The @link-color variable which sets the Link Color.
+     * @property {string} linkHoverColor        The @link-hover-color variable which sets the Link Hover color.
+     * @property {string} hrBorder              The @hr-border variable which sets the Color of the <hr> tag.
+     * @property {string} borderRadiusBase      The @border-radius-base variable which sets the Base Border Radius.
      * 
      * @returns {Misc}
      */
@@ -25,67 +25,67 @@
 
         // Define the Modifiers
         this.componentBaseBg = {
-            variable: '@state-base-bg',
-            subscribeProperty: 'component-base-bg',
-            changeFn: this.setComponentBaseBackground.bind(this),
-            subscribers: [],
-			_value: null
+            variable: '         @state-base-bg',
+            subscribeProperty:  'component-base-bg',
+            changeFn:           this.setComponentBaseBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.wellBg = {
-            variable: '@well-base-bg',
-            subscribeProperty: 'well-base-bg',
-            changeFn: this.setWellBackground.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@well-base-bg',
+            subscribeProperty:  'well-base-bg',
+            changeFn:           this.setWellBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.bodyBg = {
-            variable: '@body-bg',
-            subscribeProperty: 'body-bg',
-            changeFn: this.setBodyBackground.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@body-bg',
+            subscribeProperty:  'body-bg',
+            changeFn:           this.setBodyBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.textColor = {
-            variable: '@text-color',
-            subscribeProperty: 'text-color',
-            changeFn: this.setTextColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@text-color',
+            subscribeProperty:  'text-color',
+            changeFn:           this.setTextColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.pageHeaderBorderColor = {
-            variable: '@page-header-border-color',
-            subscribeProperty: 'page-header-border-color',
-            changeFn: this.setPageHeaderBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@page-header-border-color',
+            subscribeProperty:  'page-header-border-color',
+            changeFn:           this.setPageHeaderBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.linkColor = {
-            variable: '@link-color',
-            subscribeProperty: 'link-color',
-            changeFn: this.setLinkColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@link-color',
+            subscribeProperty:  'link-color',
+            changeFn:           this.setLinkColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.linkHoverColor = {
-            variable: '@link-hover-color',
-            subscribeProperty: 'link-hover-color',
-            changeFn: this.setLinkHoverColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@link-hover-color',
+            subscribeProperty:  'link-hover-color',
+            changeFn:           this.setLinkHoverColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.hrBorder = {
-            variable: '@hr-border',
-            subscribeProperty: 'hr-rule-color',
-            changeFn: this.setHrBorder.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@hr-border',
+            subscribeProperty:  'hr-rule-color',
+            changeFn:           this.setHrBorder.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.borderRadiusBase = {
-            variable: '@border-radius-base',
-            subscribeProperty: 'border-radius-base',
-            changeFn: this.setBorderRadiusBase.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@border-radius-base',
+            subscribeProperty:  'border-radius-base',
+            changeFn:           this.setBorderRadiusBase.bind(this),
+            subscribers:        [],
+			_value:             null
         };
 
         Object.defineProperty(this.borderRadiusBase, 'value', {
@@ -117,67 +117,67 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    Misc.prototype = Object.create(ThemeModifier.prototype);
-    Misc.constructor = Misc;
+    Misc.prototype              = Object.create(ThemeModifier.prototype);
+    Misc.prototype.constructor  = Misc;
 
     /**
-     * Gets the background color of Components.
+     * Gets the Background Color of Components.
      * 
      * @returns {string}
      */
-    Misc.prototype.getComponentBaseBackground = function () {
+    Misc.prototype.getComponentBaseBackgroundColor = function () {
         return this.modifiers.componentBaseBg.value;
     };
     
     /**
-     * Sets the background color of Components, such as Panel body, List Groups.
+     * Sets the Background Color of Components, such as Panel body, List Groups.
      * 
-     * @param {string} bg The background color to set.
+     * @param {string} backgroundColor The Background Color of Components to set.
      * 
      * @returns {undefined}
      */
-    Misc.prototype.setComponentBaseBackground = function (bg) {
-        this.modifiers.componentBaseBg.value = bg;
+    Misc.prototype.setComponentBaseBackgroundColor = function (backgroundColor) {
+        this.modifiers.componentBaseBg.value = backgroundColor;
     };
 
     /**
-     * Gets the Background color of the Well Components.
+     * Gets the Background Color of the Well Components.
      * 
      * @returns {string}
      */
-    Misc.prototype.getWellBackground = function () {
+    Misc.prototype.getWellBackgroundColor = function () {
         return this.modifiers.wellBg.value;
     };
 
     /**
-     * Sets the Background color of the Well Component.
+     * Sets the Background Color of the Well Component.
      * 
-     * @param {string} bg The Background color to set.
+     * @param {string} wellBackgroundColor The Well Background Color to set.
      * 
      * @returns {undefined}
      */
-    Misc.prototype.setWellBackground = function (bg) {
-        this.modifiers.wellBg.value = bg;
+    Misc.prototype.setWellBackgroundColor = function (wellBackgroundColor) {
+        this.modifiers.wellBg.value = wellBackgroundColor;
     };
 
     /**
-     * Gets the Body Background color.
+     * Gets the Body Background Color.
      * 
      * @returns {string}
      */
-    Misc.prototype.getBodyBackground = function () {
+    Misc.prototype.getBodyBackgroundColor = function () {
         return this.modifiers.bodyBg.value;
     };
 
     /**
-     * Sets the Body Background color.
+     * Sets the Body Background Color.
      * 
-     * @param {string} bg The body background color to set.
+     * @param {string} bodyBackgroundColor The Body Background Color to set.
      * 
      * @returns {undefined}
      */
-    Misc.prototype.setBodyBackground = function (bg) {
-        this.modifiers.bodyBg.value = bg;
+    Misc.prototype.setBodyBackgroundColor = function (bodyBackgroundColor) {
+        this.modifiers.bodyBg.value = bodyBackgroundColor;
     };
 
     /**
@@ -192,12 +192,12 @@
     /**
      * Sets the Body Text color.
      * 
-     * @param {string} color The body text color to set.
+     * @param {string} bodyTextColor The Body Text Color to set.
      * 
      * @returns {undefined}
      */
-    Misc.prototype.setTextColor = function (color) {
-        this.modifiers.textColor.value = color;
+    Misc.prototype.setTextColor = function (bodyTextColor) {
+        this.modifiers.textColor.value = bodyTextColor;
     };
 
     /**
@@ -212,7 +212,7 @@
     /**
      * Sets the Page Header Border Color.
      * 
-     * @param {string} pageHeaderBorderColor Sets the Page Header Border Color.
+     * @param {string} pageHeaderBorderColor The Page Header Border Color to set.
      * 
      * @returns {undefined}
      */
@@ -221,7 +221,7 @@
     };
 
     /**
-     * Gets the Link color.
+     * Gets the Link Color.
      * 
      * @returns {String}
      */
@@ -230,9 +230,9 @@
     };
 
     /**
-     * Sets the Link color.
+     * Sets the Link Color.
      * 
-     * @param {string} linkColor The Link color to set.
+     * @param {string} linkColor The Link Color to set.
      * 
      * @returns {undefined}
      */
@@ -241,7 +241,7 @@
     };
 
     /**
-     * Gets the Link Hover color.
+     * Gets the Link Hover Color.
      * 
      * @returns {String}
      */
@@ -250,9 +250,9 @@
     };
 
     /**
-     * Sets the Link Hover color.
+     * Sets the Link Hover Color.
      * 
-     * @param {string} linkHoverColor The Link Hover color to set.
+     * @param {string} linkHoverColor The Link Hover Color to set.
      * 
      * @returns {undefined}
      */
@@ -270,9 +270,9 @@
     };
     
     /**
-     * Sets the Horizontal Rule color.
+     * Sets the Horizontal Rule Color.
      * 
-     * @param {string} hrBorder The Horizontal Rule color to set.
+     * @param {string} hrBorder The Horizontal Rule Color to set.
      * 
      * @returns {undefined}
      */
@@ -290,7 +290,7 @@
     };
     
     /**
-     * Sets the Border Radius Base/
+     * Sets the Border Radius Base.
      * 
      * @param {string} borderRadiusBase The Border Radius Base to set.
      * 

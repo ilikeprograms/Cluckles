@@ -6,10 +6,10 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} padding The @jumbotron-padding variable which sets the Padding of the Jumbotron component.
-	 * @property {object} bg The @jumbotron-bg variable which sets the Background of the Jumbotron component.
-	 * @property {object} headingColor The @jumbotron-heading-color variable which sets the Heading of the Jumbotron.
-	 * @property {object} color The @jumbotron-color variable which sets the color of the Jumbotron component.
+	 * @property {object} padding       The @jumbotron-padding variable which sets the Padding of the Jumbotron Component.
+	 * @property {object} bg            The @jumbotron-bg variable which sets the Background of the Jumbotron Component.
+	 * @property {object} headingColor  The @jumbotron-heading-color variable which sets the Heading of the Jumbotron Component.
+	 * @property {object} color         The @jumbotron-color variable which sets the color of the Jumbotron Component.
 	 * 
 	 * @returns {Jumbotron}
 	 */
@@ -24,28 +24,28 @@
             subscribeProperty:  'padding',
             changeFn:           this.setPadding.bind(this),
             subscribers:        [],
-            _value: null
+            _value:             null
         };
 		this.bg = {
 			variable:           '@jumbotron-bg',
             subscribeProperty:  'bg',
-            changeFn:           this.setBackground.bind(this),
+            changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.headingColor = {
 			variable:           '@jumbotron-heading-color',
             subscribeProperty:  'heading-color',
             changeFn:           this.setHeadingColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.color = {
 			variable:           '@jumbotron-color',
             subscribeProperty:  'color',
             changeFn:           this.setColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 
         Object.defineProperty(this.padding, 'value', {
@@ -72,8 +72,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Jumbotron.prototype = Object.create(ThemeModifier.prototype);
-	Jumbotron.constructor = Jumbotron;
+	Jumbotron.prototype             = Object.create(ThemeModifier.prototype);
+	Jumbotron.prototype.constructor = Jumbotron;
 
 	/**
 	 * Gets the Padding of the Jumbotron Component.
@@ -87,7 +87,7 @@
 	/**
 	 * Sets the Padding of the Jumbotron Component.
 	 * 
-	 * @param {string} color The color to set the Padding.
+	 * @param {string} color The Jumbotron Padding to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -96,23 +96,23 @@
 	};
 
 	/**
-	 * Gets the Background of the Jumbotron Component.
+	 * Gets the Background Color of the Jumbotron Component.
 	 * 
 	 * @returns {string}
 	 */
-	Jumbotron.prototype.getBackground = function () {
+	Jumbotron.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
-	 * Sets the Background of the Jumbotron Component.
+	 * Sets the Background Color of the Jumbotron Component.
 	 * 
-	 * @param {string} color The color to set the Background.
+	 * @param {string} backgroundColor The Jumbotron Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Jumbotron.prototype.setBackground = function (color) {
-		this.modifiers.bg.value = color;
+	Jumbotron.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
 	/**
@@ -125,18 +125,18 @@
 	};
 
 	/**
-	 * Sets the Text color of the Jumbotron Component.
+	 * Sets the Text Color of the Jumbotron Component.
 	 * 
-	 * @param {string} color The color to set the text of the Jumbotron Component.
+	 * @param {string} textColor The Jumbotron Text Color to set,
 	 * 
 	 * @returns {undefined}
 	 */
-	Jumbotron.prototype.setColor = function (color) {
-		this.modifiers.color.value = color;
+	Jumbotron.prototype.setColor = function (textColor) {
+		this.modifiers.color.value = textColor;
 	};
 
 	/**
-	 * Gets the Heading color of the Jumbotron Component.
+	 * Gets the Heading Color of the Jumbotron Component.
 	 * 
 	 * @returns {string}
 	 */
@@ -145,12 +145,12 @@
 	};
 
 	/**
-	 * Sets the Heading color of the Jumbotron Component.
+	 * Sets the Heading Color of the Jumbotron Component.
 	 * 
-	 * @param {string} color The color to set the Headings.
+	 * @param {string} headingColor The Jumbotron Heading Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Jumbotron.prototype.setHeadingColor = function (color) {
-		this.modifiers.headingColor.value = color;
+	Jumbotron.prototype.setHeadingColor = function (headingColor) {
+		this.modifiers.headingColor.value = headingColor;
 	};

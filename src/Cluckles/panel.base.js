@@ -6,9 +6,9 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {string} panelFooterBg The @panel-footer-bg variable which sets the footer background color of Panel Components.
-     * @property {string} panelBodyPadding The @panel-body-padding variable which sets the body padding of Panel Components.
-     * @property {string} panelBorderRadius The @panel-border-radius variable which sets the border radius of Panel Components.
+     * @property {string} panelFooterBg     The @panel-footer-bg variable which sets the Footer Background Color of Panel Components.
+     * @property {string} panelBodyPadding  The @panel-body-padding variable which sets the Body Padding of Panel Components.
+     * @property {string} panelBorderRadius The @panel-border-radius variable which sets the Border Radius of Panel Components.
      * 
      * @returns {PanelBase}
      */
@@ -18,25 +18,25 @@
         this.subscriberDataAttribute = 'data-cluckles-panelbase';
 
         this.panelFooterBg = {
-            variable: '@panel-footer-bg',
+            variable:           '@panel-footer-bg',
             subscribeProperty:  'footer-bg',
-            changeFn:           this.setPanelFooterBackground.bind(this),
+            changeFn:           this.setPanelFooterBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.panelBodyPadding = {
-            variable: '@panel-body-padding',
+            variable:           '@panel-body-padding',
             subscribeProperty:  'body-padding',
             changeFn:           this.setPanelBodyPadding.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.panelBorderRadius = {
-            variable: '@panel-border-radius',
+            variable:           '@panel-border-radius',
             subscribeProperty:  'border-radius',
             changeFn:           this.setPanelBorderRadius.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.panelBodyPadding, 'value', {
@@ -64,35 +64,35 @@
         });
         
         this.modifiers = {
-            panelFooterBg: this.panelFooterBg,
-            panelBodyPadding: this.panelBodyPadding,
-            panelBorderRadius: this.panelBorderRadius
+            panelFooterBg:      this.panelFooterBg,
+            panelBodyPadding:   this.panelBodyPadding,
+            panelBorderRadius:  this.panelBorderRadius
         };
 
         this.setupDataBinding();
     };
     
     // Inherit from parent Prototype and preserve constructor
-    PanelBase.prototype = Object.create(ThemeModifier.prototype);
-    PanelBase.constructor = PanelBase;
+    PanelBase.prototype             = Object.create(ThemeModifier.prototype);
+    PanelBase.prototype.constructor = PanelBase;
 
     /**
-     * Gets the Footer Background color of the Panel Components.
+     * Gets the Footer Background Color of the Panel Components.
      * 
      * @returns {string}
      */
-    PanelBase.prototype.getPanelFooterBackground = function () {
+    PanelBase.prototype.getPanelFooterBackgroundColor = function () {
         return this.modifiers.panelFooterBg.value;
     };
 
     /**
-     * Sets the Footer Background color of the Panel Components.
+     * Sets the Footer Background Color of the Panel Components.
      * 
-     * @param {string} panelFooterBg The Panel Footer Background color to set.
+     * @param {string} panelFooterBg The Panel Footer Background Color to set.
      * 
      * @returns {undefined}
      */
-    PanelBase.prototype.setPanelFooterBackground = function (panelFooterBg) {
+    PanelBase.prototype.setPanelFooterBackgroundColor = function (panelFooterBg) {
         this.modifiers.panelFooterBg.value = panelFooterBg;
         this.editor.queueModifications();
     };

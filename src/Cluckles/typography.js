@@ -6,17 +6,17 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} fontFamilySansSerif The @font-family-sans-serif variable which controls the Font Family Sans Serif of the Typography component.
-	 * @property {object} fontFamilySerif The @font-family-serif variable which controls the Font Family Serif of the Typography component.
-	 * @property {object} fontFamilyMonospace The @font-family-serif variable which controls the Font Family Monospace of the Typography component.
-	 * @property {object} fontSizeBase The @font-size-base variable which controls the Font Size Base of the Typography component.
-	 * @property {object} headingsFontFamily The @headings-font-family variable which controls the Headings Font Family of the Typography component.
-	 * @property {object} headingsFontWeight The @headings-font-weight variable which controls the Headings Font Weight of the Typography component.
-	 * @property {object} headingsLineHeight The @headings-line-height variable which controls the Headings Line Height of the Typography component.
-	 * @property {object} headingsColor The @headings-color variable which controls the Headings Color of the Typography component.
-	 * @property {object} headingsSmallColor The @headings-small-color variable which controls the Headings Small Color of the Typography component.
-     * @property {string} textMuted The @text-muted variable which sets the text muted color.
-     * @property {string} abbrBorderColor The @abbr-border-color variable which sets the Abbreviations and acronyms border color.
+	 * @property {object} fontFamilySansSerif   The @font-family-sans-serif variable which controls the Font Family Sans Serif of the Typography Component.
+	 * @property {object} fontFamilySerif       The @font-family-serif variable which controls the Font Family Serif of the Typography Component.
+	 * @property {object} fontFamilyMonospace   The @font-family-serif variable which controls the Font Family Monospace of the Typography Component.
+	 * @property {object} fontSizeBase          The @font-size-base variable which controls the Font Size Base of the Typography Component.
+	 * @property {object} headingsFontFamily    The @headings-font-family variable which controls the Headings Font Family of the Typography Component.
+	 * @property {object} headingsFontWeight    The @headings-font-weight variable which controls the Headings Font Weight of the Typography Component.
+	 * @property {object} headingsLineHeight    The @headings-line-height variable which controls the Headings Line Height of the Typography Component.
+	 * @property {object} headingsColor         The @headings-color variable which controls the Headings Color of the Typography Component.
+	 * @property {object} headingsSmallColor    The @headings-small-color variable which controls the Headings Small Color of the Typography Component.
+     * @property {string} textMuted             The @text-muted variable which sets the Text Muted Color.
+     * @property {string} abbrBorderColor       The @abbr-border-color variable which sets the Abbreviations and Acronyms Border Color.
 	 * 
 	 * @returns {Typography}
 	 */
@@ -27,81 +27,81 @@
 
         // Configure the Modifiers
 		this.fontFamilySansSerif = {
-			variable: '@font-family-sans-serif',
+			variable:           '@font-family-sans-serif',
 			subscribeProperty:  'font-family-sans-serif',
             changeFn:           this.setFontFamilySansSerif.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.fontFamilySerif = {
-			variable: '@font-family-serif',
+			variable:           '@font-family-serif',
 			subscribeProperty:  'font-family-serif',
             changeFn:           this.setFontFamilySerif.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.fontFamilyMonospace = {
-			variable: '@font-family-monospace',
+			variable:           '@font-family-monospace',
 			subscribeProperty:  'font-family-monospace',
             changeFn:           this.setFontFamilyMonospace.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.fontSizeBase = {
-			variable: '@font-size-base',
+			variable:           '@font-size-base',
 			subscribeProperty:  'font-size-base',
             changeFn:           this.setFontSizeBase.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.headingsFontFamily = {
-			variable: '@headings-font-family',
+			variable:           '@headings-font-family',
 			subscribeProperty:  'headings-font-family',
             changeFn:           this.setHeadingsFontFamily.bind(this),
             subscribers:        [],
 			_value: null
 		};
 		this.headingsFontWeight = {
-			variable: '@headings-font-weight',
+			variable:           '@headings-font-weight',
 			subscribeProperty:  'headings-font-weight',
             changeFn:           this.setHeadingsFontWeight.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.headingsLineHeight = {
-			variable: '@headings-line-height',
+			variable:           '@headings-line-height',
 			subscribeProperty:  'headings-line-height',
             changeFn:           this.setHeadingsLineHeight.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.headingsColor = {
-			variable: '@headings-color',
+			variable:           '@headings-color',
 			subscribeProperty:  'headings-color',
             changeFn:           this.setHeadingsColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
         this.headingsSmallColor = {
-            variable: '@headings-small-color',
+            variable:           '@headings-small-color',
             subscribeProperty:  'headings-small-color',
             changeFn:           this.setHeadingsSmallColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.textMutedColor = {
-            variable: '@text-muted',
+            variable:           '@text-muted',
             subscribeProperty:  'text-muted-color',
             changeFn:           this.setTextMutedColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.abbrBorderColor = {
-            variable: '@abbr-border-color',
+            variable:           '@abbr-border-color',
             subscribeProperty:  'abbr-border-color',
             changeFn:           this.setAbbrBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.fontSizeBase, 'value', {
@@ -135,8 +135,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Typography.prototype = Object.create(ThemeModifier.prototype);
-	Typography.constructor = Typography;
+	Typography.prototype                = Object.create(ThemeModifier.prototype);
+	Typography.prototype.constructor    = Typography;
 
     /**
      * Gets the Font Family Sans Serif of the Typography Component.
@@ -150,7 +150,7 @@
     /**
      * Sets the Font Family Sans Serif of the Typography Component.
      * 
-     * @param {string} fontFamilySansSerif Sets the Typography Font Family Sans Serif.
+     * @param {string} fontFamilySansSerif The Typography Font Family Sans Serif to set.
      * 
      * @returns {undefined}
      */
@@ -170,7 +170,7 @@
     /**
      * Sets the Font Family Serif of the Typography Component.
      * 
-     * @param {string} fontFamilySerif Sets the Typography Font Family Serif.
+     * @param {string} fontFamilySerif The Typography Font Family Serif to set.
      * 
      * @returns {undefined}
      */
@@ -190,7 +190,7 @@
     /**
      * Sets the Font Family Monospace of the Typography Component.
      * 
-     * @param {string} fontFamilyMonospace Sets the Typography Font Family Monospace.
+     * @param {string} fontFamilyMonospace The Typography Font Family Monospace to set.
      * 
      * @returns {undefined}
      */
@@ -210,7 +210,7 @@
     /**
      * Sets the Font Size Base of the Typography Component.
      * 
-     * @param {string} fontSizeBase Sets the Typography Font Size Base.
+     * @param {string} fontSizeBase The Typography Font Size Base to set.
      * 
      * @returns {undefined}
      */
@@ -230,7 +230,7 @@
     /**
      * Sets the Headings Font Family of the Typography Component.
      * 
-     * @param {string} headingsFontFamily Sets the Typography Headings Font Family.
+     * @param {string} headingsFontFamily The Typography Headings Font Family to set.
      * 
      * @returns {undefined}
      */
@@ -250,7 +250,7 @@
     /**
      * Sets the Headings Font Weight of the Typography Component.
      * 
-     * @param {string} headingsFontWeight Sets the Typography Headings Font Weight.
+     * @param {string} headingsFontWeight The Typography Headings Font Weight to set.
      * 
      * @returns {undefined}
      */
@@ -270,7 +270,7 @@
     /**
      * Sets the Headings Line Height of the Typography Component.
      * 
-     * @param {string} headingsLineHeight Sets the Typography Headings Line Height.
+     * @param {string} headingsLineHeight The Typography Headings Line Height to set.
      * 
      * @returns {undefined}
      */
@@ -290,7 +290,7 @@
     /**
      * Sets the Headings Color of the Typography Component.
      * 
-     * @param {string} headingsColor Sets the Typography Headings Color.
+     * @param {string} headingsColor The Typography Headings Color to set.
      * 
      * @returns {undefined}
      */
@@ -310,7 +310,7 @@
     /**
      * Sets the Headings Small Color of the Typography Component.
      * 
-     * @param {string} headingsSmallColor Sets the Typography Headings Small Color.
+     * @param {string} headingsSmallColor The Typography Headings Small Color to set.
      * 
      * @returns {undefined}
      */
@@ -330,7 +330,7 @@
     /**
      * Sets the Text Muted color of the Typography Component.
      * 
-     * @param {string} color Sets the Typography Text Muted Color.
+     * @param {string} textMutedColor The Typography Text Muted Color to set.
      * 
      * @returns {undefined}
      */
@@ -350,7 +350,7 @@
     /**
      * Sets the Abbr Border Color of the Typography Component.
      * 
-     * @param {string} abbrBorderColor Sets the Typography Abbr Border Color.
+     * @param {string} abbrBorderColor The Typography Abbr Border Color to set.
      * 
      * @returns {undefined}
      */

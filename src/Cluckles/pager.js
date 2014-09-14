@@ -1,18 +1,18 @@
 	/**
-	 * Allows modification of a Pager component in Bootstrap.
+	 * Allows modification of the Pager component in Bootstrap.
 	 * 
 	 * @class Pager
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} bg The @pager-bg variable which controls the Background Color of the Pager component.
-	 * @property {object} borderColor The @pager-border variable which controls the Border Color of the Pager component.
-	 * @property {object} borderRadius The @pager-border-radius variable which controls the Border Radius of the Pager component.
-	 * @property {object} hoverBg The @pager-hover-bg variable which controls the Hover Background Color of the Pager component.
-	 * @property {object} activeColor The @pager-active-color variable which controls the Active Color of the Pager component.
-	 * @property {object} activeBg The @pager-active-bg variable which controls the Active Background Color of the Pager component.
-	 * @property {object} disabledColor The @pager-disabled-color variable which controls the Disabled Color of the Pager component.
+	 * @property {object} bg            The @pager-bg variable which controls the Background Color of the Pager Component.
+	 * @property {object} borderColor   The @pager-border variable which controls the Border Color of the Pager Component.
+	 * @property {object} borderRadius  The @pager-border-radius variable which controls the Border Radius of the Pager Component.
+	 * @property {object} hoverBg       The @pager-hover-bg variable which controls the Hover Background Color of the Pager Component.
+	 * @property {object} activeColor   The @pager-active-color variable which controls the Active Color of the Pager Component.
+	 * @property {object} activeBg      The @pager-active-bg variable which controls the Active Background Color of the Pager Component.
+	 * @property {object} disabledColor The @pager-disabled-color variable which controls the Disabled Color of the Pager Component.
 	 * 
 	 * @returns {Pager}
 	 */
@@ -22,53 +22,53 @@
         this.subscriberDataAttribute = 'data-cluckles-pager';
 
         this.bg = {
-            variable: '@pager-bg',
+            variable:           '@pager-bg',
             subscribeProperty:  'bg',
-            changeFn:           this.setBackground.bind(this),
+            changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.borderColor = {
-            variable: '@pager-border',
+            variable:           '@pager-border',
             subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.borderRadius = {
-            variable: '@pager-border-radius',
+            variable:           '@pager-border-radius',
             subscribeProperty:  'border-radius',
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.hoverBg = {
-            variable: '@pager-hover-bg',
+            variable:           '@pager-hover-bg',
             subscribeProperty:  'hover-bg',
-            changeFn:           this.setHoverBackground.bind(this),
+            changeFn:           this.setHoverBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.activeColor = {
-            variable: '@pager-active-color',
+            variable:           '@pager-active-color',
             subscribeProperty:  'active-color',
             changeFn:           this.setActiveColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.activeBg = {
-            variable: '@pager-active-bg',
+            variable:           '@pager-active-bg',
             subscribeProperty:  'active-bg',
-            changeFn:           this.setActiveBackground.bind(this),
+            changeFn:           this.setActiveBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.disabledColor = {
-            variable: '@pager-disabled-color',
+            variable:           '@pager-disabled-color',
             subscribeProperty:  'disabled-color',
             changeFn:           this.setDisabledColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.borderRadius, 'value', {
@@ -97,27 +97,27 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-	Pager.prototype = Object.create(ThemeModifier.prototype);
-	Pager.constructor = Pager;
+	Pager.prototype             = Object.create(ThemeModifier.prototype);
+	Pager.prototype.constructor = Pager;
 
     /**
 	 * Gets the Background Color of the Pager Component.
 	 * 
 	 * @returns {string}
 	 */
-	Pager.prototype.getBackground = function () {
+	Pager.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
 	 * Sets the Background Color of the Pager Component.
 	 * 
-	 * @param {string} bg Sets the Pager Background Color.
+	 * @param {string} backgroundColor The Pager Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pager.prototype.setBackground = function (bg) {
-		this.modifiers.bg.value = bg;
+	Pager.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
     /**
@@ -132,7 +132,7 @@
 	/**
 	 * Sets the Border Color of the Pager Component.
 	 * 
-	 * @param {string} borderColor Sets the Pager Border Color.
+	 * @param {string} borderColor The Pager Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -152,7 +152,7 @@
 	/**
 	 * Sets the Border Radius of the Pager Component.
 	 * 
-	 * @param {string} borderRadius Sets the Pager Border Radius.
+	 * @param {string} borderRadius The Pager Border Radius to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -165,18 +165,18 @@
 	 * 
 	 * @returns {string}
 	 */
-	Pager.prototype.getHoverBackground = function () {
+	Pager.prototype.getHoverBackgroundColor = function () {
 		return this.modifiers.hoverBg.value;
 	};
 
 	/**
 	 * Sets the Background Hover Color of the Pager Component.
 	 * 
-	 * @param {string} hoverBg Sets the Pager Background Hover Color.
+	 * @param {string} hoverBg The Pager Background Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pager.prototype.setHoverBackground = function (hoverBg) {
+	Pager.prototype.setHoverBackgroundColor = function (hoverBg) {
 		this.modifiers.hoverBg.value = hoverBg;
 	};
 
@@ -192,7 +192,7 @@
 	/**
 	 * Gets the Active Color of the Pager Component.
 	 * 
-	 * @param {string} color Sets the Pager Active Color.
+	 * @param {string} color The Pager Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -205,19 +205,19 @@
 	 * 
 	 * @returns {string}
 	 */
-	Pager.prototype.getActiveBackground = function () {
+	Pager.prototype.getActiveBackgroundColor = function () {
 		return this.modifiers.activeBg.value;
 	};
 
 	/**
 	 * Sets the Background Active Color of the Pager Component.
 	 * 
-	 * @param {string} activeBg Sets the Pager Background Active Color.
+	 * @param {string} activeBackgroundColor The Pager Background Active Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pager.prototype.setActiveBackground = function (activeBg) {
-		this.modifiers.activeBg.value = activeBg;
+	Pager.prototype.setActiveBackgroundColor = function (activeBackgroundColor) {
+		this.modifiers.activeBg.value = activeBackgroundColor;
 	};
 
     /**
@@ -232,7 +232,7 @@
 	/**
 	 * Gets the Disabled Color of the Pager Component.
 	 * 
-	 * @param {string} color Sets the Pager Disabled Color.
+	 * @param {string} color The Pager Disabled Color to set.
 	 * 
 	 * @returns {undefined}
 	 */

@@ -6,13 +6,13 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} borderColor The @nav-tabs-border-color variable which controls the Border Color of the Tab component.
-	 * @property {object} linkHoverBorderColor The @nav-tabs-link-hover-border-color variable which controls the Link Hover Border Color of the Tab component.
-	 * @property {object} linkActiveHoverBg The @nav-tabs-active-link-hover-bg variable which controls the Link Active Hover Background Color of the Tab component.
-	 * @property {object} linkActiveHoverColor The @nav-tabs-active-link-hover-color variable which controls the Link Active Hover Color of the Tab component.
-	 * @property {object} linkActiveHoverBorderColor The @nav-tabs-active-link-hover-color variable which controls the Link Active Hover Border Color of the Tab component.
-	 * @property {object} linkJustifiedBorderColor The @nav-tabs-justified-link-border-color variable which controls the Link Justified Border Color of the Tab component.
-	 * @property {object} linkJustifiedActiveBorderColor The @nav-tabs-justified-active-link-border-color variable which controls the Link Justified Active Border Color of the Tab component.
+	 * @property {object} borderColor                       The @nav-tabs-border-color variable which controls the Border Color of the Tab Component.
+	 * @property {object} linkHoverBorderColor              The @nav-tabs-link-hover-border-color variable which controls the Link Hover Border Color of the Tab Component.
+	 * @property {object} linkActiveHoverBg                 The @nav-tabs-active-link-hover-bg variable which controls the Link Active Hover Background Color of the Tab Component.
+	 * @property {object} linkActiveHoverColor              The @nav-tabs-active-link-hover-color variable which controls the Link Active Hover Color of the Tab Component.
+	 * @property {object} linkActiveHoverBorderColor        The @nav-tabs-active-link-hover-color variable which controls the Link Active Hover Border Color of the Tab Component.
+	 * @property {object} linkJustifiedBorderColor          The @nav-tabs-justified-link-border-color variable which controls the Link Justified Border Color of the Tab Component.
+	 * @property {object} linkJustifiedActiveBorderColor    The @nav-tabs-justified-active-link-border-color variable which controls the Link Justified Active Border Color of the Tab Component.
 	 * 
 	 * @returns {Tab}
 	 */
@@ -22,53 +22,53 @@
         this.subscriberDataAttribute = 'data-cluckles-tab';
 
         this.borderColor = {
-            variable: '@nav-tabs-border-color',
+            variable:           '@nav-tabs-border-color',
             subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkHoverBorderColor = {
-            variable: '@nav-tabs-link-hover-border-color',
+            variable:           '@nav-tabs-link-hover-border-color',
             subscribeProperty:  'link-hover-border-color',
             changeFn:           this.setLinkHoverBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkActiveBg = {
-            variable: '@nav-tabs-active-link-hover-bg',
+            variable:           '@nav-tabs-active-link-hover-bg',
             subscribeProperty:  'link-active-bg',
             changeFn:           this.setLinkActiveBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkActiveColor = {
-            variable: '@nav-tabs-active-link-hover-color',
+            variable:           '@nav-tabs-active-link-hover-color',
             subscribeProperty:  'link-active-color',
             changeFn:           this.setLinkActiveColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkActiveBorderColor = {
-            variable: '@nav-tabs-active-link-hover-border-color',
+            variable:           '@nav-tabs-active-link-hover-border-color',
             subscribeProperty:  'link-active-border-color',
             changeFn:           this.setLinkActiveBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkJustifiedBorderColor = {
-            variable: '@nav-tabs-justified-link-border-color',
+            variable:           '@nav-tabs-justified-link-border-color',
             subscribeProperty:  'link-justified-border-color',
             changeFn:           this.setLinkJustifiedBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkJustifiedActiveBorderColor = {
-            variable: '@nav-tabs-justified-active-link-border-color',
+            variable:           '@nav-tabs-justified-active-link-border-color',
             subscribeProperty:  'link-justified-active-border-color',
             changeFn:           this.setLinkJustifiedActiveBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         this.modifiers = {
@@ -85,8 +85,8 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-	Tab.prototype = Object.create(ThemeModifier.prototype);
-	Tab.constructor = Tab;
+	Tab.prototype               = Object.create(ThemeModifier.prototype);
+	Tab.prototype.constructor   = Tab;
 
 	/**
 	 * Gets the Border Color of the Tab Component.
@@ -100,7 +100,7 @@
 	/**
 	 * Sets the Border Color of the Tab Component.
 	 * 
-	 * @param {string} borderColor Sets the Tab Border Color.
+	 * @param {string} borderColor The Tab Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -120,7 +120,7 @@
 	/**
 	 * Sets the Link Hover Border Color of the Tab Component.
 	 * 
-	 * @param {string} linkHoverBorderColor Sets the Link Hover Border Color.
+	 * @param {string} linkHoverBorderColor The Tab Link Hover Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -140,12 +140,12 @@
 	/**
 	 * Sets the Link Active Background Color of the Tab Component.
 	 * 
-	 * @param {string} linkActiveBg Sets the Link Active Background Color.
+	 * @param {string} linkActiveBackgroundColor The Tab Link Active Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Tab.prototype.setLinkActiveBackgroundColor = function (linkActiveBg) {
-		this.modifiers.linkActiveBg.value = linkActiveBg;
+	Tab.prototype.setLinkActiveBackgroundColor = function (linkActiveBackgroundColor) {
+		this.modifiers.linkActiveBg.value = linkActiveBackgroundColor;
 	};
 
 	/**
@@ -160,7 +160,7 @@
 	/**
 	 * Sets the Link Active Color of the Tab Component.
 	 * 
-	 * @param {string} linkActiveColor Sets the Link Active Hover Color.
+	 * @param {string} linkActiveColor The Tab Link Active Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -180,7 +180,7 @@
 	/**
 	 * Sets the Link Active Border Color of the Tab Component.
 	 * 
-	 * @param {string} linkActiveBorderColor Sets the Link Active Hover Border Color.
+	 * @param {string} linkActiveBorderColor The Tab Link Active Hover Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -200,7 +200,7 @@
     /**
      * Sets the Link Justified Border Color of the Tab Component.
      * 
-     * @param {string} linkJustifiedBorderColor Sets the Link Justified Border Color.
+     * @param {string} linkJustifiedBorderColor The Tab Link Justified Border Color to set.
      * 
      * @returns {string}
      */
@@ -220,7 +220,7 @@
     /**
      * Sets the Link Justified Active Border Color of the Tab Component.
      * 
-     * @param {string} linkJustifiedActiveBorderColor Sets the Link Justified Active Border Color.
+     * @param {string} linkJustifiedActiveBorderColor The Tab Link Justified Active Border Color to set.
      * 
      * @returns {string}
      */

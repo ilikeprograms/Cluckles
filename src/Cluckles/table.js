@@ -6,13 +6,13 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {object} cellPadding The @table-cell-padding variable which controls the Cell Padding of the Table component.
-     * @property {object} condensedCellPadding The @table-condensed-cell-padding variable which controls the Condensed Cell Padding of the Table component.
-     * @property {object} bg The @table-bg variable which controls the Background Color of the Table component.
-     * @property {object} accentBg The @table-bg-accent variable which controls the Background Accent Color of the Table component.
-     * @property {object} hoverBg The @table-bg-hover variable which controls the Background Hover Color of the Table component.
-     * @property {object} activeBg The @table-bg-active variable which controls the Background Active Color of the Table component.
-     * @property {object} borderColor The @table-border-color variable which controls the Border Color of the Table component.
+     * @property {object} cellPadding           The @table-cell-padding variable which controls the Cell Padding of the Table Component.
+     * @property {object} condensedCellPadding  The @table-condensed-cell-padding variable which controls the Condensed Cell Padding of the Table Component.
+     * @property {object} bg                    The @table-bg variable which controls the Background Color of the Table Component.
+     * @property {object} accentBg              The @table-bg-accent variable which controls the Background Accent Color of the Table Component.
+     * @property {object} hoverBg               The @table-bg-hover variable which controls the Background Hover Color of the Table Component.
+     * @property {object} activeBg              The @table-bg-active variable which controls the Background Active Color of the Table Component.
+     * @property {object} borderColor           The @table-border-color variable which controls the Border Color of the Table Component.
      * 
      * @returns {Table}
      */
@@ -22,53 +22,53 @@
         this.subscriberDataAttribute = 'data-cluckles-table';
 
         this.cellPadding = {
-            variable: '@table-cell-padding',
+            variable:           '@table-cell-padding',
             subscribeProperty:  'cell-padding',
             changeFn:           this.setCellPadding.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.condensedCellPadding = {
-            variable: '@table-condensed-cell-padding',
+            variable:           '@table-condensed-cell-padding',
             subscribeProperty:  'condensed-cell-padding',
             changeFn:           this.setCondensedCellPadding.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.bg = {
-            variable: '@table-bg',
+            variable:           '@table-bg',
             subscribeProperty:  'bg',
-            changeFn:           this.setBackground.bind(this),
+            changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.bgAccent = {
-            variable: '@table-bg-accent',
+            variable:           '@table-bg-accent',
             subscribeProperty:  'striped-bg',
-            changeFn:           this.setAccentBackground.bind(this),
+            changeFn:           this.setAccentBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.bgHover = {
-            variable: '@table-bg-hover',
+            variable:           '@table-bg-hover',
             subscribeProperty:  'hover-bg',
-            changeFn:           this.setHoverBackground.bind(this),
+            changeFn:           this.setHoverBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.bgActive = {
-            variable: '@table-bg-active',
+            variable:           '@table-bg-active',
             subscribeProperty:  'active-bg',
-            changeFn:           this.setActiveBackground.bind(this),
+            changeFn:           this.setActiveBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.borderColor = {
-            variable: '@table-border-color',
+            variable:           '@table-border-color',
             subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.cellPadding, 'value', {
@@ -109,11 +109,11 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    Table.prototype = Object.create(ThemeModifier.prototype);
-    Table.constructor = Table;
+    Table.prototype             = Object.create(ThemeModifier.prototype);
+    Table.prototype.constructor = Table;
 
     /**
-     * Gets the Table Cell Padding.
+     * Gets the Cell Padding of the Table Component.
      * 
      * @returns {string}
      */
@@ -122,9 +122,9 @@
     };
 
     /**
-     * Sets the Table Cell Padding.
+     * Sets the Cell Padding of the Table Component.
      * 
-     * @param {string} cellPadding Sets the Table Cell Padding.
+     * @param {string} cellPadding The Table Cell Padding to set.
      * 
      * @returns {undefined}
      */
@@ -133,7 +133,7 @@
     };
 
     /**
-     * Gets the Table Condensed Cell Padding.
+     * Gets the Condensed Cell Padding of the Table Component.
      * 
      * @returns {string}
      */
@@ -142,9 +142,9 @@
     };
 
     /**
-     * Sets the Table Condensed Cell Padding.
+     * Sets the Condensed Cell Padding of the Table Component.
      * 
-     * @param {string} condensedCellPadding Sets the Table Condensed Cell Padding.
+     * @param {string} condensedCellPadding The Table Condensed Cell Padding to set.
      * 
      * @returns {undefined}
      */
@@ -153,87 +153,87 @@
     };
 
     /**
-	 * Gets the Table Background color.
+	 * Gets the Background Color of the Table Component.
 	 * 
 	 * @returns {String}
 	 */
-	Table.prototype.getBackground = function () {
+	Table.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
-	 * Sets the Table Background color.
+	 * Sets the Background Color of the Table Component.
 	 * 
-	 * @param {string} bg Sets the Table Background color.
+	 * @param {string} backgroundColor The Table Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Table.prototype.setBackground = function (bg) {
-		this.modifiers.bg.value = bg;
+	Table.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
     /**
-	 * Gets the Table Accent Background color.
+	 * Gets the Accent Background Color of the Table Component.
 	 * 
 	 * @returns {String}
 	 */
-	Table.prototype.getAccentBackground = function () {
+	Table.prototype.getAccentBackgroundColor = function () {
 		return this.modifiers.accentBg.value;
 	};
 
 	/**
-	 * Sets the Table Accent Background color.
+	 * Sets the Accent Background Color of the Table Component.
 	 * 
-	 * @param {string} accentBg Sets the Table Accent Background color.
+	 * @param {string} accentBackgroundColor The Table Accent Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Table.prototype.setAccentBackground = function (accentBg) {
-		this.modifiers.accentBg.value = accentBg;
+	Table.prototype.setAccentBackgroundColor = function (accentBackgroundColor) {
+		this.modifiers.accentBg.value = accentBackgroundColor;
 	};
 
     /**
-	 * Gets the Table Hover Background color.
+	 * Gets the Hover Background Color of the Table Component.
 	 * 
 	 * @returns {String}
 	 */
-	Table.prototype.getHoverBackground = function () {
+	Table.prototype.getHoverBackgroundColor = function () {
 		return this.modifiers.hoverBg.value;
 	};
 
 	/**
-	 * Sets the Table Hover Background color.
+	 * Sets the Hover Background Color of the Table Component.
 	 * 
-	 * @param {string} hoverBg Sets the Table Hover Background color.
+	 * @param {string} hoverBackgroundColor The Table Hover Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Table.prototype.setHoverBackground = function (hoverBg) {
-		this.modifiers.hoverBg.value = hoverBg;
+	Table.prototype.setHoverBackgroundColor = function (hoverBackgroundColor) {
+		this.modifiers.hoverBg.value = hoverBackgroundColor;
 	};
 
     /**
-	 * Gets the Table Active Background color.
+	 * Gets the Active Background Color of the Table Component.
 	 * 
 	 * @returns {String}
 	 */
-	Table.prototype.getActiveBackground = function () {
+	Table.prototype.getActiveBackgroundColor = function () {
 		return this.modifiers.activeBg.value;
 	};
 
 	/**
-	 * Sets the Table Active Background color.
+	 * Sets the Active Background Color of the Table Component.
 	 * 
-	 * @param {string} activeBg Sets the Table Active Background color.
+	 * @param {string} activeBackgroundColor The Table Active Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Table.prototype.setActiveBackground = function (activeBg) {
-		this.modifiers.activeBg.value = activeBg;
+	Table.prototype.setActiveBackgroundColor = function (activeBackgroundColor) {
+		this.modifiers.activeBg.value = activeBackgroundColor;
 	};
 
     /**
-     * Gets the Table Border Color.
+     * Gets the Border Color of the Table Component.
      * 
      * @returns {String}
      */
@@ -242,9 +242,9 @@
     };
 
     /**
-     * Sets the Table Border Color.
+     * Sets the Border Color of the Table Component.
      * 
-     * @param {string} borderColor Sets the Table Border Color.
+     * @param {string} borderColor The Table Border Color to set.
      * 
      * @returns {undefined}
      */

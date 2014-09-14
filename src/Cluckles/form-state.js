@@ -6,9 +6,9 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} headingBg @state-{type}-bg variable which sets the Heading Background color of alerts/panel headers.
-	 * @property {object} text @state-{type}-text variable which sets the Text color of alerts/panel headers.
-	 * @property {object} border @state-{type}-border variable which sets the Border color of alerts/panel headers.
+	 * @property {object} headingBg The @state-{type}-bg variable which sets the Heading Background color of alerts/panel headers.
+	 * @property {object} text      The @state-{type}-text variable which sets the Text color of alerts/panel headers.
+	 * @property {object} border    The @state-{type}-border variable which sets the Border color of alerts/panel headers.
 	 * 
 	 * @returns {FormState}
 	 */
@@ -19,25 +19,25 @@
         
         // Configure the Modifiers
 		this.headingBg = {
-			variable: '@state-' + type + '-bg',
-			subscribeProperty: 'heading-bg',
-            changeFn: this.setHeadingBackground.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@state-' + type + '-bg',
+			subscribeProperty:  'heading-bg',
+            changeFn:           this.setHeadingBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.text = {
-			variable: '@state-' + type + '-text',
-			subscribeProperty: 'text',
-            changeFn: this.setText.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@state-' + type + '-text',
+			subscribeProperty:  'text',
+            changeFn:           this.setTextColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.border = {
-			variable: '@state-' + type + '-border',
-			subscribeProperty: 'border-color',
-            changeFn: this.setBorder.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@state-' + type + '-border',
+			subscribeProperty:  'border-color',
+            changeFn:           this.setBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		
         // Configure the modifiers so they can be extracted easier
@@ -51,65 +51,65 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	FormState.prototype = Object.create(ThemeModifier.prototype);
-	FormState.constructor = FormState;
+	FormState.prototype             = Object.create(ThemeModifier.prototype);
+	FormState.prototype.constructor = FormState;
 
 	/**
 	 * Get Heading Background color.
 	 * 
 	 * @returns {string}
 	 */
-	FormState.prototype.getHeadingBackground = function () {
+	FormState.prototype.getHeadingBackgroundColor = function () {
 		return this.modifiers.headingBg.value;
 	};
 
 	/**
-	 * Sets the Heading Background color of Alerts/Panel headers.
+	 * Sets the Heading Background Color of Alerts/Panel headers.
 	 * 
-	 * @param {string} color Sets the Background color
+	 * @param {string} headingBackgroundColor The Alerts/Panel Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	FormState.prototype.setHeadingBackground = function (color) {
-		this.modifiers.headingBg.value = color;
+	FormState.prototype.setHeadingBackgroundColor = function (headingBackgroundColor) {
+		this.modifiers.headingBg.value = headingBackgroundColor;
 	};
 
 	/**
-	 * Gets the Text color.
+	 * Gets the Text Color of Alerts/Panel headers.
 	 * 
 	 * @returns {string}
 	 */
-	FormState.prototype.getText = function () {
+	FormState.prototype.getTextColor = function () {
 		return this.modifiers.text.value;
 	};
 
 	/**
-	 * Sets the Text color of Alerts/Panel headers.
+	 * Sets the Text Color of Alerts/Panel headers.
 	 * 
-	 * @param {string} text Sets the Text color.
+	 * @param {string} textColor The Alerts/Panel Text Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	FormState.prototype.setText = function (text) {
-		this.modifiers.text.value = text;
+	FormState.prototype.setTextColor = function (textColor) {
+		this.modifiers.text.value = textColor;
 	};
 
 	/**
-	 * Gets the Border color.
+	 * Gets the Border color of Alerts/Panel headers.
 	 * 
 	 * @returns {string}
 	 */
-	FormState.prototype.getBorder = function () {
+	FormState.prototype.getBorderColor = function () {
 		return this.modifiers.border.value;
 	};
 
 	/**
-	 * Sets the Border color of Alerts/Panel headers.
+	 * Sets the Border Color of Alerts/Panel headers.
 	 * 
-	 * @param {string} border Sets the Border color.
+	 * @param {string} borderColor The Alerts/Panel Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	FormState.prototype.setBorder = function (border) {
-		this.modifiers.border.value = border;
+	FormState.prototype.setBorderColor = function (borderColor) {
+		this.modifiers.border.value = borderColor;
 	};

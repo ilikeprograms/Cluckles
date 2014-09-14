@@ -6,12 +6,12 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} padding The @thumbnail-padding variable which sets the Padding of the Thumbnail Component.
-	 * @property {object} bg The @thumbnail-bg variable which sets the Background Color of the Thumbnail Component.
-	 * @property {object} borderColor The @thumbnail-border-color variable which sets the Border Color of the Thumbnail Component.
-	 * @property {object} borderRadius The @thumbnail-border-radius variable which sets the Border Radius of the Thumbnail Component.
-	 * @property {object} captionColor The @thumbnail-caption-color variable which sets the Caption Color of the Thumbnail Component.
-	 * @property {object} captionPadding The @thumbnail-caption-padding variable which sets the Caption Padding of the Thumbnail Component.
+	 * @property {object} padding           The @thumbnail-padding variable which sets the Padding of the Thumbnail Component.
+	 * @property {object} bg                The @thumbnail-bg variable which sets the Background Color of the Thumbnail Component.
+	 * @property {object} borderColor       The @thumbnail-border-color variable which sets the Border Color of the Thumbnail Component.
+	 * @property {object} borderRadius      The @thumbnail-border-radius variable which sets the Border Radius of the Thumbnail Component.
+	 * @property {object} captionColor      The @thumbnail-caption-color variable which sets the Caption Color of the Thumbnail Component.
+	 * @property {object} captionPadding    The @thumbnail-caption-padding variable which sets the Caption Padding of the Thumbnail Component.
 	 * 
 	 * @returns {Thumbnail}
 	 */
@@ -22,46 +22,46 @@
 
         // Configure the Modifiers
         this.padding = {
-            variable: '@thumbnail-padding',
+            variable:           '@thumbnail-padding',
             subscribeProperty:  'padding',
             changeFn:           this.setPadding.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 		this.bg = {
-			variable: '@thumbnail-bg',
+			variable:           '@thumbnail-bg',
 			subscribeProperty:  'bg',
             changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.borderColor = {
-			variable: '@thumbnail-border',
+			variable:           '@thumbnail-border',
 			subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.borderRadius = {
-			variable: '@thumbnail-border-radius',
+			variable:           '@thumbnail-border-radius',
 			subscribeProperty:  'border-radius',
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
         this.captionColor = {
-            variable: '@thumbnail-caption-color',
+            variable:           '@thumbnail-caption-color',
             subscribeProperty:  'caption-color',
             changeFn:           this.setCaptionColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.captionPadding = {
-            variable: '@thumbnail-caption-padding',
+            variable:           '@thumbnail-caption-padding',
             subscribeProperty:  'caption-padding',
             changeFn:           this.setCaptionPadding.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.padding, 'value', {
@@ -114,8 +114,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Thumbnail.prototype = Object.create(ThemeModifier.prototype);
-	Thumbnail.constructor = Thumbnail;
+	Thumbnail.prototype             = Object.create(ThemeModifier.prototype);
+	Thumbnail.prototype.constructor = Thumbnail;
 
 	/**
 	 * Gets the Padding of the Thumbnail Component.
@@ -129,12 +129,12 @@
 	/**
 	 * Sets the Padding of the Thumbnail Component.
 	 * 
-	 * @param {string} color Sets the Thumbnail Padding.
+	 * @param {string} padding The Thumbnail Padding to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Thumbnail.prototype.setPadding = function (color) {
-		this.modifiers.padding.value = color;
+	Thumbnail.prototype.setPadding = function (padding) {
+		this.modifiers.padding.value = padding;
 	};
 
 	/**
@@ -149,12 +149,12 @@
 	/**
 	 * Sets the Background Color of the Thumbnail Component.
 	 * 
-	 * @param {string} bgColor Sets the Thumbnail Background Color.
+	 * @param {string} backgroundColor The Thumbnail Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Thumbnail.prototype.setBackgroundColor = function (bgColor) {
-		this.modifiers.bg.value = bgColor;
+	Thumbnail.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
 	/**
@@ -169,7 +169,7 @@
 	/**
 	 * Sets the Border Color of the Thumbnail Component.
 	 * 
-	 * @param {string} borderColor Sets the Thumbnail Border Color.
+	 * @param {string} borderColor The Thumbnail Border Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -189,7 +189,7 @@
 	/**
 	 * Sets the Border Radius of the Thumbnail Component.
 	 * 
-	 * @param {string} borderRadius Sets the Thumbnail Border Radius.
+	 * @param {string} borderRadius The Thumbnail Border Radius to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -209,7 +209,7 @@
     /**
      * Sets the Caption Color of the Thumbnail Components.
      * 
-     * @param {string} captionColor Sets the Thumbnail Caption Color.
+     * @param {string} captionColor The Thumbnail Caption Color to set.
      * 
      * @returns {undefined}
      */
@@ -229,7 +229,7 @@
     /**
      * Sets the Caption Padding of the Thumbnail Components.
      * 
-     * @param {string} captionPadding Sets the Thumbnail Caption Padding.
+     * @param {string} captionPadding The Thumbnail Caption Padding to set.
      * 
      * @returns {undefined}
      */

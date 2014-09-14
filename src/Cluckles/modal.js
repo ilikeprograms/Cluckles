@@ -1,23 +1,23 @@
     /**
-	 * Allows modification of a Modal component in Bootstrap.
+	 * Allows modification of the Modal component in Bootstrap.
 	 * 
 	 * @class Modal
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} innerPadding The @modal-inner-padding variable which controls the Inner Padding of the Modal component.
-	 * @property {object} titlePadding The @modal-title-padding variable which controls the Title Padding of the Modal component.
-	 * @property {object} titleLineHeight The @modal-title-line-height variable which controls the Title Line Height of the Modal component.
-	 * @property {object} contentBg The @modal-content-bg variable which controls the Content Background Color of the Modal component.
-	 * @property {object} contentBorderColor The @modal-content-border-color variable which controls the Content Border Color of the Modal component.
-	 * @property {object} contentFallbackBorderColor The @modal-content-fallback-border-color variable which controls the Content Fallback Border Color of the Modal component.
-     * @property {object} backdropBg The @modal-backdrop-bg variable which controls the Backdrop Background Color of the Modal component.
-     * @property {object} backdropOpacity The @modal-backdrop-opacity variable which controls the Backdrop Opacity of the Modal component.
-     * @property {object} headerBorderColor The @modal-header-border-color variable which controls the Header Border Color of the Modal component.
-     * @property {object} footerBorderColor The @modal-footer-border-color variable which controls the Footer Border Color of the Modal component.
+	 * @property {object} innerPadding                  The @modal-inner-padding variable which controls the Inner Padding of the Modal Component.
+	 * @property {object} titlePadding                  The @modal-title-padding variable which controls the Title Padding of the Modal Component.
+	 * @property {object} titleLineHeight               The @modal-title-line-height variable which controls the Title Line Height of the Modal Component.
+	 * @property {object} contentBg                     The @modal-content-bg variable which controls the Content Background Color of the Modal Component.
+	 * @property {object} contentBorderColor            The @modal-content-border-color variable which controls the Content Border Color of the Modal Component.
+	 * @property {object} contentFallbackBorderColor    The @modal-content-fallback-border-color variable which controls the Content Fallback Border Color of the Modal Component.
+     * @property {object} backdropBg                    The @modal-backdrop-bg variable which controls the Backdrop Background Color of the Modal Component.
+     * @property {object} backdropOpacity               The @modal-backdrop-opacity variable which controls the Backdrop Opacity of the Modal Component.
+     * @property {object} headerBorderColor             The @modal-header-border-color variable which controls the Header Border Color of the Modal Component.
+     * @property {object} footerBorderColor             The @modal-footer-border-color variable which controls the Footer Border Color of the Modal Component.
      * 
-     * @returns {undefined}
+     * @returns {Modal}
      */
     var Modal = function (editor) {
         ThemeModifier.call(this, editor); // Call parent constructor
@@ -25,74 +25,74 @@
         this.subscriberDataAttribute = 'data-cluckles-modal';
 
         this.innerPadding = {
-            variable: '@modal-inner-padding',
-            subscribeProperty: 'inner-padding',
-            changeFn: this.setInnerPadding.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-inner-padding',
+            subscribeProperty:  'inner-padding',
+            changeFn:           this.setInnerPadding.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.titlePadding = {
-            variable: '@modal-title-padding',
+            variable:           '@modal-title-padding',
             subscribeProperty: 'title-padding',
-            changeFn: this.setTitlePadding.bind(this),
-            subscribers: [],
-			_value: null
+            changeFn:           this.setTitlePadding.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.titleLineHeight = {
-            variable: '@modal-title-line-height',
-            subscribeProperty: 'title-line-height',
-            changeFn: this.setTitleLineHeight.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-title-line-height',
+            subscribeProperty:  'title-line-height',
+            changeFn:           this.setTitleLineHeight.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.contentBg = {
-            variable: '@modal-content-bg',
-            subscribeProperty: 'content-bg',
-            changeFn: this.setContentBackgroundColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-content-bg',
+            subscribeProperty:  'content-bg',
+            changeFn:           this.setContentBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.contentBorderColor = {
-            variable: '@modal-content-border-color',
-            subscribeProperty: 'content-border-color',
-            changeFn: this.setContentBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-content-border-color',
+            subscribeProperty:  'content-border-color',
+            changeFn:           this.setContentBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.contentFallbackBorderColor = {
-            variable: '@modal-content-fallback-border-color',
-            subscribeProperty: 'content-fallback-border-color',
-            changeFn: this.setContentFallbackBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-content-fallback-border-color',
+            subscribeProperty:  'content-fallback-border-color',
+            changeFn:           this.setContentFallbackBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.backdropBg = {
-            variable: '@modal-backdrop-bg',
-            subscribeProperty: 'backdrop-bg',
-            changeFn: this.setBackdropBackgroundColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-backdrop-bg',
+            subscribeProperty:  'backdrop-bg',
+            changeFn:           this.setBackdropBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.backdropOpacity = {
-            variable: '@modal-backdrop-opacity',
-            subscribeProperty: 'backdrop-opacity',
-            changeFn: this.setBackdropOpacity.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-backdrop-opacity',
+            subscribeProperty:  'backdrop-opacity',
+            changeFn:           this.setBackdropOpacity.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.headerBorderColor = {
-            variable: '@modal-header-border-color',
-            subscribeProperty: 'header-border-color',
-            changeFn: this.setHeaderBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-header-border-color',
+            subscribeProperty:  'header-border-color',
+            changeFn:           this.setHeaderBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.footerBorderColor = {
-            variable: '@modal-footer-border-color',
-            subscribeProperty: 'footer-border-color',
-            changeFn: this.setFooterBorderColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@modal-footer-border-color',
+            subscribeProperty:  'footer-border-color',
+            changeFn:           this.setFooterBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
 
         Object.defineProperty(this.innerPadding, 'value', {
@@ -148,8 +148,8 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    Modal.prototype = Object.create(ThemeModifier.prototype);
-    Modal.constructor = Modal;
+    Modal.prototype             = Object.create(ThemeModifier.prototype);
+    Modal.prototype.constructor = Modal;
 
     /**
      * Gets the Inner Padding of the Modal Component.
@@ -163,7 +163,7 @@
     /**
      * Sets the Inner Padding of the Modal Component.
      * 
-     * @param {string} innerPadding Sets the Modal Inner Padding.
+     * @param {string} innerPadding The Modal Inner Padding to set.
      * 
      * @returns {string}
      */
@@ -183,7 +183,7 @@
     /**
      * Sets the Title Padding of the Modal Component.
      * 
-     * @param {string} titlePadding Sets the Modal Title Padding.
+     * @param {string} titlePadding The Modal Title Padding to set.
      * 
      * @returns {string}
      */
@@ -203,7 +203,7 @@
     /**
      * Sets the Title Line Height of the Modal Component.
      * 
-     * @param {string} titleLineHeight Sets the Modal Title Line Height.
+     * @param {string} titleLineHeight The Modal Title Line Height to set.
      * 
      * @returns {string}
      */
@@ -223,12 +223,12 @@
     /**
      * Sets the Content Background Color of the Modal Component.
      * 
-     * @param {string} contentBg Sets the Modal Content Background Color.
+     * @param {string} contentBackgroundColor The Modal Content Background Color to set.
      * 
      * @returns {string}
      */
-    Modal.prototype.setContentBackgroundColor = function (contentBg) {
-        this.modifiers.contentBg.value = contentBg;
+    Modal.prototype.setContentBackgroundColor = function (contentBackgroundColor) {
+        this.modifiers.contentBg.value = contentBackgroundColor;
     };
 
     /**
@@ -243,7 +243,7 @@
     /**
      * Sets the Content Border Color of the Modal Component.
      * 
-     * @param {string} contentBorderColor Sets the Modal Content Border Color.
+     * @param {string} contentBorderColor The Modal Content Border Color to set.
      * 
      * @returns {string}
      */
@@ -263,7 +263,7 @@
     /**
      * Sets the Content Fallback Border Color of the Modal Component.
      * 
-     * @param {string} contentFallbackBorderColor Sets the Modal Content Fallback Border Color.
+     * @param {string} contentFallbackBorderColor The Modal Content Fallback Border Color to set.
      * 
      * @returns {string}
      */
@@ -283,7 +283,7 @@
     /**
      * Sets the Backdrop Background Color of the Modal Component.
      * 
-     * @param {string} backdropBg Sets the Modal Backdrop Background Color.
+     * @param {string} backdropBg The Modal Backdrop Background Color to set.
      * 
      * @returns {string}
      */
@@ -303,7 +303,7 @@
     /**
      * Sets the Backdrop Opacity of the Modal Component.
      * 
-     * @param {string} backdropOpacity Sets the Modal Backdrop Opacity.
+     * @param {string} backdropOpacity The Modal Backdrop Opacity to set.
      * 
      * @returns {string}
      */
@@ -323,7 +323,7 @@
     /**
      * Sets the Header Border Color of the Modal Component.
      * 
-     * @param {string} headerBorderColor Sets the Modal Header Border Color.
+     * @param {string} headerBorderColor The Modal Header Border Color to set.
      * 
      * @returns {string}
      */
@@ -343,7 +343,7 @@
     /**
      * Sets the Footer Border Color of the Modal Component.
      * 
-     * @param {string} footerBorderColor Sets the Modal Footer Border Color.
+     * @param {string} footerBorderColor The Modal Footer Border Color to set.
      * 
      * @returns {string}
      */

@@ -2,17 +2,17 @@
 	 * Allows editing of the @brand-{style} variables which affect alerts/panel headers,
 	 * the Primary branding, however affects more, such as the ListGroup background, links etc.
 	 * 
-	 * @class Dropdown
+	 * @class BrandModifier
 	 * @extends ThemeModifier
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {string} default The @brand-default variable which affects the default styles.
-	 * @property {string} primary The @brand-primary variable which affects the primary styles.
-	 * @property {string} success The @brand-success variable which affects the success styles.
-	 * @property {string} info The @brand-info variable which affects the info styles.
-	 * @property {string} warning The @brand-warning variable which affects the warning styles.
-	 * @property {string} danger The @brand-danger variable which affects the danger styles.
+	 * @property {string} default   The @brand-default variable which affects the Default styles.
+	 * @property {string} primary   The @brand-primary variable which affects the Primary styles.
+	 * @property {string} success   The @brand-success variable which affects the Success styles.
+	 * @property {string} info      The @brand-info variable which affects the Info styles.
+	 * @property {string} warning   The @brand-warning variable which affects the Warning styles.
+	 * @property {string} danger    The @brand-danger variable which affects the Danger styles.
 	 * 
 	 * @returns {BrandModifier}
 	 */
@@ -23,46 +23,46 @@
 
         // Configure the Modifiers
 		this.default = {
-			variable: '@brand-default',
-            subscribeProperty: 'default',
-            changeFn: this.setDefault.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@brand-default',
+            subscribeProperty:  'default',
+            changeFn:           this.setDefaultColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.primary = {
-			variable: '@brand-primary',
-			subscribeProperty: 'primary',
-            changeFn: this.setPrimary.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@brand-primary',
+			subscribeProperty:  'primary',
+            changeFn:           this.setPrimaryColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.success = {
-			variable: '@brand-success',
-			subscribeProperty: 'success',
-            changeFn: this.setSuccess.bind(this),
-            subscribers: [],
-			_value: null
+			variable:           '@brand-success',
+			subscribeProperty:  'success',
+            changeFn:           this.setSuccessColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.info = {
-            variable: '@brand-info',
-			subscribeProperty: 'info',
-            changeFn: this.setInfo.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@brand-info',
+			subscribeProperty:  'info',
+            changeFn:           this.setInfoColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.warning = {
-            variable: '@brand-warning',
-			subscribeProperty: 'warning',
-            changeFn: this.setWarning.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@brand-warning',
+			subscribeProperty:  'warning',
+            changeFn:           this.setWarningColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		this.danger	= {
-            variable: '@brand-danger',
-			subscribeProperty: 'danger',
-            changeFn: this.setDanger.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@brand-danger',
+			subscribeProperty:  'danger',
+            changeFn:           this.setDangerColor.bind(this),
+            subscribers:        [],
+			_value:             null
 		};
 		
         // Configure the modifiers so they can be extracted easier
@@ -79,125 +79,125 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	BrandModifier.prototype = Object.create(ThemeModifier.prototype);
-	BrandModifier.constructor = BrandModifier;
+	BrandModifier.prototype             = Object.create(ThemeModifier.prototype);
+	BrandModifier.prototype.constructor = BrandModifier;
 
 	/**
-	 * Gets the Default branding color.
+	 * Gets the Default Branding Color.
 	 * 
 	 * @returns {undefined}
 	 */
-	BrandModifier.prototype.getDefault = function () {
+	BrandModifier.prototype.getDefaultColor = function () {
 		return this.modifiers.default.value;
 	};
 
 	/**
-	 * Sets the Default branding color.
+	 * Sets the Default Branding Color.
 	 * 
-	 * @param {string} color Sets the Default color.
+	 * @param {string} color The Default Branding Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	BrandModifier.prototype.setDefault = function (color) {
+	BrandModifier.prototype.setDefaultColor = function (color) {
 		this.modifiers.default.value = color;
 	};
 
 	/**
-	 * Gets the Primary branding color.
+	 * Gets the Primary Branding Color.
 	 * 
 	 * @returns {string}
 	 */
-	BrandModifier.prototype.getPrimary = function () {
+	BrandModifier.prototype.getPrimaryColor = function () {
 		return this.modifiers.primary.value;
 	};
 
 	/**
-	 * Sets the Primary branding color.
+	 * Sets the Primary Branding Color.
 	 * 
-	 * @param {string} color Sets the Primary color.
+	 * @param {string} color The Primary Branding Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	BrandModifier.prototype.setPrimary = function (color) {
+	BrandModifier.prototype.setPrimaryColor = function (color) {
 		this.modifiers.primary.value = color;
 	};
 
 	/**
-	 * gets the Success branding color.
+	 * Gets the Success Branding Color.
 	 * 
 	 * @returns {string}
 	 */
-	BrandModifier.prototype.getSuccess = function () {
+	BrandModifier.prototype.getSuccessColor = function () {
 		return this.modifiers.success.value;
 	};
 
 	/**
-	 * Sets the Success branding color.
+	 * Sets the Success Branding Color.
 	 * 
-	 * @param {string} color Sets the Success color.
+	 * @param {string} color The Success Branding Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	BrandModifier.prototype.setSuccess = function (color) {
+	BrandModifier.prototype.setSuccessColor = function (color) {
 		this.modifiers.success.value = color;
 	};
 
 	/**
-	 * Gets the Info branding color.
+	 * Gets the Info Branding Color.
 	 * 
 	 * @returns {string}
 	 */
-	BrandModifier.prototype.getInfo = function () {
+	BrandModifier.prototype.getInfoColor = function () {
 		return this.modifiers.info.value;
 	};
 
 	/**
-	 * Sets the Info branding color.
+	 * Sets the Info Branding Color.
 	 * 
-	 * @param {string} color Sets the Info color.
+	 * @param {string} color The Info Branding Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	BrandModifier.prototype.setInfo = function (color) {
+	BrandModifier.prototype.setInfoColor = function (color) {
 		this.modifiers.info.value = color;
 	};
 
 	/**
-	 * Gets the Warning branding color.
+	 * Gets the Warning Branding Color.
 	 * 
 	 * @returns {string}
 	 */
-	BrandModifier.prototype.getWarning = function () {
+	BrandModifier.prototype.getWarningColor = function () {
 		return this.modifiers.warning.value;
 	};
 
 	/**
-	 * Sets the Warning branding color.
+	 * Sets the Warning Branding Color.
 	 * 
-	 * @param {type} color Sets the Warning color.
+	 * @param {type} color The Warning Branding Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	BrandModifier.prototype.setWarning = function (color) {
+	BrandModifier.prototype.setWarningColor = function (color) {
 		this.modifiers.warning.value = color;
 	};
 
 	/**
-	 * Gets the Danger branding color.
+	 * Gets the Danger Branding Color.
 	 * 
 	 * @returns {string}
 	 */
-	BrandModifier.prototype.getDanger = function () {
+	BrandModifier.prototype.getDangerColor = function () {
 		return this.modifiers.danger.value;
 	};
 
 	/**
-	 * Sets the Danger branding color.
+	 * Sets the Danger Branding Color.
 	 * 
-	 * @param {string} color Sets the Danger color.
+	 * @param {string} color The Danger Branding Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	BrandModifier.prototype.setDanger = function (color) {
+	BrandModifier.prototype.setDangerColor = function (color) {
 		this.modifiers.danger.value = color;
 	};

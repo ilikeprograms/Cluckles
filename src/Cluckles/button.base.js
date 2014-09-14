@@ -6,7 +6,7 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {string} fontWeight The @btn-font-weight variable which sets the Font weight of Button Components.
+     * @property {string} fontWeight        The @btn-font-weight variable which sets the Font weight of Button Components.
      * @property {string} disabledLinkColor The @btn-link-disabled-color variable which sets the Disabled Link color of Button Components.
      * 
      * @returns {ButtonBase}
@@ -18,18 +18,18 @@
 
         // Configure the Modifiers
         this.fontWeight = {
-            variable: '@btn-font-weight',
-            subscribeProperty: 'font-weight',
-            changeFn: this.setFontWeight.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@btn-font-weight',
+            subscribeProperty:  'font-weight',
+            changeFn:           this.setFontWeight.bind(this),
+            subscribers:        [],
+			_value:             null
         };
         this.disabledLinkColor = {
-            variable: '@btn-link-disabled-color',
-            subscribeProperty: 'disabled-link-color',
-            changeFn: this.setDisabledLinkColor.bind(this),
-            subscribers: [],
-			_value: null
+            variable:           '@btn-link-disabled-color',
+            subscribeProperty:  'disabled-link-color',
+            changeFn:           this.setDisabledLinkColor.bind(this),
+            subscribers:        [],
+			_value:             null
         };
 
         // Configure the modifiers so they can be extracted easier
@@ -42,8 +42,8 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    ButtonBase.prototype = Object.create(ThemeModifier.prototype);
-    ButtonBase.constructor = ButtonBase;
+    ButtonBase.prototype                = Object.create(ThemeModifier.prototype);
+    ButtonBase.prototype.constructor    = ButtonBase;
 
     /**
      * Gets the Font Weight of the Button Component.

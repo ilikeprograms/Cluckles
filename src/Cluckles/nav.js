@@ -6,11 +6,11 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {object} linkPadding The @nav-link-padding variable which controls the Link Padd of the Nav component.
-     * @property {object} linkHoverBg The @nav-link-hover-bg variable which controls the Link Hover Color of the Nav component.
-     * @property {object} linkDisabledColor The @nav-disabled-link-color variable which controls the Disabled Link Color of the Nav component.
-     * @property {object} linkDisabledHoverColor The @nav-disabled-link-hover-color variable which controls the Disabled Link Hover Color of the Nav component.
-     * @property {object} linkOpenHoverColor The @nav-open-link-hover-color variable which controls the Open Link Hover Color of the Nav component.
+     * @property {object} linkPadding               The @nav-link-padding variable which controls the Link Padding of the Nav Component.
+     * @property {object} linkHoverBg               The @nav-link-hover-bg variable which controls the Link Hover Color of the Nav Component.
+     * @property {object} linkDisabledColor         The @nav-disabled-link-color variable which controls the Disabled Link Color of the Nav Component.
+     * @property {object} linkDisabledHoverColor    The @nav-disabled-link-hover-color variable which controls the Disabled Link Hover Color of the Nav Component.
+     * @property {object} linkOpenHoverColor        The @nav-open-link-hover-color variable which controls the Open Link Hover Color of the Nav Component.
      * 
      * @returns {Nav}
      */
@@ -21,39 +21,39 @@
 
         // Configure the Modifiers
         this.linkPadding = {
-            variable: '@nav-link-padding',
+            variable:           '@nav-link-padding',
             subscribeProperty:  'link-padding',
             changeFn:           this.setLinkPadding.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkHoverBg = {
-            variable: '@nav-link-hover-bg',
+            variable:           '@nav-link-hover-bg',
             subscribeProperty:  'link-hover-bg',
-            changeFn:           this.setLinkHoverBackground.bind(this),
+            changeFn:           this.setLinkHoverBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkDisabledColor = {
-            variable: '@nav-disabled-link-color',
+            variable:           '@nav-disabled-link-color',
             subscribeProperty:  'link-disabled-color',
             changeFn:           this.setLinkDisabledColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkDisabledHoverColor = {
-            variable: '@nav-disabled-link-hover-color',
+            variable:           '@nav-disabled-link-hover-color',
             subscribeProperty:  'link-disabled-hover-color',
             changeFn:           this.setLinkDisabledHoverColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.linkOpenHoverColor = {
-            variable: '@nav-open-link-hover-color',
+            variable:           '@nav-open-link-hover-color',
             subscribeProperty:  'link-open-hover-color',
             changeFn:           this.setLinkOpenHoverColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.linkPadding, 'value', {
@@ -81,8 +81,8 @@
     };
 
     // Inherit from parent Prototype and preserve constructor
-    Nav.prototype = Object.create(ThemeModifier.prototype);
-    Nav.constructor = Nav;
+    Nav.prototype               = Object.create(ThemeModifier.prototype);
+    Nav.prototype.constructor   = Nav;
 
     /**
      * Gets the Link Padding of the Nav Components.
@@ -96,12 +96,12 @@
     /**
      * Sets the Link Padding of the Nav Components.
      * 
-     * @param {string} padding The Nav Link Padding to set.
+     * @param {string} linkPadding The Nav Link Padding to set.
      * 
      * @returns {undefined}
      */
-    Nav.prototype.setLinkPadding = function (padding) {
-        this.modifiers.linkPadding.value = padding;
+    Nav.prototype.setLinkPadding = function (linkPadding) {
+        this.modifiers.linkPadding.value = linkPadding;
     };
 
 	/**
@@ -109,19 +109,19 @@
 	 * 
 	 * @returns {string}
 	 */
-	Nav.prototype.getLinkHoverBackground = function () {
+	Nav.prototype.getLinkHoverBackgroundColor = function () {
 		return this.modifiers.linkHoverBg.value;
 	};
 	
 	/**
 	 * Sets the Link Hover Background of the Nav Components.
 	 * 
-	 * @param {string} color The Nav Link Hover Color to set.
+	 * @param {string} linkHoverBg The Nav Link Hover Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Nav.prototype.setLinkHoverBackground = function (linkHoverBg) {
-		this.modifiers.linkHoverBg.value = linkHoverBg;
+	Nav.prototype.setLinkHoverBackgroundColor = function (linkHoverBackgroundColor) {
+		this.modifiers.linkHoverBg.value = linkHoverBackgroundColor;
 	};
 
     /**
@@ -136,7 +136,7 @@
 	/**
 	 * Sets the Link Disabled Color of the Nav Components.
 	 * 
-	 * @param {string} color Set the Nav Link Disabled Color.
+	 * @param {string} linkDisabledColor The Nav Link Disabled Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -156,7 +156,7 @@
 	/**
 	 * Sets the Link Disabled Hover Color of the Nav Components.
 	 * 
-	 * @param {string} color Sets the Nav Link Disabled Hover Color.
+	 * @param {string} linkDisabledHoverColor The Nav Link Disabled Hover Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
@@ -176,7 +176,8 @@
     /**
      * Sets the Link Open Hover Color of the Nav Components.
      * 
-     * @param {string} linkOpenHoverColor Sets the Nav Link Open Hover Color.
+     * @param {string} linkOpenHoverColor The Nav Link Open Hover Color to set.
+     * 
      * @returns {string}
      */
     Nav.prototype.setLinkOpenHoverColor = function (linkOpenHoverColor) {

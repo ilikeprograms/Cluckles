@@ -6,12 +6,12 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} maxWidth The @tooltip-max-width variable which sets the Max Width of the Tooltip component.
-	 * @property {object} bg The @tooltip-bg variable which sets the Background of the Tooltip component.
-	 * @property {object} color The @tooltip-color variable which sets the Color of the Tooltip component.
-	 * @property {object} opacity The @tooltip-opacity variable which sets the Opacity of the Tooltip component.
-	 * @property {object} arrowWidth The @tooltip-arrow-width variable which sets the Arrow Width of the Tooltip component.
-	 * @property {object} arrowColor The @tooltip-arrow-color variable which sets the Arrow Color of the Tooltip component.
+	 * @property {object} maxWidth      The @tooltip-max-width variable which sets the Max Width of the Tooltip Component.
+	 * @property {object} bg            The @tooltip-bg variable which sets the Background Color of the Tooltip Component.
+	 * @property {object} color         The @tooltip-color variable which sets the Color of the Tooltip Component.
+	 * @property {object} opacity       The @tooltip-opacity variable which sets the Opacity of the Tooltip Component.
+	 * @property {object} arrowWidth    The @tooltip-arrow-width variable which sets the Arrow Width of the Tooltip Component.
+	 * @property {object} arrowColor    The @tooltip-arrow-color variable which sets the Arrow Color of the Tooltip Component.
 	 * 
 	 * @returns {Tooltip}
 	 */
@@ -22,46 +22,46 @@
 
         // Configure the Modifiers
         this.maxWidth = {
-            variable: '@tooltip-max-width',
+            variable:           '@tooltip-max-width',
             subscribeProperty:  'max-width',
             changeFn:           this.setMaxWidth.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 		this.bg = {
-			variable: '@tooltip-bg',
+			variable:           '@tooltip-bg',
 			subscribeProperty:  'bg',
-            changeFn:           this.setBackground.bind(this),
+            changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.color = {
-			variable: '@tooltip-color',
+			variable:           '@tooltip-color',
 			subscribeProperty:  'color',
             changeFn:           this.setColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
         this.opacity = {
-            variable: '@tooltip-opacity',
+            variable:           '@tooltip-opacity',
             subscribeProperty:  'opacity',
             changeFn:           this.setOpacity.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.arrowWidth = {
-            variable: '@tooltip-arrow-width',
+            variable:           '@tooltip-arrow-width',
             subscribeProperty:  'arrow-width',
             changeFn:           this.setArrowWidth.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
         this.arrowColor = {
-            variable: '@tooltip-arrow-color',
+            variable:           '@tooltip-arrow-color',
             subscribeProperty:  'arrow-color',
             changeFn:           this.setArrowColor.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
         };
 
         Object.defineProperty(this.maxWidth, 'value', {
@@ -102,8 +102,8 @@
 	};
 	
 	// Inherit from parent Prototype and preserve constructor
-	Tooltip.prototype = Object.create(ThemeModifier.prototype);
-	Tooltip.constructor = Tooltip;
+	Tooltip.prototype               = Object.create(ThemeModifier.prototype);
+	Tooltip.prototype.constructor   = Tooltip;
 
     /**
      * Gets the Max Width of the Tooltip Components.
@@ -117,7 +117,8 @@
     /**
      * Sets the Max Width of the Tooltip Components.
      * 
-     * @param {string} maxWidth Sets the Tooltip Max Width.
+     * @param {string} maxWidth The Tooltip Max Width to set.
+     * 
      * @returns {undefined}
      */
     Tooltip.prototype.setMaxWidth = function (maxWidth) {
@@ -125,23 +126,23 @@
     };
 
 	/**
-	 * Gets the Background of the Tooltip Component.
+	 * Gets the Background Color of the Tooltip Component.
 	 * 
 	 * @returns {string}
 	 */
-	Tooltip.prototype.getBackground = function () {
+	Tooltip.prototype.getBackgroundColor = function () {
 		return this.modifiers.bg.value;
 	};
 
 	/**
-	 * Sets the Background of the Tooltip Component.
+	 * Sets the Background Color of the Tooltip Component.
 	 * 
-	 * @param {string} color The color to set the Background.
+	 * @param {string} backgroundColor The Tooltip Background Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Tooltip.prototype.setBackground = function (color) {
-		this.modifiers.bg.value = color;
+	Tooltip.prototype.setBackgroundColor = function (backgroundColor) {
+		this.modifiers.bg.value = backgroundColor;
 	};
 
 	/**
@@ -156,12 +157,12 @@
 	/**
 	 * Sets the Text color of the Tooltip Component.
 	 * 
-	 * @param {string} color The color to set the text of the Tooltip Component.
+	 * @param {string} textColor The Tooltip Text Color to set.
 	 * 
 	 * @returns {undefined}
 	 */
-	Tooltip.prototype.setColor = function (color) {
-		this.modifiers.color.value = color;
+	Tooltip.prototype.setColor = function (textColor) {
+		this.modifiers.color.value = textColor;
 	};
 
     /**
@@ -176,7 +177,7 @@
     /**
      * Sets the Opacity of the Tooltip Component.
      * 
-     * @param {string} opacity Sets the Tooltip Opacity.
+     * @param {string} opacity The Tooltip Opacity to set.
      * 
      * @returns {string}
      */
@@ -196,7 +197,7 @@
     /**
      * Sets the Arrow Width of the Tooltip Component.
      * 
-     * @param {string} arrow Sets the Tooltip Arrow.
+     * @param {string} arrow The Tooltip Arrow Width to set.
      * 
      * @returns {undefined}
      */
@@ -216,7 +217,7 @@
     /**
      * Sets the Arrow Color of the Tooltip Component.
      * 
-     * @param {string} arrowColor Sets the Tooltip Arrow.
+     * @param {string} arrowColor The Tooltip Arrow Color to set.
      * 
      * @returns {undefined}
      */
