@@ -24,6 +24,7 @@
         this.padding = {
             variable:           '@thumbnail-padding',
             subscribeProperty:  'padding',
+            suffixUnit:         true,
             changeFn:           this.setPadding.bind(this),
             subscribers:        [],
 			_value:             null
@@ -45,6 +46,7 @@
 		this.borderRadius = {
 			variable:           '@thumbnail-border-radius',
 			subscribeProperty:  'border-radius',
+            suffixUnit:         true,
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
 			_value:             null
@@ -59,46 +61,11 @@
         this.captionPadding = {
             variable:           '@thumbnail-caption-padding',
             subscribeProperty:  'caption-padding',
+            suffixUnit:         true,
             changeFn:           this.setCaptionPadding.bind(this),
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.padding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
-
-        Object.defineProperty(this.borderRadius, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
-
-        Object.defineProperty(this.captionPadding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -130,10 +97,13 @@
 	 * Sets the Padding of the Thumbnail Component.
 	 * 
 	 * @param {string} padding The Thumbnail Padding to set.
+     * @param {string} unit    The CSS measurement unit to suffix to the value.
 	 * 
 	 * @returns {undefined}
 	 */
-	Thumbnail.prototype.setPadding = function (padding) {
+	Thumbnail.prototype.setPadding = function (padding, unit) {
+        if (unit !== undefined) { this.modifiers.padding.unit = unit; }
+
 		this.modifiers.padding.value = padding;
 	};
 
@@ -190,10 +160,13 @@
 	 * Sets the Border Radius of the Thumbnail Component.
 	 * 
 	 * @param {string} borderRadius The Thumbnail Border Radius to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
 	 * 
 	 * @returns {undefined}
 	 */
-	Thumbnail.prototype.setBorderRadius = function (borderRadius) {
+	Thumbnail.prototype.setBorderRadius = function (borderRadius, unit) {
+        if (unit !== undefined) { this.modifiers.borderRadius.unit = unit; }
+
 		this.modifiers.borderRadius.value = borderRadius;
 	};
 
@@ -230,9 +203,12 @@
      * Sets the Caption Padding of the Thumbnail Components.
      * 
      * @param {string} captionPadding The Thumbnail Caption Padding to set.
+     * @param {string} unit           The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Thumbnail.prototype.setCaptionPadding = function (captionPadding) {
+    Thumbnail.prototype.setCaptionPadding = function (captionPadding, unit) {
+        if (unit !== undefined) { this.modifiers.captionPadding.unit = unit; }
+
         this.modifiers.captionPadding.value = captionPadding;
     };

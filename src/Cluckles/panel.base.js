@@ -27,6 +27,7 @@
         this.panelBodyPadding = {
             variable:           '@panel-body-padding',
             subscribeProperty:  'body-padding',
+            suffixUnit:         true,
             changeFn:           this.setPanelBodyPadding.bind(this),
             subscribers:        [],
 			_value:             null
@@ -34,34 +35,11 @@
         this.panelBorderRadius = {
             variable:           '@panel-border-radius',
             subscribeProperty:  'border-radius',
+            suffixUnit:         true,
             changeFn:           this.setPanelBorderRadius.bind(this),
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.panelBodyPadding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
-        Object.defineProperty(this.panelBorderRadius, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
         
         this.modifiers = {
             panelFooterBg:      this.panelFooterBg,
@@ -110,10 +88,13 @@
      * Gets the Body Padding of the Panel Components.
      * 
      * @param {string} panelBodyPadding The Panel Body Padding to set.
+     * @param {string} unit             The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    PanelBase.prototype.setPanelBodyPadding = function (panelBodyPadding) {
+    PanelBase.prototype.setPanelBodyPadding = function (panelBodyPadding, unit) {
+        if (unit !== undefined) { this.modifiers.panelBodyPadding.unit = unit; }
+
         this.modifiers.panelBodyPadding.value = panelBodyPadding;
     };
     
@@ -130,9 +111,12 @@
      * Gets the Border Radius of the Panel Components.
      * 
      * @param {string} panelBorderRadius The Panel Border Radius to set.
+     * @param {string} unit              The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    PanelBase.prototype.setPanelBorderRadius = function (panelBorderRadius) {
+    PanelBase.prototype.setPanelBorderRadius = function (panelBorderRadius, unit) {
+        if (unit !== undefined) { this.modifiers.panelBorderRadius.unit = unit; }
+
         this.modifiers.panelBorderRadius.value = panelBorderRadius;
     };

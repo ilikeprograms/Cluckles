@@ -75,22 +75,11 @@
         this.preScrollableMaxHeight = {
 			variable:           '@pre-scrollable-max-height',
             subscribeProperty:  'pre-scrollable-max-height',
+            suffixUnit:         true,
             changeFn:           this.setPreScrollableMaxHeight.bind(this),
 			subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.preScrollableMaxHeight, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -264,9 +253,12 @@
 	 * Sets the Pre Scrollable Max Height of the Code Component.
 	 * 
 	 * @param {string} preScrollableMaxHeight The Code Pre Scrollable Max Height to set.
+     * @param {string} unit                   The CSS measurement unit to suffix to the value.
 	 * 
 	 * @returns {undefined}
 	 */
-	Code.prototype.setPreScrollableMaxHeight = function (preScrollableMaxHeight) {
+	Code.prototype.setPreScrollableMaxHeight = function (preScrollableMaxHeight, unit) {
+        if (unit !== undefined) { this.modifiers.preScrollableMaxHeight.unit = unit; }
+
 		this.modifiers.preScrollableMaxHeight.value = preScrollableMaxHeight;
 	};

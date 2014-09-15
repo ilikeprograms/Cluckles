@@ -22,6 +22,7 @@
         this.height = {
             variable:           '@navbar-height',
             subscribeProperty:  'height',
+            suffixUnit:         true,
             changeFn:           this.setHeight.bind(this),
             subscribers:        [],
 			_value:             null
@@ -29,6 +30,7 @@
         this.marginBottom = {
             variable:           '@navbar-margin-bottom',
             subscribeProperty:  'margin-bottom',
+            suffixUnit:         true,
             changeFn:           this.setMarginBottom.bind(this),
             subscribers:        [],
 			_value:             null
@@ -36,6 +38,7 @@
         this.borderRadius = {
             variable:           '@navbar-border-radius',
             subscribeProperty:  'border-radius',
+            suffixUnit:         true,
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
 			_value:             null
@@ -43,58 +46,11 @@
         this.collapseMaxHeight = {
             variable:           '@navbar-collapse-max-height',
             subscribeProperty:  'collapse-max-height',
+            suffixUnit:         true,
             changeFn:           this.setCollapseMaxHeight.bind(this),
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.height, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
-        Object.defineProperty(this.marginBottom, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
-        Object.defineProperty(this.borderRadius, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
-
-        Object.defineProperty(this.collapseMaxHeight, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -124,10 +80,13 @@
      * Sets the Height of the Navbar Components.
      * 
      * @param {string} height The Navbar Height to set.
+     * @param {string} unit   The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    NavbarBase.prototype.setHeight = function (height) {
+    NavbarBase.prototype.setHeight = function (height, unit) {
+        if (unit !== undefined) { this.modifiers.height.unit = unit; }
+
         this.modifiers.height.value = height;
     };
     
@@ -144,10 +103,13 @@
      * Sets the Margin Bottom of the Navbar Components.
      * 
      * @param {string} marginBottom The Navbar Margin Bottom to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    NavbarBase.prototype.setMarginBottom = function (marginBottom) {
+    NavbarBase.prototype.setMarginBottom = function (marginBottom, unit) {
+        if (unit !== undefined) { this.modifiers.marginBottom.unit = unit; }
+
         this.modifiers.marginBottom.value = marginBottom;
     };
 
@@ -164,10 +126,13 @@
      * Sets the Border Radius of the Navbar Components.
      * 
      * @param {string} borderRadius The Navbar Border Radius to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    NavbarBase.prototype.setBorderRadius = function (borderRadius) {
+    NavbarBase.prototype.setBorderRadius = function (borderRadius, unit) {
+        if (unit !== undefined) { this.modifiers.borderRadius.unit = unit; }
+
         this.modifiers.borderRadius.value = borderRadius;
     };
     
@@ -184,9 +149,12 @@
      * Sets the Collapse Max Height of the Navbar Components.
      * 
      * @param {string} collapseMaxHeight The Navbar Collapse Max Height to set.
+     * @param {string} unit              The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    NavbarBase.prototype.setCollapseMaxHeight = function (collapseMaxHeight) {
+    NavbarBase.prototype.setCollapseMaxHeight = function (collapseMaxHeight, unit) {
+        if (unit !== undefined) { this.modifiers.collapseMaxHeight.unit = unit; }
+
         this.modifiers.collapseMaxHeight.value = collapseMaxHeight;
     };

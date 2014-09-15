@@ -28,6 +28,7 @@
 		this.fontSize = {
 			variable:           '@blockquote-font-size',
             subscribeProperty:  'font-size',
+            suffixUnit:         true,
             changeFn:           this.setFontSize.bind(this),
             subscribers:        [],
 			_value:             null
@@ -39,18 +40,6 @@
             subscribers:        [],
 			_value:             null
 		};
-
-        Object.defineProperty(this.fontSize, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -99,10 +88,13 @@
      * Sets the Font Size of the Blockquote Component.
      * 
      * @param {string} fontSize The Blockquote Font Size to set.
+     * @param {string} unit     The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Blockquote.prototype.setFontSize = function (fontSize) {
+    Blockquote.prototype.setFontSize = function (fontSize, unit) {
+        if (unit !== undefined) { this.modifiers.fontSize.unit = unit; }
+
         this.modifiers.fontSize.value = fontSize;
     };
 

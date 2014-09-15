@@ -24,6 +24,7 @@
         this.cellPadding = {
             variable:           '@table-cell-padding',
             subscribeProperty:  'cell-padding',
+            suffixUnit:         true,
             changeFn:           this.setCellPadding.bind(this),
             subscribers:        [],
 			_value:             null
@@ -31,6 +32,7 @@
         this.condensedCellPadding = {
             variable:           '@table-condensed-cell-padding',
             subscribeProperty:  'condensed-cell-padding',
+            suffixUnit:         true,
             changeFn:           this.setCondensedCellPadding.bind(this),
             subscribers:        [],
 			_value:             null
@@ -71,30 +73,6 @@
 			_value:             null
         };
 
-        Object.defineProperty(this.cellPadding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
-
-        Object.defineProperty(this.condensedCellPadding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
         this.modifiers = {
             cellPadding:            this.cellPadding,
             condensedCellPadding:   this.condensedCellPadding,
@@ -125,10 +103,13 @@
      * Sets the Cell Padding of the Table Component.
      * 
      * @param {string} cellPadding The Table Cell Padding to set.
+     * @param {string} unit        The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Table.prototype.setCellPadding = function (cellPadding) {
+    Table.prototype.setCellPadding = function (cellPadding, unit) {
+        if (unit !== undefined) { this.modifiers.cellPadding.unit = unit; }
+
         this.modifiers.cellPadding.value = cellPadding;
     };
 
@@ -145,10 +126,13 @@
      * Sets the Condensed Cell Padding of the Table Component.
      * 
      * @param {string} condensedCellPadding The Table Condensed Cell Padding to set.
+     * @param {string} unit                 The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Table.prototype.setCondensedCellPadding = function (condensedCellPadding) {
+    Table.prototype.setCondensedCellPadding = function (condensedCellPadding, unit) {
+        if (unit !== undefined) { this.modifiers.condensedCellPadding.unit = unit; }
+
         this.modifiers.condensedCellPadding.value = condensedCellPadding;
     };
 

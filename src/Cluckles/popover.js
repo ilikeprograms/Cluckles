@@ -35,6 +35,7 @@
         this.maxWidth = {
             variable:           '@popover-max-width',
             subscribeProperty:  'max-width',
+            suffixUnit:         true,
             changeFn:           this.setMaxWidth.bind(this),
             subscribers:        [],
 			_value:             null
@@ -63,6 +64,7 @@
         this.arrowWidth = {
             variable:           '@popover-arrow-width',
             subscribeProperty:  'arrow-width',
+            suffixUnit:         true,
             changeFn:           this.setArrowWidth.bind(this),
             subscribers:        [],
 			_value:             null
@@ -77,6 +79,7 @@
         this.arrowOuterWidth = {
             variable:           '@popover-arrow-outer-width',
             subscribeProperty:  'arrow-outer-width',
+            suffixUnit:         true,
             changeFn:           this.setArrowOuterWidth.bind(this),
             subscribers:        [],
 			_value:             null
@@ -95,42 +98,6 @@
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.maxWidth, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
-        Object.defineProperty(this.arrowWidth, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
-        Object.defineProperty(this.arrowOuterWidth, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -186,10 +153,13 @@
      * Sets the Max Width of the Popover Components.
      * 
      * @param {string} maxWidth The Popover Max Width to set.
+     * @param {string} unit     The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Popover.prototype.setMaxWidth = function (maxWidth) {
+    Popover.prototype.setMaxWidth = function (maxWidth, unit) {
+        if (unit !== undefined) { this.modifiers.maxWidth.unit = unit; }
+
         this.modifiers.maxWidth.value = maxWidth;
     };
     
@@ -266,10 +236,13 @@
      * Sets the Arrow Width of the Popover Component.
      * 
      * @param {string} arrowWidth The Popover Arrow Width to set.
+     * @param {string} unit       The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Popover.prototype.setArrowWidth = function (arrowWidth) {
+    Popover.prototype.setArrowWidth = function (arrowWidth, unit) {
+        if (unit !== undefined) { this.modifiers.arrowWidth.unit = unit; }
+
         this.modifiers.arrowWidth.value = arrowWidth;
     };
     
@@ -306,10 +279,13 @@
      * Sets the Arrow Outer Width of the Popover Component.
      * 
      * @param {string} arrowOuterWidth The Popover Arrow Outer Width to set.
+     * @param {string} unit            The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Popover.prototype.setArrowOuterWidth = function (arrowOuterWidth) {
+    Popover.prototype.setArrowOuterWidth = function (arrowOuterWidth, unit) {
+        if (unit !== undefined) { this.modifiers.arrowOuterWidth.unit = unit; }
+
         this.modifiers.arrowOuterWidth.value = arrowOuterWidth;
     };
     

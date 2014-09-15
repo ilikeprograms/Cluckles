@@ -20,6 +20,7 @@
         this.borderRadius = {
             variable:           '@nav-pills-border-radius',
             subscribeProperty:  'border-radius',
+            suffixUnit:         true,
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
 			_value:             null
@@ -38,18 +39,6 @@
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.borderRadius, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
 
         this.modifiers = {
             borderRadius:       this.borderRadius,
@@ -77,10 +66,13 @@
 	 * Sets the Border Radius of the Pill Component.
 	 * 
 	 * @param {string} borderRadius The Pill Border Radius to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
 	 * 
 	 * @returns {undefined}
 	 */
-	Pill.prototype.setBorderRadius = function (borderRadius) {
+	Pill.prototype.setBorderRadius = function (borderRadius, unit) {
+        if (unit !== undefined) { this.modifiers.borderRadius.unit = unit; }
+
 		this.modifiers.borderRadius.value = borderRadius;
 	};
 

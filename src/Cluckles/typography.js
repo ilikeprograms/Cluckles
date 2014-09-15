@@ -50,6 +50,7 @@
 		this.fontSizeBase = {
 			variable:           '@font-size-base',
 			subscribeProperty:  'font-size-base',
+            suffixUnit:         true,
             changeFn:           this.setFontSizeBase.bind(this),
             subscribers:        [],
 			_value:             null
@@ -103,18 +104,6 @@
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.fontSizeBase, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -211,10 +200,13 @@
      * Sets the Font Size Base of the Typography Component.
      * 
      * @param {string} fontSizeBase The Typography Font Size Base to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Typography.prototype.setFontSizeBase = function (fontSizeBase) {
+    Typography.prototype.setFontSizeBase = function (fontSizeBase, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeBase.unit = unit; }
+
         this.modifiers.fontSizeBase.value = fontSizeBase;
     };
 

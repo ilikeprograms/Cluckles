@@ -23,6 +23,7 @@
         this.linkPadding = {
             variable:           '@nav-link-padding',
             subscribeProperty:  'link-padding',
+            suffixUnit:         true,
             changeFn:           this.setLinkPadding.bind(this),
             subscribers:        [],
 			_value:             null
@@ -55,18 +56,6 @@
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.linkPadding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -97,10 +86,13 @@
      * Sets the Link Padding of the Nav Components.
      * 
      * @param {string} linkPadding The Nav Link Padding to set.
+     * @param {string} unit        The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Nav.prototype.setLinkPadding = function (linkPadding) {
+    Nav.prototype.setLinkPadding = function (linkPadding, unit) {
+        if (unit !== undefined) { this.modifiers.linkPadding.unit = unit; }
+
         this.modifiers.linkPadding.value = linkPadding;
     };
 

@@ -75,22 +75,11 @@
 		this.borderRadius = {
 			variable:           '@badge-border-radius',
             subscribeProperty:  'border-radius',
+            suffixUnit:         true,
             changeFn:           this.setBorderRadius.bind(this),
             subscribers:        [],
 			_value:             null
 		};
-
-        Object.defineProperty(this.borderRadius, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -264,9 +253,12 @@
      * Sets the Border Radius of the Badge Component.
      * 
      * @param {string} borderRadius The Badge Border Radius to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Badge.prototype.setBorderRadius = function (borderRadius) {
+    Badge.prototype.setBorderRadius = function (borderRadius, unit) {
+        if (unit !== undefined) { this.modifiers.borderRadius.unit = unit; }
+
         this.modifiers.borderRadius.value = borderRadius;
     };

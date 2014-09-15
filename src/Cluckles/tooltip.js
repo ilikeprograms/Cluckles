@@ -24,6 +24,7 @@
         this.maxWidth = {
             variable:           '@tooltip-max-width',
             subscribeProperty:  'max-width',
+            suffixUnit:         true,
             changeFn:           this.setMaxWidth.bind(this),
             subscribers:        [],
 			_value:             null
@@ -52,6 +53,7 @@
         this.arrowWidth = {
             variable:           '@tooltip-arrow-width',
             subscribeProperty:  'arrow-width',
+            suffixUnit:         true,
             changeFn:           this.setArrowWidth.bind(this),
             subscribers:        [],
 			_value:             null
@@ -63,30 +65,6 @@
             subscribers:        [],
 			_value:             null
         };
-
-        Object.defineProperty(this.maxWidth, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
-
-        Object.defineProperty(this.arrowWidth, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            }
-        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -118,10 +96,13 @@
      * Sets the Max Width of the Tooltip Components.
      * 
      * @param {string} maxWidth The Tooltip Max Width to set.
+     * @param {string} unit     The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Tooltip.prototype.setMaxWidth = function (maxWidth) {
+    Tooltip.prototype.setMaxWidth = function (maxWidth, unit) {
+        if (unit !== undefined) { this.modifiers.maxWidth.unit = unit; }
+
         this.modifiers.maxWidth.value = maxWidth;
     };
 
@@ -198,10 +179,13 @@
      * Sets the Arrow Width of the Tooltip Component.
      * 
      * @param {string} arrow The Tooltip Arrow Width to set.
+     * @param {string} unit  The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Tooltip.prototype.setArrowWidth = function (arrowWidth) {
+    Tooltip.prototype.setArrowWidth = function (arrowWidth, unit) {
+        if (unit !== undefined) { this.modifiers.arrowWidth.unit = unit; }
+
         this.modifiers.arrowWidth.value = arrowWidth;
     };
     

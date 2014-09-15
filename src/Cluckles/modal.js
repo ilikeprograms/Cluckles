@@ -27,6 +27,7 @@
         this.innerPadding = {
             variable:           '@modal-inner-padding',
             subscribeProperty:  'inner-padding',
+            suffixUnit:         true,
             changeFn:           this.setInnerPadding.bind(this),
             subscribers:        [],
 			_value:             null
@@ -34,6 +35,7 @@
         this.titlePadding = {
             variable:           '@modal-title-padding',
             subscribeProperty: 'title-padding',
+            suffixUnit:         true,
             changeFn:           this.setTitlePadding.bind(this),
             subscribers:        [],
 			_value:             null
@@ -95,42 +97,6 @@
 			_value:             null
         };
 
-        Object.defineProperty(this.innerPadding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
-        Object.defineProperty(this.titlePadding, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
-        Object.defineProperty(this.titleLineHeight, 'value', {
-            get: function () { return this._value; },
-            set: function (val) {
-                this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-            } 
-        });
-
         this.modifiers = {
             innerPadding:               this.innerPadding,
             titlePadding:               this.titlePadding,
@@ -164,10 +130,13 @@
      * Sets the Inner Padding of the Modal Component.
      * 
      * @param {string} innerPadding The Modal Inner Padding to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
      * 
      * @returns {string}
      */
-    Modal.prototype.setInnerPadding = function (innerPadding) {
+    Modal.prototype.setInnerPadding = function (innerPadding, unit) {
+        if (unit !== undefined) { this.modifiers.innerPadding.unit = unit; }
+
         this.modifiers.innerPadding.value = innerPadding;
     };
 
@@ -184,10 +153,13 @@
      * Sets the Title Padding of the Modal Component.
      * 
      * @param {string} titlePadding The Modal Title Padding to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
      * 
      * @returns {string}
      */
-    Modal.prototype.setTitlePadding = function (titlePadding) {
+    Modal.prototype.setTitlePadding = function (titlePadding, unit) {
+        if (unit !== undefined) { this.modifiers.titlePadding.unit = unit; }
+
         this.modifiers.titlePadding.value = titlePadding;
     };
 

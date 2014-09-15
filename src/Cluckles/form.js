@@ -57,6 +57,7 @@
 		this.inputBorderRadius = {
 			variable:           '@input-border-radius',
 			subscribeProperty:  'input-border-radius',
+            suffixUnit:         true,
             changeFn:           this.setInputBorderRadius.bind(this),
             subscribers:        [],
 			_value:             null
@@ -103,18 +104,6 @@
             subscribers:        [],
 			_value:             null
 		};
-
-        Object.defineProperty(this.inputBorderRadius, 'value', {
-           get: function () { return this._value; },
-           set: function (val) {
-               this._value = val + 'px';
-                editor.queueModifications();
-
-                this.subscribers.forEach(function (subscriber) {
-                    subscriber.value = val;
-                });
-           }
-        });
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -231,10 +220,13 @@
 	 * Sets the Input Border Radius of the Form Component.
 	 * 
 	 * @param {string} inputBorderRadius The Form Input Border Radius to set.
+     * @param {string} unit              The CSS measurement unit to suffix to the value.
 	 * 
 	 * @returns {undefined}
 	 */
-	Form.prototype.setInputBorderRadius = function (inputBorderRadius) {
+	Form.prototype.setInputBorderRadius = function (inputBorderRadius, unit) {
+        if (unit !== undefined) { this.modifiers.inputBorderRadius.unit = unit; }
+
 		this.modifiers.inputBorderRadius.value = inputBorderRadius;
 	};
 

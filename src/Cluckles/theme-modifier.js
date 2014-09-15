@@ -92,9 +92,26 @@
                 Object.defineProperty(modifier, 'value', {
                     get: function () { return this._value; },
                     set: function (val) {
-                        // Store the new value
-                        this._value = val;
-                        
+                        var unit = 'px'; // Default unit to append (px, em, rem, etc)
+
+                        // If this property requires a suffix unit
+                        if (this.suffixUnit) {
+                            // Store the raw value
+                            this._rawValue = val;
+
+                            // If a custom unit is specified
+                            if (this.unit) {
+                                // Set the unit to append
+                                unit = this.unit;
+                            }
+
+                            // Combine the value with the unit
+                            this._value = val + unit;
+                        } else {
+                            // Store the new value
+                            this._value = val;
+                        }
+
                         // Queue the modifications to be applied by less
                         editor.queueModifications();
 
@@ -125,7 +142,16 @@
                     // Add a change event which will call the change function and pass
                     // through the value of the DOM Element
                     subscriber.addEventListener('change', function (e) {
-                        modifier.changeFn(e.target.value);
+                        var suffixUnit = e.target.getAttribute('data-cluckles-unit');
+                        
+                        // If the DOM Element has a "unit" data binding
+                        if (suffixUnit) {
+                            // Call the change function and provide the extra suffix
+                            modifier.changeFn(e.target.value, suffixUnit);
+                        } else {
+                            // else call change function as default
+                            modifier.changeFn(e.target.value);
+                        }
                     }, false);
                 }
             }, this);
