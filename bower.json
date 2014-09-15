@@ -11,7 +11,7 @@
     "less",
     "live-editing"
   ],
-  "license": "GPL-3.0+",
+  "license": "MIT",
   "homepage": "https://github.com/ilikeprograms/Cluckles",
   "ignore": [
     "**/.*",

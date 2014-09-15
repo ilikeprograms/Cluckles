@@ -106,4 +106,4 @@ I will happily accept contributions in any form, even if its just suggestions an
 
 ## Licence
 
-This project is licenced under the GPL-3.0+ Licence. The reason being is that I would prefer for people to contribute upstream so everyone can benefit from improvements.</p>
+This project is licensed under the MIT Licence.

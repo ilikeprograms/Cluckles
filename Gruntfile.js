@@ -10,11 +10,13 @@ module.exports = function (grunt) {
         concat: {
             options: {
                 separator: grunt.util.linefeed + grunt.util.linefeed,
-                banner: '/**\n' +
+                banner: '/*!\n' +
                         ' * <%= pkg.name %> <%= pkg.version %>:' +
                         ' Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.\n' +
-                        ' * Copyrite <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-                        ' * License: <%= pkg.license %>\n' +
+                        ' * <%= pkg.website %>\n' +
+                        ' * \n' +
+                        ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+                        ' * Released under the <%= pkg.license %> license\n' +
                         ' */\n' +
                         '(function (window) {\n',
                 footer: '\n})(window);'
