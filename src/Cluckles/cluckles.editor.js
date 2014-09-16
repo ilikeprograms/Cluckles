@@ -7,7 +7,8 @@
      * @class ClucklesEditor
      * 
      * Generic Options:
-     * - delay: {Number} Milliseconds delay between refresh updates (Default: 750)
+     * - scope: {string} The CSS Selector to prefix the Compiled CSS selectors with.
+     * - delay: {Number} Milliseconds delay between refresh updates (Default: 750).
      * 
      * @param {Object} less The Global less object.
      * 
@@ -172,10 +173,20 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.setupPostProcessor = function (less) {
+        var cssSelectorRegex = /((?:[#.][\w->:.\s]+)+)(?=[,\{])/mg;
+
         // Provide less with the postProcessor callback we want to executre
         less.postProcessor = function (css) {
             // Generate a Download blob from the Compiled CSS
             this.export.generateCssBlob(css);
+            
+            // If the Scope option was provided, we want to prefix all the
+            // CSS selectors with our scope, so the theme changes are only
+            // applied to the DOMElement we choose and its children
+            if (this.options.hasOwnProperty('scope')) {
+                // Use the regex above, $& prefixes the CSS selectors with our scope selector
+                return css.replace(cssSelectorRegex, this.options.scope + ' $&');
+            }
         }.bind(this);
     };
 

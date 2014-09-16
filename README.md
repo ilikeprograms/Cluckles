@@ -116,9 +116,10 @@ There are options that can be provided when a Cluckles instance is created and a
 
 Miscellaneous Options
 
-| Field   | Type     | Default            | Desc                                       |
-| -----   |:--------:| ------------------ | ------------------------------------------ |
-| delay   | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates |
+| Field   | Type     | Default            | Desc                                                       |
+| -----   |:--------:| ------------------ | ---------------------------------------------------------- |
+| scope   | `string` |                    | The CSS Selector to prefix the Compiled CSS selectors with |
+| delay   | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates                 |
 
 ### Theme
 
