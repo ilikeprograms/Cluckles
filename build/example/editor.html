@@ -8,12 +8,21 @@
                 <h3>Download Theme</h3>
             </div>
             <div class="panel-body">
-                <p>Once your happy with the changes, click the Download button below and you will get a <span class="text-info">theme.json</span> file.
-                    <br />You can then use this file to modify the variables in Less using a Less Compiler</p>
-                <p>To do that, first of all parse the <span class="text-info">theme.json</span> file (which is included in this page) and then parse the <span class="text-info">theme.json</span> file using the the <code>modifyVars</code> function.</p>
-                <p>
-                    How you choose to do that isnt part of the BootstrapThemeEditor. However, if you are using Symfony2, you can use <a href="https://github.com/ilikeprograms/BootstrapThemeBundle">BoostrapThemeBundle</a> which is also developed by me.
+                <p class="lead">Once your happy with the changes, click the <span class="text-primary">Download Buttons</span> below and you will get the Theme customisations (in JSON or CSS)</p>
+                <p>The <strong>theme.css</strong> file will be a modified bootstrap.css file, so you can replace your bootstrap.css file (if you have one) with the theme.css file and your customised theme will be used.</p>
+                <p>The <strong>theme.json</strong> file can be used to import the customisations back into Cluckles at a later point, so you dont have to start customising from scratch again!</p>
+
+                <p class="text-center">
+                    <a class="FlattrButton text-center" style="display: none;" title="Cluckles Live Theme Editor" href="http://cluckles.com" data-tags="opensource, javascript, bootstrap, cluckles" data-category="software">
+                        <img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr Cluckles" />
+                    </a>
+                    <br />
+                    <a href="https://www.gittip.com/ilikeprograms/" title="iLikePrograms on Gittip" target="_blank">
+                        <img src="http://img.shields.io/gittip/ilikeprograms.svg" alt="ilikeprograms Gittip status" />
+                    </a>
                 </p>
+
+                <em>I also developed the <a href="https://github.com/ilikeprograms/BootstrapThemeBundle">BoostrapThemeBundle</a> for Symfony2, which integrates Bootstrap Themeing for Symfony apps (which embeds Cluckles).</em>
             </div>
             <div class="panel-footer" id="download-panel-footer"></div>
         </div>
@@ -63,42 +72,42 @@
                                                     <td>Base</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.grayScale.base.setColor(this.value);" />
+                                                        <input type="color" onchange="clucklesEditor.grayScale.base.setColor(this.value);" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Darker</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.grayScale.darker.setColor(this.value);" />
+                                                        <input type="color" onchange="clucklesEditor.grayScale.darker.setColor(this.value);" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Dark</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.grayScale.dark.setColor(this.value);" />
+                                                        <input type="color" onchange="clucklesEditor.grayScale.dark.setColor(this.value);" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Gray</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.grayScale.gray.setColor(this.value);" />
+                                                        <input type="color" onchange="clucklesEditor.grayScale.gray.setColor(this.value);" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Light</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.grayScale.light.setColor(this.value);" />
+                                                        <input type="color" onchange="clucklesEditor.grayScale.light.setColor(this.value);" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Lighter</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.grayScale.lighter.setColor(this.value);" />
+                                                        <input type="color" onchange="clucklesEditor.grayScale.lighter.setColor(this.value);" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -114,14 +123,20 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <!--          <tr>
-            <td>Button Background</td><td><button class="btn btn-default">Primary Btn</button></td><td><input type="color" onchange="themeEditor.branding.setPrimary(this.value);" /></td>
-          </tr>-->
+                                                <tr>
+                                                    <td>Button Background</td>
+                                                    <td>
+                                                        <button class="btn btn-default">Default Btn</button>
+                                                    </td>
+                                                    <td>
+                                                        <input type="color" data-cluckles-branding="default" />
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td>Alert/Panel Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.default.setHeadingBackground(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-default="heading-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -129,14 +144,14 @@
                                                     <td><span class="text-default">Primary Text</span>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.default.setText(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-default="text" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.default.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-default="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -172,14 +187,14 @@
                                                         <button class="btn btn-primary">Primary Btn</button>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.branding.setPrimary(this.value);" />
+                                                        <input type="color" data-cluckles-branding="primary" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Alert/Panel Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.primary.setHeadingBackground(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-primary="heading-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -187,14 +202,14 @@
                                                     <td><span class="text-primary">Primary Text</span>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.primary.setText(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-primary="text" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.primary.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-primary="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -230,7 +245,7 @@
                                                         <button class="btn btn-success">Success Btn</button>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.branding.setSuccess(this.value);" />
+                                                        <input type="color" data-cluckles-branding="success" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -239,7 +254,7 @@
                                                         <div class="alert alert-success"><strong>Success!</strong> message</div>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.success.setHeadingBackground(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-success="heading-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -247,14 +262,14 @@
                                                     <td><span class="text-success">Success Text</span>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.success.setText(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-success="text" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.success.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-success="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -290,7 +305,7 @@
                                                         <button class="btn btn-info">Info Btn</button>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.branding.setInfo(this.value);" />
+                                                        <input type="color" data-cluckles-branding="info" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -299,7 +314,7 @@
                                                         <div class="alert alert-info"><strong>Info!</strong> message</div>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.info.setHeadingBackground(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-info="heading-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -307,14 +322,14 @@
                                                     <td><span class="text-info">Info Text</span>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.info.setText(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-info="text" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.info.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-info="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -350,7 +365,7 @@
                                                         <button class="btn btn-warning">Warning Btn</button>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.branding.setWarning(this.value);" />
+                                                        <input type="color" data-cluckles-branding="warning" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -359,7 +374,7 @@
                                                         <div class="alert alert-warning"><strong>Warning!</strong> message</div>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.warning.setHeadingBackground(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-warning="heading-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -367,14 +382,14 @@
                                                     <td><span class="text-warning">Warning Text</span>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.warning.setText(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-warning="text" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.warning.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-warning="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -410,7 +425,7 @@
                                                         <button class="btn btn-danger">Danger Btn</button>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.branding.setDanger(this.value);" />
+                                                        <input type="color" data-cluckles-branding="danger" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -419,7 +434,7 @@
                                                         <div class="alert alert-danger"><strong>Danger!</strong> message</div>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.danger.setHeadingBackground(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-danger="heading-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -427,14 +442,14 @@
                                                     <td><span class="text-danger">Danger Text</span>
                                                     </td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.danger.setText(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-danger="text" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.formStates.danger.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-formstate-danger="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -478,28 +493,28 @@
                                                     <td>Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" onchange="themeEditor.jumbotron.setPadding(this.value);" value="30" min="1" step="1" />
+                                                        <input type="number" data-cluckles-jumbotron="padding" value="30" placeholder="30" min="1" step="1" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.jumbotron.setColor(this.value);" />
+                                                        <input type="color" data-cluckles-jumbotron="color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Headings Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.jumbotron.setHeadingColor(this.value);" />
+                                                        <input type="color" data-cluckles-jumbotron="heading-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.jumbotron.setBackground(this.value);" />
+                                                        <input type="color" data-cluckles-jumbotron="bg" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -533,56 +548,63 @@
                                                     <td>Component Base Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.misc.setComponentBaseBackground(this.value);" />
+                                                        <input type="color" data-cluckles-misc="component-base-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Well Base Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.misc.setWellBackground(this.value);" />
+                                                        <input type="color" data-cluckles-misc="well-base-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Body Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.misc.setBodyBackground(this.value);" />
+                                                        <input type="color" data-cluckles-misc="body-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Text Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.misc.setTextColor(this.value);" />
+                                                        <input type="color" data-cluckles-misc="text-color" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Page Header Border Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <input type="color" data-cluckles-misc="page-header-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.misc.setLinkColor(this.value);" />
+                                                        <input type="color" data-cluckles-misc="link-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Hover Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.misc.setLinkHoverColor(this.value);" />
+                                                        <input type="color" data-cluckles-misc="link-hover-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Horizontal Rule Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.misc.setHrBorder(this.value);" />
+                                                        <input type="color" data-cluckles-misc="horizontal-rule-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Radius Base</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" onchange="themeEditor.misc.setBorderRadiusBase(this.value);" value="4px" placeholder="4px" />
+                                                        <input type="number" value="4" placeholder="4" min="0" step="1" data-cluckles-misc="border-radius-base" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -616,50 +638,70 @@
                                                     <td>Font Family Sans Serif</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value='Helvetica Neue", Helvetica, Arial, sans-serif' placeholder='"Helvetica Neue", Helvetica, Arial, sans-serif' onchange="themeEditor.typography.setFontFamilySansSerif(this.value);"
-                                                        />
+                                                        <input type="text" value='Helvetica Neue", Helvetica, Arial, sans-serif' placeholder='"Helvetica Neue", Helvetica, Arial, sans-serif' data-cluckles-typography="font-family-sans-serif" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Font Family Serif</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value='Georgia, "Times New Roman", Times, serif' placeholder='Georgia, "Times New Roman", Times, serif' onchange="themeEditor.typography.setFontFamilySerif(this.value);" />
+                                                        <input type="text" value='Georgia, "Times New Roman", Times, serif' placeholder='Georgia, "Times New Roman", Times, serif' data-cluckles-typography="font-family-serif" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Font Size Base</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value='14' min='9' step='1' onchange="themeEditor.typography.setFontSizeBase(this.value);" />
+                                                        <input type="number" value='14' placeholder="14" min='9' step='1' data-cluckles-typography="font-size-base" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Headings Font Family</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value='inherit' placeholder='inherit' onchange="themeEditor.typography.setHeadingsFontFamily(this.value);" />
+                                                        <input type="text" value='inherit' placeholder='inherit' data-cluckles-typography="headings-font-family" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Headings Line Height</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="1" min="0" step="0.1" placeholder="normal" onchange="themeEditor.typography.setHeadingsLineHeight(this.value);" />
+                                                        <input type="number" value="1" placeholder="1" min="0" step="0.1" data-cluckles-typography="headings-line-height" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Headings Font Weight</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value="normal" placeholder="normal" onchange="themeEditor.typography.setHeadingsFontWeight(this.value);" />
+                                                        <input type="text" value="normal" placeholder="normal" data-cluckles-typography="headings-font-weight" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Headings Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.typography.setHeadingsColor(this.value);" />
+                                                        <input type="color" data-cluckles-typography="headings-color" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Headings Small Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <input type="color" data-cluckles-typography="headings-small-color" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Text Muted Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <input type="color" data-cluckles-typography="text-muted-color" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Abbr Border Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <input type="color" data-cluckles-typography="abbr-border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -715,16 +757,13 @@
                                                             <td>Button Font Weight</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="number" onchange="themeEditor.buttonBase.setFontWeight(this.value);" value="50" min="1" step="1" />
+                                                                <input type="text" placeholder="normal" data-cluckles-buttonbase="font-weight" />
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>Button Disabled Link Color</td>
-                                                            <td></td>
-                                                            <td>
-                                                                <input type="number" onchange="themeEditor.buttonBase.setDisabledLinkColor(this.value);" value="30" min="1" step="1" />
-                                                            </td>
-                                                        </tr>
+                                                        <!-- This doesnt seem to change? figure out why -->
+                                                        <!--              <tr>
+                <td>Button Disabled Link Color</td><td></td><td><input type="color" data-cluckles-buttonbase="disabled-link-color" /></td>
+              </tr>-->
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -745,20 +784,23 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.default.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-button-default="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.default.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-button-default="bg" />
                                                             </td>
                                                         </tr>
-                                                        <!-- Why doesnt this work -->
-                                                        <!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.default.setBorder(this.value);" /></td>
-              </tr>-->
+                                                        <tr>
+                                                            <td>Hover Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <input type="color" data-cluckles-button-default="hover-border-color" />
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -779,19 +821,23 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.primary.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-button-primary="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.primary.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-button-primary="bg" />
                                                             </td>
                                                         </tr>
-                                                        <!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.primary.setBorder(this.value);" /></td>
-              </tr>-->
+                                                        <tr>
+                                                            <td>Hover Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <input type="color" data-cluckles-button-primary="hover-border-color" />
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -812,19 +858,23 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.success.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-button-success="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.success.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-button-success="bg" />
                                                             </td>
                                                         </tr>
-                                                        <!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.success.setBorder(this.value);" /></td>
-              </tr>-->
+                                                        <tr>
+                                                            <td>Hover Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <input type="color" data-cluckles-button-success="hover-border-color" />
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -845,19 +895,23 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.info.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-button-info="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.info.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-button-info="bg" />
                                                             </td>
                                                         </tr>
-                                                        <!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.info.setBorder(this.value);" /></td>
-              </tr>-->
+                                                        <tr>
+                                                            <td>Hover Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <input type="color" data-cluckles-button-info="hover-border-color" />
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -878,19 +932,23 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.warning.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-button-warning="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.warning.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-warning-warning="bg" />
                                                             </td>
                                                         </tr>
-                                                        <!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.warning.setBorder(this.value);" /></td>
-              </tr>-->
+                                                        <tr>
+                                                            <td>Hover Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <input type="color" data-cluckles-button-warning="hover-border-color" />
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -911,19 +969,23 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.danger.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-button-danger="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.buttons.danger.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-button-danger="bg" />
                                                             </td>
                                                         </tr>
-                                                        <!--              <tr>
-                <td>Border Color</td><td></td><td><input type="color" onchange="themeEditor.buttons.danger.setBorder(this.value);" /></td>
-              </tr>-->
+                                                        <tr>
+                                                            <td>Hover Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <input type="color" data-cluckles-button-danger="hover-border-color" />
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -958,77 +1020,77 @@
                                                     <td>Input Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Disabled Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputDisabledBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-disabled-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Border Radius</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value="4" placeholder="4" onchange="themeEditor.form.setInputBorderRadius(this.value);" />
+                                                        <input type="number" value="4" placeholder="4" min="0" step="1" data-cluckles-form="input-border-radius" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Border Focus Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputBorderFocusColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-border-focus-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Placeholder Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputPlaceholderColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-placeholder-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Legend Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setLegendColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="legend-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Legend Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setLegendBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="legend-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Group Addon Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputGroupAddonBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-group-addon-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Input Group Addon Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.form.setInputGroupAddonBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-form="input-group-addon-border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1076,28 +1138,28 @@
                                                             <td>Navbar Height</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="number" onchange="themeEditor.navbarBase.setHeight(this.value);" value="50" min="1" step="1" />
+                                                                <input type="number" value="50" placeholder="50" min="1" step="1" data-cluckles-navbar="height" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Navbar Margin Bottom</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="number" onchange="themeEditor.navbarBase.setMarginBottom(this.value);" value="30" min="1" step="1" />
+                                                                <input type="number" value="30" placeholder="30" min="1" step="1" data-cluckles-navbar="margin-bottom" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Navbar Border Radius</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="text" onchange="themeEditor.navbarBase.setBorderRadius(this.value);" value="4px" placeholder="4px" />
+                                                                <input type="number" value="4" placeholder="4" min="0" step="1" data-cluckles-navbar="border-radius" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Navbar Collapse Max Height</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="number" onchange="themeEditor.navbarBase.setCollapseMaxHeight(this.value);" value="340" min="1" step="1" />
+                                                                <input type="number" value="340" placeholder="340" min="1" step="1" data-cluckles-navbar="collapse-max-height" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1120,91 +1182,91 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setBorder(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="border" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setLinkColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="link-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Hover Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setLinkHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="link-hover-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Hover Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setLinkHoverBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="link-hover-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setLinkActiveColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="link-active-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setLinkActiveBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="link-active-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Disabled Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setLinkDisabledColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="link-disabled-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Disabled Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setLinkDisabledBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="link-disabled-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Brand Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setBrandColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="brand-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Brand Hover Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setBrandHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="brand-hover-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Brand Hover Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.default.setBrandHoverBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-default="brand-hover-bg" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1227,91 +1289,91 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setBorder(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="border" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setLinkColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="link-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Hover Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setLinkHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="link-hover-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Hover Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setLinkHoverBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="link-hover-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setLinkActiveColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="link-active-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setLinkActiveBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="link-active-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Disabled Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setLinkDisabledColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="link-disabled-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Disabled Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setLinkDisabledBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="link-disabled-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Brand Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setBrandColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="brand-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Brand Hover Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setBrandHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="brand-hover-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Brand Hover Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navbar.inverse.setBrandHoverBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-navbar-inverse="brand-hover-bg" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1348,49 +1410,49 @@
                                                     <td>Cell Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="8" min="0" step="1" onchange="themeEditor.table.setCellPadding(this.value);" />
+                                                        <input type="number" value="8" placeholder="8" min="0" step="1" data-cluckles-table="cell-padding" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Condensed Cell Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="5" min="0" step="1" onchange="themeEditor.table.setCondensedCellPadding(this.value);" />
+                                                        <input type="number" value="5" placeholder="5" min="0" step="1" data-cluckles-table="condensed-cell-padding" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.table.setBackground(this.value);" />
+                                                        <input type="color" data-cluckles-table="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Striped Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.table.setAccentBackground(this.value);" />
+                                                        <input type="color" data-cluckles-table="striped-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Hover Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.table.setHoverBackground(this.value);" />
+                                                        <input type="color" data-cluckles-table="hover-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.table.setActiveBackground(this.value);" />
+                                                        <input type="color" data-cluckles-table="active-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.table.setBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-table="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1424,21 +1486,21 @@
                                                     <td>Panel Footer Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.panelBase.setPanelFooterBackground(this.value);" />
+                                                        <input type="color" data-cluckles-panelbase="footer-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Panel Body Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" onchange="themeEditor.panelBase.setPanelBodyPadding(this.value);" value="15px" placeholder="15px" />
+                                                        <input type="number" value="15" placeholder="15" min="0" step="1" data-cluckles-panelbase="body-padding" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Panel Border Radius</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" onchange="themeEditor.panelBase.setPanelBorderRadius(this.value);" value="4px" placeholder="4px" />
+                                                        <input type="number" value="4" placeholder="4" min="0" step="1" data-cluckles-panelbase="border-radius" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1486,35 +1548,35 @@
                                                             <td>Link Padding</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="number" value="8" min="0" step="1" onchange="themeEditor.navs.setLinkPadding(this.value);" />
+                                                                <input type="number" value="8" placeholder="8" min="0" step="1" data-cluckles-nav="link-padding" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Hover Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navs.setLinkHoverBackground(this.value);" />
+                                                                <input type="color" data-cluckles-nav="link-hover-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Disabled Link Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navs.setLinkDisabledColor(this.value);" />
+                                                                <input type="color" data-cluckles-nav="link-disabled-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Disabled Link Hover Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navs.setLinkDisabledHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-nav="link-disabled-hover-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Open Link Hover Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.navs.setLinkOpenHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-nav="link-open-hover-color" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1537,49 +1599,49 @@
                                                             <td>Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.tabs.setBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-tab="border-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Hover Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.tabs.setLinkHoverBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-tab="link-hover-border-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.tabs.setLinkActiveHoverBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-tab="link-active-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.tabs.setLinkActiveHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-tab="link-active-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td>Link Active Hover Border Color</td>
+                                                            <td>Link Active Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.tabs.setLinkActiveHoverBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-tab="link-active-border-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Justified Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.tabs.setLinkJustifiedBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-tab="link-justified-border-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Justified Active Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.tabs.setLinkJustifiedActiveBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-tab="link-justified-active-border-color" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1602,21 +1664,21 @@
                                                             <td>Border Radius</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="number" onchange="themeEditor.pills.setBorderRadius(this.value);" value="4" min="1" step="1" />
+                                                                <input type="number" value="4" placeholder="4" min="1" step="1" data-cluckles-pill="border-radius" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Background Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pills.setLinkActiveHoverBackgroundColor(this.value);" />
+                                                                <input type="color" data-cluckles-pill="link-active-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Link Active Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pills.setLinkActiveHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-pill="link-active-color" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1653,63 +1715,63 @@
                                                     <td>Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setBackground(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="border" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Hover Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setHoverBackground(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="hover-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Heading Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setLinkHeadingColor(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="link-heading-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setLinkColor(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="link-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setActiveBackground(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="active-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Border</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setActiveBorder(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="active-border" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setActiveColor(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="active-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Text Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.listGroup.setActiveTextColor(this.value);" />
+                                                        <input type="color" data-cluckles-listgroup="active-text-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1743,70 +1805,70 @@
                                                     <td>Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setBackground(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Header Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setHeaderColor(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="header-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td>Border</td>
+                                                    <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setBorder(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Divider</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setDivider(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="divider" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setLinkColor(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="link-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Disabled Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setLinkDisabledColor(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="link-disabled-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Hover Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setLinkHoverBackground(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="link-hover-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Hover Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setLinkHoverColor(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="link-hover-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Active Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setLinkActiveBackground(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="link-active-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Link Active Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.dropdown.setLinkActiveColor(this.value);" />
+                                                        <input type="color" data-cluckles-dropdown="link-active-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -1852,84 +1914,84 @@
                                                             <td>Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Border</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="border-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Hover Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setHoverColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="hover-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Hover Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setHoverBackground(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="hover-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Hover Border</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setHoverBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="hover-border-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Active Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setActiveColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="active-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Active Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setActiveBackground(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="active-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Active Border</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setActiveBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="active-border" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Disabled Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setDisabledColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="disabled-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Disabled Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setDisabledBackground(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="disabled-bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Disabled Border</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pagination.setDisabledBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-pagination="disabled-border-color" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1952,49 +2014,42 @@
                                                             <td>Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pager.setBackground(this.value);" />
+                                                                <input type="color" data-cluckles-pager="bg" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Border Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pager.setBorderColor(this.value);" />
+                                                                <input type="color" data-cluckles-pager="border-color" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Border Radius</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="number" value="15" min="0" step="1" onchange="themeEditor.pager.setBorderRadius(this.value);" />
+                                                                <input type="number" value="15" placeholder="15" min="0" step="1" data-cluckles-pager="border-radius" />
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td>Hover Background</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pager.setHoverBackground(this.value);" />
+                                                                <input type="color" data-cluckles-pager="hover-bg" />
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>Active Color</td>
-                                                            <td></td>
-                                                            <td>
-                                                                <input type="color" onchange="themeEditor.pager.setActiveColor(this.value);" />
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Active Background</td>
-                                                            <td></td>
-                                                            <td>
-                                                                <input type="color" onchange="themeEditor.pager.setActiveBackground(this.value);" />
-                                                            </td>
-                                                        </tr>
+                                                        <!-- These arent Actually used by Bootstrap, just have variables for them :( -->
+                                                        <!--              <tr>
+                <td>Active Color</td><td></td><td><input type="color" data-cluckles-pager="active-color" /></td>
+              </tr>
+              <tr>
+                <td>Active Background</td><td></td><td><input type="color" data-cluckles-pager="active-bg" /></td>
+              </tr>-->
                                                         <tr>
                                                             <td>Disabled Color</td>
                                                             <td></td>
                                                             <td>
-                                                                <input type="color" onchange="themeEditor.pager.setDisabledColor(this.value);" />
+                                                                <input type="color" data-cluckles-pager="disabled-color" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -2031,27 +2086,30 @@
                                                     <td>Background</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.breadcrumbs.setBackground(this.value);" />
+                                                        <input type="color" data-cluckles-breadcrumb="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.breadcrumbs.setColor(this.value);" />
+                                                        <input type="color" data-cluckles-breadcrumb="color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.breadcrumbs.setActiveColor(this.value);" />
+                                                        <input type="color" data-cluckles-breadcrumb="active-color" />
                                                     </td>
                                                 </tr>
-                                                <!-- TODO: How .... :( ? -->
-                                                <!--          <tr>
-            <td>Seperator</td><td></td><td><input type="text" onchange="themeEditor.breadcrumbs.setSeperator(this.value);" placeholder="/" /></td>
-          </tr>-->
+                                                <tr>
+                                                    <td>Seperator</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <input type="text" data-cluckles-breadcrumb="separator" placeholder="/" />
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -2083,42 +2141,42 @@
                                                     <td>Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="4" min="0" step="1" onchange="themeEditor.thumbnail.setPadding(this.value);" />
+                                                        <input type="number" value="4" placeholder="4" min="0" step="1" data-cluckles-thumbnail="padding" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.thumbnail.setBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-thumbnail="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.thumbnail.setBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-thumbnail="border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Radius</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value="4" onchange="themeEditor.thumbnail.setBorderRadius(this.value);" />
+                                                        <input type="number" value="4" placeholder="4" min="0" step="1" data-cluckles-thumbnail="border-radius" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Caption Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.thumbnail.setCaptionColor(this.value);" />
+                                                        <input type="color" data-cluckles-thumbnail="caption-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Caption Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="9" min="0" step="1" onchange="themeEditor.thumbnail.setCaptionPadding(this.value);" />
+                                                        <input type="number" value="9" placeholder="9" min="0" step="1" data-cluckles-thumbnail="caption-padding" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2152,56 +2210,53 @@
                                                     <td>Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setColor(this.value);" />
+                                                        <input type="color" data-cluckles-label="color" />
                                                     </td>
                                                 </tr>
-                                                <tr>
-                                                    <td>Link Hover Color</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setLinkHoverColor(this.value);" />
-                                                    </td>
-                                                </tr>
+                                                <!-- This seems to not change. Work out why ->
+<!--          <tr>
+            <td>Link Hover Color</td><td></td><td><input type="color" data-cluckles-label="link-hover-color" /></td>
+          </tr>-->
                                                 <tr>
                                                     <td>Default Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setDefaultBackground(this.value);" />
+                                                        <input type="color" data-cluckles-label="default-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Primary Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setPrimaryBackground(this.value);" />
+                                                        <input type="color" data-cluckles-label="primary-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Success Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setSuccessBackground(this.value);" />
+                                                        <input type="color" data-cluckles-label="success-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Info Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setInfoBackground(this.value);" />
+                                                        <input type="color" data-cluckles-label="info-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Warning Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setWarningBackground(this.value);" />
+                                                        <input type="color" data-cluckles-label="warning-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Danger Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.labelBase.setDangerBackground(this.value);" />
+                                                        <input type="color" data-cluckles-label="danger-bg" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2235,7 +2290,7 @@
                                                     <td>Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.badge.setColor(this.value);" />
+                                                        <input type="color" data-cluckles-badge="color" />
                                                     </td>
                                                 </tr>
                                                 <!-- TODO: This is broken in Bootstrap it seems? will re enable when its fixed in Bootstrap -->
@@ -2246,42 +2301,42 @@
                                                     <td>Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.badge.setBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-badge="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.badge.setActiveColor(this.value);" />
+                                                        <input type="color" data-cluckles-badge="active-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Active Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.badge.setActiveBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-badge="active-bg-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Line Height</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="1" min="0" step="1" placeholder="normal" onchange="themeEditor.badge.setLineHeight(this.value);" />
+                                                        <input type="number" value="1" placeholder="1" min="0" step="1" data-cluckles-badge="line-height" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Font Weight</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value="normal" placeholder="normal" onchange="themeEditor.badge.setFontWeight(this.value);" />
+                                                        <input type="text" value="normal" placeholder="normal" data-cluckles-badge="font-weight" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Radius</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value="10" onchange="themeEditor.badge.setBorderRadius(this.value);" />
+                                                        <input type="number" value="10" placeholder="10" min="0" step="1" data-cluckles-badge="border-radius" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2315,42 +2370,42 @@
                                                     <td>Max Width</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="200" min="50" step="1" onchange="themeEditor.tooltip.setMaxWidth(this.value);" />
+                                                        <input type="number" value="200" placeholder="200" min="50" step="1" data-cluckles-tooltip="max-width" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.tooltip.setColor(this.value);" />
+                                                        <input type="color" data-cluckles-tooltip="color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.tooltip.setBackground(this.value);" />
+                                                        <input type="color" data-cluckles-tooltip="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Opacity</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" placeholder=".9" value=".9" onchange="themeEditor.tooltip.setOpacity(this.value);" />
+                                                        <input type="number" value="0.9" placeholder="0.9" min="0" step="0.1" data-cluckles-tooltip="opacity" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Arrow Width</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="5" min="0" step="1" onchange="themeEditor.tooltip.setArrowWidth(this.value);" />
+                                                        <input type="number" value="5" placeholder="5" min="0" step="1" data-cluckles-tooltip="arrow-width" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Arrow Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.tooltip.setArrowColor(this.value);" />
+                                                        <input type="color" data-cluckles-tooltip="arrow-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2384,63 +2439,63 @@
                                                     <td>Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.popover.setBackground(this.value);" />
+                                                        <input type="color" data-cluckles-popover="bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Max Width</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="200" min="50" step="1" onchange="themeEditor.popover.setMaxWidth(this.value);" />
+                                                        <input type="number" value="200" placeholder="200" min="50" step="1" data-cluckles-popover="max-width" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.popover.setBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-popover="border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Fallback Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.popover.setFallbackBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-popover="fallback-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Title Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.popover.setTitleBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-popover="title-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Arrow Width</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="10" min="0" step="1" onchange="themeEditor.popover.setArrowWidth(this.value);" />
+                                                        <input type="number" value="10" placeholder="10" min="0" step="1" data-cluckles-popover="arrow-width" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Arrow Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.popover.setArrowColor(this.value);" />
+                                                        <input type="color" data-cluckles-popover="arrow-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Arrow Outer Width</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="11" min="0" step="1" onchange="themeEditor.popover.setArrowOuterWidth(this.value);" />
+                                                        <input type="number" value="11" placeholder="11" min="0" step="1" data-cluckles-popover="arrow-outer-width" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Arrow Outer Fallback Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.popover.setArrowOuterFallbackColor(this.value);" />
+                                                        <input type="color" data-cluckles-popover="arrow-outer-fallback-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2474,49 +2529,49 @@
                                                     <td>Control Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.carousel.setControlColor(this.value);" />
+                                                        <input type="color" data-cluckles-carousel="control-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Control Width</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value="15" placeholder="15" onchange="themeEditor.carousel.setControlWidth(this.value);" />
+                                                        <input type="number" value="15" placeholder="15" min="0" step="1" data-cluckles-carousel="control-width" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Control Opacity</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value=".5" placeholder=".5" onchange="themeEditor.carousel.setControlOpacity(this.value);" />
+                                                        <input type="number" value="0.5" placeholder="0.5" min="0" step="0.1" data-cluckles-carousel="control-opacity" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Control Font Size</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="20" min="12" step="1" onchange="themeEditor.carousel.setControlFontSize(this.value);" />
+                                                        <input type="number" value="20" placeholder="20" min="12" step="1" data-cluckles-carousel="control-font-size" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Indicator Active Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.carousel.setIndicatorActiveBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-carousel="indicator-active-bg-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Indicator Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.carousel.setIndicatorBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-carousel="indicator-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Caption Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.carousel.setCaptionColor(this.value);" />
+                                                        <input type="color" data-cluckles-carousel="caption-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2550,70 +2605,70 @@
                                                     <td>Inner Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="20" min="0" step="1" onchange="themeEditor.modal.setInnerPadding(this.value);" />
+                                                        <input type="number" value="20" placeholder="20" min="0" step="1" data-cluckles-modal="inner-padding" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Title Padding</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="15" min="0" step="1" onchange="themeEditor.modal.setTitlePadding(this.value);" />
+                                                        <input type="number" value="15" placeholder="15" min="0" step="1" data-cluckles-modal="title-padding" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Title Line Height</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="15" min="0" step="1" onchange="themeEditor.modal.setTitleLineHeight(this.value);" />
+                                                        <input type="number" value="15" placeholder="15" min="0" step="1" data-cluckles-modal="title-line-height" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Content Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.modal.setContentBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-modal="content-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Content Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.modal.setContentBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-modal="content-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Content Fallback Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.modal.setContentFallbackBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-modal="content-fallback-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Backdrop Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.modal.setBackdropBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-modal="backdrop-bg" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Backdrop Opacity</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" placeholder=".5" value=".5" onchange="themeEditor.modal.setBackdropOpacity(this.value);" />
+                                                        <input type="number" value="0.5" placeholder="0.5" min="0" step="0.1" data-cluckles-modal="backdrop-opacity" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Header Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.modal.setHeaderBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-modal="header-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Footer Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.modal.setFooterBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-modal="footer-border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2647,56 +2702,56 @@
                                                     <td>Code Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.code.setCodeColor(this.value);" />
+                                                        <input type="color" data-cluckles-code="code-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Code Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.code.setCodeBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-code="code-bg-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Kbd Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.code.setKbdColor(this.value);" />
+                                                        <input type="color" data-cluckles-code="kbd-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Kbd Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.code.setKbdBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-code="kbd-bg-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Pre Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.code.setPreColor(this.value);" />
+                                                        <input type="color" data-cluckles-code="pre-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Pre Background Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.code.setPreBackgroundColor(this.value);" />
+                                                        <input type="color" data-cluckles-code="pre-bg-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Pre Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.code.setPreBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-code="pre-border-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Pre Scrollable Max Height</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="text" value="340" placeholder="340" onchange="themeEditor.code.setPreScrollableMaxHeight(this.value);" />
+                                                        <input type="number" value="340" placeholder="340" min="100" step="10" data-cluckles-code="pre-scrollable-max-height" />
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -2730,21 +2785,21 @@
                                                     <td>Small Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.blockquote.setSmallColor(this.value);" />
+                                                        <input type="color" data-cluckles-blockquote="small-color" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Font Size</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="number" value="21" min="12" step="1" onchange="themeEditor.blockquote.setFontSize(this.value);" />
+                                                        <input type="number" value="21" placeholder="21" min="12" step="1" data-cluckles-blockquote="font-size" />
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Border Color</td>
                                                     <td></td>
                                                     <td>
-                                                        <input type="color" onchange="themeEditor.blockquote.setBorderColor(this.value);" />
+                                                        <input type="color" data-cluckles-blockquote="border-color" />
                                                     </td>
                                                 </tr>
                                             </tbody>
