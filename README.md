@@ -108,7 +108,7 @@ jekyll --serve --base-url=
 Then go to the browser and go to the url:  
 `http://localhost:4000`
 
-## Theme Editor Options
+## Cluckles Editor Options
 
 There are options that can be provided when a Cluckles instance is created and are as follows:
 
