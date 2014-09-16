@@ -8,6 +8,41 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.5.0]
+
+- [ClucklesEditor] Added Scope option, prefixes CSS with scope selector
+- [themeModifier] Handling unit suffix, added unit to API methods, suffixUnit flag to apply suffix to value
+- [License] Changed Cluckes to MIT License!
+- [Src] Improved Consistency with API and JSDocs
+- [ThemeModifier] Added loadModifiers method to load them modifiers into the component
+- [Src] Custom theme.less to remove extra btn-default styles
+- [ClucklesEditor] Added components array, to contain all the component editor instances.
+- [Import.js] Added import.js to handle importing (moved parseThemeFile to import.js)
+- [CluckesEditor] Improved JSDocs in export.js
+- [Docs] Added docs.css
+- [Example] Moved example.css to css dir, copying to docs assets folder
+- [Example] Moved Tooltip/popover fix in JS file, using in docs aswell
+- [Docs/Example] Added Flattr support, improved donation information
+- [Docs] Fixed navbar collapse, no fork ribbon on small/xs screen size
+- [Editor] Renamed ThemeEditor to CluckledEditor
+- [ThemeEditor] Changed bsThemeEditor.js to cluckles.js
+- [Src] Improved concatenation, stopped window polution
+- [Example] Non-pluralised Example/Editor files
+- [ThemeEditor] Lowercases/non pluralised JS files
+- [Example] Improved download panel information
+- [Example] Changed some inputs to numbers, and added placeholders and limits
+- [Variables] Added @brand-default related vars for consistency
+- [ThemeEditor] Added TWDB to the JS editor files.
+- [Example] Removed Pager Active Color/Background from editor. Unused by Bootstrap.
+- [Example] Added Default Branding/Formstate support
+- [Example] Added Button Hover Border Color support
+- [Example] Changed Editor templates to use Two way data binding
+- [label.js] Renamed label-base.js to label.js
+- [theme-modifier] Added Two Way Data binding
+- [Docs] Added Page Header and Headings Small color in theme files
+- [typography] Added Headings Small, Text muted, abbr border color support
+- [misc.js] Added Page Header Border Color support
+
 ## [0.4.0]
 
 - [Docs] Configured Google (Universal) Analytics
