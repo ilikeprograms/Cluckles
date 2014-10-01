@@ -183,7 +183,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 #### Example
 
-```javascript
+```html
 <!-- Load our Fancy live editing Cluckles -->
 <script src="../cluckles-0.4.0.js"></script>
 <script>
