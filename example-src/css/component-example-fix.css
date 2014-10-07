@@ -1,9 +1,4 @@
-body {
-    padding-bottom: 30px;
-    padding-top: 70px;
-}
-
-.theme-dropdown .dropdown-menu {
+#example-dropdown .dropdown-menu {
     position: static;
     display: block;
     margin-bottom: 20px;
@@ -13,7 +8,7 @@ body {
     margin: 5px 0;
 }
 
-.example-modal-panel .example-modal {
+#example-modal-panel .example-modal {
     position: relative;
     top: auto;
     right: auto;
@@ -21,4 +16,8 @@ body {
     left: auto;
     z-index: 1;
     display: block;
+}
+
+#example-modal-panel .modal-dialog {
+    left: inherit;
 }
