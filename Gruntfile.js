@@ -174,7 +174,6 @@ module.exports = function (grunt) {
                     },
                     
                     // Copy the Example files
-                    {src: "<%= examplesrc %>/css/example.css", dest: 'docs/assets/css/example.css'},
                     {src: "<%= examplesrc %>/css/component-example-fix.css", dest: 'docs/assets/css/component-example-fix.css' },
                     {src: "<%= examplesrc %>/js/component-example-fix.js", dest: 'docs/assets/js/component-example-fix.js'},
                     {src: "build/example/component.html", dest: 'docs/_includes/component.html'},
@@ -302,7 +301,6 @@ module.exports = function (grunt) {
                     
                     styles: {
                         example: [
-                            'build/example/css/example.css'
                             'build/example/css/component-example-fix.css'
                         ]
                     },
