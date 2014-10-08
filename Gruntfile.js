@@ -144,7 +144,6 @@ module.exports = function (grunt) {
 					
 					// Bootstrap less files
 					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'build/less', filter: 'isFile'},
-					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'build/less', filter: 'isFile'},
 					{expand: true, src: ['bower_components/bootstrap/fonts/*'], flatten: true, dest: 'build/fonts', filter: 'isFile'},
                     
                     // Custom Bootstrap variables file
