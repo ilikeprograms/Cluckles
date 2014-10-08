@@ -177,8 +177,9 @@
 
         // Provide less with the postProcessor callback we want to executre
         less.postProcessor = function (css) {
-            // Generate a Download blob from the Compiled CSS
+            // Generate/Regenerate both of the Download button Blob contents
             this.export.generateCssBlob(css);
+            this.export.generateJsonBlob();
             
             // If the Scope option was provided, we want to prefix all the
             // CSS selectors with our scope, so the theme changes are only
@@ -373,7 +374,6 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.applyModifications = function () {
-        this.export.generateJsonBlob();
         this.lessGlobal.modifyVars(this.getModifiers());
     };
 
