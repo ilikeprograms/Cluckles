@@ -62,6 +62,20 @@
             }, componentModifiers);            
         }, this);
     };
+    
+    /**
+     * Resets all of the Modifiers that this classes stores.
+     *  
+     * @returns {undefined}
+     */
+    ThemeModifier.prototype.resetModifiers = function() {
+        var componentModifiers = this.modifiers;
+
+        // Itterate over each component modifer name
+        Object.keys(componentModifiers).forEach(function (componentModifierName) {
+           this[componentModifierName].value = null;
+        }, componentModifiers);
+    };
 
     /**
      * Configured the Two Way Databinding for the modifiers, which includes
