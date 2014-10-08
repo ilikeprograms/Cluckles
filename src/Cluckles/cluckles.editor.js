@@ -373,8 +373,13 @@
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.applyModifications = function () {
-        this.lessGlobal.modifyVars(this.getModifiers());
+    ClucklesEditor.prototype.applyModifications = function (modifications) {
+        // Allow the function to accept custom modifications
+        var modifiers = modifications || this.getModifiers();
+
+        // Now apply the Modifications to the Theme
+        this.lessGlobal.modifyVars(modifiers);
+    };
     };
 
     window.ClucklesEditor = ClucklesEditor;
