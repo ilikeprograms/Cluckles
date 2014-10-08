@@ -25,7 +25,7 @@
 
         // Define the Modifiers
         this.componentBaseBg = {
-            variable: '         @state-base-bg',
+            variable:           '@state-base-bg',
             subscribeProperty:  'component-base-bg',
             changeFn:           this.setComponentBaseBackgroundColor.bind(this),
             subscribers:        [],
