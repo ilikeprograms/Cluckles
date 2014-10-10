@@ -109,7 +109,10 @@
                         var unit = 'px'; // Default unit to append (px, em, rem, etc)
 
                         // If this property requires a suffix unit
-                        if (this.suffixUnit) {
+                        // val !== NULL makes sure we can set _value to null,
+                        // but stops _value being set to null + unit
+                        // without this the theme breaks after being reset
+                        if (val !== null && this.suffixUnit) {
                             // Store the raw value
                             this._rawValue = val;
 
