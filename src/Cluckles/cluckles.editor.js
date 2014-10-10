@@ -380,6 +380,25 @@
         // Now apply the Modifications to the Theme
         this.lessGlobal.modifyVars(modifiers);
     };
+    
+    /**
+     * Reset all of the Components and their Subscribers.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetComponents = function () {
+        // Disable modification queuing
+        this.refreshMonitor.readyState = 1;
+
+        this.components.forEach(function (component) {
+            if (component instanceof ThemeModifier) {
+                component.resetModifiers();
+            }
+        });
+
+        // Allow modification queuing
+        this.refreshMonitor.readyState = 0;
+    };
     };
 
     window.ClucklesEditor = ClucklesEditor;
