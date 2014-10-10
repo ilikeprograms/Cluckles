@@ -13,8 +13,9 @@
      * @returns {Import}
      */
     var Import = function (editor, options) {
-        this.editor     = editor;
-        this.options    = options;
+        this.editor         = editor;
+        this.options        = options;
+        this.themeModifiers = {};
 
         if (options !== undefined) {
             // If the theme.src option was provided
@@ -26,7 +27,7 @@
     };
 
     /**
-     * Prases a theme.json file located at the themeURL, by default uses "GET" as the method.
+     * Parses a theme.json file located at the themeURL, by default uses "GET" as the method.
      * 
      * @param {string} themeUrl The url to locate the theme.json file and download the content.
      * 
@@ -48,11 +49,14 @@
         // When the File has loaded succesfully
         themeXHR.onreadystatechange = function () {
             if (themeXHR.readyState === 4 && themeXHR.status === 200) {
-                // Store the modifiers
-                this.editor.modifiers = JSON.parse(themeXHR.responseText);
+                // Store the Theme Modifiers
+                this.themeModifiers = JSON.parse(themeXHR.responseText);
+
+                // Update the editor with the modifiers
+                this.editor.modifiers = this.themeModifiers;
 
                 // Now load the modifiers into each component
-                this.loadComponentModifiers(this.editor.modifiers);
+                this.loadComponentModifiers(this.themeModifiers);
             }
         }.bind(this);
 
