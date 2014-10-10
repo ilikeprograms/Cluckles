@@ -380,6 +380,24 @@
         // Now apply the Modifications to the Theme
         this.lessGlobal.modifyVars(modifiers);
     };
+
+    /**
+     * Resets the current Theme to the Bootstrap default (or whatever .less file the browser
+     * has loaded e.g. <link type="text/css" href="../less/bootstrap.less" rel="stylesheet/less" />)
+     * including any modifications which have been stored, and resets the editor inputs.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetToDefault = function () {
+        // Remove all stored modifications
+        this.modifiers = {};
+
+        // Reset all the Components
+        this.resetComponents();   
+
+        // Now make less modify blank changes, resetting the Theme
+        this.applyModifications({});
+    };
     
     /**
      * Reset all of the Components and their Subscribers.
