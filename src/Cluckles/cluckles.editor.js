@@ -398,6 +398,31 @@
         // Now make less modify blank changes, resetting the Theme
         this.applyModifications({});
     };
+
+
+    /**
+     * Resets the current Theme to the Theme which was imported by providing the
+     * theme.src option (including resetting the components/subscribers).
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetToTheme = function () {
+        // Reset to the Defaults, so we dont get weird hangover between the theme
+        // and new modifications
+        this.resetToDefault();
+
+        // Disable modification queuing
+        this.refreshMonitor.readyState = 1;
+
+        // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
+        this.import.loadComponentModifiers(this.import.themeModifiers);
+
+        // Allow modification queuing
+        this.refreshMonitor.readyState = 0;
+
+        // Now apply the theme modifiers which were reset to the theme
+        this.applyModifications();
+    };
     
     /**
      * Reset all of the Components and their Subscribers.
