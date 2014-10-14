@@ -54,12 +54,12 @@
         /**
          * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
          * 
-         * @property readyState {Number} Tracks whether or not another refresh can be performed. (0 = ready, 1 = on delaying).
+         * @property canRefresh {Boolean} Tracks whether or not another refresh can be performed. (true = can refresh, false = cant refresh).
          * @property delay {Number} Milliseconds delay between refresh updates (Default: 750).
          */
         this.refreshMonitor     = {
-            readyState: 0,
-            delay: options.delay || 750
+            canRefresh: true,
+            delay:      options.delay || 750
         };
 
         this.misc               = new Misc(this);
@@ -175,7 +175,7 @@
     ClucklesEditor.prototype.setupPostProcessor = function (less) {
         var cssSelectorRegex = /((?:[#.][\w->:.\s]+)+)(?=[,\{])/mg;
 
-        // Provide less with the postProcessor callback we want to executre
+        // Provide less with the postProcessor callback we want to execute
         less.postProcessor = function (css) {
             // Generate/Regenerate both of the Download button Blob contents
             this.export.generateCssBlob(css);
@@ -353,16 +353,16 @@
      */
     ClucklesEditor.prototype.queueModifications = function () {
         // If an update is allowed right now, apply the modifications
-        if (this.refreshMonitor.readyState === 0) {
+        if (this.refreshMonitor.canRefresh === true) {
             this.applyModifications();
             
             // Set the state to not ready for more updates yet
-            this.refreshMonitor.readyState = 1;
+            this.refreshMonitor.canRefresh = false;
             
             // Set a timeout to allow updated again after x time (refreshMonitor.rate)
             // and apply the modifications that were pending
             setTimeout(function () {
-                this.refreshMonitor.readyState = 0;
+                this.refreshMonitor.canRefresh = true;
                 this.applyModifications();
             }.bind(this), this.refreshMonitor.delay);
         }
@@ -393,7 +393,7 @@
         this.modifiers = {};
 
         // Reset all the Components
-        this.resetComponents();   
+        this.resetComponents(); 
 
         // Now make less modify blank changes, resetting the Theme
         this.applyModifications({});
@@ -412,16 +412,16 @@
         this.resetToDefault();
 
         // Disable modification queuing
-        this.refreshMonitor.readyState = 1;
+        this.refreshMonitor.canRefresh = false;
 
         // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
         this.import.loadComponentModifiers(this.import.themeModifiers);
 
-        // Allow modification queuing
-        this.refreshMonitor.readyState = 0;
-
         // Now apply the theme modifiers which were reset to the theme
         this.applyModifications();
+
+        // Allow modification queuing
+        this.refreshMonitor.canRefresh = true;
     };
     
     /**
@@ -431,7 +431,7 @@
      */
     ClucklesEditor.prototype.resetComponents = function () {
         // Disable modification queuing
-        this.refreshMonitor.readyState = 1;
+        this.refreshMonitor.canRefresh = false;
 
         this.components.forEach(function (component) {
             if (component instanceof ThemeModifier) {
@@ -440,7 +440,7 @@
         });
 
         // Allow modification queuing
-        this.refreshMonitor.readyState = 0;
+        this.refreshMonitor.canRefresh = true;
     };
     };
 
