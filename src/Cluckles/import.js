@@ -24,6 +24,8 @@
                 this.parseThemeFile(options.src);
             }
         }
+        
+        this.setupFileImport();
     };
 
     /**
@@ -81,4 +83,48 @@
                 component.loadModifiers(modifiers);
             }
         });
+    };
+    
+    /**
+     * Binds the Events to Setup a File import, to import theme modifications from a
+     * json file. Will only bind to file inputs, and import json files.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.setupFileImport = function () {
+        var importInput = document.querySelector('*[data-cluckles-options="import"]');
+        
+        // If we can find an <input type="file" />
+        if (importInput && importInput.type === 'file') {
+            // Bind the change event so we know when a file was selected
+            importInput.addEventListener('change', function (e) {
+                var file = e.target.files[0],
+                    reader = new FileReader();
+
+                // If no file was chosen, dont try to read undefined,
+                // or a json file was not selected
+                if (!file || file.type !== 'application/json') {
+                    alert('Please Select a JSON file (like one exported from Cluckles)');
+                    return;
+                }
+
+                // Setup the File reader, so it will import the json file's modifiers
+                reader.onload = function (evt) {
+                    try {
+                        // Parse the modifiers and load them into the components
+                        var modifiers = JSON.parse(evt.target.result);
+                        this.loadComponentModifiers(modifiers);
+
+                        // Reset the file input
+                        importInput.value = '';
+                    } catch (e) {
+                        // Catch invalid JSON errors
+                        throw Error('ClucklesEditor.import.setupImport: Could not parse imported File');
+                    }
+                }.bind(this);
+
+                // Attempt to read the file's text contents
+                reader.readAsText(file);
+            }.bind(this), false);
+        }
     };
