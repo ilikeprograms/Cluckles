@@ -340,7 +340,12 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-html-build');
 
     // Register the "default" Task
-	grunt.registerTask("default", ["concat", "jshint", "uglify", "copy", "htmlbuild:components", "htmlbuild:editor", "htmlbuild:build", "express", "open", "watch"]);
+    grunt.registerTask("js", ["concat", "jshint", "uglify", "copy"]);
+    grunt.registerTask("html", ["htmlbuild:components", "htmlbuild:editor", "htmlbuild:build"]);
+    grunt.registerTask("host", ["express", "open", "watch"]);
 
-    grunt.registerTask("docs", ["concat", "jshint", "uglify", "copy:docs"]);
+    grunt.registerTask("docs", ["js", "html", "copy:docs"]);
+    grunt.registerTask("copyDocs", ["copy:docs"]);
+
+	grunt.registerTask("default", ["js", "html", "host"]);
 };
