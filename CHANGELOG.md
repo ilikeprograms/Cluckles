@@ -8,6 +8,35 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.6.0]
+
+- [Docs] Updated Theme
+- [Docs/Readme] Added Bower info
+- [Docs] Using CDN for Font Awesome to 4.2.0
+- [Example] Added `scope` option to example Cluckles usage
+- [Options] Added `undoSize` options to control Undo History size.
+- [JShint] Added alert/FileReader globals as they are used.
+- [ClucklesEditor] Improved PostProcessor Regex to include a/ul/li/body/h* small
+- [Grunt] Split Grunt Tasks into Modular tasks
+- [Example] Added Toolbar template, with buttons to perform Reset/ResetToTheme/Undo/Redo
+- [ClucklesEditor] Added automatic Undo/Redo functionality
+- [ClucklesEditor] Changed readyState to canRefresh and changed to Boolean type
+- [import.js] Added File import to import modifiers from json files
+- [ThemeModifier] Added `val !== null` check in `setupDataBinding`, this makes sure we don't have a null value with a suffix. Which would cause less compilation issues.
+- [ClucklesEditor] Added `resetToTheme` method to reset cluckles with the modifiers in provided by the theme.src option
+- [ClucklesEditor] Added `resetToDefault` method to reset cluckles to default bootstrap
+- [ClucklesEditor] Added `resetComponents` method to reset all components and subscribers
+- [Import.js] Storing theme modifiers in `themeModifiers` on parsing theme from options
+- [ClucklesEditor] Allowing `applyModifications` to accept custom modifications as a param
+- [ClucklesEditor] Moved generateJsonBlob to postProcessor callback
+- [ThemeModifier] Added `resetModifiers` method to reset all the component variables and subscribers
+- [Misc] Fixed `@state-base-bg` variable property
+- [Grunt] Removed Duplicate copy line
+- [Components] Made dropdown/modal use specific ID's, so they fix will apply even when chuckles scope option is used
+- [CSS] Removed redundant docs/example.css
+- [Example] Changed to navbar-fixed-top, makes example.css redundant
+- [CSS] Moved Example fix css to component-example-fix.css, changed classes to IDs for specificity
+
 ## [0.5.0]
 
 - [ClucklesEditor] Added Scope option, prefixes CSS with scope selector

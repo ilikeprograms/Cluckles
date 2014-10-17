@@ -1106,6 +1106,33 @@
 
             <!-- Controls Column -->
             <div class='col-md-3'>
+                <div class="row">
+                    <!-- Options Panel -->
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3>Options</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="btn-toolbar" role="toolbar">
+                                <div class="btn btn-group btn-group-xs">
+                                    <button type="button" class="btn btn-danger" data-cluckles-options="reset"><i class="fa fa-trash-o"></i> Reset</button>
+                                    <button type="button" class="btn btn-default" data-cluckles-options="reset-theme"><i class="fa fa-paint-brush"></i> Reset Theme</button>
+                                </div>
+
+                                <div class="btn btn-group btn-group-xs">
+                                    <button type="button" class="btn btn-default" data-cluckles-options="undo"><i class="fa fa-undo"></i> Undo</button>
+                                    <button type="button" class="btn btn-default" data-cluckles-options="redo"><i class="fa fa-repeat"></i> Redo</button>
+                                </div>
+                            </div>
+
+                            <input type="file" class="btn btn-default" data-cluckles-options="import" />
+                        </div>
+                    </div>
+                    <!-- /Options Panel -->
+
+                    <!-- /Options Toolbar -->
+                </div>
+
                 <!-- Download Row -->
                 <div class="row">
                     <!-- Download Panel -->
@@ -3999,7 +4026,7 @@
 
 
     <!-- Load our Fancy live editing ThemeEditor -->
-    <script src="../cluckles-0.5.0.js"></script>
+    <script src="../cluckles-0.6.0.js"></script>
 
     <script src="js/component-example-fix.js"></script>
     <script>

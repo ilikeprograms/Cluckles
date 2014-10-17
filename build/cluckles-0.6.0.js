@@ -1,5 +1,5 @@
 /*!
- * Cluckles 0.5.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
+ * Cluckles 0.6.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
  * http://cluckles.com
  * 
  * Copyright 2014 Thomas Coleman <tom@ilikeprograms.com>
@@ -51,6 +51,9 @@
      * @returns {undefined}
      */
     ThemeModifier.prototype.loadModifiers = function (importModifiers) {
+        // Make sure we have Modifiers to import
+        if (importModifiers === undefined) { return; }
+
         var modifierNames = Object.keys(importModifiers);
 
         // Itterate over each importModifier name
@@ -69,6 +72,20 @@
                 }
             }, componentModifiers);            
         }, this);
+    };
+    
+    /**
+     * Resets all of the Modifiers that this classes stores.
+     *  
+     * @returns {undefined}
+     */
+    ThemeModifier.prototype.resetModifiers = function() {
+        var componentModifiers = this.modifiers;
+
+        // Itterate over each component modifer name
+        Object.keys(componentModifiers).forEach(function (componentModifierName) {
+           this[componentModifierName].value = null;
+        }, componentModifiers);
     };
 
     /**
@@ -103,7 +120,10 @@
                         var unit = 'px'; // Default unit to append (px, em, rem, etc)
 
                         // If this property requires a suffix unit
-                        if (this.suffixUnit) {
+                        // val !== NULL makes sure we can set _value to null,
+                        // but stops _value being set to null + unit
+                        // without this the theme breaks after being reset
+                        if (val !== null && this.suffixUnit) {
                             // Store the raw value
                             this._rawValue = val;
 
@@ -122,6 +142,13 @@
 
                         // Queue the modifications to be applied by less
                         editor.queueModifications();
+
+                        // If a value is provided
+                        if (val !== null) {
+                            // We want to store the current cluckles modifiers 
+                            // in the undoStack, so it can be reversed later
+                            editor.pushUndoStack();
+                        }
 
                         // Notify each of the Subscribers of the value change
                         this.subscribers.forEach(function (subscriber) {
@@ -545,7 +572,7 @@
 
         // Define the Modifiers
         this.componentBaseBg = {
-            variable: '         @state-base-bg',
+            variable:           '@state-base-bg',
             subscribeProperty:  'component-base-bg',
             changeFn:           this.setComponentBaseBackgroundColor.bind(this),
             subscribers:        [],
@@ -7235,8 +7262,9 @@
      * @returns {Import}
      */
     var Import = function (editor, options) {
-        this.editor     = editor;
-        this.options    = options;
+        this.editor         = editor;
+        this.options        = options;
+        this.themeModifiers = {};
 
         if (options !== undefined) {
             // If the theme.src option was provided
@@ -7245,10 +7273,12 @@
                 this.parseThemeFile(options.src);
             }
         }
+        
+        this.setupFileImport();
     };
 
     /**
-     * Prases a theme.json file located at the themeURL, by default uses "GET" as the method.
+     * Parses a theme.json file located at the themeURL, by default uses "GET" as the method.
      * 
      * @param {string} themeUrl The url to locate the theme.json file and download the content.
      * 
@@ -7270,11 +7300,20 @@
         // When the File has loaded succesfully
         themeXHR.onreadystatechange = function () {
             if (themeXHR.readyState === 4 && themeXHR.status === 200) {
-                // Store the modifiers
-                this.editor.modifiers = JSON.parse(themeXHR.responseText);
+                // Store the Theme Modifiers
+                this.themeModifiers = JSON.parse(themeXHR.responseText);
+
+                // Update the editor with the modifiers
+                this.editor.modifiers = this.themeModifiers;
+
+                // Dont allow the import to be undo'd
+                this.editor.canTrackUndo = false;
 
                 // Now load the modifiers into each component
-                this.loadComponentModifiers(this.editor.modifiers);
+                this.loadComponentModifiers(this.themeModifiers);
+
+                // Now allow undo's to be tracked
+                this.editor.canTrackUndo = true;
             }
         }.bind(this);
 
@@ -7300,6 +7339,50 @@
             }
         });
     };
+    
+    /**
+     * Binds the Events to Setup a File import, to import theme modifications from a
+     * json file. Will only bind to file inputs, and import json files.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.setupFileImport = function () {
+        var importInput = document.querySelector('*[data-cluckles-options="import"]');
+        
+        // If we can find an <input type="file" />
+        if (importInput && importInput.type === 'file') {
+            // Bind the change event so we know when a file was selected
+            importInput.addEventListener('change', function (e) {
+                var file = e.target.files[0],
+                    reader = new FileReader();
+
+                // If no file was chosen, dont try to read undefined,
+                // or a json file was not selected
+                if (!file || file.type !== 'application/json') {
+                    alert('Please Select a JSON file (like one exported from Cluckles)');
+                    return;
+                }
+
+                // Setup the File reader, so it will import the json file's modifiers
+                reader.onload = function (evt) {
+                    try {
+                        // Parse the modifiers and load them into the components
+                        var modifiers = JSON.parse(evt.target.result);
+                        this.loadComponentModifiers(modifiers);
+
+                        // Reset the file input
+                        importInput.value = '';
+                    } catch (e) {
+                        // Catch invalid JSON errors
+                        throw Error('ClucklesEditor.import.setupImport: Could not parse imported File');
+                    }
+                }.bind(this);
+
+                // Attempt to read the file's text contents
+                reader.readAsText(file);
+            }.bind(this), false);
+        }
+    };
 
     /**
      * ClucklesEditor class holds the modifications to the less theme using sub classes
@@ -7310,8 +7393,9 @@
      * @class ClucklesEditor
      * 
      * Generic Options:
-     * - scope: {string} The CSS Selector to prefix the Compiled CSS selectors with.
-     * - delay: {Number} Milliseconds delay between refresh updates (Default: 750).
+     * - scope:     {string} The CSS Selector to prefix the Compiled CSS selectors with.
+     * - delay:     {Number} Milliseconds delay between refresh updates (Default: 750).
+     * - undoSize:  {Number} Number of items to keep in the Undo history (Default: 10)
      * 
      * @param {Object} less The Global less object.
      * 
@@ -7357,12 +7441,12 @@
         /**
          * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
          * 
-         * @property readyState {Number} Tracks whether or not another refresh can be performed. (0 = ready, 1 = on delaying).
+         * @property canRefresh {Boolean} Tracks whether or not another refresh can be performed. (true = can refresh, false = cant refresh).
          * @property delay {Number} Milliseconds delay between refresh updates (Default: 750).
          */
         this.refreshMonitor     = {
-            readyState: 0,
-            delay: options.delay || 750
+            canRefresh: true,
+            delay:      options.delay || 750
         };
 
         this.misc               = new Misc(this);
@@ -7459,13 +7543,33 @@
         ];
 
         // All modifier vars
-        this.modifiers = {};
+        this.modifiers      = {};
+        
+        // Undo/Redo stacks
+        this.undoButton     = document.querySelector('*[data-cluckles-options="undo"]');
+        this.redoButton     = document.querySelector('*[data-cluckles-options="redo"]');
+        this.undoStack      = [];
+        this.redoStack      = [];
+        this.canTrackUndo  = true;
 
-        this.export             = new Export(this, options.export);
-        this.import             = new Import(this, options.theme);
+        // Import/Export Management
+        this.export         = new Export(this, options.export);
+        this.import         = new Import(this, options.theme);
 
         // Configure the Post Processor for when Less finished Processing Changes to the Theme
         this.setupPostProcessor(this.lessGlobal);
+
+        // Configure the Options toolbar
+        this.setupToolbar();
+        
+        // Disable the Undo and Redo buttons by default (will re enable when something is changed)
+        if (this.undoButton) {
+            this.undoButton.setAttribute('disabled', 'disabled');
+        }
+
+        if (this.redoButton) {
+            this.redoButton.setAttribute('disabled', 'disabled');
+        }
     };
     
     /**
@@ -7476,19 +7580,29 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.setupPostProcessor = function (less) {
-        var cssSelectorRegex = /((?:[#.][\w->:.\s]+)+)(?=[,\{])/mg;
+        var cssSelectorRegex = /((?:(?:[#.]|(?:^\w{0}a(?!\w)|ul|li))[\w->:.\s]+)+)(?=[,\{])/mg,
+            prefixedCss;
 
-        // Provide less with the postProcessor callback we want to executre
+        // Provide less with the postProcessor callback we want to execute
         less.postProcessor = function (css) {
-            // Generate a Download blob from the Compiled CSS
+            // Generate/Regenerate both of the Download button Blob contents
             this.export.generateCssBlob(css);
+            this.export.generateJsonBlob();
             
             // If the Scope option was provided, we want to prefix all the
             // CSS selectors with our scope, so the theme changes are only
             // applied to the DOMElement we choose and its children
             if (this.options.hasOwnProperty('scope')) {
                 // Use the regex above, $& prefixes the CSS selectors with our scope selector
-                return css.replace(cssSelectorRegex, this.options.scope + ' $&');
+                prefixedCss = css.replace(cssSelectorRegex, this.options.scope + ' $&');
+
+                // Replace body with the scope selector, stops the body background leaking
+                prefixedCss = prefixedCss.replace(/^body|h\d{1} small/mg, this.options.scope);
+
+                // Store the replaced css, just incase someone needs it
+                this.replacedCss = prefixedCss;
+
+                return prefixedCss;
             }
         }.bind(this);
     };
@@ -7655,17 +7769,19 @@
      */
     ClucklesEditor.prototype.queueModifications = function () {
         // If an update is allowed right now, apply the modifications
-        if (this.refreshMonitor.readyState === 0) {
+        if (this.refreshMonitor.canRefresh === true) {
             this.applyModifications();
             
             // Set the state to not ready for more updates yet
-            this.refreshMonitor.readyState = 1;
+            this.refreshMonitor.canRefresh = false;
             
             // Set a timeout to allow updated again after x time (refreshMonitor.rate)
             // and apply the modifications that were pending
             setTimeout(function () {
-                this.refreshMonitor.readyState = 0;
                 this.applyModifications();
+
+                // Allow updates again
+                this.refreshMonitor.canRefresh = true;
             }.bind(this), this.refreshMonitor.delay);
         }
     };
@@ -7675,9 +7791,233 @@
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.applyModifications = function () {
-        this.export.generateJsonBlob();
-        this.lessGlobal.modifyVars(this.getModifiers());
+    ClucklesEditor.prototype.applyModifications = function (modifications) {
+        // Allow the function to accept custom modifications
+        var modifiers = modifications || this.getModifiers();
+
+        // Now apply the Modifications to the Theme
+        this.lessGlobal.modifyVars(modifiers);
+    };
+    
+    /**
+     * Stores the Most up to date set of Modifiers in the Undo Stack.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.pushUndoStack = function () {
+        // If we cant track the state, such as when undo/redoing
+        if (this.canTrackUndo === false) { return; }
+
+        var undo                = this.undoStack,
+            clonedModifiers     = {},
+            originalModifiers   = this.modifiers;
+
+        // We have performed a new action, so we invalidate the ability to redo previous
+        // undo's, so reset the redo stack
+        this.redoStack = [];
+
+        // If the Stack has 10 or more items
+        if (undo.length > (this.options.undoSize - 1 || 9)) {
+            // Remove the first item (oldest) from stack
+            undo.shift();
+        }
+
+        // Now clone the existing modifiers (this.modifiers)
+        clonedModifiers = Object.keys(this.modifiers).reduce(function (clone, variable) {
+            clone[variable] = originalModifiers[variable];
+            return clone;
+        }, clonedModifiers);
+
+        // Now push the clone (newest item) to the Stack (undoStack)
+        undo.push(clonedModifiers);
+
+        if (this.undoButton && this.undoButton.hasAttribute('disabled')) {
+            this.undoButton.removeAttribute('disabled');
+        }
+    };
+
+    /**
+     * Updates the Cluckles modifiers with the newest item from either
+     * the undo or redo stacks, depending on direction.
+     * 
+     * @param {string} direction The direction to pull modifiers from (undo/redo(
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.applyModificationRevision = function (direction) {
+        var stack           = direction === 'undo' ? this.undoStack     : this.redoStack,
+            stackButton     = direction === 'undo' ? this.undoButton    : this.redoButton,
+            altStack        = direction === 'undo' ? this.redoStack     : this.undoStack,
+            altStackButton  = direction === 'undo' ? this.redoButton    : this.undoButton,
+            poppedStack;
+    
+        // Disable the Undo button if there is nothing to undo
+        if (stackButton && stack.length <= 1) {
+            stackButton.setAttribute('disabled', 'disabled');
+        }
+
+        // If the undo/redo stacks are empty, dont continue
+        if (stack.length === 0) {
+            return;
+        }
+
+        // Disallow modifications to be tracked/applied automatically
+        this.canTrackUndo = false;
+        this.refreshMonitor.canRefresh = false;
+
+        // Reset the Modifiers and Components
+        this.modifiers = [];
+        this.resetComponents();
+        
+        // Pop the newest item of the top of the stacj
+        poppedStack = stack.pop();
+
+        // If we are undoing, we want to load the second to last item in the stack (last item already popped)
+        if (direction === 'undo') {
+            this.import.loadComponentModifiers(stack[stack.length - 1]);
+        } else {
+            // If we are redoing, we want to load the item we popped
+            this.import.loadComponentModifiers(poppedStack);
+        }
+
+        // Move the newest items from one stack to the other
+        altStack.push(poppedStack);
+
+        // Now apply the modifications to update the UI (will also set modifiers again)
+        this.applyModifications();
+
+        // Allow modifications to be tracked/applied automatically
+        this.canTrackUndo = true;
+        this.refreshMonitor.canRefresh = true;
+        
+        // Now enable the altStackButton, effectively toggling the Undo/Redo buttons,
+        // depending on which one has items in their stack
+        if (altStackButton && altStackButton.hasAttribute('disabled')) {
+            altStackButton.removeAttribute('disabled');
+        }
+    };
+    
+    /**
+     * Undo's modifications which have been applied and moved the newest modifications
+     * to the redoStack.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.undo = function () {        
+        this.applyModificationRevision('undo');
+    };
+    
+    /**
+     * Redo modifications that were pushed into the redoStack after applying an undo.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.redo = function () {
+        this.applyModificationRevision('redo');
+    };
+
+    /**
+     * Resets the current Theme to the Bootstrap default (or whatever .less file the browser
+     * has loaded e.g. <link type="text/css" href="../less/bootstrap.less" rel="stylesheet/less" />)
+     * including any modifications which have been stored, and resets the editor inputs.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetToDefault = function () {
+        // Remove all stored modifications
+        this.modifiers = {};
+        this.undoStack = [];
+        this.redoStack = [];
+
+        // Disable the Undo and Redo buttons when resetting to Default
+        if (this.undoButton && !this.undoButton.hasAttribute('disabled')) {
+            this.undoButton.setAttribute('disabled', 'disabled');
+        }
+
+        if (this.redoButton && !this.redoButton.hasAttribute('disabled')) {
+            this.redoButton.setAttribute('disabled', 'disabled');
+        }
+
+        // Reset all the Components
+        this.resetComponents(); 
+
+        // Now make less modify blank changes, resetting the Theme
+        this.applyModifications({});
+    };
+
+
+    /**
+     * Resets the current Theme to the Theme which was imported by providing the
+     * theme.src option (including resetting the components/subscribers).
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetToTheme = function () {
+        // Copy the current undoStack
+        var currentUndoStack = this.undoStack.slice(0);
+
+        // Reset to the Defaults, so we dont get weird hangover between the theme
+        // and new modifications
+        this.resetToDefault();
+
+        // Disallow modifications to be tracked/applied automatically
+        this.canTrackUndo    = false;
+        this.refreshMonitor.canRefresh  = false;
+
+        // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
+        this.import.loadComponentModifiers(this.import.themeModifiers);
+
+        // Now apply the theme modifiers which were reset to the theme
+        this.applyModifications();
+        
+        // Restore the undoStack (resetToDefault clears the stacks)
+        this.undoStack = currentUndoStack;
+        // Push the modifiers from the Theme onto the undo stack
+        this.pushUndoStack();
+
+        // Allow modifications to be tracked/applied automatically
+        this.canTrackUndo = true;
+        this.refreshMonitor.canRefresh = true;
+    };
+    
+    /**
+     * Reset all of the Components and their Subscribers.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetComponents = function () {
+        // Disable modification queuing
+        this.refreshMonitor.canRefresh = false;
+
+        this.components.forEach(function (component) {
+            if (component instanceof ThemeModifier) {
+                component.resetModifiers();
+            }
+        });
+
+        // Allow modification queuing
+        this.refreshMonitor.canRefresh = true;
+    };
+    
+    ClucklesEditor.prototype.setupToolbar = function () {
+        var resetButton         = document.querySelector('*[data-cluckles-options="reset"]'),
+            resetThemeButton    = document.querySelector('*[data-cluckles-options="reset-theme"]');
+
+        if (resetButton) {
+            resetButton.addEventListener('click', this.resetToDefault.bind(this), false);
+        }
+
+        if (resetThemeButton) {
+            resetThemeButton.addEventListener('click', this.resetToTheme.bind(this), false);
+        }
+
+        if (this.undoButton) {
+            this.undoButton.addEventListener('click', this.undo.bind(this), false);
+        }
+
+        if (this.redoButton) {
+            this.redoButton.addEventListener('click', this.redo.bind(this), false);
+        }
     };
 
     window.ClucklesEditor = ClucklesEditor;

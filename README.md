@@ -188,7 +188,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 ```html
 <!-- Load our Fancy live editing Cluckles -->
-<script src="../cluckles-0.4.0.js"></script>
+<script src="../cluckles-0.6.0.js"></script>
 <script>
   var clucklesEditor = new ClucklesEditor(less, {
     scope: '#mainContainer', // Only apply Cluckles styling to this element and descendants
