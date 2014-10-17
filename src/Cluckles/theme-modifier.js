@@ -43,6 +43,9 @@
      * @returns {undefined}
      */
     ThemeModifier.prototype.loadModifiers = function (importModifiers) {
+        // Make sure we have Modifiers to import
+        if (importModifiers === undefined) { return; }
+
         var modifierNames = Object.keys(importModifiers);
 
         // Itterate over each importModifier name
@@ -131,6 +134,13 @@
 
                         // Queue the modifications to be applied by less
                         editor.queueModifications();
+
+                        // If a value is provided
+                        if (val !== null) {
+                            // We want to store the current cluckles modifiers 
+                            // in the undoStack, so it can be reversed later
+                            editor.pushUndoStack();
+                        }
 
                         // Notify each of the Subscribers of the value change
                         this.subscribers.forEach(function (subscriber) {

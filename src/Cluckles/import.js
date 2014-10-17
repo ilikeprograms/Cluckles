@@ -57,8 +57,14 @@
                 // Update the editor with the modifiers
                 this.editor.modifiers = this.themeModifiers;
 
+                // Dont allow the import to be undo'd
+                this.editor.canTrackUndo = false;
+
                 // Now load the modifiers into each component
                 this.loadComponentModifiers(this.themeModifiers);
+
+                // Now allow undo's to be tracked
+                this.editor.canTrackUndo = true;
             }
         }.bind(this);
 

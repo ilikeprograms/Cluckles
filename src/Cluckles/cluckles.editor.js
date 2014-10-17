@@ -156,13 +156,33 @@
         ];
 
         // All modifier vars
-        this.modifiers = {};
+        this.modifiers      = {};
+        
+        // Undo/Redo stacks
+        this.undoButton     = document.querySelector('*[data-cluckles-options="undo"]');
+        this.redoButton     = document.querySelector('*[data-cluckles-options="redo"]');
+        this.undoStack      = [];
+        this.redoStack      = [];
+        this.canTrackUndo  = true;
 
-        this.export             = new Export(this, options.export);
-        this.import             = new Import(this, options.theme);
+        // Import/Export Management
+        this.export         = new Export(this, options.export);
+        this.import         = new Import(this, options.theme);
 
         // Configure the Post Processor for when Less finished Processing Changes to the Theme
         this.setupPostProcessor(this.lessGlobal);
+
+        // Configure the Options toolbar
+        this.setupToolbar();
+        
+        // Disable the Undo and Redo buttons by default (will re enable when something is changed)
+        if (this.undoButton) {
+            this.undoButton.setAttribute('disabled', 'disabled');
+        }
+
+        if (this.redoButton) {
+            this.redoButton.setAttribute('disabled', 'disabled');
+        }
     };
     
     /**
@@ -362,8 +382,10 @@
             // Set a timeout to allow updated again after x time (refreshMonitor.rate)
             // and apply the modifications that were pending
             setTimeout(function () {
-                this.refreshMonitor.canRefresh = true;
                 this.applyModifications();
+
+                // Allow updates again
+                this.refreshMonitor.canRefresh = true;
             }.bind(this), this.refreshMonitor.delay);
         }
     };
@@ -380,6 +402,123 @@
         // Now apply the Modifications to the Theme
         this.lessGlobal.modifyVars(modifiers);
     };
+    
+    /**
+     * Stores the Most up to date set of Modifiers in the Undo Stack.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.pushUndoStack = function () {
+        // If we cant track the state, such as when undo/redoing
+        if (this.canTrackUndo === false) { return; }
+
+        var undo                = this.undoStack,
+            clonedModifiers     = {},
+            originalModifiers   = this.modifiers;
+
+        // We have performed a new action, so we invalidate the ability to redo previous
+        // undo's, so reset the redo stack
+        this.redoStack = [];
+
+        // If the Stack has 10 or more items
+        if (undo.length > 9) {
+            // Remove the first item (oldest) from stack
+            undo.shift();
+        }
+
+        // Now clone the existing modifiers (this.modifiers)
+        clonedModifiers = Object.keys(this.modifiers).reduce(function (clone, variable) {
+            clone[variable] = originalModifiers[variable];
+            return clone;
+        }, clonedModifiers);
+
+        // Now push the clone (newest item) to the Stack (undoStack)
+        undo.push(clonedModifiers);
+
+        if (this.undoButton && this.undoButton.hasAttribute('disabled')) {
+            this.undoButton.removeAttribute('disabled');
+        }
+    };
+
+    /**
+     * Updates the Cluckles modifiers with the newest item from either
+     * the undo or redo stacks, depending on direction.
+     * 
+     * @param {string} direction The direction to pull modifiers from (undo/redo(
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.applyModificationRevision = function (direction) {
+        var stack           = direction === 'undo' ? this.undoStack     : this.redoStack,
+            stackButton     = direction === 'undo' ? this.undoButton    : this.redoButton,
+            altStack        = direction === 'undo' ? this.redoStack     : this.undoStack,
+            altStackButton  = direction === 'undo' ? this.redoButton    : this.undoButton,
+            poppedStack;
+    
+        // Disable the Undo button if there is nothing to undo
+        if (stackButton && stack.length <= 1) {
+            stackButton.setAttribute('disabled', 'disabled');
+        }
+
+        // If the undo/redo stacks are empty, dont continue
+        if (stack.length === 0) {
+            return;
+        }
+
+        // Disallow modifications to be tracked/applied automatically
+        this.canTrackUndo = false;
+        this.refreshMonitor.canRefresh = false;
+
+        // Reset the Modifiers and Components
+        this.modifiers = [];
+        this.resetComponents();
+        
+        // Pop the newest item of the top of the stacj
+        poppedStack = stack.pop();
+
+        // If we are undoing, we want to load the second to last item in the stack (last item already popped)
+        if (direction === 'undo') {
+            this.import.loadComponentModifiers(stack[stack.length - 1]);
+        } else {
+            // If we are redoing, we want to load the item we popped
+            this.import.loadComponentModifiers(poppedStack);
+        }
+
+        // Move the newest items from one stack to the other
+        altStack.push(poppedStack);
+
+        // Now apply the modifications to update the UI (will also set modifiers again)
+        this.applyModifications();
+
+        // Allow modifications to be tracked/applied automatically
+        this.canTrackUndo = true;
+        this.refreshMonitor.canRefresh = true;
+        
+        // Now enable the altStackButton, effectively toggling the Undo/Redo buttons,
+        // depending on which one has items in their stack
+        if (altStackButton && altStackButton.hasAttribute('disabled')) {
+            altStackButton.removeAttribute('disabled');
+        }
+    };
+    
+    /**
+     * Undo's modifications which have been applied and moved the newest modifications
+     * to the redoStack.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.undo = function () {        
+        this.applyModificationRevision('undo');
+    };
+    
+    /**
+     * Redo modifications that were pushed into the redoStack after applying an undo.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.redo = function () {
+        this.applyModificationRevision('redo');
+    };
 
     /**
      * Resets the current Theme to the Bootstrap default (or whatever .less file the browser
@@ -391,6 +530,17 @@
     ClucklesEditor.prototype.resetToDefault = function () {
         // Remove all stored modifications
         this.modifiers = {};
+        this.undoStack = [];
+        this.redoStack = [];
+
+        // Disable the Undo and Redo buttons when resetting to Default
+        if (this.undoButton && !this.undoButton.hasAttribute('disabled')) {
+            this.undoButton.setAttribute('disabled', 'disabled');
+        }
+
+        if (this.redoButton && !this.redoButton.hasAttribute('disabled')) {
+            this.redoButton.setAttribute('disabled', 'disabled');
+        }
 
         // Reset all the Components
         this.resetComponents(); 
@@ -407,20 +557,30 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.resetToTheme = function () {
+        // Copy the current undoStack
+        var currentUndoStack = this.undoStack.slice(0);
+
         // Reset to the Defaults, so we dont get weird hangover between the theme
         // and new modifications
         this.resetToDefault();
 
-        // Disable modification queuing
-        this.refreshMonitor.canRefresh = false;
+        // Disallow modifications to be tracked/applied automatically
+        this.canTrackUndo    = false;
+        this.refreshMonitor.canRefresh  = false;
 
         // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
         this.import.loadComponentModifiers(this.import.themeModifiers);
 
         // Now apply the theme modifiers which were reset to the theme
         this.applyModifications();
+        
+        // Restore the undoStack (resetToDefault clears the stacks)
+        this.undoStack = currentUndoStack;
+        // Push the modifiers from the Theme onto the undo stack
+        this.pushUndoStack();
 
-        // Allow modification queuing
+        // Allow modifications to be tracked/applied automatically
+        this.canTrackUndo = true;
         this.refreshMonitor.canRefresh = true;
     };
     
@@ -442,6 +602,15 @@
         // Allow modification queuing
         this.refreshMonitor.canRefresh = true;
     };
+    
+    ClucklesEditor.prototype.setupToolbar = function () {
+        if (this.undoButton) {
+            this.undoButton.addEventListener('click', this.undo.bind(this), false);
+        }
+
+        if (this.redoButton) {
+            this.redoButton.addEventListener('click', this.redo.bind(this), false);
+        }
     };
 
     window.ClucklesEditor = ClucklesEditor;
