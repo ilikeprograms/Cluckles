@@ -193,7 +193,8 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.setupPostProcessor = function (less) {
-        var cssSelectorRegex = /((?:[#.][\w->:.\s]+)+)(?=[,\{])/mg;
+        var cssSelectorRegex = /((?:(?:[#.]|(?:^\w{0}a(?!\w)|ul|li))[\w->:.\s]+)+)(?=[,\{])/mg,
+            prefixedCss;
 
         // Provide less with the postProcessor callback we want to execute
         less.postProcessor = function (css) {
@@ -206,7 +207,15 @@
             // applied to the DOMElement we choose and its children
             if (this.options.hasOwnProperty('scope')) {
                 // Use the regex above, $& prefixes the CSS selectors with our scope selector
-                return css.replace(cssSelectorRegex, this.options.scope + ' $&');
+                prefixedCss = css.replace(cssSelectorRegex, this.options.scope + ' $&');
+
+                // Replace body with the scope selector, stops the body background leaking
+                prefixedCss = prefixedCss.replace(/^body|h\d{1} small/mg, this.options.scope);
+
+                // Store the replaced css, just incase someone needs it
+                this.replacedCss = prefixedCss;
+
+                return prefixedCss;
             }
         }.bind(this);
     };
