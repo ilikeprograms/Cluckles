@@ -7,8 +7,10 @@
 	"latedef": true,
 	"nonbsp": true,
 	"globals": {
+		"alert": true,
 		"ThemeModifier": true,
 		"Blob": true,
+		"FileReader": true,
 		"XMLHttpRequest": true,
 		"console": true,
 		"Modernizr": true,
