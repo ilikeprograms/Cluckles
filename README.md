@@ -13,10 +13,12 @@ The example demo page has a User Interface which has panels where you can change
 of bootstrap by using color pickers to change the styling. Simple and Easy.
 
 The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.
+The files are also available on bower.
 
 ## Quick Start
 
 - Download the Project by either `cloning` or `forking`. (Then CD into Cluckles)
+- Alternatively Cluckles is available on `Bower` as `cluckles`
 - Install dependencies by running `npm install` and `bower install`
 - Run `Grunt` to build the files and open the example demo page in the browser
 - Take a look at the demo!
