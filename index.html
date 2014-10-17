@@ -31,8 +31,8 @@
     <link type="text/css" href="/assets/css/syntax.css" rel="stylesheet" />
     <link type="text/css" href="/assets/css/theme.css" rel="stylesheet" />
     <link type="text/css" href="/assets/css/style.css" rel="stylesheet" />
-    
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" />
+
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="/assets/js/lib/jquery.min.js"><\/script>');</script>
@@ -102,8 +102,9 @@
 
     <div class="text-center">
       <a href="demo.html" class="btn btn-lg btn-primary" title="ClucklesDemo Page">Try the Demo</a>
-      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.5.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a><br />
-      <small>Current release v0.5.0</small><br />
+      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.6.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a>
+      <a href="http://bower.io/search/?q=Cluckles" class="btn btn-lg btn-primary" title="Cluckles on Bower">Also on Bower</a><br />
+      <small>Current release v0.6.0</small><br />
       
       <a class="FlattrButton text-center" style="display: none;" 
       title="Cluckles Live Theme Editor" 
@@ -124,7 +125,7 @@
       <div class="container">
         <h2>Getting started with Cluckles</h2>
 
-        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.5.0.zip" class="btn btn-primary" title="Cluckles latest Download">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
+        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.6.0.zip" class="btn btn-primary" title="Cluckles latest Download">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
           Now load up the Example site which is included or start composing your own:
         </p>
         
@@ -164,10 +165,11 @@
               <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               
               // Load our Fancy live editing Script
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.5.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.6.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               <span class="nt">&lt;script&gt;</span>
                 <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
                     <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
+                        <span class="nx">scope</span><span class="o">:</span> <span class="s2">&quot;#mainContainer&quot;</span><span class="p">,</span>
                         <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Fallback/General Target</span>
                         <span class="nx">json</span><span class="o">:</span> <span class="p">{</span>
                             <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Custom Target</span>
@@ -285,6 +287,12 @@
 <td style="text-align: center"><code>number</code></td>
 <td>750 (milliseconds)</td>
 <td>Milliseconds delay between refresh updates</td>
+</tr>
+<tr>
+<td>undoSize</td>
+<td style="text-align: center"><code>Number</code></td>
+<td>10</td>
+<td>Number of items to keep in the Undo history</td>
 </tr>
 </tbody></table>
 
@@ -459,9 +467,10 @@ modifications (as JSON) to an external URL.</p>
 
 <h4 id="example">Example</h4>
 <div class="highlight"><pre><code class="javascript"><span class="c">&lt;!--</span> <span class="nx">Load</span> <span class="nx">our</span> <span class="nx">Fancy</span> <span class="nx">live</span> <span class="nx">editing</span> <span class="nx">Cluckles</span> <span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;../cluckles-0.3.4.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
+<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;../cluckles-0.6.0.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
 <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
   <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">scope</span><span class="o">:</span> <span class="s2">&quot;#mainContainer&quot;</span><span class="p">,</span>
     <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;theme.json&#39;</span>
     <span class="p">},</span>
