@@ -80,6 +80,7 @@ An optional success callback can also be provided to fire when the changes have 
 <script src="../cluckles-0.3.4.js"></script>
 <script>
   var clucklesEditor = new ClucklesEditor(less, {
+    scope: "#mainContainer",
     theme: {
       src: 'theme.json'
     },

@@ -189,8 +189,9 @@ An optional success callback can also be provided to fire when the changes have 
 <script src="../cluckles-0.4.0.js"></script>
 <script>
   var clucklesEditor = new ClucklesEditor(less, {
+    scope: '#mainContainer', // Only apply Cluckles styling to this element and descendants
     theme: {
-      src: 'theme.json'
+      src: 'theme.json',
     },
     export: {
       target: '#download-panel-footer',   // Fallback/General Target
