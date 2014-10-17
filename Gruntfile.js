@@ -247,6 +247,7 @@ module.exports = function (grunt) {
                             // Page Elements
                             page: {
                                 downloadpanel: '<%= examplesrc %>/templates/page/downloadpanel.html',
+                                toolbar: '<%= examplesrc %>/templates/page/toolbar.html'
                             },
 
                             editor: {

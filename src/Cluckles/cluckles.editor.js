@@ -604,6 +604,17 @@
     };
     
     ClucklesEditor.prototype.setupToolbar = function () {
+        var resetButton         = document.querySelector('*[data-cluckles-options="reset"]'),
+            resetThemeButton    = document.querySelector('*[data-cluckles-options="reset-theme"]');
+
+        if (resetButton) {
+            resetButton.addEventListener('click', this.resetToDefault.bind(this), false);
+        }
+
+        if (resetThemeButton) {
+            resetThemeButton.addEventListener('click', this.resetToTheme.bind(this), false);
+        }
+
         if (this.undoButton) {
             this.undoButton.addEventListener('click', this.undo.bind(this), false);
         }
