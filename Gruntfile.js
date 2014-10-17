@@ -87,7 +87,7 @@ module.exports = function (grunt) {
                     hostname: 'localhost',
                     bases: [__dirname + '/build'], // Set the docroot to be the ./build folder
                     livereload: true
-                },
+                }
             }
         },
         
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
                 files: "src/<%= pkg.nameLower %>/*",
                 tasks: ["jshint", "uglify", "copy"],
                 options: {
-                    livereload: true,
+                    livereload: true
                 }
             }
         },
@@ -151,7 +151,7 @@ module.exports = function (grunt) {
 					{expand: true, src: 'src/theme.less', flatten: true, dest: 'build/less/'},
 
                     // Copy the Custom Bootstrap.less file which adds the theme.less as an import
-                    {expand: true, src: "src/bootstrap.less", flatten: true, dest: 'build/less/'},
+                    {expand: true, src: "src/bootstrap.less", flatten: true, dest: 'build/less/'}
 				],
 				options: {
                     // Replace "variables.less" with "variables-custom.less"
@@ -187,7 +187,7 @@ module.exports = function (grunt) {
                     {src: 'bower_components/less.js/dist/less-1.7.3.min.js', dest: 'docs/assets/js/lib/less.min.js'},
                     
                     // Build Less Files
-                    {expand: true, src: ['build/less/*'], flatten: true, dest: 'docs/assets/less', filter: 'isFile'},
+                    {expand: true, src: ['build/less/*'], flatten: true, dest: 'docs/assets/less', filter: 'isFile'}
                 ]
             }
 		},
@@ -312,7 +312,7 @@ module.exports = function (grunt) {
                             
                             // Page Elements
                             page: {
-                                navigation: '<%= examplesrc %>/templates/page/navigation.html',
+                                navigation: '<%= examplesrc %>/templates/page/navigation.html'
                             }
                         }
                     }
@@ -323,7 +323,7 @@ module.exports = function (grunt) {
         // Turn on JShint for the build cluckles.js file
 		jshint: {
 			options: {
-				jshintrc: true,
+				jshintrc: true
 			},
 			files: ['build/<%= pkg.nameLower %>-<%= pkg.version %>.js']
 		}
