@@ -587,7 +587,7 @@ cite {
 }
 /* line 91, http://localhost:4000/assets/less/type.less */
 .text-muted {
-  color: #999999;
+  color: #996633;
 }
 /* line 94, http://localhost:4000/assets/less/type.less */
 .text-primary {
@@ -744,7 +744,7 @@ dd {
 abbr[title],
 abbr[data-original-title] {
   cursor: help;
-  border-bottom: 1px dotted #999999;
+  border-bottom: 1px dotted #990000;
 }
 /* line 224, http://localhost:4000/assets/less/type.less */
 .initialism {
@@ -2110,16 +2110,16 @@ output {
 }
 /* line 57, http://localhost:4000/assets/less/mixins.less */
 .form-control::-moz-placeholder {
-  color: #ffffff;
+  color: #a9a9a9;
   opacity: 1;
 }
 /* line 59, http://localhost:4000/assets/less/mixins.less */
 .form-control:-ms-input-placeholder {
-  color: #ffffff;
+  color: #a9a9a9;
 }
 /* line 60, http://localhost:4000/assets/less/mixins.less */
 .form-control::-webkit-input-placeholder {
-  color: #ffffff;
+  color: #a9a9a9;
 }
 /* line 140, http://localhost:4000/assets/less/forms.less */
 .form-control[disabled],
@@ -4826,7 +4826,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 /* line 379, http://localhost:4000/assets/less/navbar.less */
 .navbar-default {
   background-color: #f8f8f8;
-  border-color: #ffffff;
+  border-color: #e7e7e7;
 }
 /* line 383, http://localhost:4000/assets/less/navbar.less */
 .navbar-default .navbar-brand {
@@ -4882,7 +4882,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 /* line 435, http://localhost:4000/assets/less/navbar.less */
 .navbar-default .navbar-collapse,
 .navbar-default .navbar-form {
-  border-color: #ffffff;
+  border-color: #e7e7e7;
 }
 /* line 444, http://localhost:4000/assets/less/navbar.less */
 .navbar-default .navbar-nav > .open > a,
@@ -5342,13 +5342,13 @@ a.list-group-item.active > .badge,
 .jumbotron {
   padding: 30px;
   margin-bottom: 30px;
-  color: #993300;
+  color: #df8258;
   background-color: #430400;
 }
 /* line 12, http://localhost:4000/assets/less/jumbotron.less */
 .jumbotron h1,
 .jumbotron .h1 {
-  color: #cc6600;
+  color: #ff7d41;
 }
 /* line 16, http://localhost:4000/assets/less/jumbotron.less */
 .jumbotron p {
@@ -5449,12 +5449,12 @@ a.thumbnail.active {
 /* line 56, http://localhost:4000/assets/less/alerts.less */
 .alert-success {
   background-color: #dff0d8;
-  border-color: #ffffff;
+  border-color: #d6e9c6;
   color: #3c763d;
 }
 /* line 431, http://localhost:4000/assets/less/mixins.less */
 .alert-success hr {
-  border-top-color: #f2f2f2;
+  border-top-color: #c9e2b3;
 }
 /* line 434, http://localhost:4000/assets/less/mixins.less */
 .alert-success .alert-link {
@@ -6085,21 +6085,21 @@ a.list-group-item-danger.active:focus {
 }
 /* line 230, http://localhost:4000/assets/less/panels.less */
 .panel-success {
-  border-color: #ffffff;
+  border-color: #d6e9c6;
 }
 /* line 408, http://localhost:4000/assets/less/mixins.less */
 .panel-success > .panel-heading {
   color: #3c763d;
   background-color: #dff0d8;
-  border-color: #ffffff;
+  border-color: #d6e9c6;
 }
 /* line 413, http://localhost:4000/assets/less/mixins.less */
 .panel-success > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #ffffff;
+  border-top-color: #d6e9c6;
 }
 /* line 418, http://localhost:4000/assets/less/mixins.less */
 .panel-success > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #ffffff;
+  border-bottom-color: #d6e9c6;
 }
 /* line 233, http://localhost:4000/assets/less/panels.less */
 .panel-info {
@@ -6383,10 +6383,10 @@ button.close {
 .tooltip-inner {
   max-width: 200px;
   padding: 3px 8px;
-  color: #ffffff;
+  color: #cc9933;
   text-align: center;
   text-decoration: none;
-  background-color: #000000;
+  background-color: #993300;
   border-radius: 4px;
 }
 /* line 35, http://localhost:4000/assets/less/tooltip.less */
@@ -6403,21 +6403,21 @@ button.close {
   left: 50%;
   margin-left: -5px;
   border-width: 5px 5px 0;
-  border-top-color: #000000;
+  border-top-color: #993300;
 }
 /* line 50, http://localhost:4000/assets/less/tooltip.less */
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
   left: 5px;
   border-width: 5px 5px 0;
-  border-top-color: #000000;
+  border-top-color: #993300;
 }
 /* line 56, http://localhost:4000/assets/less/tooltip.less */
 .tooltip.top-right .tooltip-arrow {
   bottom: 0;
   right: 5px;
   border-width: 5px 5px 0;
-  border-top-color: #000000;
+  border-top-color: #993300;
 }
 /* line 62, http://localhost:4000/assets/less/tooltip.less */
 .tooltip.right .tooltip-arrow {
@@ -6425,7 +6425,7 @@ button.close {
   left: 0;
   margin-top: -5px;
   border-width: 5px 5px 5px 0;
-  border-right-color: #000000;
+  border-right-color: #993300;
 }
 /* line 69, http://localhost:4000/assets/less/tooltip.less */
 .tooltip.left .tooltip-arrow {
@@ -6433,7 +6433,7 @@ button.close {
   right: 0;
   margin-top: -5px;
   border-width: 5px 0 5px 5px;
-  border-left-color: #000000;
+  border-left-color: #993300;
 }
 /* line 76, http://localhost:4000/assets/less/tooltip.less */
 .tooltip.bottom .tooltip-arrow {
@@ -6441,21 +6441,21 @@ button.close {
   left: 50%;
   margin-left: -5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #993300;
 }
 /* line 83, http://localhost:4000/assets/less/tooltip.less */
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   left: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #993300;
 }
 /* line 89, http://localhost:4000/assets/less/tooltip.less */
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   right: 5px;
   border-width: 0 5px 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #993300;
 }
 /* line 6, http://localhost:4000/assets/less/popovers.less */
 .popover {
@@ -6749,7 +6749,7 @@ button.close {
   height: 10px;
   margin: 1px;
   text-indent: -999px;
-  border: 1px solid #ffffff;
+  border: 1px solid #ff6600;
   border-radius: 10px;
   cursor: pointer;
   background-color: #000 \9;
@@ -6760,7 +6760,7 @@ button.close {
   margin: 0;
   width: 12px;
   height: 12px;
-  background-color: #ffffff;
+  background-color: #330000;
 }
 /* line 187, http://localhost:4000/assets/less/carousel.less */
 .carousel-caption {
@@ -6771,7 +6771,7 @@ button.close {
   z-index: 10;
   padding-top: 20px;
   padding-bottom: 20px;
-  color: #ffffff;
+  color: #ff6600;
   text-align: center;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
