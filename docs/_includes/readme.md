@@ -7,10 +7,11 @@ There are options that can be provided when a ClucklesEditor instance is created
 
 Miscellaneous Options
 
-| Field   | Type     | Default            | Desc                                                       |
-| -----   |:--------:| ------------------ | ---------------------------------------------------------- |
-| scope   | `string` |                    | The CSS Selector to prefix the Compiled CSS selectors with |
-| delay   | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates                 |
+| Field    | Type     | Default            | Desc                                                       |
+| -------  |:--------:| ------------------ | ---------------------------------------------------------- |
+| scope    | `string` |                    | The CSS Selector to prefix the Compiled CSS selectors with |
+| delay    | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates                 |
+| undoSize | `Number` | 10                 | Number of items to keep in the Undo history                |
 
 ### Theme
 

@@ -7,8 +7,9 @@
      * @class ClucklesEditor
      * 
      * Generic Options:
-     * - scope: {string} The CSS Selector to prefix the Compiled CSS selectors with.
-     * - delay: {Number} Milliseconds delay between refresh updates (Default: 750).
+     * - scope:     {string} The CSS Selector to prefix the Compiled CSS selectors with.
+     * - delay:     {Number} Milliseconds delay between refresh updates (Default: 750).
+     * - undoSize:  {Number} Number of items to keep in the Undo history (Default: 10)
      * 
      * @param {Object} less The Global less object.
      * 
@@ -430,7 +431,7 @@
         this.redoStack = [];
 
         // If the Stack has 10 or more items
-        if (undo.length > 9) {
+        if (undo.length > (this.options.undoSize - 1 || 9)) {
             // Remove the first item (oldest) from stack
             undo.shift();
         }
