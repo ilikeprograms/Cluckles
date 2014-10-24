@@ -8,6 +8,10 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.6.1]
+
+- [ClucklesEditor] Fixed @headings-small-color not being prefix properly
+
 ## [0.6.0]
 
 - [Docs] Updated Theme

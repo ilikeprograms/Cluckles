@@ -1,5 +1,5 @@
 /*!
- * Cluckles 0.6.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
+ * Cluckles 0.6.1: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
  * http://cluckles.com
  * 
  * Copyright 2014 Thomas Coleman <tom@ilikeprograms.com>
@@ -7589,6 +7589,8 @@
             this.export.generateCssBlob(css);
             this.export.generateJsonBlob();
             
+            this.originalCss = css;
+            
             // If the Scope option was provided, we want to prefix all the
             // CSS selectors with our scope, so the theme changes are only
             // applied to the DOMElement we choose and its children
@@ -7597,10 +7599,13 @@
                 prefixedCss = css.replace(cssSelectorRegex, this.options.scope + ' $&');
 
                 // Replace body with the scope selector, stops the body background leaking
-                prefixedCss = prefixedCss.replace(/^body|h\d{1} small/mg, this.options.scope);
+                prefixedCss = prefixedCss.replace(/^body/, this.options.scope);
+                // Prefixes the h* small, .h* small h* .small etc with the scope selector
+                prefixedCss = prefixedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope + ' $&');
 
                 // Store the replaced css, just incase someone needs it
                 this.replacedCss = prefixedCss;
+                
 
                 return prefixedCss;
             }
