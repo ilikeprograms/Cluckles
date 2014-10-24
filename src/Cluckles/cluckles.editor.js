@@ -211,7 +211,7 @@
                 prefixedCss = css.replace(cssSelectorRegex, this.options.scope + ' $&');
 
                 // Replace body with the scope selector, stops the body background leaking
-                prefixedCss = prefixedCss.replace(/^body/, this.options.scope);
+                prefixedCss = prefixedCss.replace(/^body/mg, this.options.scope);
                 // Prefixes the h* small, .h* small h* .small etc with the scope selector
                 prefixedCss = prefixedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope + ' $&');
 
