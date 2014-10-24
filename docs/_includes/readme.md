@@ -77,7 +77,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 ```javascript
 <!-- Load our Fancy live editing Cluckles -->
-<script src="../cluckles-0.6.1.js"></script>
+<script src="../cluckles-0.6.2.js"></script>
 <script>
   var clucklesEditor = new ClucklesEditor(less, {
     scope: "#mainContainer",
