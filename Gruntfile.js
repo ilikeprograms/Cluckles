@@ -122,7 +122,7 @@ module.exports = function (grunt) {
             // Run the tasks when the Cluckles JS files change
             scripts: {
                 files: "src/<%= pkg.nameLower %>/*",
-                tasks: ["jshint", "uglify", "copy"],
+                tasks: ["js"],
                 options: {
                     livereload: true
                 }
