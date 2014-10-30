@@ -194,33 +194,87 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.setupPostProcessor = function (less) {
-        var cssSelectorRegex = /((?:(?:[#.]|(?:^\w{0}a(?!\w)|ul|li))[\w->:.\s]+)+)(?=[,\{])/mg,
-            prefixedCss;
+        var processedCss,
+            customCss;
 
         // Provide less with the postProcessor callback we want to execute
         less.postProcessor = function (css) {
             // Generate/Regenerate both of the Download button Blob contents
-            this.export.generateCssBlob(css);
-            this.export.generateJsonBlob();
-            
+            this.export.generateCssBlob(css.concat(customCss)); // Join the Compiled and Custom Css together
+            this.export.generateJsonBlob(this.import.customCss, this.import.customLess); // Pass both the Custom Css and Less
+
             // If the Scope option was provided, we want to prefix all the
             // CSS selectors with our scope, so the theme changes are only
             // applied to the DOMElement we choose and its children
-            if (this.options.hasOwnProperty('scope')) {
-                // Use the regex above, $& prefixes the CSS selectors with our scope selector
-                prefixedCss = css.replace(cssSelectorRegex, this.options.scope + ' $&');
+            processedCss = this.selectorProcessor(css);
+            customCss    = this.prefixCustomStyles(this.import.customCss, 'Css');
 
-                // Replace body with the scope selector, stops the body background leaking
-                prefixedCss = prefixedCss.replace(/^body/mg, this.options.scope);
-                // Prefixes the h* small, .h* small h* .small etc with the scope selector
-                prefixedCss = prefixedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope + ' $&');
-
-                // Store the replaced css, just incase someone needs it
-                this.replacedCss = prefixedCss;
-
-                return prefixedCss;
-            }
+            // Return the Processed and Custom Css
+            return processedCss.concat(customCss);
         }.bind(this);
+    };
+    
+    /**
+     * If the options.scope.selector was provided, we prefix all the CSS Selectors
+     * in the CSS Input with the CSS Selector provided by the option. This limits the
+     * scope of the CSS Generated to be contained inside the DOM Element referenced
+     * by the scope selector.
+     * 
+     * @param {string} css CSS to process and prefix with the options.scope.selector.
+     * 
+     * @returns {string}
+     */
+    ClucklesEditor.prototype.selectorProcessor = function (css) {
+        var cssSelectorRegex = /((?:(?:(?:(^\({0}#)|\.)|(?:^\w{0}a(?!\w)|ul|li|textarea))[\w->:.\s]+)+)(?=[,\{])/mg,
+            processedCss = css;
+        
+        // Prefix the css selectors with this.options.scope.selector
+        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector')) {
+            // Use the regex above, $& prefixes the CSS selectors with our scope selector
+            processedCss = css.replace(cssSelectorRegex, this.options.scope.selector + ' $&');
+
+            // Replace body with the scope selector, stops the body background leaking
+            processedCss = processedCss.replace(/^body/mg, this.options.scope.selector);
+            // Prefixes the h* small, .h* small h* .small etc with the scope selector
+            processedCss = processedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope.selector + ' $&');
+            processedCss = processedCss.replace(/^footer/mg, this.options.scope.selector + ' $&');
+        }
+        
+        return processedCss;
+    };
+    
+    /**
+     * Prefixes the Custom Styling provided (string or array) with the options.scope.prefix if
+     * the options.scope.customCss || option options.scope.customLess is true,
+     * or returns the Styling (concatenated if array is provided).
+     * 
+     * @param {String|Array} style Array of Custom Styles or singular custom style (to prefix/concatenate).
+     * 
+     * @returns {Array|String}
+     */
+    ClucklesEditor.prototype.prefixCustomStyles = function (style, type) {
+        // If the options permit the Styling to be prefixed
+        if (this.options.hasOwnProperty('scope') &&
+                this.options.scope.hasOwnProperty('custom' + type) &&
+                this.options.scope['custom' + type] === true) {
+            
+            // Prefix the Styles
+            if (typeof style === 'string') {
+                return this.selectorProcessor(style);
+            }
+
+            // or Concatenate and Prefix all the Styles
+            return style.reduce(function (prev, cur) {
+                return prev + this.selectorProcessor(cur);
+            }.bind(this), '');
+        } else {
+            if (typeof style === 'string') { return style; }
+
+            // Concatentate the array into a string
+            return style.reduce(function (allStyles, s) {
+                return allStyles + s; },
+            '');
+        }
     };
 
     /**
@@ -407,12 +461,16 @@
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.applyModifications = function (modifications) {
+    ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
+        
+        if (reload !== undefined) {
+            this.lessGlobal.refresh(true, modifiers);
+        }
 
         // Now apply the Modifications to the Theme
-        this.lessGlobal.modifyVars(modifiers);
+        this.lessGlobal.refresh(false, modifiers);
     };
     
     /**

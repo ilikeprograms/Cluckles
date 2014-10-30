@@ -36,7 +36,7 @@
         this.saveLink   = null;
         this.cssLink    = null;
         
-        this.compiledCss = null;
+        this.compiledCss    = '';
 
         // If either of the Export formats were provided
         if (options.hasOwnProperty('json')) {
@@ -149,11 +149,30 @@
     /**
      * Generates a Download Blob to export the Theme modifications in JSON format.
      * 
+     * @param {Array} customCss The Custom CSS to export.
+     * @param {Array} customLess The Custom Less to export.
+     * 
      * @returns {undefined}
      */
-    Export.prototype.generateJsonBlob = function () {
+    Export.prototype.generateJsonBlob = function (customCss, customLess) {
+        var modifiers = this.editor.getModifiers();
+
+        // Add the "_extra" JSON,
+        // used to export Custom Css and Less
+        if (!modifiers.hasOwnProperty('_extra')) {
+            modifiers._extra = {};
+        }
+
+        // Add the Custom Css/less if any was provided
+        if (customCss.length > 0) {
+            modifiers._extra.css =  customCss;
+        }
+
+        if (customLess.length > 0) {
+            modifiers._extra.less = customLess;
+        }
         // Update the href of the download link, this now points to the JSON data
-        this.jsonLink.setAttribute('href', this.generateBlob(this.editor.getJSON()));
+        this.jsonLink.setAttribute('href', this.generateBlob(JSON.stringify(modifiers)));
     };
 
     /**
