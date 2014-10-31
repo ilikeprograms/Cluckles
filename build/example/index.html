@@ -1171,6 +1171,8 @@
                         </li>
                         <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a>
                         </li>
+                        <li><a href="#" data-toggle="tab" data-target="#customEditorTab">Custom</a>
+                        </li>
                     </ul>
                     <!-- /Editor Tabs -->
 
@@ -3946,6 +3948,60 @@
                             </div>
                             <!-- /Components Panel -->
                         </div>
+
+                        <div class="tab-pane fade in" id="customEditorTab">
+                            <!-- Custom Panel -->
+                            <div class="panel panel-default">
+                                <form role="form">
+                                    <div class="panel-body">
+                                        <div class="well well-sm">
+                                            You can add custom <strong>Less</strong> and <strong>Css</strong> to the Theme here, which can be imported/exported by Cluckles.
+                                        </div>
+
+                                        <div class="panel-group" id="customPanel" role="tablist">
+                                            <!-- Custom Less Panel -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="clucklesCustomLessHeading">
+                                                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomLess" aria-expanded="true" aria-controls="clucklesCustomLess">
+                        Custom Less
+                      </a>
+                    </h4>
+                                                </div>
+                                                <div id="clucklesCustomLess" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="clucklesCustomLessHeading">
+                                                    <div class="panel-body">
+                                                    </div>
+                                                    <div class="panel-footer">
+                                                        <button type="button" class="btn btn-success" data-cluckles="add-custom-less">Add Less</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Custom Less Panel -->
+
+                                            <!-- Custom CSS Panel -->
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="clucklesCustomCssHeading">
+                                                    <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomCss" aria-expanded="true" aria-controls="clucklesCustomCss">
+                        Custom Css
+                      </a>
+                    </h4>
+                                                </div>
+                                                <div id="clucklesCustomCss" class="panel-collapse collapse" role="tabpanel" aria-labelledby="clucklesCustomCssHeading">
+                                                    <div class="panel-body">
+                                                    </div>
+                                                    <div class="panel-footer">
+                                                        <button type="button" class="btn btn-success" data-cluckles="add-custom-css">Add Css</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- /Custom CSS Panel -->
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <!-- /Custom Panel-->
+                        </div>
                     </div>
                 </div>
                 <!-- /Editor Row -->
@@ -4026,7 +4082,7 @@
 
 
     <!-- Load our Fancy live editing ThemeEditor -->
-    <script src="../cluckles-0.6.2.js"></script>
+    <script src="../cluckles-0.7.0.js"></script>
 
     <script src="js/component-example-fix.js"></script>
     <script>

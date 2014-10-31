@@ -1,5 +1,5 @@
 /*!
- * Cluckles 0.6.2: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
+ * Cluckles 0.7.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
  * http://cluckles.com
  * 
  * Copyright 2014 Thomas Coleman <tom@ilikeprograms.com>
@@ -7041,7 +7041,7 @@
         this.saveLink   = null;
         this.cssLink    = null;
         
-        this.compiledCss = null;
+        this.compiledCss    = '';
 
         // If either of the Export formats were provided
         if (options.hasOwnProperty('json')) {
@@ -7154,11 +7154,30 @@
     /**
      * Generates a Download Blob to export the Theme modifications in JSON format.
      * 
+     * @param {Array} customCss The Custom CSS to export.
+     * @param {Array} customLess The Custom Less to export.
+     * 
      * @returns {undefined}
      */
-    Export.prototype.generateJsonBlob = function () {
+    Export.prototype.generateJsonBlob = function (customCss, customLess) {
+        var modifiers = this.editor.getModifiers();
+
+        // Add the "_extra" JSON,
+        // used to export Custom Css and Less
+        if (!modifiers.hasOwnProperty('_extra')) {
+            modifiers._extra = {};
+        }
+
+        // Add the Custom Css/less if any was provided
+        if (customCss.length > 0) {
+            modifiers._extra.css =  customCss;
+        }
+
+        if (customLess.length > 0) {
+            modifiers._extra.less = customLess;
+        }
         // Update the href of the download link, this now points to the JSON data
-        this.jsonLink.setAttribute('href', this.generateBlob(this.editor.getJSON()));
+        this.jsonLink.setAttribute('href', this.generateBlob(JSON.stringify(modifiers)));
     };
 
     /**
@@ -7262,9 +7281,25 @@
      * @returns {Import}
      */
     var Import = function (editor, options) {
-        this.editor         = editor;
-        this.options        = options;
-        this.themeModifiers = {};
+        this.editor             = editor;
+        this.options            = options;
+        this.themeModifiers     = {};
+
+        // Main Less stylesheet and the Less folder Path
+        this.mainStylesheet         = document.querySelector('link[rel="stylesheet/less"]');
+        this.lessPath               = this.mainStylesheet.getAttribute('href').split('/').slice(0, -1).join('/') + '/';
+
+        // Import Headers to allow the Custom Less to be able to reference,
+        // variables and mixins
+        this.customStylesHeader = '@import "' + this.lessPath + 'variables-custom.less";\n' + '@import "' + this.lessPath + 'mixins.less";\n';
+
+        // Custom Styles textarea template and Custom styles panel (where the textareas will reside)
+        this.customStylesTemplate   = null;
+        this.customStylesPanel      = document.getElementById('customPanel');
+
+        // Custom Styles
+        this.customCss              = [];
+        this.customLess             = [];
 
         if (options !== undefined) {
             // If the theme.src option was provided
@@ -7274,7 +7309,8 @@
             }
         }
         
-        this.setupFileImport();
+        this.setupCustomStyles(); // Setup the ability to handle Custom Css/Less
+        this.setupFileImport();   // Setup the File input so themes can be imported
     };
 
     /**
@@ -7303,14 +7339,11 @@
                 // Store the Theme Modifiers
                 this.themeModifiers = JSON.parse(themeXHR.responseText);
 
-                // Update the editor with the modifiers
-                this.editor.modifiers = this.themeModifiers;
-
                 // Dont allow the import to be undo'd
                 this.editor.canTrackUndo = false;
-
-                // Now load the modifiers into each component
-                this.loadComponentModifiers(this.themeModifiers);
+                
+                // Handle the modifier/custom styles importing
+                this.handleThemeImport(this.themeModifiers);
 
                 // Now allow undo's to be tracked
                 this.editor.canTrackUndo = true;
@@ -7366,21 +7399,201 @@
                 // Setup the File reader, so it will import the json file's modifiers
                 reader.onload = function (evt) {
                     try {
-                        // Parse the modifiers and load them into the components
                         var modifiers = JSON.parse(evt.target.result);
-                        this.loadComponentModifiers(modifiers);
+
+                        // Handle the modifier/custom styles importing
+                        this.handleThemeImport(modifiers);
 
                         // Reset the file input
                         importInput.value = '';
                     } catch (e) {
                         // Catch invalid JSON errors
-                        throw Error('ClucklesEditor.import.setupImport: Could not parse imported File');
+                        throw Error('ClucklesEditor.import.setupImport: Could not parse imported File\n' + e.message);
                     }
                 }.bind(this);
 
                 // Attempt to read the file's text contents
                 reader.readAsText(file);
             }.bind(this), false);
+        }
+    };
+
+    /**
+     * Sets up the HTML template for the Custom Styles textarea and bind's
+     * the Add custom styles button.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.setupCustomStyles = function () {
+        var addCustomLessButton = document.querySelector('*[data-cluckles="add-custom-less"]'),
+            addCustomCssButton  = document.querySelector('*[data-cluckles="add-custom-css"]'),
+            template            = document.createElement('textarea');
+
+        // Setup the Attribute of the text area
+        template.setAttribute('rows', 5);
+        template.classList.add('form-control');
+
+        template.setAttribute('id', 'clucklesCustomStylesTemplate');
+
+        // Hide it from eyes and screenreaders
+        template.classList.add('hidden');
+        template.setAttribute('aria-hidden', true);   
+
+        // Append to Custom styles Panel
+        this.customStylesTemplate = template;
+        this.customStylesPanel.appendChild(template);
+
+        // Setup the Add custom styles buttons
+        addCustomLessButton.addEventListener('click', function () {
+            this.addCustomStyles(undefined, 'Less');
+        }.bind(this), false);
+
+        addCustomCssButton.addEventListener('click', function () {
+            this.addCustomStyles(undefined, 'Css');
+        }.bind(this), false);
+    };
+
+    /**
+     * Handles the Creation and Storing of Custom Styles which can be Less or CSS,
+     * also binds the Change event so it can change and recompile the Custom Changes.
+     * 
+     * @param {MouseEvent|String} styles The Custom styling to manage (or mouse event).
+     * @param {string} type The type of Custom Style (Less|Css) Case Sensitive.
+     * 
+     * @returns {StyleElement}
+     */
+    Import.prototype.addCustomStyles = function (styles, type) {
+        var textArea    = this.customStylesTemplate.cloneNode(false),
+            customStyle = document.createElement('style'),
+            // Were either adding/editing Less or Css
+            styleArray  = this['custom' + type], // Array which stores styles of this Type
+            styleId     = styleArray.length, // Store the index of the style
+            styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body');
+
+        // Remove the Template attributes
+        textArea.removeAttribute('id');
+        textArea.classList.remove('hidden');
+        textArea.removeAttribute('aria-hidden');
+
+        if (type === 'Less') {
+            // Set the type so Less will compile the extra less
+            customStyle.setAttribute('type', 'text/less');
+        }
+
+        // If styles are provided (and a string), set the text
+        if (styles !== undefined && typeof styles === 'string') {
+            // Set the text of the textarea (will be set when importing)
+            textArea.value = styles;
+
+            // If we are adding/editing less
+            if (type === 'Less') {
+                // Append the Header and styling, so it can use vars/mixins
+                // Just use styling, it will be prefixed later
+                customStyle.innerHTML = this.customStylesHeader.concat(styles);
+            } else {
+                // Append the CSS styling (will be prefixed if the option was set)
+                customStyle.innerHTML = this.editor.prefixCustomStyles(styles, type);
+            }
+
+            // Store the styling so it can be edited later/exported
+            styleArray[styleId] = styles;
+        } else {
+            styleArray[styleId] = '';
+        }
+
+        // Add the Textarea to the Custom Styles Collapse
+        styleCollapse.appendChild(textArea);
+
+        // Add the Style tag (which passes the CSS/Less to less) after the main stylesheet in the head
+        this.mainStylesheet.parentNode.insertBefore(customStyle, this.mainStylesheet.nextSibling);
+
+        // Setup the Change event to update the Style when the textarea changes (and recompile)
+        textArea.addEventListener('change', function (e) {
+            if (type === 'Less') {
+                // Set the Type to 'text/less' so less will recompile it
+                customStyle.setAttribute('type', 'text/less');
+
+                // Append the Header and styling, so it can use vars/mixins
+                // Just use styling, it will be prefixed later
+                customStyle.innerHTML = this.customStylesHeader.concat(e.target.value);
+            } else {
+                // Append the CSS styling (will be prefixed if the option was set)
+                customStyle.innerHTML = this.editor.prefixCustomStyles(e.target.value, type);
+            }
+
+            // Update the Stored styling
+            styleArray[styleId] = e.target.value;
+
+            // Apply the modifications, and dont use cached styles, this will
+            // make sure that it will parse the styling if the type is less
+            this.editor.applyModifications(null, true);
+
+            if (type === 'Less') {
+                // Now that the less should have been compiled, it will be CSS,
+                // so we can prefix it now
+                customStyle.innerHTML = this.editor.prefixCustomStyles(customStyle.innerHTML, type);
+            }
+        }.bind(this));
+
+        // Return the CustomStyle, so we can call the prefixCustomStyles method
+        // once applyModifcations has been called (will be performed is type is less)
+        return customStyle;
+    };
+    
+    /**
+     * Stores and loads the Modifiers, then sets up the Custom Styles if
+     * any were contained in the themes _extra object.
+     * 
+     * @param {object} modifiers The modifiers to process.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.handleThemeImport = function (modifiers) {
+        var extra = {},
+            lessStyles = [];
+
+        // Store the Modifiers
+        this.editor.modifiers = modifiers;
+
+        // Now load the modifiers into each component
+        this.loadComponentModifiers(this.modifiers);
+
+        // If the JSON has an _extra field
+        if (modifiers.hasOwnProperty('_extra')) {
+            // Clone the Extra's Object, or after applying the
+            // custom less, the custom css disappears
+            extra = JSON.parse(JSON.stringify(modifiers._extra));
+
+            // If there is Custom Less
+            if (extra.hasOwnProperty('less')) {
+                extra.less.forEach(function (lessText) {
+                    lessStyles.push(this.addCustomStyles(lessText, 'Less'));
+                }, this);
+
+                // Apply the modifications, and dont use cached styles
+                // Should recompile everything, this forces Less to compile
+                // the Custom Less
+                this.editor.applyModifications(null, true);
+                
+                lessStyles.forEach(function (style) {
+                   // Now the Less should be compiled to CSS, so we can attempt
+                   // to prefix the CSS
+                   style.innerHTML = this.prefixCustomStyles(style.innerHTML, 'Less');
+                }, this.editor);
+            }
+
+            // If there is Custom Css
+            if (extra.hasOwnProperty('css')) {
+                extra.css.forEach(function (cssText) {
+                    this.addCustomStyles(cssText, 'Css');
+                }, this);
+
+                // Apply the modifications, should append the Custom Css to
+                // the Currently compiled Css
+                this.editor.applyModifications();
+            }
+        } else {
+            this.editor.applyModifications();
         }
     };
 
@@ -7580,33 +7793,87 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.setupPostProcessor = function (less) {
-        var cssSelectorRegex = /((?:(?:[#.]|(?:^\w{0}a(?!\w)|ul|li))[\w->:.\s]+)+)(?=[,\{])/mg,
-            prefixedCss;
+        var processedCss,
+            customCss;
 
         // Provide less with the postProcessor callback we want to execute
         less.postProcessor = function (css) {
             // Generate/Regenerate both of the Download button Blob contents
-            this.export.generateCssBlob(css);
-            this.export.generateJsonBlob();
-            
+            this.export.generateCssBlob(css.concat(customCss)); // Join the Compiled and Custom Css together
+            this.export.generateJsonBlob(this.import.customCss, this.import.customLess); // Pass both the Custom Css and Less
+
             // If the Scope option was provided, we want to prefix all the
             // CSS selectors with our scope, so the theme changes are only
             // applied to the DOMElement we choose and its children
-            if (this.options.hasOwnProperty('scope')) {
-                // Use the regex above, $& prefixes the CSS selectors with our scope selector
-                prefixedCss = css.replace(cssSelectorRegex, this.options.scope + ' $&');
+            processedCss = this.selectorProcessor(css);
+            customCss    = this.prefixCustomStyles(this.import.customCss, 'Css');
 
-                // Replace body with the scope selector, stops the body background leaking
-                prefixedCss = prefixedCss.replace(/^body/mg, this.options.scope);
-                // Prefixes the h* small, .h* small h* .small etc with the scope selector
-                prefixedCss = prefixedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope + ' $&');
-
-                // Store the replaced css, just incase someone needs it
-                this.replacedCss = prefixedCss;
-
-                return prefixedCss;
-            }
+            // Return the Processed and Custom Css
+            return processedCss.concat(customCss);
         }.bind(this);
+    };
+    
+    /**
+     * If the options.scope.selector was provided, we prefix all the CSS Selectors
+     * in the CSS Input with the CSS Selector provided by the option. This limits the
+     * scope of the CSS Generated to be contained inside the DOM Element referenced
+     * by the scope selector.
+     * 
+     * @param {string} css CSS to process and prefix with the options.scope.selector.
+     * 
+     * @returns {string}
+     */
+    ClucklesEditor.prototype.selectorProcessor = function (css) {
+        var cssSelectorRegex = /((?:(?:(?:(^\({0}#)|\.)|(?:^\w{0}a(?!\w)|ul|li|textarea))[\w->:.\s]+)+)(?=[,\{])/mg,
+            processedCss = css;
+        
+        // Prefix the css selectors with this.options.scope.selector
+        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector')) {
+            // Use the regex above, $& prefixes the CSS selectors with our scope selector
+            processedCss = css.replace(cssSelectorRegex, this.options.scope.selector + ' $&');
+
+            // Replace body with the scope selector, stops the body background leaking
+            processedCss = processedCss.replace(/^body/mg, this.options.scope.selector);
+            // Prefixes the h* small, .h* small h* .small etc with the scope selector
+            processedCss = processedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope.selector + ' $&');
+            processedCss = processedCss.replace(/^footer/mg, this.options.scope.selector + ' $&');
+        }
+        
+        return processedCss;
+    };
+    
+    /**
+     * Prefixes the Custom Styling provided (string or array) with the options.scope.prefix if
+     * the options.scope.customCss || option options.scope.customLess is true,
+     * or returns the Styling (concatenated if array is provided).
+     * 
+     * @param {String|Array} style Array of Custom Styles or singular custom style (to prefix/concatenate).
+     * 
+     * @returns {Array|String}
+     */
+    ClucklesEditor.prototype.prefixCustomStyles = function (style, type) {
+        // If the options permit the Styling to be prefixed
+        if (this.options.hasOwnProperty('scope') &&
+                this.options.scope.hasOwnProperty('custom' + type) &&
+                this.options.scope['custom' + type] === true) {
+            
+            // Prefix the Styles
+            if (typeof style === 'string') {
+                return this.selectorProcessor(style);
+            }
+
+            // or Concatenate and Prefix all the Styles
+            return style.reduce(function (prev, cur) {
+                return prev + this.selectorProcessor(cur);
+            }.bind(this), '');
+        } else {
+            if (typeof style === 'string') { return style; }
+
+            // Concatentate the array into a string
+            return style.reduce(function (allStyles, s) {
+                return allStyles + s; },
+            '');
+        }
     };
 
     /**
@@ -7793,12 +8060,16 @@
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.applyModifications = function (modifications) {
+    ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
+        
+        if (reload !== undefined) {
+            this.lessGlobal.refresh(true, modifiers);
+        }
 
         // Now apply the Modifications to the Theme
-        this.lessGlobal.modifyVars(modifiers);
+        this.lessGlobal.refresh(false, modifiers);
     };
     
     /**

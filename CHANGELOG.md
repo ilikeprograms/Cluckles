@@ -8,6 +8,21 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.7.0]
+
+- [Docs] Updated Scope and child options to correctly work with custom css/less
+- [Docs] Improved the Project Intro in Homepage/About
+- [Docs] Removed btn styles from latest dist button on homepage
+- [Docs] Stopped external link icon from being added to `.btn`. Thanks time shifter.
+- [Docs] Completely redesigned the Docs theme
+- [Docs] Added `z-index` to forkme ribbon, makes it appear over the navbar
+- [Docs] Added `.navbar-static-top` to navigation
+- [Docs] Changed demo-base title seperator to |
+- [Editor] Added the Custom Section and updated import.js to insert into the Css/Less collapse panels
+- [Readme] Documented the options.scope and scope.customCss and scope.customLess options
+- [Grunt] Improved Grunt watch
+- [Cluckles] Added Ability to add custom Less/Css to themes
+
 ## [0.6.2]
 
 - [ClucklesEditor] Fixed replacing `body` with scope selector
