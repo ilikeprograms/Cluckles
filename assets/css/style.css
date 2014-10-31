@@ -10,12 +10,12 @@ Style.css because we were all new once ;)
     margin-bottom: 0;
 }
 
-.showcase-light {
-    background-color: #FFC9AA;
+.showcase-lighter {
+    /*background-color: #F9FCFF;*/
 }
 
 .showcase-darker {
-    background-color: #AA6239;
+    background-color: #F9FCFF;
 }
 
 #pageFooter {

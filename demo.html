@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cluckles Demo Page - Cluckles</title>
+    <title>Cluckles Demo Page | Cluckles</title>
     
     <meta name="description" content="Cluckles Demo page, feedback welcome, test the Live Theme Editing." />
     
@@ -63,7 +63,7 @@
 <script>less.hasOwnProperty('Parser') || document.write('<script src="/assets/js/lib/less.min.js"><\/script>');</script>    
   </head>
   <body role="document">
-    <nav class="navbar navbar-inverse" id="mainNavigation">
+    <nav class="navbar navbar-inverse navbar-static-top" id="mainNavigation">
   <div class="container-fluid">
     <!-- Navbar Header -->
     <div class="navbar-header">
@@ -1214,6 +1214,8 @@
             <li class="active"><a href="#" data-toggle="tab" data-target="#brandingEditorTab">Branding</a>
             </li>
             <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a>
+            </li>
+            <li><a href="#" data-toggle="tab" data-target="#customEditorTab">Custom</a>
             </li>
         </ul>
         <!-- /Editor Tabs -->
@@ -3990,6 +3992,60 @@
                 </div>
                 <!-- /Components Panel -->
             </div>
+
+            <div class="tab-pane fade in" id="customEditorTab">
+                <!-- Custom Panel -->
+                <div class="panel panel-default">
+                    <form role="form">
+                        <div class="panel-body">
+                            <div class="well well-sm">
+                                You can add custom <strong>Less</strong> and <strong>Css</strong> to the Theme here, which can be imported/exported by Cluckles.
+                            </div>
+
+                            <div class="panel-group" id="customPanel" role="tablist">
+                                <!-- Custom Less Panel -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="clucklesCustomLessHeading">
+                                        <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomLess" aria-expanded="true" aria-controls="clucklesCustomLess">
+                        Custom Less
+                      </a>
+                    </h4>
+                                    </div>
+                                    <div id="clucklesCustomLess" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="clucklesCustomLessHeading">
+                                        <div class="panel-body">
+                                        </div>
+                                        <div class="panel-footer">
+                                            <button type="button" class="btn btn-success" data-cluckles="add-custom-less">Add Less</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Custom Less Panel -->
+
+                                <!-- Custom CSS Panel -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="clucklesCustomCssHeading">
+                                        <h4 class="panel-title">
+                      <a class="collapsed" data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomCss" aria-expanded="true" aria-controls="clucklesCustomCss">
+                        Custom Css
+                      </a>
+                    </h4>
+                                    </div>
+                                    <div id="clucklesCustomCss" class="panel-collapse collapse" role="tabpanel" aria-labelledby="clucklesCustomCssHeading">
+                                        <div class="panel-body">
+                                        </div>
+                                        <div class="panel-footer">
+                                            <button type="button" class="btn btn-success" data-cluckles="add-custom-css">Add Css</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Custom CSS Panel -->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <!-- /Custom Panel-->
+            </div>
         </div>
     </div>
     <!-- /Editor Row -->
@@ -4002,7 +4058,12 @@
 <script src="/assets/js/cluckles.min.js"></script>
 <script>
   var clucklesEditor = new ClucklesEditor(less, {
-    scope: '#mainContainer',
+    scope: {
+      selector: '#mainContainer',
+      customCss: true,
+      customLess: true
+    },
+    
     theme: {
       src: '/assets/theme.json'
     },
@@ -4034,7 +4095,7 @@
     <script src="/assets/js/common.js"></script>
     
     
-      <a href="http://github.com/ilikeprograms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="hidden-sm hidden-xs" /></a>
+      <a href="http://github.com/ilikeprograms"><img style="z-index: 1001;position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="hidden-sm hidden-xs" /></a>
     
 
     <!-- Google Universal Analytics -->

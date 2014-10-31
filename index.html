@@ -61,7 +61,7 @@
 <script>less.hasOwnProperty('Parser') || document.write('<script src="/assets/js/lib/less.min.js"><\/script>');</script>
   </head>
   <body role="document">
-    <nav class="navbar navbar-inverse" id="mainNavigation">
+    <nav class="navbar navbar-inverse navbar-static-top" id="mainNavigation">
   <div class="container-fluid">
     <!-- Navbar Header -->
     <div class="navbar-header">
@@ -96,15 +96,16 @@
       </div>
     </div>
 
-    <p><em>Cluckles</em> is a Live Theme Editor for CSS Framework based on <a href="http://lesscss.org/" title="lesscss Website" target="_blank">Less</a> such as <a href="http://getbootstrap.com/" target="_blank" title="Twitter Bootstrap Website">Twitter Bootstrap</a>, and currently allows Bootstrap Themes to be completely customised <sup>(In the future I will look into adding support other CSS Frameworks).</sup>.</p>
+    <p><em>Cluckles</em> is a live theme editor that leverages <a href="http://lesscss.org/" title="lesscss Website" target="_blank">Less</a> to Customise <a href="http://getbootstrap.com/" target="_blank" title="Twitter Bootstrap Website">Twitter Bootstrap</a> <sup>(In the future I will look into adding support other CSS Frameworks).</sup></p>
+    <p>It now even lets you add custom Less/Css to supplement the theme changes.</p>
     <p>The included JS files can be distributed and used in other projects to provide Live editing functionality for Bootstrap. (An example site is also provided). <em>P.S. This website was completely Themed using Cluckles!</em></p>
     <hr />
 
     <div class="text-center">
       <a href="demo.html" class="btn btn-lg btn-primary" title="ClucklesDemo Page">Try the Demo</a>
-      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.6.2.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a>
+      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.7.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a>
       <a href="http://bower.io/search/?q=Cluckles" class="btn btn-lg btn-primary" title="Cluckles on Bower">Also on Bower</a><br />
-      <small>Current release v0.6.2</small><br />
+      <small>Current release v0.7.0</small><br />
       
       <a class="FlattrButton text-center" style="display: none;" 
       title="Cluckles Live Theme Editor" 
@@ -125,7 +126,7 @@
       <div class="container">
         <h2>Getting started with Cluckles</h2>
 
-        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.6.2.zip" class="btn btn-primary" title="Cluckles latest Download">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
+        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.7.0.zip" title="Cluckles latest Download" target="_blank">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
           Now load up the Example site which is included or start composing your own:
         </p>
         
@@ -165,11 +166,15 @@
               <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               
               // Load our Fancy live editing Script
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.6.2.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.7.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               <span class="nt">&lt;script&gt;</span>
                 <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
                     <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">scope</span><span class="o">:</span> <span class="s2">&quot;#mainContainer&quot;</span><span class="p">,</span>
+                        <span class="nx">scope</span><span class="o">:</span> <span class="p">{</span>
+                          <span class="nx">selector</span><span class="o">:</span> <span class="s2">&quot;#mainContainer&quot;</span><span class="p">,</span>
+                          <span class="nx">customCss</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                          <span class="nx">customLess</span><span class="o">:</span> <span class="kc">true</span>
+                        <span class="p">},</span>
                         <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Fallback/General Target</span>
                         <span class="nx">json</span><span class="o">:</span> <span class="p">{</span>
                             <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Custom Target</span>
@@ -277,12 +282,6 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>scope</td>
-<td style="text-align: center"><code>string</code></td>
-<td></td>
-<td>The CSS Selector to prefix the Compiled CSS selectors with</td>
-</tr>
-<tr>
 <td>delay</td>
 <td style="text-align: center"><code>number</code></td>
 <td>750 (milliseconds)</td>
@@ -293,6 +292,39 @@
 <td style="text-align: center"><code>Number</code></td>
 <td>10</td>
 <td>Number of items to keep in the Undo history</td>
+</tr>
+</tbody></table>
+
+<h2 id="scope">Scope</h2>
+
+<p>The Scope option controls whether or not to limit the CSS generated by Cluckles to a given Scope.
+When a <code>selector</code> is provided, the CSS generated will be prefixed with the selector (and similarly when the <code>customCss</code> and <code>customLess</code> options are set to <code>true</code>)</p>
+
+<table><thead>
+<tr>
+<th>Field</th>
+<th style="text-align: center">Type</th>
+<th>Default</th>
+<th>Desc</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>selector</td>
+<td style="text-align: center"><code>string</code></td>
+<td></td>
+<td>The CSS Selector to prefix the Compiled CSS selectors with</td>
+</tr>
+<tr>
+<td>customCss</td>
+<td style="text-align: center"><code>boolean</code></td>
+<td></td>
+<td>When set to <code>true</code>, the CSS will be prefixed with the selector</td>
+</tr>
+<tr>
+<td>customLess</td>
+<td style="text-align: center"><code>boolean</code></td>
+<td></td>
+<td>When set to <code>true</code> the Less is compiled to CSS then prefixed with the selector</td>
 </tr>
 </tbody></table>
 
@@ -470,7 +502,11 @@ modifications (as JSON) to an external URL.</p>
 <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;../cluckles-0.6.2.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
 <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
   <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">scope</span><span class="o">:</span> <span class="s2">&quot;#mainContainer&quot;</span><span class="p">,</span>
+    <span class="nx">scope</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;#mainContainer&#39;</span><span class="p">,</span>
+      <span class="nx">customCss</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+      <span class="nx">customLess</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">},</span>
     <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;theme.json&#39;</span>
     <span class="p">},</span>
@@ -531,7 +567,7 @@ modifications (as JSON) to an external URL.</p>
     <script src="/assets/js/common.js"></script>
     
     
-      <a href="http://github.com/ilikeprograms"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="hidden-sm hidden-xs" /></a>
+      <a href="http://github.com/ilikeprograms"><img style="z-index: 1001;position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="hidden-sm hidden-xs" /></a>
     
 
     

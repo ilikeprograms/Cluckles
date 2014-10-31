@@ -1,6 +1,6 @@
 $(function () {
 	// Find all links with have a _blank target
-	var externalLinks = document.querySelectorAll('a[target="_blank"]'),
+	var externalLinks = document.querySelectorAll('a[target="_blank"]:not(.btn)'),
 		superText = document.createElement('sup'),
 		extIcon = document.createElement('i'),
 		spacer = document.createTextNode(String.fromCharCode(160)); // 160 = &nbsp;
