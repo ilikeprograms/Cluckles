@@ -10,6 +10,7 @@ without getting into too much detail.
 
 ## [0.7.0]
 
+- [Docs] Added `z-index` to Homepage fork me ribbon
 - [Docs] Updated Scope and child options to correctly work with custom css/less
 - [Docs] Improved the Project Intro in Homepage/About
 - [Docs] Removed btn styles from latest dist button on homepage
