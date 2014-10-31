@@ -195,12 +195,12 @@
      * @returns {StyleElement}
      */
     Import.prototype.addCustomStyles = function (styles, type) {
-        console.log(styles, type);
         var textArea    = this.customStylesTemplate.cloneNode(false),
             customStyle = document.createElement('style'),
             // Were either adding/editing Less or Css
             styleArray  = this['custom' + type], // Array which stores styles of this Type
-            styleId     = styleArray.length; // Store the index of the style
+            styleId     = styleArray.length, // Store the index of the style
+            styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body');
 
         // Remove the Template attributes
         textArea.removeAttribute('id');
@@ -233,8 +233,9 @@
             styleArray[styleId] = '';
         }
 
-        // Add the Textarea to the Custom Styles Panel
-        this.customStylesPanel.appendChild(textArea);
+        // Add the Textarea to the Custom Styles Collapse
+        styleCollapse.appendChild(textArea);
+
         // Add the Style tag (which passes the CSS/Less to less) after the main stylesheet in the head
         this.mainStylesheet.parentNode.insertBefore(customStyle, this.mainStylesheet.nextSibling);
 
