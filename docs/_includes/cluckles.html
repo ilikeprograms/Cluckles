@@ -2,7 +2,12 @@
 <script src="{{ site.baseurl }}/assets/js/cluckles.min.js"></script>
 <script>
   var clucklesEditor = new ClucklesEditor(less, {
-    scope: '#mainContainer',
+    scope: {
+      selector: '#mainContainer',
+      customCss: true,
+      customLess: true
+    },
+    
     theme: {
       src: '{{ site.baseurl }}/assets/theme.json'
     },

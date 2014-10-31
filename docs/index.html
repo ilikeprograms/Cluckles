@@ -88,7 +88,11 @@ description: 'Cluckles Live Theme Editor compatible with Bootstrap. Open source 
               <script>
                 var clucklesEditor = new ClucklesEditor(less, {
                     export: {
-                        scope: "#mainContainer",
+                        scope: {
+                          selector: "#mainContainer",
+                          customCss: true,
+                          customLess: true
+                        },
                         target: '#download-panel-footer', // Fallback/General Target
                         json: {
                             target: '#download-panel-footer', // Custom Target
