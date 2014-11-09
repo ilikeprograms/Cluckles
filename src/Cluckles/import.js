@@ -133,6 +133,9 @@
                     try {
                         var modifiers = JSON.parse(evt.target.result);
 
+                        // Reset to default before importing, so we have a clean import
+                        this.editor.resetToDefault();                        
+
                         // Handle the modifier/custom styles importing
                         this.handleThemeImport(modifiers);
 
