@@ -32,17 +32,12 @@
         // Custom Styles
         this.customCss              = [];
         this.customLess             = [];
-
-        if (options !== undefined) {
-            // If the theme.src option was provided
-            if (options.hasOwnProperty('src')) {
-                // Attempt to load and parse the theme file at the theme.src URL
-                this.parseThemeFile(options.src);
-            }
-        }
         
         this.setupCustomStyles(); // Setup the ability to handle Custom Css/Less
         this.setupFileImport();   // Setup the File input so themes can be imported
+        // Attempt to load and parse the theme file at the theme.src URL
+        this.parseThemeFile(this.options.src);
+    };
     };
 
     /**
@@ -54,6 +49,11 @@
      */
     Import.prototype.parseThemeFile = function (themeUrl) {
         var themeXHR;
+
+        // If the theme.src option was not provided
+        if (!this.options || !this.options.hasOwnProperty('src')) {
+            return;
+        }
 
         // If an url to the theme.json file was not provided, or was not a string
         if (typeof themeUrl !== 'string') {
