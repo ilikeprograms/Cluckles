@@ -278,6 +278,22 @@
     };
 
     /**
+     * Refreshes all the Custom styles by triggering change event against each one.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.refreshCustomStyles = function () {
+        var lessInputs  = [].slice.call(document.querySelectorAll('#clucklesCustomLess .panel-body > textarea')),
+            cssInputs   = [].slice.call(document.querySelectorAll('#clucklesCustomCss .panel-body > textarea'));
+
+        // Concatenate all the Custom styles textareas
+        lessInputs.concat(cssInputs).forEach(function (input) {
+            // Displatch a change event, to simulate a value change
+            input.dispatchEvent(new Event('change'));
+        });
+    };
+
+    /**
      * Get the Modifications which have been stored.
      * 
      * @returns {Object}
@@ -438,17 +454,22 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.queueModifications = function () {
-        // If an update is allowed right now, apply the modifications
+        // If an update is allowed right now, apply the modifications,
+        // and refresh the custom styles, which allows the cutsom styles to updated vars
         if (this.refreshMonitor.canRefresh === true) {
             this.applyModifications();
+
+            this.refreshCustomStyles();
             
             // Set the state to not ready for more updates yet
             this.refreshMonitor.canRefresh = false;
             
-            // Set a timeout to allow updated again after x time (refreshMonitor.rate)
-            // and apply the modifications that were pending
+            // Set a timeout to allow updates again after x time (refreshMonitor.rate)
+            // and apply the modifications that were pending (also refreshes custom styles)
             setTimeout(function () {
                 this.applyModifications();
+
+                this.refreshCustomStyles();
 
                 // Allow updates again
                 this.refreshMonitor.canRefresh = true;
