@@ -622,14 +622,15 @@
         this.applyModifications({});
     };
 
-
     /**
-     * Resets the current Theme to the Theme which was imported by providing the
-     * theme.src option (including resetting the components/subscribers).
+     * Resets the Modifiers loaded into Cluckles and loads the modifiers passed
+     * in.
+     * 
+     * @param {object} modifiers The modifiers to load.
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.resetToTheme = function () {
+    ClucklesEditor.prototype.resetFromModifiers = function (modifiers) {
         // Copy the current undoStack
         var currentUndoStack = this.undoStack.slice(0);
 
@@ -642,11 +643,11 @@
         this.refreshMonitor.canRefresh  = false;
 
         // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
-        this.import.loadComponentModifiers(this.import.themeModifiers);
+        this.import.handleThemeImport(modifiers);
 
         // Now apply the theme modifiers which were reset to the theme
         this.applyModifications();
-        
+
         // Restore the undoStack (resetToDefault clears the stacks)
         this.undoStack = currentUndoStack;
         // Push the modifiers from the Theme onto the undo stack
@@ -655,6 +656,16 @@
         // Allow modifications to be tracked/applied automatically
         this.canTrackUndo = true;
         this.refreshMonitor.canRefresh = true;
+    };
+
+    /**
+     * Resets the current Theme to the Theme which was imported by providing the
+     * theme.src option (including resetting the components/subscribers).
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetToTheme = function () {
+        this.resetFromModifiers(this.import.themeModifiers);
     };
     
     /**
