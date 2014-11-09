@@ -316,36 +316,49 @@
             // Clone the Extra's Object, or after applying the
             // custom less, the custom css disappears
             extra = JSON.parse(JSON.stringify(modifiers._extra));
-
-            // If there is Custom Less
-            if (extra.hasOwnProperty('less')) {
-                extra.less.forEach(function (lessText) {
-                    lessStyles.push(this.addCustomStyles(lessText, 'Less'));
-                }, this);
-
-                // Apply the modifications, and dont use cached styles
-                // Should recompile everything, this forces Less to compile
-                // the Custom Less
-                this.editor.applyModifications(null, true);
-                
-                lessStyles.forEach(function (style) {
-                   // Now the Less should be compiled to CSS, so we can attempt
-                   // to prefix the CSS
-                   style.innerHTML = this.prefixCustomStyles(style.innerHTML, 'Less');
-                }, this.editor);
-            }
-
-            // If there is Custom Css
-            if (extra.hasOwnProperty('css')) {
-                extra.css.forEach(function (cssText) {
-                    this.addCustomStyles(cssText, 'Css');
-                }, this);
-
-                // Apply the modifications, should append the Custom Css to
-                // the Currently compiled Css
-                this.editor.applyModifications();
-            }
+            
+            this.importThemeExtra(extra);
         } else {
+            this.editor.applyModifications();
+        }
+    };
+    
+    /**
+     * Handles importing the Theme Extra.
+     * 
+     * @param {Object} extra The Theme extra object.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.importThemeExtra = function (extra) {
+        var lessStyles = [];
+
+        // If there is Custom Less
+        if (extra.hasOwnProperty('less')) {
+            extra.less.forEach(function (lessText) {
+                lessStyles.push(this.addCustomStyles(lessText, 'Less'));
+            }, this);
+
+            // Apply the modifications, and dont use cached styles
+            // Should recompile everything, this forces Less to compile
+            // the Custom Less
+            this.editor.applyModifications(null, true);
+
+            lessStyles.forEach(function (style) {
+               // Now the Less should be compiled to CSS, so we can attempt
+               // to prefix the CSS
+               style.innerHTML = this.prefixCustomStyles(style.innerHTML, 'Less');
+            }, this.editor);
+        }
+
+        // If there is Custom Css
+        if (extra.hasOwnProperty('css')) {
+            extra.css.forEach(function (cssText) {
+                this.addCustomStyles(cssText, 'Css');
+            }, this);
+
+            // Apply the modifications, should append the Custom Css to
+            // the Currently compiled Css
             this.editor.applyModifications();
         }
     };
