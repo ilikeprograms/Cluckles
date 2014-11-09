@@ -46,7 +46,7 @@
         // Make sure we have Modifiers to import
         if (importModifiers === undefined) { return; }
 
-        var modifierNames = Object.keys(importModifiers);
+        var modifierNames   = Object.keys(importModifiers);
 
         // Itterate over each importModifier name
         modifierNames.forEach(function (modifierName) {
@@ -59,11 +59,43 @@
                 // matches the import modifier variable name, then set the value
                 // of the component modifier, which will set the value and trigger
                 // the data binding and update the data subscribers
-                if (this[componentModifierName].variable === modifierName) {
-                    this[componentModifierName].value = importModifiers[modifierName];
+                if (componentModifiers[componentModifierName].variable === modifierName) {
+                    componentModifiers[componentModifierName].value = this.findParentVariableValue(modifierName, importModifiers);
                 }
             }, componentModifiers);            
+            }, this);            
         }, this);
+    };
+
+    /**
+     * Attempts to find the parent value of the @variable passed in as variableName, by searching
+     * through the modifiers object, until a parent variable is no longer found, in which case returns's
+     * the variable.
+     * 
+     * @param {string} variableName The variable name or variable value (@variable || #000000 etc).
+     * @param {object} modifiers The modifiers object to search through.
+     * 
+     * @returns {string}
+     */
+    ThemeModifier.prototype.findParentVariableValue = function (variableName, modifiers) {
+        var variableValue;
+
+        // If the variable exists in the modifiers
+        if (modifiers.hasOwnProperty(variableName)) {
+            // Find the variable's value
+            variableValue = modifiers[variableName];
+
+            // If the first character is a @, it points to a parent variable
+            if (variableValue[0] === '@') {
+                // Now try to find the parent variable
+                return this.findParentVariableValue(variableValue, modifiers);
+            }
+
+            return variableValue;
+        }
+
+        // If the modifiers doesnt have a value set for this variable
+        return null;
     };
     
     /**
