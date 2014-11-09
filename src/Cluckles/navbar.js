@@ -32,105 +32,105 @@
 
         // Configure the Modifiers
 		this.bg = {
-			variable:           'navbar-' + navbarStyle + '-bg',
+			variable:           '@navbar-' + navbarStyle + '-bg',
 			subscribeProperty:  'bg',
             changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.color = {
-			variable:           'navbar-' + navbarStyle + '-color',
+			variable:           '@navbar-' + navbarStyle + '-color',
 			subscribeProperty:  'color',
             changeFn:           this.setColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.border = {
-			variable:           'navbar-' + navbarStyle + '-border',
+			variable:           '@navbar-' + navbarStyle + '-border',
 			subscribeProperty:  'border',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkColor = {
-			variable:           'navbar-' + navbarStyle + '-link-color',
+			variable:           '@navbar-' + navbarStyle + '-link-color',
 			subscribeProperty:  'link-color',
             changeFn:           this.setLinkColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverColor = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-color',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-color',
 			subscribeProperty:  'link-hover-color',
             changeFn:           this.setLinkHoverColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverBg = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-bg',
 			subscribeProperty:  'link-hover-bg',
             changeFn:           this.setLinkHoverBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkActiveColor = {
-			variable:           'navbar-' + navbarStyle + '-link-active-color',
+			variable:           '@navbar-' + navbarStyle + '-link-active-color',
 			subscribeProperty:  'link-active-color',
             changeFn:           this.setLinkActiveColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkActiveBg = {
-			variable:           'navbar-' + navbarStyle + '-link-active-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-active-bg',
 			subscribeProperty:  'link-active-bg',
             changeFn:           this.setLinkActiveBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverColor = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-color',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-color',
 			subscribeProperty:  'link-hover-color',
             changeFn:           this.setLinkHoverColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverBg = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-bg',
 			subscribeProperty:  'link-hover-bg',
             changeFn:           this.setLinkHoverBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkDisabledColor = {
-			variable:           'navbar-' + navbarStyle + '-link-disabled-color',
+			variable:           '@navbar-' + navbarStyle + '-link-disabled-color',
 			subscribeProperty:  'link-disabled-color',
             changeFn:           this.setLinkDisabledColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkDisabledBg = {
-			variable:           'navbar-' + navbarStyle + '-link-disabled-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-disabled-bg',
 			subscribeProperty:  'link-disabled-bg',
             changeFn:           this.setLinkDisabledBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.brandColor = {
-			variable:           'navbar-' + navbarStyle + '-brand-color',
+			variable:           '@navbar-' + navbarStyle + '-brand-color',
 			subscribeProperty:  'brand-color',
             changeFn:           this.setBrandColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.brandHoverColor = {
-			variable:           'navbar-' + navbarStyle + '-brand-hover-color',
+			variable:           '@navbar-' + navbarStyle + '-brand-hover-color',
 			subscribeProperty:  'brand-hover-color',
             changeFn:           this.setBrandHoverColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.brandHoverBg = {
-			variable:           'navbar-' + navbarStyle + '-brand-hover-bg',
+			variable:           '@navbar-' + navbarStyle + '-brand-hover-bg',
 			subscribeProperty:  'brand-hover-bg',
             changeFn:           this.setBrandHoverBackgroundColor.bind(this),
             subscribers:        [],
