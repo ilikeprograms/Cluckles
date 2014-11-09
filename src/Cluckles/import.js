@@ -309,7 +309,7 @@
         this.editor.modifiers = modifiers;
 
         // Now load the modifiers into each component
-        this.loadComponentModifiers(this.modifiers);
+        this.loadComponentModifiers(this.editor.modifiers);
 
         // If the JSON has an _extra field
         if (modifiers.hasOwnProperty('_extra')) {
