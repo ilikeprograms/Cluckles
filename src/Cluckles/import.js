@@ -202,6 +202,9 @@
             styleId     = styleArray.length, // Store the index of the style
             styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body');
 
+        // Set a Data attribute so we can find the style's later
+        customStyle.setAttribute('data-clucklesCustomStyle', '');
+
         // Remove the Template attributes
         textArea.removeAttribute('id');
         textArea.classList.remove('hidden');
@@ -270,6 +273,24 @@
         // Return the CustomStyle, so we can call the prefixCustomStyles method
         // once applyModifcations has been called (will be performed is type is less)
         return customStyle;
+    };
+
+    /**
+     * Resets the Custom style arrays, remove the custom style inputs, and remove
+     * the custom style elements from the page header.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.resetCustomStyles = function () {
+        this.customCss              = [];
+        this.customLess             = [];
+        
+        document.querySelector('#clucklesCustomLess .panel-body').innerHTML = '';
+        document.querySelector('#clucklesCustomCss .panel-body').innerHTML = '';
+
+        [].slice.call(document.querySelectorAll('*[data-clucklesCustomStyle]')).forEach(function (customStyle) {
+           customStyle.parentNode.removeChild(customStyle);
+        });
     };
     
     /**

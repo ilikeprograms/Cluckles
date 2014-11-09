@@ -612,6 +612,9 @@
             this.redoButton.setAttribute('disabled', 'disabled');
         }
 
+        // Reset the Custom Styles
+        this.import.resetCustomStyles();
+
         // Reset all the Components
         this.resetComponents(); 
 
