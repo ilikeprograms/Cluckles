@@ -55,16 +55,52 @@
 
             // Itterate over each component modifer name
             Object.keys(componentModifiers).forEach(function (componentModifierName) {
+                var componentModifier   = componentModifiers[componentModifierName],
+                    importModifier      = importModifiers[modifierName];
+
                 // If this component modifier (e.g. this.bg) variable property (e.g. '@jumbotron-bg')
                 // matches the import modifier variable name, then set the value
                 // of the component modifier, which will set the value and trigger
                 // the data binding and update the data subscribers
-                if (componentModifiers[componentModifierName].variable === modifierName) {
-                    componentModifiers[componentModifierName].value = this.findParentVariableValue(modifierName, importModifiers);
+                if (componentModifier.variable === modifierName) {
+                    componentModifier.value = this.findParentVariableValue(modifierName, importModifiers);
+                    
+                    if (importModifier[0] === '@') {
+                        componentModifier.parentVar = importModifier;
+                    }
                 }
-            }, componentModifiers);            
             }, this);            
         }, this);
+    };
+    
+    /**
+     * Cascades a parents value to any Component modifier, whos parentVar is set
+     * to the the parent variable.
+     * 
+     * @param {string} parentVariable The name of the parent variable.
+     * @param {string} parentValue The value of the parent variable.
+     * 
+     * @returns {undefined}
+     */
+    ThemeModifier.prototype.cascadeModifier = function (parentVariable, parentValue) {
+        this.editor.components.forEach(function (component) {
+            // Some of the "components" may be object literals containing
+            // actual "components" which inherit from ThemeModifier
+            if (component instanceof ThemeModifier) {
+                // Load the modifiers into the component, triggering the
+                // two way data binding and updating the data subscribers
+                var componentModifiers = component.modifiers;
+                
+                Object.keys(componentModifiers).forEach(function (modifierName) {
+                    var modifier = componentModifiers[modifierName];
+
+                    if (modifier.parentVar === parentVariable) {
+                        modifier.value      = parentValue;
+                        modifier.parentVar  = parentVariable;
+                    }
+                });
+            }
+        });
     };
 
     /**
@@ -126,7 +162,8 @@
      * @returns {undefined}
      */
     ThemeModifier.prototype.setupDataBinding = function () {
-        var editor = this.editor, // ClucklesEditor instance
+        var self = this,
+            editor = this.editor, // ClucklesEditor instance
             // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
             subscribers = Array.prototype.slice.call(document.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
@@ -141,27 +178,49 @@
                 Object.defineProperty(modifier, 'value', {
                     get: function () { return this._value; },
                     set: function (val) {
-                        var unit = 'px'; // Default unit to append (px, em, rem, etc)
+                        var unit        = this.unit || 'px', // Default unit to append (px, em, rem, etc)
+                            hasParent   = false;
 
-                        // If this property requires a suffix unit
-                        // val !== NULL makes sure we can set _value to null,
-                        // but stops _value being set to null + unit
-                        // without this the theme breaks after being reset
-                        if (val !== null && this.suffixUnit) {
-                            // Store the raw value
-                            this._rawValue = val;
+                        if (val !== null) {
+                            // If the value contains the suffix already (such as when loading from file)
+                            if (val.indexOf(unit) !== -1) {
+                                // Store the val minus the prefix
+                                this._rawValue = val.slice(0, val.indexOf(unit));
+                            } else {
+                                // If the val points to a parent variable (when setting using console API etc)
+                                if (val[0] === '@') {
+                                    // Find the parent variable value, and store it in this._rawValue
+                                    this._rawValue = self.findParentVariableValue(val, self.editor.modifiers);
+                                    // Store the parent variable name
+                                    this.parentVar = val;
 
-                            // If a custom unit is specified
-                            if (this.unit) {
-                                // Set the unit to append
-                                unit = this.unit;
+                                    // Make sure we dont remove this.parentVar
+                                    hasParent = true;
+                                } else {
+                                    // If we have a short color code #FFF etc, turn into #FFFFFF
+                                    if (val[0] === '#' && val.length === 4) {
+                                        this._rawValue = '#' + val.slice(1) + val.slice(1);
+                                    } else {
+                                        // Store the val
+                                        this._rawValue = val;
+                                    }
+                                }
                             }
 
-                            // Combine the value with the unit
-                            this._value = val + unit;
+                            // If this property requires a suffix unit
+                            // val !== NULL makes sure we can set _value to null,
+                            // but stops _value being set to null + unit
+                            // without this the theme breaks after being reset
+                            if (this.suffixUnit) {
+                                // Combine the value with the unit
+                                this._value = this._rawValue + unit;
+                            } else {
+                                // Store the new value
+                                this._value = this._rawValue;
+                            }
                         } else {
-                            // Store the new value
-                            this._value = val;
+                            this._rawValue  = null;
+                            this._value     = null;
                         }
 
                         // Queue the modifications to be applied by less
@@ -174,10 +233,20 @@
                             editor.pushUndoStack();
                         }
 
+                        // Cascade the Modifier value to any component modifier
+                        // whos value is set to the parent variable
+                        self.cascadeModifier(this.variable, this._rawValue);
+
+                        // Remove the parentVar if we are directly setting the value,
+                        // aslong as we arent setting to a parentVar
+                        if (!hasParent && this.hasOwnProperty('parentVar')) {
+                            delete this.parentVar;
+                        }
+
                         // Notify each of the Subscribers of the value change
                         this.subscribers.forEach(function (subscriber) {
-                            subscriber.value = val;
-                        });
+                            subscriber.value = this._rawValue;
+                        }, this);
                     } 
                 });
             }
