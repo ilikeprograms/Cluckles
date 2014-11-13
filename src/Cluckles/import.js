@@ -342,8 +342,9 @@
      * @returns {undefined}
      */
     Import.prototype.handleThemeImport = function (modifiers) {
-        var extra = {},
-            lessStyles = [];
+        var extra = {};
+        
+        this.editor.refreshMonitor.canRefresh = false;
 
         // Store the Modifiers
         this.editor.modifiers = modifiers;
@@ -361,6 +362,8 @@
         } else {
             this.editor.applyModifications();
         }
+        
+        this.editor.refreshMonitor.canRefresh = true;
     };
     
     /**
