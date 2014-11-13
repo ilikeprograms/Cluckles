@@ -17,7 +17,7 @@
         this.editor     = editor;
         this.options    = options;
 
-        this.cssSelectorRegex = /((?:(?:(?:(^\({0}#)|\.)|(?:^\w{0}a(?!\w)|ul|li|textarea))[\w->:.\s]+)+)(?=[,\{])/mg,
+        this.cssSelectorRegex = /((?:(?:(?:(^\({0}#)|\.)|(?:^\w{0}a(?!\w)|ul|li|textarea))[\w->:.\s]+)+)(?=[,\{])/mg;
 
         this.setupPostProcessor();
     };
