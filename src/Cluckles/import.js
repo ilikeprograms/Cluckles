@@ -152,18 +152,26 @@
 
                 // If no file was chosen, dont try to read undefined,
                 // or a json file was not selected
-                if (!file || file.type !== 'application/json') {
-                    alert('Please Select a JSON file (like one exported from Cluckles)');
+                if (!file || (file.type !== 'application/json' && !file.name.match(/.less/i))) {
+                    alert('Please Select a JSON or Less file (like one exported from Cluckles)');
                     return;
                 }
 
                 // Setup the File reader, so it will import the json file's modifiers
                 reader.onload = function (evt) {
                     try {
-                        var modifiers = JSON.parse(evt.target.result);
+                        var modifiers = evt.target.result;
 
                         // Reset to default before importing, so we have a clean import
-                        this.editor.resetToDefault();                        
+                        this.editor.resetToDefault();
+
+                        // If the File choosen was a Less file
+                        if (file.name.match(/.less/i)) {
+                            // Attempt to parse the variables from the file
+                            modifiers = this.parseVariablesFile(modifiers);
+                        } else {
+                            modifiers = JSON.parse(modifiers);
+                        }
 
                         // Handle the modifier/custom styles importing
                         this.handleThemeImport(modifiers);
