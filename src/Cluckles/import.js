@@ -12,8 +12,9 @@
      * 
      * @returns {Import}
      */
-    var Import = function (editor, options) {
+    var Import = function (editor, processor, options) {
         this.editor             = editor;
+        this.processor          = processor;
         this.options            = options;
         this.themeModifiers     = {};
 
@@ -230,7 +231,7 @@
                 customStyle.innerHTML = this.customStylesHeader.concat(styles);
             } else {
                 // Append the CSS styling (will be prefixed if the option was set)
-                customStyle.innerHTML = this.editor.prefixCustomStyles(styles, type);
+                customStyle.innerHTML = this.editor.processor.prefixCustomStyles(styles, type);
             }
 
             // Store the styling so it can be edited later/exported
@@ -256,7 +257,7 @@
                 customStyle.innerHTML = this.customStylesHeader.concat(e.target.value);
             } else {
                 // Append the CSS styling (will be prefixed if the option was set)
-                customStyle.innerHTML = this.editor.prefixCustomStyles(e.target.value, type);
+                customStyle.innerHTML = this.editor.processor.prefixCustomStyles(e.target.value, type);
             }
 
             // Update the Stored styling
@@ -350,7 +351,7 @@
             lessStyles.forEach(function (style) {
                // Now the Less should be compiled to CSS, so we can attempt
                // to prefix the CSS
-               style.innerHTML = this.prefixCustomStyles(style.innerHTML, 'Less');
+               style.innerHTML = this.processor.prefixCustomStyles(style.innerHTML, 'Less');
             }, this.editor);
         }
 

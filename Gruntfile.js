@@ -26,6 +26,7 @@ module.exports = function (grunt) {
             main: {
                 src: [
                     'src/<%= pkg.name %>/theme-modifier.js',
+                    'src/<%= pkg.name %>/processor.js',
                     'src/<%= pkg.name %>/typography.js',
                     'src/<%= pkg.name %>/misc.js',
                     'src/<%= pkg.name %>/table.js',

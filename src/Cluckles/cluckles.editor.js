@@ -164,14 +164,13 @@
         this.redoButton     = document.querySelector('*[data-cluckles-options="redo"]');
         this.undoStack      = [];
         this.redoStack      = [];
-        this.canTrackUndo  = true;
+        this.canTrackUndo   = true;
+
+        this.processor      = new Processor(this, options);
 
         // Import/Export Management
         this.export         = new Export(this, options.export);
-        this.import         = new Import(this, options.theme);
-
-        // Configure the Post Processor for when Less finished Processing Changes to the Theme
-        this.setupPostProcessor(this.lessGlobal);
+        this.import         = new Import(this, this.processor, options.theme);
 
         // Configure the Options toolbar
         this.setupToolbar();
@@ -183,97 +182,6 @@
 
         if (this.redoButton) {
             this.redoButton.setAttribute('disabled', 'disabled');
-        }
-    };
-    
-    /**
-     * Sets up a Callback for the Less#postProcessor callback.
-     * 
-     * @param {Object} less The Global less object.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.setupPostProcessor = function (less) {
-        var processedCss,
-            customCss;
-
-        // Provide less with the postProcessor callback we want to execute
-        less.postProcessor = function (css) {
-            // Generate/Regenerate both of the Download button Blob contents
-            this.export.generateCssBlob(css.concat(customCss)); // Join the Compiled and Custom Css together
-            this.export.generateJsonBlob(this.import.customCss, this.import.customLess); // Pass both the Custom Css and Less
-
-            // If the Scope option was provided, we want to prefix all the
-            // CSS selectors with our scope, so the theme changes are only
-            // applied to the DOMElement we choose and its children
-            processedCss = this.selectorProcessor(css);
-            customCss    = this.prefixCustomStyles(this.import.customCss, 'Css');
-
-            // Return the Processed and Custom Css
-            return processedCss.concat(customCss);
-        }.bind(this);
-    };
-    
-    /**
-     * If the options.scope.selector was provided, we prefix all the CSS Selectors
-     * in the CSS Input with the CSS Selector provided by the option. This limits the
-     * scope of the CSS Generated to be contained inside the DOM Element referenced
-     * by the scope selector.
-     * 
-     * @param {string} css CSS to process and prefix with the options.scope.selector.
-     * 
-     * @returns {string}
-     */
-    ClucklesEditor.prototype.selectorProcessor = function (css) {
-        var cssSelectorRegex = /((?:(?:(?:(^\({0}#)|\.)|(?:^\w{0}a(?!\w)|ul|li|textarea))[\w->:.\s]+)+)(?=[,\{])/mg,
-            processedCss = css;
-        
-        // Prefix the css selectors with this.options.scope.selector
-        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector')) {
-            // Use the regex above, $& prefixes the CSS selectors with our scope selector
-            processedCss = css.replace(cssSelectorRegex, this.options.scope.selector + ' $&');
-
-            // Replace body with the scope selector, stops the body background leaking
-            processedCss = processedCss.replace(/^body/mg, this.options.scope.selector);
-            // Prefixes the h* small, .h* small h* .small etc with the scope selector
-            processedCss = processedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope.selector + ' $&');
-            processedCss = processedCss.replace(/^footer/mg, this.options.scope.selector + ' $&');
-        }
-        
-        return processedCss;
-    };
-    
-    /**
-     * Prefixes the Custom Styling provided (string or array) with the options.scope.prefix if
-     * the options.scope.customCss || option options.scope.customLess is true,
-     * or returns the Styling (concatenated if array is provided).
-     * 
-     * @param {String|Array} style Array of Custom Styles or singular custom style (to prefix/concatenate).
-     * 
-     * @returns {Array|String}
-     */
-    ClucklesEditor.prototype.prefixCustomStyles = function (style, type) {
-        // If the options permit the Styling to be prefixed
-        if (this.options.hasOwnProperty('scope') &&
-                this.options.scope.hasOwnProperty('custom' + type) &&
-                this.options.scope['custom' + type] === true) {
-            
-            // Prefix the Styles
-            if (typeof style === 'string') {
-                return this.selectorProcessor(style);
-            }
-
-            // or Concatenate and Prefix all the Styles
-            return style.reduce(function (prev, cur) {
-                return prev + this.selectorProcessor(cur);
-            }.bind(this), '');
-        } else {
-            if (typeof style === 'string') { return style; }
-
-            // Concatentate the array into a string
-            return style.reduce(function (allStyles, s) {
-                return allStyles + s; },
-            '');
         }
     };
 
@@ -469,7 +377,7 @@
             setTimeout(function () {
                 this.applyModifications();
 
-                this.refreshCustomStyles();
+//                this.refreshCustomStyles();
 
                 // Allow updates again
                 this.refreshMonitor.canRefresh = true;
@@ -485,7 +393,12 @@
     ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
-        
+
+        // Find the Calculated modifier values, will replace @variables with
+        // their parent values, and perform any calculations to consolidate,
+        // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
+        modifiers = this.processor.calculateModifierValues(modifiers);
+
         if (reload !== undefined) {
             this.lessGlobal.refresh(true, modifiers);
         }
@@ -687,6 +600,15 @@
      */
     ClucklesEditor.prototype.resetToTheme = function () {
         this.resetFromModifiers(this.import.themeModifiers);
+    };
+
+    /**
+     * Resets to the variables imported from the "variables_custom.less" file.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetToBootstrap = function () {
+        this.resetFromModifiers(this.import.loadedVariables);
     };
     
     /**
