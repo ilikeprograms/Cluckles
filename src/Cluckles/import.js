@@ -17,6 +17,7 @@
         this.processor          = processor;
         this.options            = options;
         this.themeModifiers     = {};
+        this.themeExtra         = {};
 
         // Main Less stylesheet and the Less folder Path
         this.mainStylesheet         = document.querySelector('link[rel="stylesheet/less"]');
@@ -36,6 +37,7 @@
         
         this.setupCustomStyles(); // Setup the ability to handle Custom Css/Less
         this.setupFileImport();   // Setup the File input so themes can be imported
+
         // Attempt to load and parse the theme file at the theme.src URL
         this.parseThemeFile(this.options.src);
     };
@@ -71,6 +73,11 @@
             if (themeXHR.readyState === 4 && themeXHR.status === 200) {
                 // Store the Theme Modifiers
                 this.themeModifiers = JSON.parse(themeXHR.responseText);
+
+                // Store the Theme Extra's
+                if (this.themeModifiers.hasOwnProperty('_extra')) {
+                    this.themeExtra = JSON.parse(JSON.stringify(this.themeModifiers._extra));
+                }
 
                 // Dont allow the import to be undo'd
                 this.editor.canTrackUndo = false;
