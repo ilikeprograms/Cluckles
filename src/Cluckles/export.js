@@ -187,7 +187,7 @@
         this.compiledCss = css;
 
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(this.compiledCss));
+        this.cssLink.setAttribute('href', this.generateBlob(this.editor.processor.notSelector(css)));
     };
 
     /**
