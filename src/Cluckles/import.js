@@ -297,13 +297,15 @@
 
         // Setup the Change event to update the Style when the textarea changes (and recompile)
         textArea.addEventListener('change', function (e) {
+            var transformedModifiers = this.processor.transformToVariables(this.editor.modifiers);
+
             if (type === 'Less') {
                 // Set the Type to 'text/less' so less will recompile it
                 customStyle.setAttribute('type', 'text/less');
 
                 // Append the Header and styling, so it can use vars/mixins
                 // Just use styling, it will be prefixed later
-                customStyle.innerHTML = this.customStylesHeader.concat(e.target.value);
+                customStyle.innerHTML = this.customStylesHeader + transformedModifiers + e.target.value;
             } else {
                 // Append the CSS styling (will be prefixed if the option was set)
                 customStyle.innerHTML = this.editor.processor.prefixCustomStyles(e.target.value, type);
@@ -314,12 +316,12 @@
 
             // Apply the modifications, and dont use cached styles, this will
             // make sure that it will parse the styling if the type is less
-            this.editor.applyModifications(null, true);
+            this.editor.applyModifications(this.editor.modifiers);
 
             if (type === 'Less') {
                 // Now that the less should have been compiled, it will be CSS,
                 // so we can prefix it now
-                customStyle.innerHTML = this.editor.prefixCustomStyles(customStyle.innerHTML, type);
+                customStyle.innerHTML = this.editor.processor.prefixCustomStyles(customStyle.innerHTML, type);
             }
         }.bind(this));
 
