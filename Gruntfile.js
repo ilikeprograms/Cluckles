@@ -140,10 +140,11 @@ module.exports = function (grunt) {
 					// JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'build/js/lib'},
 					{expand: true, src: ['bower_components/bootstrap/dist/js/bootstrap.min.js'], flatten: true, dest: 'build/js/lib'},
-                    {expand: true, src: ['bower_components/less.js/dist/less-1.7.3.min.js'], flatten: true, dest: 'build/js/lib'},
+                    {expand: true, src: ['bower_components/less.js/dist/less-2.0.0.min.js'], flatten: true, dest: 'build/js/lib'},
 					
 					// Bootstrap less files
 					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'build/less', filter: 'isFile'},
+					{expand: true, src: ['bower_components/bootstrap/less/mixins/*'], flatten: true, dest: 'build/less/mixins', filter: 'isFile'},
 					{expand: true, src: ['bower_components/bootstrap/fonts/*'], flatten: true, dest: 'build/fonts', filter: 'isFile'},
                     
                     // Custom Bootstrap variables file
@@ -184,10 +185,11 @@ module.exports = function (grunt) {
                     // JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'docs/assets/js/lib'},
 					{src: 'bower_components/bootstrap/dist/js/bootstrap.min.js', dest: 'docs/assets/js/lib/bootstrap.min.js'},
-                    {src: 'bower_components/less.js/dist/less-1.7.3.min.js', dest: 'docs/assets/js/lib/less.min.js'},
+                    {src: 'bower_components/less.js/dist/less-2.0.0.min.js', dest: 'docs/assets/js/lib/less.min.js'},
                     
                     // Build Less Files
-                    {expand: true, src: ['build/less/*'], flatten: true, dest: 'docs/assets/less', filter: 'isFile'}
+                    {expand: true, cwd: 'build/', src: 'less/**', dest: 'docs/assets/'}
+//                    {expand: true, src: ['build/less/mixins'], flatten: true, dest: 'docs/assets/less/mixins', filter: 'isFile'}
                 ]
             }
 		},
