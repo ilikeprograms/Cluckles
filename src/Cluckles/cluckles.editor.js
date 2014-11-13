@@ -601,15 +601,6 @@
     ClucklesEditor.prototype.resetToTheme = function () {
         this.resetFromModifiers(this.import.themeModifiers);
     };
-
-    /**
-     * Resets to the variables imported from the "variables_custom.less" file.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.resetToBootstrap = function () {
-        this.resetFromModifiers(this.import.loadedVariables);
-    };
     
     /**
      * Reset all of the Components and their Subscribers.
