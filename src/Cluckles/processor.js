@@ -144,7 +144,7 @@
      */
     Processor.prototype.calculateModifierValues = function (modifiers) {
         // Create a Copy of the Modifiers Object
-        var modifiers = JSON.parse(JSON.stringify(modifiers));
+        modifiers = JSON.parse(JSON.stringify(modifiers));
 
         Object.keys(modifiers).forEach(function (modifierName) {
             var modifier = modifiers[modifierName];
@@ -169,7 +169,9 @@
                                     var pxRegex     = /px/ig,
                                         hasUnit     = pxRegex.test(rep), // Find if "px" was inside the match
                                         noUnit      = rep.replace(pxRegex, ''), // Remove the "px" from inside the match
-                                        calculated  = eval(noUnit); // Use eval to perform the calculation inside the match
+                                        // Use eval to perform the calculation inside the match
+                                        calculated  = eval(noUnit); /* jshint ignore:line */
+                                    
                                     
                                     // If there originally was a "px" inside the brackers, we add it back on
                                     if (hasUnit) { calculated += 'px'; }
@@ -199,8 +201,10 @@
      * @returns {String}
      */
     Processor.prototype.transformToVariables = function (modifiers) {
-        var modifiers = this.calculateModifierValues(modifiers),
-            variables = '';
+        var variables = '';
+
+        // Calculate the modifier values, before we transform to vars
+        modifiers = this.calculateModifierValues(modifiers);
 
         Object.keys(modifiers).forEach(function (modifierName) {
             // Make sure were not adding _extra etc
