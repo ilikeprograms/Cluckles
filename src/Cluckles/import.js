@@ -41,6 +41,27 @@
         // Attempt to load and parse the theme file at the theme.src URL
         this.parseThemeFile(this.options.src);
     };
+    
+    /**
+     * Parses the variables file text content passed in and returns an array of variable names and values.
+     * 
+     * @param {string} variables The variables text to process to modifiers
+     * @returns {unresolved}
+     */
+    Import.prototype.parseVariablesFile = function (variables) {
+        // Matches @variable: value; and returns a match for each variable found
+        var variablesMatches = variables.match(/^@[\w-]+:\s(?:.)*(?=;)/igm),
+            parsedVars = {};
+
+        variablesMatches.forEach(function (variable) {
+            // Split the : to get the key/value
+            var variableParts = variable.split(':');
+
+            // Now add the keys/values to the parsedVars Object
+            parsedVars[variableParts[0]] = variableParts[1].trim();
+        }, this);
+
+        return parsedVars;
     };
 
     /**
