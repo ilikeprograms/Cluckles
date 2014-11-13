@@ -19,9 +19,20 @@
         this.themeModifiers     = {};
         this.themeExtra         = {};
 
-        // Main Less stylesheet and the Less folder Path
-        this.mainStylesheet         = document.querySelector('link[rel="stylesheet/less"]');
-        this.lessPath               = this.mainStylesheet.getAttribute('href').split('/').slice(0, -1).join('/') + '/';
+        // Main Less stylesheet (bootstrap.less)
+        this.mainStylesheet             = document.querySelector('link[rel="stylesheet/less"]');
+        // The URL path of the href attribute e.g. [0] = assets, [1] = less, [2] = bootstrap.less etc
+        this.mainStylesheetPath         = this.mainStylesheet.getAttribute('href').split('/').slice(1);
+        this.mainStylesheetHypenated    = this.mainStylesheetPath.slice(0 , -1)
+                .concat(
+                    this.mainStylesheetPath[this.mainStylesheetPath.length - 1] // Get bootstrap.less etc
+                    .slice(0, -5) // Now remove the ".less"
+                ).join('-'); 
+                // Join with - to give us "assets-less-bootstrap" for example, which is part of the ID which less
+                // assigned to the Stylesheet it outputs after processing client side
+
+        // The path to the less folder e.g. assets/less/
+        this.lessPath                   = this.mainStylesheetPath.slice(0, -1).join('/') + '/';
 
         // Import Headers to allow the Custom Less to be able to reference,
         // variables and mixins
@@ -240,7 +251,9 @@
             // Were either adding/editing Less or Css
             styleArray  = this['custom' + type], // Array which stores styles of this Type
             styleId     = styleArray.length, // Store the index of the style
-            styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body');
+            styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body'),
+            // The stylesheet Less outputs when it processes' less browser side
+            lessOutputStylesheet = document.getElementById('less:' + this.mainStylesheetHypenated);
 
         // Set a Data attribute so we can find the style's later
         customStyle.setAttribute('data-clucklesCustomStyle', '');
@@ -280,7 +293,7 @@
         styleCollapse.appendChild(textArea);
 
         // Add the Style tag (which passes the CSS/Less to less) after the main stylesheet in the head
-        this.mainStylesheet.parentNode.insertBefore(customStyle, this.mainStylesheet.nextSibling);
+        this.mainStylesheet.parentNode.insertBefore(customStyle, lessOutputStylesheet.nextSibling || this.mainStylesheet.nextSibling);
 
         // Setup the Change event to update the Style when the textarea changes (and recompile)
         textArea.addEventListener('change', function (e) {
