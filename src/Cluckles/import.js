@@ -270,15 +270,19 @@
 
         // If styles are provided (and a string), set the text
         if (styles !== undefined && typeof styles === 'string') {
-            // Set the text of the textarea (will be set when importing)
-            textArea.value = styles;
-
             // If we are adding/editing less
             if (type === 'Less') {
+                // Set the text of the textarea (will be set when importing)
+                // Prefix the styles with the less imports if applicable
+                styles = this.prefixLessImport(styles);
+                textArea.value = styles;
+                
                 // Append the Header and styling, so it can use vars/mixins
                 // Just use styling, it will be prefixed later
                 customStyle.innerHTML = this.customStylesHeader.concat(styles);
             } else {
+                textArea.value = styles;
+
                 // Append the CSS styling (will be prefixed if the option was set)
                 customStyle.innerHTML = this.editor.processor.prefixCustomStyles(styles, type);
             }
@@ -305,7 +309,7 @@
 
                 // Append the Header and styling, so it can use vars/mixins
                 // Just use styling, it will be prefixed later
-                customStyle.innerHTML = this.customStylesHeader + transformedModifiers + e.target.value;
+                customStyle.innerHTML = this.customStylesHeader + transformedModifiers + this.prefixLessImport(e.target.value);
             } else {
                 // Append the CSS styling (will be prefixed if the option was set)
                 customStyle.innerHTML = this.editor.processor.prefixCustomStyles(e.target.value, type);
@@ -328,6 +332,18 @@
         // Return the CustomStyle, so we can call the prefixCustomStyles method
         // once applyModifcations has been called (will be performed is type is less)
         return customStyle;
+    };
+    
+    /**
+     * Prefixes Less import syntax with the path to the Less folder, this allows @import
+     * directives to be used in the custom less section, to import less files (such as importing theme.less dynamically).
+     * 
+     * @param {string} contents The less contents to search in and prefix imports.
+     * 
+     * @returns {string}
+     */
+    Import.prototype.prefixLessImport = function (contents) {
+        return contents.replace(/(@import ")([\w-]+)(\.less")/gm, "$1/" + this.lessPath + "$2$3");
     };
 
     /**
