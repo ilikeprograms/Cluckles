@@ -17,7 +17,25 @@
         this.editor     = editor;
         this.options    = options;
 
-        this.cssSelectorRegex = /((?:(?:(?:(^\({0}#)|\.)|(?:^\w{0}a(?!\w)|ul|li|textarea))[\w->:.\s]+)+)(?=[,\{])/mg;
+        this.cssSelectorRegex = new RegExp("(?!\\.container)" + // Dont match .container*
+            "((?:" + 
+                // Match CSS selector pattern e.g ".table > thead > tr > td.danger"
+                "(?:" + 
+                    "(?:" + 
+                        // Match (# or .)
+                        "(^\\({0}#)|\\.)|" + 
+                        // or Match (these other elements/selector)
+                        "(?:^\\w{0}a(?!\\w)|ul|li|textarea)" + 
+                    ")" + 
+                    // Allow AlphaNumeric, - > : . \s characters to match (once or more times)
+                    "[\\w->:.\\s]+" + 
+                ")" + 
+            "+)" + // Match selector pattern atleast once, e.g. allows .table to match, then move to > thead etc
+            // End matches with , or {
+            "(?=[,{])",
+            "mg");
+
+            // Type "clucklesEditor.processor.cssSelectorRegex" in console for combined regex literal :)
 
         this.setupPostProcessor();
     };
