@@ -68,8 +68,10 @@
     
     Processor.prototype.notSelector = function (css) {
         var processedCss = css;
-        
-        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector'), this.options.hasOwnProperty('not')) {
+
+        if (this.options.hasOwnProperty('not')) {
+            processedCss = this.removeScopeSelector(processedCss);
+
             // Remove the space between "selector {" etc, this is so that a :not can be applied
             processedCss = css.replace(/(?:^.)*(\s)(?={)/gm, '');
 
@@ -79,6 +81,31 @@
                 match += ':not(' + this.options.scope.selector + ')';
                 return match;
             }.bind(this));
+        }
+
+        return processedCss;
+    };
+    
+    /**
+     * Removes the Scope Selector from the CSS input. The CSS may have been prefixed,
+     * with an ID which was specified with this.options.scope.selector, so we need
+     * to remove it so that the CSS isnt scoped to that element.
+     * 
+     * @param {strning} css The CSS to process.
+     * 
+     * @returns {string}
+     */
+    Processor.prototype.removeScopeSelector = function (css) {
+        var processedCss = css;
+
+        // If the scope.selector option wasnt provided, we dont need to worry about this
+        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector')) {
+            // This looks for the scope selector, followed by an optional space, and ending with a , or {
+            // and will match the scope selector + the optional space
+            var replaceRegex = RegExp('(' + this.options.scope.selector + '\\s?)(?=.*[,{])', 'igm');
+            
+            // Now remove the scope selector and the optional space
+            processedCss = processedCss.replace(replaceRegex, '');
         }
         
         return processedCss;
