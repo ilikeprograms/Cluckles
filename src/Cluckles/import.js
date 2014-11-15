@@ -35,7 +35,7 @@
         this.setupFileImport();   // Setup the File input so themes can be imported
 
         // Attempt to load and parse the theme file at the theme.src URL
-        this.parseThemeFile(this.options.src);
+        this.parseThemeFile(this.options);
     };
     
     /**
@@ -63,17 +63,17 @@
     /**
      * Parses a theme.json file located at the themeURL, by default uses "GET" as the method.
      * 
-     * @param {string} themeUrl The url to locate the theme.json file and download the content.
-     * 
      * @returns {undefined}
      */
-    Import.prototype.parseThemeFile = function (themeUrl) {
+    Import.prototype.parseThemeFile = function () {
         var themeXHR;
 
         // If the theme.src option was not provided
         if (!this.options || !this.options.hasOwnProperty('src')) {
             return;
         }
+        
+        var themeUrl = this.options.src;
 
         // If an url to the theme.json file was not provided, or was not a string
         if (typeof themeUrl !== 'string') {
