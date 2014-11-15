@@ -392,7 +392,7 @@
             setTimeout(function () {
                 this.applyModifications();
 
-//                this.refreshCustomStyles();
+                this.refreshCustomStyles();
 
                 // Allow updates again
                 this.refreshMonitor.canRefresh = true;
@@ -489,7 +489,7 @@
         this.refreshMonitor.canRefresh = false;
 
         // Reset the Modifiers and Components
-        this.modifiers = [];
+        this.modifiers = {};
         this.resetComponents();
         
         // Pop the newest item of the top of the stacj
@@ -505,7 +505,7 @@
 
         // Move the newest items from one stack to the other
         altStack.push(poppedStack);
-
+        
         // Now apply the modifications to update the UI (will also set modifiers again)
         this.applyModifications();
 
