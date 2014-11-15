@@ -241,7 +241,7 @@
             lessOutputStylesheet = document.getElementById('less:' + this.editor.mainStylesheetHypenated);
 
         // Set a Data attribute so we can find the style's later
-        customStyle.setAttribute('data-clucklesCustomStyle', '');
+        customStyle.setAttribute('data-clucklesCustomStyle', type);
 
         // Remove the Template attributes
         textArea.removeAttribute('id');
