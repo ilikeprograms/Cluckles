@@ -1,5 +1,5 @@
 /*!
- * Cluckles 0.7.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
+ * Cluckles 0.8.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
  * http://cluckles.com
  * 
  * Copyright 2014 Thomas Coleman <tom@ilikeprograms.com>
@@ -54,7 +54,7 @@
         // Make sure we have Modifiers to import
         if (importModifiers === undefined) { return; }
 
-        var modifierNames = Object.keys(importModifiers);
+        var modifierNames   = Object.keys(importModifiers);
 
         // Itterate over each importModifier name
         modifierNames.forEach(function (modifierName) {
@@ -63,15 +63,83 @@
 
             // Itterate over each component modifer name
             Object.keys(componentModifiers).forEach(function (componentModifierName) {
+                var componentModifier   = componentModifiers[componentModifierName],
+                    importModifier      = importModifiers[modifierName];
+
                 // If this component modifier (e.g. this.bg) variable property (e.g. '@jumbotron-bg')
                 // matches the import modifier variable name, then set the value
                 // of the component modifier, which will set the value and trigger
                 // the data binding and update the data subscribers
-                if (this[componentModifierName].variable === modifierName) {
-                    this[componentModifierName].value = importModifiers[modifierName];
+                if (componentModifier.variable === modifierName) {
+                    componentModifier.value = this.findParentVariableValue(modifierName, importModifiers);
+                    
+                    if (importModifier[0] === '@') {
+                        componentModifier.parentVar = importModifier;
+                    }
                 }
-            }, componentModifiers);            
+            }, this);            
         }, this);
+    };
+    
+    /**
+     * Cascades a parents value to any Component modifier, whos parentVar is set
+     * to the the parent variable.
+     * 
+     * @param {string} parentVariable The name of the parent variable.
+     * @param {string} parentValue The value of the parent variable.
+     * 
+     * @returns {undefined}
+     */
+    ThemeModifier.prototype.cascadeModifier = function (parentVariable, parentValue) {
+        this.editor.components.forEach(function (component) {
+            // Some of the "components" may be object literals containing
+            // actual "components" which inherit from ThemeModifier
+            if (component instanceof ThemeModifier) {
+                // Load the modifiers into the component, triggering the
+                // two way data binding and updating the data subscribers
+                var componentModifiers = component.modifiers;
+                
+                Object.keys(componentModifiers).forEach(function (modifierName) {
+                    var modifier = componentModifiers[modifierName];
+
+                    if (modifier.parentVar === parentVariable) {
+                        modifier.value      = parentValue;
+                        modifier.parentVar  = parentVariable;
+                    }
+                });
+            }
+        });
+    };
+
+    /**
+     * Attempts to find the parent value of the @variable passed in as variableName, by searching
+     * through the modifiers object, until a parent variable is no longer found, in which case returns's
+     * the variable.
+     * 
+     * @param {string} variableName The variable name or variable value (@variable || #000000 etc).
+     * @param {object} modifiers The modifiers object to search through.
+     * 
+     * @returns {string}
+     */
+    ThemeModifier.prototype.findParentVariableValue = function (variableName, modifiers) {
+        var variableValue;
+
+        // If the variable exists in the modifiers
+        if (modifiers.hasOwnProperty(variableName)) {
+            // Find the variable's value
+            variableValue = modifiers[variableName];
+
+            // If the first character is a @, it points to a parent variable
+            if (variableValue[0] === '@') {
+                // Now try to find the parent variable
+                return this.findParentVariableValue(variableValue, modifiers);
+            }
+
+            return variableValue;
+        }
+
+        // If the modifiers doesnt have a value set for this variable
+        return null;
     };
     
     /**
@@ -102,7 +170,8 @@
      * @returns {undefined}
      */
     ThemeModifier.prototype.setupDataBinding = function () {
-        var editor = this.editor, // ClucklesEditor instance
+        var self = this,
+            editor = this.editor, // ClucklesEditor instance
             // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
             subscribers = Array.prototype.slice.call(document.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
@@ -117,27 +186,49 @@
                 Object.defineProperty(modifier, 'value', {
                     get: function () { return this._value; },
                     set: function (val) {
-                        var unit = 'px'; // Default unit to append (px, em, rem, etc)
+                        var unit        = this.unit || 'px', // Default unit to append (px, em, rem, etc)
+                            hasParent   = false;
 
-                        // If this property requires a suffix unit
-                        // val !== NULL makes sure we can set _value to null,
-                        // but stops _value being set to null + unit
-                        // without this the theme breaks after being reset
-                        if (val !== null && this.suffixUnit) {
-                            // Store the raw value
-                            this._rawValue = val;
+                        if (val !== null) {
+                            // If the value contains the suffix already (such as when loading from file)
+                            if (val.indexOf(unit) !== -1) {
+                                // Store the val minus the prefix
+                                this._rawValue = val.slice(0, val.indexOf(unit));
+                            } else {
+                                // If the val points to a parent variable (when setting using console API etc)
+                                if (val[0] === '@') {
+                                    // Find the parent variable value, and store it in this._rawValue
+                                    this._rawValue = self.findParentVariableValue(val, self.editor.modifiers);
+                                    // Store the parent variable name
+                                    this.parentVar = val;
 
-                            // If a custom unit is specified
-                            if (this.unit) {
-                                // Set the unit to append
-                                unit = this.unit;
+                                    // Make sure we dont remove this.parentVar
+                                    hasParent = true;
+                                } else {
+                                    // If we have a short color code #FFF etc, turn into #FFFFFF
+                                    if (val[0] === '#' && val.length === 4) {
+                                        this._rawValue = '#' + val.slice(1) + val.slice(1);
+                                    } else {
+                                        // Store the val
+                                        this._rawValue = val;
+                                    }
+                                }
                             }
 
-                            // Combine the value with the unit
-                            this._value = val + unit;
+                            // If this property requires a suffix unit
+                            // val !== NULL makes sure we can set _value to null,
+                            // but stops _value being set to null + unit
+                            // without this the theme breaks after being reset
+                            if (this.suffixUnit) {
+                                // Combine the value with the unit
+                                this._value = this._rawValue + unit;
+                            } else {
+                                // Store the new value
+                                this._value = this._rawValue;
+                            }
                         } else {
-                            // Store the new value
-                            this._value = val;
+                            this._rawValue  = null;
+                            this._value     = null;
                         }
 
                         // Queue the modifications to be applied by less
@@ -150,10 +241,20 @@
                             editor.pushUndoStack();
                         }
 
+                        // Cascade the Modifier value to any component modifier
+                        // whos value is set to the parent variable
+                        self.cascadeModifier(this.variable, this._rawValue);
+
+                        // Remove the parentVar if we are directly setting the value,
+                        // aslong as we arent setting to a parentVar
+                        if (!hasParent && this.hasOwnProperty('parentVar')) {
+                            delete this.parentVar;
+                        }
+
                         // Notify each of the Subscribers of the value change
                         this.subscribers.forEach(function (subscriber) {
-                            subscriber.value = val;
-                        });
+                            subscriber.value = this._rawValue;
+                        }, this);
                     } 
                 });
             }
@@ -191,6 +292,250 @@
                 }
             }, this);
         }, this);
+    };
+
+    /**
+     * Processor which allows the CSS/Less which is output by less to be processed.
+     * This can allow the output to be prefixed for display in the editor aswell
+     * as appending the not:(options.not) on export if the not option is provided.
+     * 
+     * Aswell as methods to handle calculating modifier values so they can be parsed by less
+     * and transforming the modifiers to a list of variables.
+     * 
+     * @class Processor
+     * 
+	 * @param {ClucklesEditor} editor instance which manages the less modifications.
+     * @param {object} options Cluckles options.
+     * 
+     * @returns {Processor}
+     */
+    var Processor = function (editor, options) {
+        this.editor     = editor;
+        this.options    = options;
+
+        this.cssSelectorRegex = new RegExp("" +
+            "((?:" + 
+                // Match CSS selector pattern e.g ".table > thead > tr > td.danger"
+                "(?:" + 
+                    "(?:" + 
+                        // Match (# or .)
+                        "(^\\({0}#)|\\.)|" + 
+                        // or Match (these other elements/selector)
+                        "(?:^\\w{0}a(?!\\w)|ul|li|textarea)" + 
+                    ")" + 
+                    // Allow AlphaNumeric, - > : . \s characters to match (once or more times)
+                    "[\\w->:.\\s]+" + 
+                ")" + 
+            "+)" + // Match selector pattern atleast once, e.g. allows .table to match, then move to > thead etc
+            // End matches with , or {
+            "(?=[,{])",
+            "mg");
+
+            // Type "clucklesEditor.processor.cssSelectorRegex" in console for combined regex literal :)
+
+        this.setupPostProcessor();
+    };
+    
+    /**
+     * Sets up a Callback for the Less#postProcessor callback.
+     * 
+     * @returns {undefined}
+     */
+    Processor.prototype.setupPostProcessor = function () {
+        var processedCss,
+            customCss;
+
+        // Provide less with the postProcessor callback we want to execute
+        this.editor.lessGlobal.postProcessor = function (css) {
+            // Generate/Regenerate both of the Download button Blob contents
+            this.editor.export.generateCssBlob(css.concat(customCss)); // Join the Compiled and Custom Css together
+            this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
+
+            // If the Scope option was provided, we want to prefix all the
+            // CSS selectors with our scope, so the theme changes are only
+            // applied to the DOMElement we choose and its children
+            processedCss = this.selectorProcessor(css);
+            customCss    = this.prefixCustomStyles(this.editor.import.customCss, 'Css');
+
+            // Return the Processed and Custom Css
+            return processedCss.concat(customCss);
+        }.bind(this);
+    };
+    
+    /**
+     * Removes the Scope Selector from the CSS input. The CSS may have been prefixed,
+     * with an ID which was specified with this.options.scope.selector, so we need
+     * to remove it so that the CSS isnt scoped to that element.
+     * 
+     * @param {strning} css The CSS to process.
+     * 
+     * @returns {string}
+     */
+    Processor.prototype.removeScopeSelector = function (css) {
+        var processedCss = css;
+
+        // If the scope.selector option wasnt provided, we dont need to worry about this
+        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector')) {
+            // This looks for the scope selector, followed by an optional space, and ending with a , or {
+            // and will match the scope selector + the optional space
+            var replaceRegex = RegExp('(' + this.options.scope.selector + '\\s?)(?=.*[,{])', 'igm');
+            
+            // Now remove the scope selector and the optional space
+            processedCss = processedCss.replace(replaceRegex, '');
+        }
+        
+        return processedCss;
+    };
+    
+    /**
+     * If the options.scope.selector was provided, we prefix all the CSS Selectors
+     * in the CSS Input with the CSS Selector provided by the option. This limits the
+     * scope of the CSS Generated to be contained inside the DOM Element referenced
+     * by the scope selector.
+     * 
+     * @param {string} css CSS to process and prefix with the options.scope.selector.
+     * 
+     * @returns {string}
+     */
+    Processor.prototype.selectorProcessor = function (css) {
+        var processedCss = css;
+        
+        // Prefix the css selectors with this.options.scope.selector
+        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector')) {
+            // Remove the space between "selector {" etc, this is so that a :not can be applied
+            processedCss = css.replace(/(?:^.)*(\s)(?={)/igm, '');
+
+            // Use the regex above, $& prefixes the CSS selectors with our scope selector
+            processedCss = css.replace(this.cssSelectorRegex, this.options.scope.selector + ' $&');
+
+            // Replace body with the scope selector, stops the body background leaking
+            processedCss = processedCss.replace(/^body/mg, this.options.scope.selector);
+            // Prefixes the h* small, .h* small h* .small etc with the scope selector
+            processedCss = processedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope.selector + ' $&');
+            processedCss = processedCss.replace(/^footer/mg, this.options.scope.selector + ' $&');
+        }
+        
+        return processedCss;
+    };
+    
+    /**
+     * Prefixes the Custom Styling provided (string or array) with the options.scope.prefix if
+     * the options.scope.customCss || option options.scope.customLess is true,
+     * or returns the Styling (concatenated if array is provided).
+     * 
+     * @param {String|Array} style Array of Custom Styles or singular custom style (to prefix/concatenate).
+     * 
+     * @returns {Array|String}
+     */
+    Processor.prototype.prefixCustomStyles = function (style, type) {
+        // If the options permit the Styling to be prefixed
+        if (this.options.hasOwnProperty('scope') &&
+                this.options.scope.hasOwnProperty('custom' + type) &&
+                this.options.scope['custom' + type] === true) {
+            
+            // Prefix the Styles
+            if (typeof style === 'string') {
+                return this.selectorProcessor(style);
+            }
+
+            // or Concatenate and Prefix all the Styles
+            return style.reduce(function (prev, cur) {
+                return prev + this.selectorProcessor(cur);
+            }.bind(this), '');
+        } else {
+            if (typeof style === 'string') { return style; }
+
+            // Concatentate the array into a string
+            return style.reduce(function (allStyles, s) {
+                return allStyles + s; },
+            '');
+        }
+    };
+
+    /**
+     * Calculates the Modifier values for each modifier by checking if it has a parent,
+     * variable referenced. If so the variable is replaced with the parent variable value,
+     * then we check if there are brackets in the modifier, if so we attempt to combine
+     * the values inside the brackets and calculate the result, apparently for some reason,
+     * less breaks otherwise.
+     * 
+     * @param {Object} modifiers The Cluckles Modifiers we need to calculate/process
+     * 
+     * @returns {Object}
+     */
+    Processor.prototype.calculateModifierValues = function (modifiers) {
+        // Create a Copy of the Modifiers Object
+        modifiers = JSON.parse(JSON.stringify(modifiers));
+
+        Object.keys(modifiers).forEach(function (modifierName) {
+            var modifier = modifiers[modifierName];
+
+            // Sanity check for String
+            if (typeof modifier === 'string') {
+                // Match @variable syntax, globally, so multiple matches possible
+                // This would be a parent variable, which the value needs to inherit from
+                var vars = modifier.match(/@[\w-]+/ig);
+
+                if (vars) {
+                    vars.forEach(function (parentVar) {
+                        if (modifiers.hasOwnProperty(parentVar)) {
+                            // Replace the Parent variable reference, with the parent variable value
+                            modifier = modifier.replace(parentVar, modifiers[parentVar]);
+
+                            // Find values inside of brackets e.g. (30px / 2)
+                            var replacements = modifier.match(/\([px\s\d+\-*\/]+\)/ig);
+
+                            if (replacements) {
+                                replacements.forEach(function (rep) {
+                                    var pxRegex     = /px/ig,
+                                        hasUnit     = pxRegex.test(rep), // Find if "px" was inside the match
+                                        noUnit      = rep.replace(pxRegex, ''), // Remove the "px" from inside the match
+                                        // Use eval to perform the calculation inside the match
+                                        calculated  = eval(noUnit); /* jshint ignore:line */
+                                    
+                                    
+                                    // If there originally was a "px" inside the brackers, we add it back on
+                                    if (hasUnit) { calculated += 'px'; }
+                                    
+                                    // Now we replace the original match with the calculated value
+                                    // e.g. (30px / 2) -> 15px
+                                    modifier = modifier.replace(rep, calculated);
+                                });
+                            }
+
+                            // Now update the original modifier with the calculated modifier
+                            modifiers[modifierName] = modifier;
+                        }
+                    });
+                }
+            }
+        });
+        
+        return modifiers;
+    };
+    
+    /**
+     * Transforms the modifiers into a Variables list (string) which is split up
+     * between @variable: value; and new lines.
+     * 
+     * @param {type} modifiers
+     * @returns {String}
+     */
+    Processor.prototype.transformToVariables = function (modifiers) {
+        var variables = '';
+
+        // Calculate the modifier values, before we transform to vars
+        modifiers = this.calculateModifierValues(modifiers);
+
+        Object.keys(modifiers).forEach(function (modifierName) {
+            // Make sure were not adding _extra etc
+            if (modifierName[0] !== '_') {
+                // Add the variable and value to the list
+                variables += modifierName + ':' + this[modifierName] + ';\n';
+            }
+        }, modifiers);
+        
+        return variables;
     };
 
 	/**
@@ -6612,105 +6957,105 @@
 
         // Configure the Modifiers
 		this.bg = {
-			variable:           'navbar-' + navbarStyle + '-bg',
+			variable:           '@navbar-' + navbarStyle + '-bg',
 			subscribeProperty:  'bg',
             changeFn:           this.setBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.color = {
-			variable:           'navbar-' + navbarStyle + '-color',
+			variable:           '@navbar-' + navbarStyle + '-color',
 			subscribeProperty:  'color',
             changeFn:           this.setColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.border = {
-			variable:           'navbar-' + navbarStyle + '-border',
+			variable:           '@navbar-' + navbarStyle + '-border',
 			subscribeProperty:  'border',
             changeFn:           this.setBorderColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkColor = {
-			variable:           'navbar-' + navbarStyle + '-link-color',
+			variable:           '@navbar-' + navbarStyle + '-link-color',
 			subscribeProperty:  'link-color',
             changeFn:           this.setLinkColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverColor = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-color',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-color',
 			subscribeProperty:  'link-hover-color',
             changeFn:           this.setLinkHoverColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverBg = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-bg',
 			subscribeProperty:  'link-hover-bg',
             changeFn:           this.setLinkHoverBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkActiveColor = {
-			variable:           'navbar-' + navbarStyle + '-link-active-color',
+			variable:           '@navbar-' + navbarStyle + '-link-active-color',
 			subscribeProperty:  'link-active-color',
             changeFn:           this.setLinkActiveColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkActiveBg = {
-			variable:           'navbar-' + navbarStyle + '-link-active-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-active-bg',
 			subscribeProperty:  'link-active-bg',
             changeFn:           this.setLinkActiveBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverColor = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-color',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-color',
 			subscribeProperty:  'link-hover-color',
             changeFn:           this.setLinkHoverColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkHoverBg = {
-			variable:           'navbar-' + navbarStyle + '-link-hover-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-hover-bg',
 			subscribeProperty:  'link-hover-bg',
             changeFn:           this.setLinkHoverBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkDisabledColor = {
-			variable:           'navbar-' + navbarStyle + '-link-disabled-color',
+			variable:           '@navbar-' + navbarStyle + '-link-disabled-color',
 			subscribeProperty:  'link-disabled-color',
             changeFn:           this.setLinkDisabledColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.linkDisabledBg = {
-			variable:           'navbar-' + navbarStyle + '-link-disabled-bg',
+			variable:           '@navbar-' + navbarStyle + '-link-disabled-bg',
 			subscribeProperty:  'link-disabled-bg',
             changeFn:           this.setLinkDisabledBackgroundColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.brandColor = {
-			variable:           'navbar-' + navbarStyle + '-brand-color',
+			variable:           '@navbar-' + navbarStyle + '-brand-color',
 			subscribeProperty:  'brand-color',
             changeFn:           this.setBrandColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.brandHoverColor = {
-			variable:           'navbar-' + navbarStyle + '-brand-hover-color',
+			variable:           '@navbar-' + navbarStyle + '-brand-hover-color',
 			subscribeProperty:  'brand-hover-color',
             changeFn:           this.setBrandHoverColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
 		this.brandHoverBg = {
-			variable:           'navbar-' + navbarStyle + '-brand-hover-bg',
+			variable:           '@navbar-' + navbarStyle + '-brand-hover-bg',
 			subscribeProperty:  'brand-hover-bg',
             changeFn:           this.setBrandHoverBackgroundColor.bind(this),
             subscribers:        [],
@@ -7188,11 +7533,31 @@
      * @returns {undefined}
      */
     Export.prototype.generateCssBlob = function (css) {
+        var customStyleAttribute = 'data-clucklesCustomStyle';
+
+        css = this.editor.processor.removeScopeSelector(css);
+        var customCss = "\n";
+
+        // Find each Custom style tag and process them
+        [].slice.call(document.querySelectorAll('*['+ customStyleAttribute +']')).forEach(function (customStyle) {
+            // If the Style contains compiled custom Less
+            if (customStyle.getAttribute(customStyleAttribute) === 'Less') {
+                // Add the :not selector to the CSS, so that the styling generated wont
+                // interfere with the styling of the editor "assuming" the CSS
+                // exported will be used on the same page as a cluckles editor
+                customCss += this.removeScopeSelector(customStyle.innerHTML) + "\n";
+            } else {
+                // If custom CSS, remove the Scope selector, which was applied to only apply
+                // the styling the cluckles section
+                customCss += this.removeScopeSelector(customStyle.innerHTML) + "\n";
+            }
+        }, this.editor.processor);
+
         // Store the Compiled Css
-        this.compiledCss = css;
+        this.compiledCss = css + customCss;
 
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(this.compiledCss));
+        this.cssLink.setAttribute('href', this.generateBlob(css + customCss));
     };
 
     /**
@@ -7280,18 +7645,16 @@
      * 
      * @returns {Import}
      */
-    var Import = function (editor, options) {
+    var Import = function (editor, processor, options) {
         this.editor             = editor;
+        this.processor          = processor;
         this.options            = options;
         this.themeModifiers     = {};
-
-        // Main Less stylesheet and the Less folder Path
-        this.mainStylesheet         = document.querySelector('link[rel="stylesheet/less"]');
-        this.lessPath               = this.mainStylesheet.getAttribute('href').split('/').slice(0, -1).join('/') + '/';
+        this.themeExtra         = {};
 
         // Import Headers to allow the Custom Less to be able to reference,
         // variables and mixins
-        this.customStylesHeader = '@import "' + this.lessPath + 'variables-custom.less";\n' + '@import "' + this.lessPath + 'mixins.less";\n';
+        this.customStylesHeader = '@import "' + this.editor.lessPath + 'variables-custom.less";\n' + '@import "' + this.editor.lessPath + 'mixins.less";\n';
 
         // Custom Styles textarea template and Custom styles panel (where the textareas will reside)
         this.customStylesTemplate   = null;
@@ -7300,28 +7663,50 @@
         // Custom Styles
         this.customCss              = [];
         this.customLess             = [];
-
-        if (options !== undefined) {
-            // If the theme.src option was provided
-            if (options.hasOwnProperty('src')) {
-                // Attempt to load and parse the theme file at the theme.src URL
-                this.parseThemeFile(options.src);
-            }
-        }
         
         this.setupCustomStyles(); // Setup the ability to handle Custom Css/Less
         this.setupFileImport();   // Setup the File input so themes can be imported
+
+        // Attempt to load and parse the theme file at the theme.src URL
+        this.parseThemeFile(this.options);
+    };
+    
+    /**
+     * Parses the variables file text content passed in and returns an array of variable names and values.
+     * 
+     * @param {string} variables The variables text to process to modifiers
+     * @returns {unresolved}
+     */
+    Import.prototype.parseVariablesFile = function (variables) {
+        // Matches @variable: value; and returns a match for each variable found
+        var variablesMatches = variables.match(/^@[\w-]+:\s(?:.)*(?=;)/igm),
+            parsedVars = {};
+
+        variablesMatches.forEach(function (variable) {
+            // Split the : to get the key/value
+            var variableParts = variable.split(':');
+
+            // Now add the keys/values to the parsedVars Object
+            parsedVars[variableParts[0]] = variableParts[1].trim();
+        }, this);
+
+        return parsedVars;
     };
 
     /**
      * Parses a theme.json file located at the themeURL, by default uses "GET" as the method.
      * 
-     * @param {string} themeUrl The url to locate the theme.json file and download the content.
-     * 
      * @returns {undefined}
      */
-    Import.prototype.parseThemeFile = function (themeUrl) {
+    Import.prototype.parseThemeFile = function () {
         var themeXHR;
+
+        // If the theme.src option was not provided
+        if (!this.options || !this.options.hasOwnProperty('src')) {
+            return;
+        }
+        
+        var themeUrl = this.options.src;
 
         // If an url to the theme.json file was not provided, or was not a string
         if (typeof themeUrl !== 'string') {
@@ -7338,6 +7723,11 @@
             if (themeXHR.readyState === 4 && themeXHR.status === 200) {
                 // Store the Theme Modifiers
                 this.themeModifiers = JSON.parse(themeXHR.responseText);
+
+                // Store the Theme Extra's
+                if (this.themeModifiers.hasOwnProperty('_extra')) {
+                    this.themeExtra = JSON.parse(JSON.stringify(this.themeModifiers._extra));
+                }
 
                 // Dont allow the import to be undo'd
                 this.editor.canTrackUndo = false;
@@ -7391,15 +7781,26 @@
 
                 // If no file was chosen, dont try to read undefined,
                 // or a json file was not selected
-                if (!file || file.type !== 'application/json') {
-                    alert('Please Select a JSON file (like one exported from Cluckles)');
+                if (!file || (file.type !== 'application/json' && !file.name.match(/.less/i))) {
+                    alert('Please Select a JSON or Less file (like one exported from Cluckles)');
                     return;
                 }
 
                 // Setup the File reader, so it will import the json file's modifiers
                 reader.onload = function (evt) {
                     try {
-                        var modifiers = JSON.parse(evt.target.result);
+                        var modifiers = evt.target.result;
+
+                        // Reset to default before importing, so we have a clean import
+                        this.editor.resetToDefault();
+
+                        // If the File choosen was a Less file
+                        if (file.name.match(/.less/i)) {
+                            // Attempt to parse the variables from the file
+                            modifiers = this.parseVariablesFile(modifiers);
+                        } else {
+                            modifiers = JSON.parse(modifiers);
+                        }
 
                         // Handle the modifier/custom styles importing
                         this.handleThemeImport(modifiers);
@@ -7468,7 +7869,12 @@
             // Were either adding/editing Less or Css
             styleArray  = this['custom' + type], // Array which stores styles of this Type
             styleId     = styleArray.length, // Store the index of the style
-            styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body');
+            styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body'),
+            // The stylesheet Less outputs when it processes' less browser side
+            lessOutputStylesheet = document.getElementById('less:' + this.editor.mainStylesheetHypenated);
+
+        // Set a Data attribute so we can find the style's later
+        customStyle.setAttribute('data-clucklesCustomStyle', type);
 
         // Remove the Template attributes
         textArea.removeAttribute('id');
@@ -7482,17 +7888,21 @@
 
         // If styles are provided (and a string), set the text
         if (styles !== undefined && typeof styles === 'string') {
-            // Set the text of the textarea (will be set when importing)
-            textArea.value = styles;
-
             // If we are adding/editing less
             if (type === 'Less') {
+                // Set the text of the textarea (will be set when importing)
+                // Prefix the styles with the less imports if applicable
+                styles = this.prefixLessImport(styles);
+                textArea.value = styles;
+                
                 // Append the Header and styling, so it can use vars/mixins
                 // Just use styling, it will be prefixed later
                 customStyle.innerHTML = this.customStylesHeader.concat(styles);
             } else {
+                textArea.value = styles;
+
                 // Append the CSS styling (will be prefixed if the option was set)
-                customStyle.innerHTML = this.editor.prefixCustomStyles(styles, type);
+                customStyle.innerHTML = this.editor.processor.prefixCustomStyles(styles, type);
             }
 
             // Store the styling so it can be edited later/exported
@@ -7505,20 +7915,22 @@
         styleCollapse.appendChild(textArea);
 
         // Add the Style tag (which passes the CSS/Less to less) after the main stylesheet in the head
-        this.mainStylesheet.parentNode.insertBefore(customStyle, this.mainStylesheet.nextSibling);
+        this.editor.mainStylesheet.parentNode.insertBefore(customStyle, lessOutputStylesheet.nextSibling || this.editor.mainStylesheet.nextSibling);
 
         // Setup the Change event to update the Style when the textarea changes (and recompile)
         textArea.addEventListener('change', function (e) {
+            var transformedModifiers = this.processor.transformToVariables(this.editor.modifiers);
+
             if (type === 'Less') {
                 // Set the Type to 'text/less' so less will recompile it
                 customStyle.setAttribute('type', 'text/less');
 
                 // Append the Header and styling, so it can use vars/mixins
                 // Just use styling, it will be prefixed later
-                customStyle.innerHTML = this.customStylesHeader.concat(e.target.value);
+                customStyle.innerHTML = this.customStylesHeader + transformedModifiers + this.prefixLessImport(e.target.value);
             } else {
                 // Append the CSS styling (will be prefixed if the option was set)
-                customStyle.innerHTML = this.editor.prefixCustomStyles(e.target.value, type);
+                customStyle.innerHTML = this.editor.processor.prefixCustomStyles(e.target.value, type);
             }
 
             // Update the Stored styling
@@ -7526,18 +7938,48 @@
 
             // Apply the modifications, and dont use cached styles, this will
             // make sure that it will parse the styling if the type is less
-            this.editor.applyModifications(null, true);
+            this.editor.applyModifications(this.editor.modifiers);
 
             if (type === 'Less') {
                 // Now that the less should have been compiled, it will be CSS,
                 // so we can prefix it now
-                customStyle.innerHTML = this.editor.prefixCustomStyles(customStyle.innerHTML, type);
-            }
+                customStyle.innerHTML = this.editor.processor.prefixCustomStyles(customStyle.innerHTML, type);
+            }            
         }.bind(this));
 
         // Return the CustomStyle, so we can call the prefixCustomStyles method
         // once applyModifcations has been called (will be performed is type is less)
         return customStyle;
+    };
+    
+    /**
+     * Prefixes Less import syntax with the path to the Less folder, this allows @import
+     * directives to be used in the custom less section, to import less files (such as importing theme.less dynamically).
+     * 
+     * @param {string} contents The less contents to search in and prefix imports.
+     * 
+     * @returns {string}
+     */
+    Import.prototype.prefixLessImport = function (contents) {
+        return contents.replace(/(@import ")([\w-]+)(\.less")/gm, "$1/" + this.editor.lessPath + "$2$3");
+    };
+
+    /**
+     * Resets the Custom style arrays, remove the custom style inputs, and remove
+     * the custom style elements from the page header.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.resetCustomStyles = function () {
+        this.customCss              = [];
+        this.customLess             = [];
+        
+        document.querySelector('#clucklesCustomLess .panel-body').innerHTML = '';
+        document.querySelector('#clucklesCustomCss .panel-body').innerHTML = '';
+
+        [].slice.call(document.querySelectorAll('*[data-clucklesCustomStyle]')).forEach(function (customStyle) {
+           customStyle.parentNode.removeChild(customStyle);
+        });
     };
     
     /**
@@ -7549,50 +7991,66 @@
      * @returns {undefined}
      */
     Import.prototype.handleThemeImport = function (modifiers) {
-        var extra = {},
-            lessStyles = [];
+        var extra = {};
+        
+        this.editor.refreshMonitor.canRefresh = false;
 
         // Store the Modifiers
         this.editor.modifiers = modifiers;
 
         // Now load the modifiers into each component
-        this.loadComponentModifiers(this.modifiers);
+        this.loadComponentModifiers(this.editor.modifiers);
 
         // If the JSON has an _extra field
         if (modifiers.hasOwnProperty('_extra')) {
             // Clone the Extra's Object, or after applying the
             // custom less, the custom css disappears
             extra = JSON.parse(JSON.stringify(modifiers._extra));
-
-            // If there is Custom Less
-            if (extra.hasOwnProperty('less')) {
-                extra.less.forEach(function (lessText) {
-                    lessStyles.push(this.addCustomStyles(lessText, 'Less'));
-                }, this);
-
-                // Apply the modifications, and dont use cached styles
-                // Should recompile everything, this forces Less to compile
-                // the Custom Less
-                this.editor.applyModifications(null, true);
-                
-                lessStyles.forEach(function (style) {
-                   // Now the Less should be compiled to CSS, so we can attempt
-                   // to prefix the CSS
-                   style.innerHTML = this.prefixCustomStyles(style.innerHTML, 'Less');
-                }, this.editor);
-            }
-
-            // If there is Custom Css
-            if (extra.hasOwnProperty('css')) {
-                extra.css.forEach(function (cssText) {
-                    this.addCustomStyles(cssText, 'Css');
-                }, this);
-
-                // Apply the modifications, should append the Custom Css to
-                // the Currently compiled Css
-                this.editor.applyModifications();
-            }
+            
+            this.importThemeExtra(extra);
         } else {
+            this.editor.applyModifications();
+        }
+        
+        this.editor.refreshMonitor.canRefresh = true;
+    };
+    
+    /**
+     * Handles importing the Theme Extra.
+     * 
+     * @param {Object} extra The Theme extra object.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.importThemeExtra = function (extra) {
+        var lessStyles = [];
+
+        // If there is Custom Less
+        if (extra.hasOwnProperty('less')) {
+            extra.less.forEach(function (lessText) {
+                lessStyles.push(this.addCustomStyles(lessText, 'Less'));
+            }, this);
+
+            // Apply the modifications, and dont use cached styles
+            // Should recompile everything, this forces Less to compile
+            // the Custom Less
+            this.editor.applyModifications(null, true);
+
+            lessStyles.forEach(function (style) {
+               // Now the Less should be compiled to CSS, so we can attempt
+               // to prefix the CSS
+               style.innerHTML = this.processor.prefixCustomStyles(style.innerHTML, 'Less');
+            }, this.editor);
+        }
+
+        // If there is Custom Css
+        if (extra.hasOwnProperty('css')) {
+            extra.css.forEach(function (cssText) {
+                this.addCustomStyles(cssText, 'Css');
+            }, this);
+
+            // Apply the modifications, should append the Custom Css to
+            // the Currently compiled Css
             this.editor.applyModifications();
         }
     };
@@ -7650,6 +8108,21 @@
     var ClucklesEditor = function (less, options) {
         this.lessGlobal         = less;
         this.options            = options;
+        
+        // Main Less stylesheet (bootstrap.less)
+        this.mainStylesheet             = document.querySelector('link[rel="stylesheet/less"]');
+        // The URL path of the href attribute e.g. [0] = assets, [1] = less, [2] = bootstrap.less etc
+        this.mainStylesheetPath         = this.mainStylesheet.getAttribute('href').split('/').slice(1);
+        this.mainStylesheetHypenated    = this.mainStylesheetPath.slice(0 , -1)
+                .concat(
+                    this.mainStylesheetPath[this.mainStylesheetPath.length - 1] // Get bootstrap.less etc
+                    .slice(0, -5) // Now remove the ".less"
+                ).join('-'); 
+                // Join with - to give us "assets-less-bootstrap" for example, which is part of the ID which less
+                // assigned to the Stylesheet it outputs after processing client side
+
+        // The path to the less folder e.g. assets/less/
+        this.lessPath                   = this.mainStylesheetPath.slice(0, -1).join('/') + '/';
         
         /**
          * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
@@ -7763,14 +8236,13 @@
         this.redoButton     = document.querySelector('*[data-cluckles-options="redo"]');
         this.undoStack      = [];
         this.redoStack      = [];
-        this.canTrackUndo  = true;
+        this.canTrackUndo   = true;
+
+        this.processor      = new Processor(this, options);
 
         // Import/Export Management
         this.export         = new Export(this, options.export);
-        this.import         = new Import(this, options.theme);
-
-        // Configure the Post Processor for when Less finished Processing Changes to the Theme
-        this.setupPostProcessor(this.lessGlobal);
+        this.import         = new Import(this, this.processor, options.theme);
 
         // Configure the Options toolbar
         this.setupToolbar();
@@ -7784,96 +8256,21 @@
             this.redoButton.setAttribute('disabled', 'disabled');
         }
     };
-    
+
     /**
-     * Sets up a Callback for the Less#postProcessor callback.
-     * 
-     * @param {Object} less The Global less object.
+     * Refreshes all the Custom styles by triggering change event against each one.
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.setupPostProcessor = function (less) {
-        var processedCss,
-            customCss;
+    ClucklesEditor.prototype.refreshCustomStyles = function () {
+        var lessInputs  = [].slice.call(document.querySelectorAll('#clucklesCustomLess .panel-body > textarea')),
+            cssInputs   = [].slice.call(document.querySelectorAll('#clucklesCustomCss .panel-body > textarea'));
 
-        // Provide less with the postProcessor callback we want to execute
-        less.postProcessor = function (css) {
-            // Generate/Regenerate both of the Download button Blob contents
-            this.export.generateCssBlob(css.concat(customCss)); // Join the Compiled and Custom Css together
-            this.export.generateJsonBlob(this.import.customCss, this.import.customLess); // Pass both the Custom Css and Less
-
-            // If the Scope option was provided, we want to prefix all the
-            // CSS selectors with our scope, so the theme changes are only
-            // applied to the DOMElement we choose and its children
-            processedCss = this.selectorProcessor(css);
-            customCss    = this.prefixCustomStyles(this.import.customCss, 'Css');
-
-            // Return the Processed and Custom Css
-            return processedCss.concat(customCss);
-        }.bind(this);
-    };
-    
-    /**
-     * If the options.scope.selector was provided, we prefix all the CSS Selectors
-     * in the CSS Input with the CSS Selector provided by the option. This limits the
-     * scope of the CSS Generated to be contained inside the DOM Element referenced
-     * by the scope selector.
-     * 
-     * @param {string} css CSS to process and prefix with the options.scope.selector.
-     * 
-     * @returns {string}
-     */
-    ClucklesEditor.prototype.selectorProcessor = function (css) {
-        var cssSelectorRegex = /((?:(?:(?:(^\({0}#)|\.)|(?:^\w{0}a(?!\w)|ul|li|textarea))[\w->:.\s]+)+)(?=[,\{])/mg,
-            processedCss = css;
-        
-        // Prefix the css selectors with this.options.scope.selector
-        if (this.options.hasOwnProperty('scope') && this.options.scope.hasOwnProperty('selector')) {
-            // Use the regex above, $& prefixes the CSS selectors with our scope selector
-            processedCss = css.replace(cssSelectorRegex, this.options.scope.selector + ' $&');
-
-            // Replace body with the scope selector, stops the body background leaking
-            processedCss = processedCss.replace(/^body/mg, this.options.scope.selector);
-            // Prefixes the h* small, .h* small h* .small etc with the scope selector
-            processedCss = processedCss.replace(/\.?h\d{1} \.?small/mg, this.options.scope.selector + ' $&');
-            processedCss = processedCss.replace(/^footer/mg, this.options.scope.selector + ' $&');
-        }
-        
-        return processedCss;
-    };
-    
-    /**
-     * Prefixes the Custom Styling provided (string or array) with the options.scope.prefix if
-     * the options.scope.customCss || option options.scope.customLess is true,
-     * or returns the Styling (concatenated if array is provided).
-     * 
-     * @param {String|Array} style Array of Custom Styles or singular custom style (to prefix/concatenate).
-     * 
-     * @returns {Array|String}
-     */
-    ClucklesEditor.prototype.prefixCustomStyles = function (style, type) {
-        // If the options permit the Styling to be prefixed
-        if (this.options.hasOwnProperty('scope') &&
-                this.options.scope.hasOwnProperty('custom' + type) &&
-                this.options.scope['custom' + type] === true) {
-            
-            // Prefix the Styles
-            if (typeof style === 'string') {
-                return this.selectorProcessor(style);
-            }
-
-            // or Concatenate and Prefix all the Styles
-            return style.reduce(function (prev, cur) {
-                return prev + this.selectorProcessor(cur);
-            }.bind(this), '');
-        } else {
-            if (typeof style === 'string') { return style; }
-
-            // Concatentate the array into a string
-            return style.reduce(function (allStyles, s) {
-                return allStyles + s; },
-            '');
-        }
+        // Concatenate all the Custom styles textareas
+        lessInputs.concat(cssInputs).forEach(function (input) {
+            // Displatch a change event, to simulate a value change
+            input.dispatchEvent(new Event('change'));
+        });
     };
 
     /**
@@ -8037,17 +8434,22 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.queueModifications = function () {
-        // If an update is allowed right now, apply the modifications
+        // If an update is allowed right now, apply the modifications,
+        // and refresh the custom styles, which allows the cutsom styles to updated vars
         if (this.refreshMonitor.canRefresh === true) {
             this.applyModifications();
+
+            this.refreshCustomStyles();
             
             // Set the state to not ready for more updates yet
             this.refreshMonitor.canRefresh = false;
             
-            // Set a timeout to allow updated again after x time (refreshMonitor.rate)
-            // and apply the modifications that were pending
+            // Set a timeout to allow updates again after x time (refreshMonitor.rate)
+            // and apply the modifications that were pending (also refreshes custom styles)
             setTimeout(function () {
                 this.applyModifications();
+
+                this.refreshCustomStyles();
 
                 // Allow updates again
                 this.refreshMonitor.canRefresh = true;
@@ -8063,7 +8465,12 @@
     ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
-        
+
+        // Find the Calculated modifier values, will replace @variables with
+        // their parent values, and perform any calculations to consolidate,
+        // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
+        modifiers = this.processor.calculateModifierValues(modifiers);
+
         if (reload !== undefined) {
             this.lessGlobal.refresh(true, modifiers);
         }
@@ -8139,7 +8546,7 @@
         this.refreshMonitor.canRefresh = false;
 
         // Reset the Modifiers and Components
-        this.modifiers = [];
+        this.modifiers = {};
         this.resetComponents();
         
         // Pop the newest item of the top of the stacj
@@ -8155,7 +8562,7 @@
 
         // Move the newest items from one stack to the other
         altStack.push(poppedStack);
-
+        
         // Now apply the modifications to update the UI (will also set modifiers again)
         this.applyModifications();
 
@@ -8211,6 +8618,9 @@
             this.redoButton.setAttribute('disabled', 'disabled');
         }
 
+        // Reset the Custom Styles
+        this.import.resetCustomStyles();
+
         // Reset all the Components
         this.resetComponents(); 
 
@@ -8218,14 +8628,15 @@
         this.applyModifications({});
     };
 
-
     /**
-     * Resets the current Theme to the Theme which was imported by providing the
-     * theme.src option (including resetting the components/subscribers).
+     * Resets the Modifiers loaded into Cluckles and loads the modifiers passed
+     * in.
+     * 
+     * @param {object} modifiers The modifiers to load.
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.resetToTheme = function () {
+    ClucklesEditor.prototype.resetFromModifiers = function (modifiers) {
         // Copy the current undoStack
         var currentUndoStack = this.undoStack.slice(0);
 
@@ -8238,11 +8649,11 @@
         this.refreshMonitor.canRefresh  = false;
 
         // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
-        this.import.loadComponentModifiers(this.import.themeModifiers);
+        this.import.handleThemeImport(modifiers);
 
         // Now apply the theme modifiers which were reset to the theme
         this.applyModifications();
-        
+
         // Restore the undoStack (resetToDefault clears the stacks)
         this.undoStack = currentUndoStack;
         // Push the modifiers from the Theme onto the undo stack
@@ -8251,6 +8662,16 @@
         // Allow modifications to be tracked/applied automatically
         this.canTrackUndo = true;
         this.refreshMonitor.canRefresh = true;
+    };
+
+    /**
+     * Resets the current Theme to the Theme which was imported by providing the
+     * theme.src option (including resetting the components/subscribers).
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.resetToTheme = function () {
+        this.resetFromModifiers(this.import.themeModifiers);
     };
     
     /**

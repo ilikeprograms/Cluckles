@@ -8,6 +8,52 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.8.0]
+
+- [Import] Fixed theme import bug
+- [Docs] Updated Docs theme
+- [Cluckles] Fixed Undo/redo not working properly
+- [Docs] Fixed font being put into docs/assets/fonts folder
+- [Docs] Added alert asking for feedback on iframe
+- [Docs] Added demoJumbotron id to Demo header jubotron
+- [Docs] Moved Cluckles editor into separate iframe, it now is styled independently of the main page
+- [Process] Removed not matching .container* as its not needed
+- [Cluckles] Removed `notSelector` in favour of an iframe, replaced method calls with `removeScopeSelector`
+- [Processor] Added `removeScopeSelector` method to remove the scope selector from the CSS.
+- [Export] Now only applying the :not selector to custom Less output and not custom css aswell
+- [Import] Setting `type` for data-clucklesCustomStyle attribute applied to the custom style tags
+- [Cluckles] Moved finding Stylesheets/less path to Cluckles from import
+- [Docs] Changed `Try the Demo` to `Create a Theme` in main buttons
+- [Docs] Added new features info
+- [Import] Now supports @import syntax in custom less, will prefix it with less path so imports work
+- [Bootstrap.less] Removed theme.less import, in favour of allowing it to be dynamically added later
+- [Example] Added Info alerts with info about new features
+- [Processor] Added ignoring `.container*` to `cssSelectorRegex`, changed to RegExp object not literal
+- [Variables] Updated variables file with the bootstrap variables file
+- [Import] Adding transformed vars to (less) style tags so that less will use them while processing custom Less
+- [Import] Finding Less output stylesheet and inserting style tags after it, if found
+- [Processor] Accommodated JSHint warnings
+- [JsHint] Added `Event` to Globals
+- [Import] Stop refreshing in `handleThemeImport` when calling loadComponentModifiers as it would process every iteration
+- [Import] Added support for importing .less files, and attempts to parse them for variables (assumes importing variables.less)
+- [Import] Added `parseVariablesFile` to allow variables.less files to be processed into modifiers
+- [Import] Storing `_extra` object of themes on initial theme import (from theme.json when page loads)
+- [Cluckles] Removed resetToBootstrap method
+- [Export] Using `notSelector` when generating CSS blob
+- [Processor] Added processor to handle all style/modifier processing
+- [Grunt] Now building the updated bootstrap/less files
+- [Deps] Updated bootstrap to ~3.3.0
+- [Navbar] Prefixed variables with @
+- [ThemeModifier] Improved value setting, and now Tracking/Cascading variables to/from parent variables
+- [Import] Resetting to default before File import
+- [Cluckles] Added `refreshCustomStyles` method and calling from `queueModifications`
+- [Import] Moved check for theme `src` inside `parseThemeFile` method
+- [ThemeModifier] Added `findParentVariableValue` method, to find the parent value by passing a variable name and the modifiers object
+- [Cluckles] Moved `resetToTheme` to `resetToModifiers`, and passing `resetToTheme` to `resetToModifiers`
+- [Import] Moved importing theme extra to `importThemeExtra` method
+- [Import] Fixed `this.loadComponentModifiers` line to import correctly.
+- [Cluckles] Removing CustomStyles on `reset`
+
 ## [0.7.0]
 
 - [Docs] Added `z-index` to Homepage fork me ribbon
