@@ -181,7 +181,7 @@ module.exports = function (grunt) {
                     {src: "build/example/editor.html", dest: 'docs/_includes/editor.html'},
                     
                     // Font files
-                    { src: "build/fonts/*", dest: 'docs/fonts', expand: true, flatten: true },
+                    { src: "build/fonts/*", dest: 'docs/assets/fonts', expand: true, flatten: true },
                     
                     // JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'docs/assets/js/lib'},
