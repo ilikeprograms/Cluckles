@@ -17,7 +17,7 @@
         this.editor     = editor;
         this.options    = options;
 
-        this.cssSelectorRegex = new RegExp("(?!\\.container)" + // Dont match .container*
+        this.cssSelectorRegex = new RegExp("" +
             "((?:" + 
                 // Match CSS selector pattern e.g ".table > thead > tr > td.danger"
                 "(?:" + 
