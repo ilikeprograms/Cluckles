@@ -9,13 +9,10 @@ title: 'Cluckles Demo Page'
   <p>Try Customising the current Theme using this example editor. Any feedback is welcome, and dont forget you can use {{ site.title }} in your own projects!</p>
 </div>
 
-<!-- Main container -->
-  <div class="container-fluid" id="mainContainer">
-    <div class='row'>
-      {% include component.html %}
-
-      {% include editor.html %}
+<div class="container-fluid">
+  <div class='row'>
+    <div id="wrap">
+      <iframe src="demoiframe.html" id="iframe" frameborder="0"></iframe>
     </div>
-  </div> <!-- /Main container -->
-
-{% include cluckles.html %}
+  </div>
+</div>
