@@ -66,26 +66,6 @@
         }.bind(this);
     };
     
-    Processor.prototype.notSelector = function (css) {
-        var processedCss = css;
-
-        if (this.options.hasOwnProperty('not')) {
-            processedCss = this.removeScopeSelector(processedCss);
-
-            // Remove the space between "selector {" etc, this is so that a :not can be applied
-            processedCss = css.replace(/(?:^.)*(\s)(?={)/gm, '');
-
-            // Use the regex above, $& prefixes the CSS selectors with our scope selector
-            processedCss = css.replace(this.cssSelectorRegex, function (match) {
-                match = match.trim();
-                match += ':not(' + this.options.scope.selector + ')';
-                return match;
-            }.bind(this));
-        }
-
-        return processedCss;
-    };
-    
     /**
      * Removes the Scope Selector from the CSS input. The CSS may have been prefixed,
      * with an ID which was specified with this.options.scope.selector, so we need

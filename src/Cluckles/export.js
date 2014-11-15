@@ -185,8 +185,8 @@
     Export.prototype.generateCssBlob = function (css) {
         var customStyleAttribute = 'data-clucklesCustomStyle';
 
-        // Store the Compiled Css
-        this.compiledCss = css;
+        css = this.editor.processor.removeScopeSelector(css);
+        var customCss = "\n";
 
         // Find each Custom style tag and process them
         [].slice.call(document.querySelectorAll('*['+ customStyleAttribute +']')).forEach(function (customStyle) {
@@ -195,16 +195,19 @@
                 // Add the :not selector to the CSS, so that the styling generated wont
                 // interfere with the styling of the editor "assuming" the CSS
                 // exported will be used on the same page as a cluckles editor
-                css += this.notSelector(customStyle.innerHTML) + "\n";
+                customCss += this.removeScopeSelector(customStyle.innerHTML) + "\n";
             } else {
                 // If custom CSS, remove the Scope selector, which was applied to only apply
                 // the styling the cluckles section
-                css += this.removeScopeSelector(customStyle.innerHTML) + "\n";
+                customCss += this.removeScopeSelector(customStyle.innerHTML) + "\n";
             }
         }, this.editor.processor);
 
+        // Store the Compiled Css
+        this.compiledCss = css + customCss;
+
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(css));
+        this.cssLink.setAttribute('href', this.generateBlob(css + customCss));
     };
 
     /**
