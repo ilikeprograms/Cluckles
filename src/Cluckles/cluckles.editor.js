@@ -198,6 +198,8 @@
         if (this.redoButton) {
             this.redoButton.setAttribute('disabled', 'disabled');
         }
+        
+        this.setupEmbed();
     };
 
     /**
@@ -654,6 +656,27 @@
 
         if (this.redoButton) {
             this.redoButton.addEventListener('click', this.redo.bind(this), false);
+        }
+    };
+
+    /**
+     * Sets up the window onresize event if the `embedSelector` option was provided
+     * and this cluckles instance is inside of an embedded object.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.setupEmbed = function () {
+        // If we have provided an embedSelector, we are assuming that the ClucklesEditor is
+        // inside an embeded object, so we need the parent element to be set the same height
+        // as the BODY of the embedded document
+        // if not in context of an emded, window.parent will be the same as window
+        if (this.options && this.options.hasOwnProperty('embedSelector') && window.parent !== window) {
+            window.onresize = function () {
+                // Window.parent = parent window which contains the embedded document
+                // then get the Document (parent document) and find our embeded object
+                // Then style the parent node (which ur emdeded object is a direct descendant)
+                window.parent.document.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
+            }.bind(this);
         }
     };
 
