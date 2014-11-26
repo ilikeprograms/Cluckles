@@ -52,7 +52,7 @@
         // Provide less with the postProcessor callback we want to execute
         this.editor.lessGlobal.postProcessor = function (css) {
             // Generate/Regenerate both of the Download button Blob contents
-            this.editor.export.generateCssBlob(css.concat(customCss)); // Join the Compiled and Custom Css together
+            this.editor.export.generateCssBlob(css);
             this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
 
             // If the Scope option was provided, we want to prefix all the
