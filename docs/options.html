@@ -1,0 +1,29 @@
+---
+layout: base
+title: 'Cluckles Options Reference'
+description: 'Cluckles is a Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap, and currently allows Bootstrap Themes to be completely customised.'
+---
+
+<div class="jumbotron">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>{{ site.title }} Options</h1>
+        <p>{{ site.title }} has several options which can configure things like loading a theme (on initialisation), exporting, prefixing generated CSS/Less with a selector (in the editor) and more!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      {% capture options_content %}
+        {% include options.md %}
+      {% endcapture %}
+      {{ options_content | markdownify }}
+    </div>
+  </div>
+</div>
+
+{% include table-striped-script.html %}
