@@ -7,9 +7,10 @@
      * @class ClucklesEditor
      * 
      * Generic Options:
-     * - scope:     {string} The CSS Selector to prefix the Compiled CSS selectors with.
-     * - delay:     {Number} Milliseconds delay between refresh updates (Default: 750).
-     * - undoSize:  {Number} Number of items to keep in the Undo history (Default: 10)
+     * - scope:         {string} The CSS Selector to prefix the Compiled CSS selectors with.
+     * - delay:         {Number} Milliseconds delay between refresh updates (Default: 750).
+     * - undoSize:      {Number} Number of items to keep in the Undo history (Default: 10)
+     * - embedSelector: {string} Will set this element to the height of the editor, if editor is in an embedded object.
      * 
      * @param {Object} less The Global less object.
      * 

@@ -119,10 +119,11 @@ There are options that can be provided when a Cluckles instance is created and a
 
 Miscellaneous Options
 
-| Field    | Type     | Default            | Desc                                        |
-| -------- |:--------:| ------------------ | ------------------------------------------- |
-| delay    | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates  |
-| undoSize | `Number` | 10                 | Number of items to keep in the Undo history |
+| Field         | Type     | Default            | Desc                                                                                  |
+| ------------- |:--------:| ------------------ | ------------------------------------------------------------------------------------- |
+| delay         | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates                                            |
+| undoSize      | `Number` | 10                 | Number of items to keep in the Undo history                                           |
+| embedSelector | `string` |                    | Will set this element to the height of the editor, if editor is in an embedded object |
 
 ## Scope
 

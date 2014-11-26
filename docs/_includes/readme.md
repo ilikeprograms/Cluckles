@@ -7,11 +7,11 @@ There are options that can be provided when a ClucklesEditor instance is created
 
 Miscellaneous Options
 
-| Field    | Type     | Default            | Desc                                        |
-| -------- |:--------:| ------------------ | ------------------------------------------- |
-| delay    | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates  |
-| undoSize | `Number` | 10                 | Number of items to keep in the Undo history |
-
+| Field         | Type     | Default            | Desc                                                                                  |
+| ------------- |:--------:| ------------------ | ------------------------------------------------------------------------------------- |
+| delay         | `number` | 750 (milliseconds) | Milliseconds delay between refresh updates                                            |
+| undoSize      | `Number` | 10                 | Number of items to keep in the Undo history                                           |
+| embedSelector | `string` |                    | Will set this element to the height of the editor, if editor is in an embedded object |
 
 ## Scope
 
@@ -23,6 +23,7 @@ When a `selector` is provided, the CSS generated will be prefixed with the selec
 | selector   | `string`  |         | The CSS Selector to prefix the Compiled CSS selectors with                     |
 | customCss  | `boolean` |         | When set to `true`, the CSS will be prefixed with the selector                 |
 | customLess | `boolean` |         | When set to `true` the Less is compiled to CSS then prefixed with the selector |
+
 ### Theme
 
 Location to find the theme file to start editing (If editing existing theme).
