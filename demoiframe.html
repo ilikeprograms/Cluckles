@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
     <link type="text/css" href="/assets/less/bootstrap.less" rel="stylesheet/less" />
     <link type="text/css" href="/assets/css/component-example-fix.css" rel="stylesheet" />
@@ -35,6 +38,12 @@
     <!-- Main container -->
   <div class="container-fluid" id="mainContainer">
     <div class='row'>
+      <div class="alert alert-danger">
+        <i class="fa fa-newspaper-o fa-2x"></i> 
+        <strong>Attention Please!</strong><br/> Just so you know, we recently switches to using an Iframe for this Section, we really need feedback on how this performs<br />
+        If you have any feedback to give, please get in touch. Thanks :)
+      </div>
+
       <!-- Theme Example Column -->
 <div class='col-md-9'>
     <div id='boostrap-theme-contain'>
@@ -4024,7 +4033,9 @@
       customCss: true,
       customLess: true
     },
-    
+
+    embedSelector: '#iframe',
+
     theme: {
       src: '/assets/theme.json'
     },

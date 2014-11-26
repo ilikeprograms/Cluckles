@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Cluckles Demo Page | Cluckles</title>
+    <title>Cluckles Editor, create Custom Bootstrap Themes with the interactive and responsive editor | Cluckles</title>
     
     <meta name="description" content="Cluckles Demo page, feedback welcome, test the Live Theme Editing." />
     
@@ -29,7 +29,6 @@
     <![endif]-->
     
     <link type="text/css" href="/assets/css/syntax.css" rel="stylesheet" />
-    <link type="text/css" href="/assets/css/style.css" rel="stylesheet" />
     <link type="text/css" href="/assets/css/theme.css" rel="stylesheet" />
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
@@ -44,7 +43,7 @@
 <script src="/assets/js/component-example-fix.js"></script>
   </head>
   <body role="document">
-    <nav class="navbar navbar-inverse navbar-static-top" id="mainNavigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="mainNavigation">
   <div class="container-fluid">
     <!-- Navbar Header -->
     <div class="navbar-header">
@@ -61,29 +60,19 @@
     <div class="collapse navbar-collapse" id="mainNavigationNav">
       <ul class="nav navbar-nav">
         <li><a href="demo.html" title="Cluckles Demo Page"><i class="fa fa-rocket"></i> Demo</a></li>
+        <li><a href="options.html" title="Cluckles Options Page"><i class="fa fa-cog"></i> Options</a></li>
+        <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About</a></li>
         <li><a href="https://github.com/ilikeprograms/Cluckles" target="_blank" title="Cluckles on Github"><i class="fa fa-github"></i> Github</a></li>
-        <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About Cluckles</a></li>
       </ul>
     </div> <!-- /Navbar Nav -->
   </div>
 </nav>
 
     <!-- Main container -->
-        <div class="jumbotron" id="demoJumbotron">
-  <h1>Cluckles Demo <small>Give it a try</small></h1>
-  <p>Try Customising the current Theme using this example editor. Any feedback is welcome, and dont forget you can use Cluckles in your own projects!</p>
-  <br />
-  <div class="alert alert-danger">
-    <i class="fa fa-newspaper-o fa-2x"></i> 
-    <strong>Attention Please!</strong><br/> Just so you know, we recently switches to using an Iframe for the Section below, we really need feedback on how this performs<br />
-    If you have any feedback to give, please get in touch. Thanks :)
-  </div>
-</div>
-
-<div class="container-fluid">
+        <div class="container-fluid">
   <div class='row'>
     <div id="wrap">
-      <iframe src="demoiframe.html" id="iframe" frameborder="0"></iframe>
+      <object type="text/html" data="demoiframe.html" id="iframe" border="0"></object>
     </div>
   </div>
 </div>
@@ -103,9 +92,8 @@
 
     <script src="/assets/js/common.js"></script>
     
-    
-      <a href="http://github.com/ilikeprograms"><img style="z-index: 1001;position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="hidden-sm hidden-xs" /></a>
-    
+  <a href="http://github.com/ilikeprograms"><img src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="forkme hidden-sm hidden-xs" /></a>
+
 
     <!-- Google Universal Analytics -->
 <script>

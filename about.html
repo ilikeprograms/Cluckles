@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>About Cluckles | Cluckles</title>
     
-    <meta name="description" content="Cluckles is a Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap, and currently allows Bootstrap Themes to be completely customised." />
-    
     <meta name="author" content="Thomas Coleman <tom@ilikeprograms.com>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     
@@ -30,7 +28,6 @@
 
     <link type="text/css" href="/assets/css/syntax.css" rel="stylesheet" />
     <link type="text/css" href="/assets/css/theme.css" rel="stylesheet" />
-    <link type="text/css" href="/assets/css/style.css" rel="stylesheet" />
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -61,7 +58,7 @@
 <script>less.hasOwnProperty('Parser') || document.write('<script src="/assets/js/lib/less.min.js"><\/script>');</script>
   </head>
   <body role="document">
-    <nav class="navbar navbar-inverse navbar-static-top" id="mainNavigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="mainNavigation">
   <div class="container-fluid">
     <!-- Navbar Header -->
     <div class="navbar-header">
@@ -78,8 +75,9 @@
     <div class="collapse navbar-collapse" id="mainNavigationNav">
       <ul class="nav navbar-nav">
         <li><a href="demo.html" title="Cluckles Demo Page"><i class="fa fa-rocket"></i> Demo</a></li>
+        <li><a href="options.html" title="Cluckles Options Page"><i class="fa fa-cog"></i> Options</a></li>
+        <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About</a></li>
         <li><a href="https://github.com/ilikeprograms/Cluckles" target="_blank" title="Cluckles on Github"><i class="fa fa-github"></i> Github</a></li>
-        <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About Cluckles</a></li>
       </ul>
     </div> <!-- /Navbar Nav -->
   </div>
@@ -87,17 +85,23 @@
 
     <!-- Main container -->
         <div class="jumbotron">
-  <h1>Cluckles??</h1>
-  <p>I made this tool because I needed a way to Live edit Bootstrap in <em><a href="https://github.com/ilikeprograms/corvus" title="Corvus on Github" target="_blank">Corvus</a></em>. I couldn't find anything existing which I could integrate into the project, so I made <em>Cluckles</em>.</p>
-  <p>If you find the project useful, feel free to fork it and extend it, or even donate to the project with <a href="https://www.gittip.com/ilikeprograms/" title="iLikePrograms on Gittip" target="_blank">Gittip</a> <img src="http://img.shields.io/gittip/ilikeprograms.svg" alt="ilikeprograms Gittip status" /> 
-    or Flattr <a class="FlattrButton text-center" style="display: none;" 
-      title="Cluckles Live Theme Editor" 
-      href="http://cluckles.com" 
-      data-tags="opensource, javascript, bootstrap, cluckles" 
-      data-category="software">
-        <img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr Cluckles" />
-      </a>
-  </p>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Cluckles??</h1>
+        <p>I made this tool because I needed a way to Live edit Bootstrap in <em><a href="https://github.com/ilikeprograms/corvus" title="Corvus on Github" target="_blank">Corvus</a></em>. I couldn't find anything existing which I could integrate into the project, so I made <em>Cluckles</em>.</p>
+        <p>If you find the project useful, feel free to fork it and extend it, or even donate to the project with <a href="https://www.gittip.com/ilikeprograms/" title="iLikePrograms on Gittip" target="_blank">Gittip</a> <img src="http://img.shields.io/gittip/ilikeprograms.svg" alt="ilikeprograms Gittip status" /> 
+          or Flattr <a class="FlattrButton text-center" style="display: none;" 
+            title="Cluckles Live Theme Editor" 
+            href="http://cluckles.com" 
+            data-tags="opensource, javascript, bootstrap, cluckles" 
+            data-category="software">
+              <img src="https://api.flattr.com/button/flattr-badge-large.png" alt="Flattr Cluckles" />
+            </a>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="container">
@@ -161,8 +165,8 @@
     <script src="/assets/js/common.js"></script>
     
     
-      <a href="http://github.com/ilikeprograms"><img style="z-index: 1001;position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="hidden-sm hidden-xs" /></a>
-    
+  <a href="http://github.com/ilikeprograms"><img src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="forkme hidden-sm hidden-xs" /></a>
+
 
     
       <!-- Google Universal Analytics -->

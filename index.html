@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Live Theme Editor compatible with Bootstrap | Cluckles</title>
     
-    <meta name="description" content="Cluckles Live Theme Editor compatible with Bootstrap. Open source and embeddable." />
+    <meta name="description" content="Cluckles Live Theme Editor which utilises Less to Customise Twitte Bootstrap. Open source and embeddable. MIT Licence." />
     
     <meta name="author" content="Thomas Coleman <tom@ilikeprograms.com>">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -30,7 +30,6 @@
 
     <link type="text/css" href="/assets/css/syntax.css" rel="stylesheet" />
     <link type="text/css" href="/assets/css/theme.css" rel="stylesheet" />
-    <link type="text/css" href="/assets/css/style.css" rel="stylesheet" />
 
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" />
 
@@ -61,7 +60,7 @@
 <script>less.hasOwnProperty('Parser') || document.write('<script src="/assets/js/lib/less.min.js"><\/script>');</script>
   </head>
   <body role="document">
-    <nav class="navbar navbar-inverse navbar-static-top" id="mainNavigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" id="mainNavigation">
   <div class="container-fluid">
     <!-- Navbar Header -->
     <div class="navbar-header">
@@ -78,15 +77,16 @@
     <div class="collapse navbar-collapse" id="mainNavigationNav">
       <ul class="nav navbar-nav">
         <li><a href="demo.html" title="Cluckles Demo Page"><i class="fa fa-rocket"></i> Demo</a></li>
+        <li><a href="options.html" title="Cluckles Options Page"><i class="fa fa-cog"></i> Options</a></li>
+        <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About</a></li>
         <li><a href="https://github.com/ilikeprograms/Cluckles" target="_blank" title="Cluckles on Github"><i class="fa fa-github"></i> Github</a></li>
-        <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About Cluckles</a></li>
       </ul>
     </div> <!-- /Navbar Nav -->
   </div>
 </nav>
 
     <!-- Main container -->
-        <div class="jumbotron seamless-jumbotron">
+        <div id="introJumbo" class="jumbotron seamless-jumbotron">
   <div class="container">
     <div style="text-align: center;">
       <div style="display: inline-block">
@@ -104,9 +104,9 @@
 
     <div class="text-center">
       <a href="demo.html" class="btn btn-lg btn-primary" title="ClucklesDemo Page">Create a Theme!</a>
-      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.8.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a>
+      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.9.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a>
       <a href="http://bower.io/search/?q=Cluckles" class="btn btn-lg btn-primary" title="Cluckles on Bower">Also on Bower</a><br />
-      <small>Current release v0.8.0</small><br />
+      <small>Current release v0.9.0</small><br />
       
       <a class="FlattrButton text-center" style="display: none;" 
       title="Cluckles Live Theme Editor" 
@@ -127,7 +127,7 @@
       <div class="container">
         <h2>Getting started with Cluckles</h2>
 
-        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.8.0.zip" title="Cluckles latest Download" target="_blank">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
+        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.9.0.zip" title="Cluckles latest Download" target="_blank">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
           Now load up the Example site which is included or start composing your own:
         </p>
         
@@ -167,7 +167,7 @@
               <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               
               // Load our Fancy live editing Script
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.8.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.9.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               <span class="nt">&lt;script&gt;</span>
                 <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
                     <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
@@ -265,292 +265,15 @@
   <div class="row showcase-darker">
     <div class="col-md-12">
       <div class="container">
-        
-        <h2 id="cluckles-editor-options">Cluckles Editor Options</h2>
-
-<p>There are options that can be provided when a ClucklesEditor instance is created and are as follows:</p>
-
-<h3 id="misc">Misc</h3>
-
-<p>Miscellaneous Options</p>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th style="text-align: center">Type</th>
-<th>Default</th>
-<th>Desc</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>delay</td>
-<td style="text-align: center"><code>number</code></td>
-<td>750 (milliseconds)</td>
-<td>Milliseconds delay between refresh updates</td>
-</tr>
-<tr>
-<td>undoSize</td>
-<td style="text-align: center"><code>Number</code></td>
-<td>10</td>
-<td>Number of items to keep in the Undo history</td>
-</tr>
-</tbody></table>
-
-<h2 id="scope">Scope</h2>
-
-<p>The Scope option controls whether or not to limit the CSS generated by Cluckles to a given Scope.
-When a <code>selector</code> is provided, the CSS generated will be prefixed with the selector (and similarly when the <code>customCss</code> and <code>customLess</code> options are set to <code>true</code>)</p>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th style="text-align: center">Type</th>
-<th>Default</th>
-<th>Desc</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>selector</td>
-<td style="text-align: center"><code>string</code></td>
-<td></td>
-<td>The CSS Selector to prefix the Compiled CSS selectors with</td>
-</tr>
-<tr>
-<td>customCss</td>
-<td style="text-align: center"><code>boolean</code></td>
-<td></td>
-<td>When set to <code>true</code>, the CSS will be prefixed with the selector</td>
-</tr>
-<tr>
-<td>customLess</td>
-<td style="text-align: center"><code>boolean</code></td>
-<td></td>
-<td>When set to <code>true</code> the Less is compiled to CSS then prefixed with the selector</td>
-</tr>
-</tbody></table>
-
-<h3 id="theme">Theme</h3>
-
-<p>Location to find the theme file to start editing (If editing existing theme).</p>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th style="text-align: center">Type</th>
-<th>Default</th>
-<th>Desc</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>url</td>
-<td style="text-align: center"><code>string</code></td>
-<td></td>
-<td>URL to locate the theme file</td>
-</tr>
-</tbody></table>
-
-<h3 id="export">Export</h3>
-
-<p>An export object can be provided to control the exporting options.</p>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th style="text-align: center">Type</th>
-<th>Default</th>
-<th>Desc</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>target</td>
-<td style="text-align: center"><code>string</code></td>
-<td>&#39;body&#39;</td>
-<td>Optional General DOM Element target, to append Export links to</td>
-</tr>
-</tbody></table>
-
-<h3 id="export-json">Export Json</h3>
-
-<p>The export.json object can be provided to configure the options for Downloading the theme modifications in JSON format.<br>
-The DOM node to append the export as json link, the id and the text of the link can be customised.</p>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th style="text-align: center">Type</th>
-<th>Default</th>
-<th>Desc</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>target</td>
-<td style="text-align: center"><code>string</code></td>
-<td>export.target</td>
-<td>DOM Element target to append json Export link</td>
-</tr>
-<tr>
-<td>id</td>
-<td style="text-align: center"><code>string</code></td>
-<td>&#39;download_json_link&#39;</td>
-<td>ID attribute to set on the json Export link</td>
-</tr>
-<tr>
-<td>text</td>
-<td style="text-align: center"><code>string</code></td>
-<td>&#39;Download Json&#39;</td>
-<td>Text content for the json Export link</td>
-</tr>
-</tbody></table>
-
-<h3 id="export-css">Export Css</h3>
-
-<p>The export.css object can be provided to configure the options for Downloading the Compiled Theme in Css format. See <code>ClucklesEditor#setupPostProcessor</code><br>
-The DOM node to append the export as css link, the id and the text of the link can be customised.</p>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th style="text-align: center">Type</th>
-<th>Default</th>
-<th>Desc</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>target</td>
-<td style="text-align: center"><code>string</code></td>
-<td>export.target</td>
-<td>DOM Element target to append css Export link</td>
-</tr>
-<tr>
-<td>id</td>
-<td style="text-align: center"><code>string</code></td>
-<td>&#39;download_css_link&#39;</td>
-<td>ID attribute to set on the css Export link</td>
-</tr>
-<tr>
-<td>text</td>
-<td style="text-align: center"><code>string</code></td>
-<td>&#39;Download Css&#39;</td>
-<td>Text content for the css Export link</td>
-</tr>
-</tbody></table>
-
-<h4 id="export-save">Export Save</h4>
-
-<p>The export.save object can be provided to configure the options for Saving the theme
-modifications (as JSON) to an external URL.</p>
-
-<p>The DOM node to append the save link, the id and the text of the link can be customised.  </p>
-
-<p>The url and method can be provided to alter the HTTP method and the location the changes are send.  </p>
-
-<p>An optional success callback can also be provided to fire when the changes have been successfully received by the remote URL.</p>
-
-<table><thead>
-<tr>
-<th>Field</th>
-<th style="text-align: center">Type</th>
-<th>Default</th>
-<th>Desc</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>format</td>
-<td style="text-align: center"><code>Array</code></td>
-<td><code>json</code></td>
-<td>The formats to include in the export</td>
-</tr>
-<tr>
-<td>target</td>
-<td style="text-align: center"><code>string</code></td>
-<td>export.target</td>
-<td>DOM Element target to append save Export link</td>
-</tr>
-<tr>
-<td>url (required)</td>
-<td style="text-align: center"><code>string</code></td>
-<td></td>
-<td>URL to send the modified theme changes</td>
-</tr>
-<tr>
-<td>method</td>
-<td style="text-align: center"><code>string</code></td>
-<td><code>POST</code></td>
-<td>HTTP method for the save request</td>
-</tr>
-<tr>
-<td>callback</td>
-<td style="text-align: center"><code>function</code></td>
-<td></td>
-<td>Optional success save callback</td>
-</tr>
-<tr>
-<td>id</td>
-<td style="text-align: center"><code>string</code></td>
-<td>&#39;save_theme_link&#39;</td>
-<td>ID attribute to set on the save Export link</td>
-</tr>
-<tr>
-<td>text</td>
-<td style="text-align: center"><code>string</code></td>
-<td>&#39;Save Theme&#39;</td>
-<td>Text content for the save Export link</td>
-</tr>
-</tbody></table>
-
-<h4 id="example">Example</h4>
-<div class="highlight"><pre><code class="javascript"><span class="c">&lt;!--</span> <span class="nx">Load</span> <span class="nx">our</span> <span class="nx">Fancy</span> <span class="nx">live</span> <span class="nx">editing</span> <span class="nx">Cluckles</span> <span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">&quot;../cluckles-0.6.2.js&quot;</span><span class="o">&gt;&lt;</span><span class="err">/script&gt;</span>
-<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-  <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
-    <span class="nx">scope</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;#mainContainer&#39;</span><span class="p">,</span>
-      <span class="nx">customCss</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="nx">customLess</span><span class="o">:</span> <span class="kc">true</span>
-    <span class="p">},</span>
-    <span class="nx">theme</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">src</span><span class="o">:</span> <span class="s1">&#39;theme.json&#39;</span>
-    <span class="p">},</span>
-    <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span>   <span class="c1">// Fallback/General Target</span>
-      <span class="nx">json</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Custom Target</span>
-        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;download-theme-json&#39;</span><span class="p">,</span>        <span class="c1">// Custom Id</span>
-        <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Download Json&#39;</span>             <span class="c1">// Custom Text</span>
-      <span class="p">},</span>
-      <span class="nx">css</span><span class="o">:</span> <span class="p">{},</span> <span class="c1">// Blank Object provided makes the Css download button appear</span>
-      <span class="nx">save</span><span class="o">:</span> <span class="p">{</span>
-        <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://localhost:9000/example/&quot;</span><span class="p">,</span>
-        <span class="nx">callback</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-          <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Theme modifications have been saved&#39;</span><span class="p">);</span>
-        <span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">});</span>
-<span class="o">&lt;</span><span class="err">/script&gt;</span>
-</code></pre></div>
-<h2 id="contributing">Contributing</h2>
-
+        <h2 id="contributing">Contributing</h2>
 <p>I will happily accept contributions in any form, even if its just suggestions and I will have to work on them! Feel free to fork and submit a pull request.</p>
 
 <h2 id="licence">Licence</h2>
-
 <p>This project is licensed under the MIT Licence.</p>
-
       </div>
     </div>
   </div>
 </div>
-
-<script>
-  $(function () {
-    [].slice.call(document.querySelectorAll('table')).forEach(function (table) {
-      table.classList.add('table');
-      table.classList.add('table-striped');
-      table.classList.add('table-bordered');
-    });
-  });
-</script>
 
 
     <hr />
@@ -568,8 +291,8 @@ modifications (as JSON) to an external URL.</p>
     <script src="/assets/js/common.js"></script>
     
     
-      <a href="http://github.com/ilikeprograms"><img style="z-index: 1001;position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="hidden-sm hidden-xs" /></a>
-    
+  <a href="http://github.com/ilikeprograms"><img src="http://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub" class="forkme hidden-sm hidden-xs" /></a>
+
 
     
       <!-- Google Universal Analytics -->
