@@ -7634,6 +7634,16 @@ button.close {
     right: 0;
     border: 0
 }
+
+#introJumbo .btn-primary {
+    transition: background 1s ease;
+    border: 2px solid #383ba4;
+}
+
+#introJumbo .btn-primary:hover {
+    background: rgb(177, 151, 255);
+    text-shadow: 0px 0px 5px #6B08A5;
+}
 /* line 16, /assets/less/theme.less */
 .btn-default,
 .btn-primary,
