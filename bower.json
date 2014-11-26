@@ -1,10 +1,10 @@
 {
   "name": "Cluckles",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "authors": [
     "Thomas Coleman <tom@ilikeprograms.com>"
   ],
-  "description": "Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap",
+  "description": "Cluckles is a live theme editor that leverages Less to Customise Twitter Bootstrap",
   "keywords": [
     "bootstrap",
     "js",

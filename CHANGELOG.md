@@ -8,6 +8,33 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.9.0]
+
+- [Package] Updated Cluckles to 0.9.0
+- [Docs] Added nice hover styles to `#introJumbo .btn-primary`
+- [Docs] Added introJumbo ID to homepage  jumbotron
+- [Docs] Removed unused CSS from theme, and indented theme.json custom css
+- [Processor] Stopped concatenating css with customCss in postProcessor, this was causing duplication of customCss
+- [Export] Passing this.compiledCss to generateBlob in generateCssBlob 
+- [Docs] Moved navigation github link to end, added options link
+- [Docs] Removed `style.css` as its exported by chuckles
+- [Docs] Added options page
+- [Docs] Improved meta titles/descriptions of pages
+- [Docs] Set `embedSelector` for docs site as it is using an embedded iframe (as per Options update)
+- [Docs] Renamed readme.md to options.md as it now only contains cluckles options
+- [Docs] Moved table classes script to table-striped-script.html
+- [Docs] Moved contributing/licence section from ready to index-extra.html
+- [Docs] Put About page Jumbotron contents in `container-fluid`
+- [ClucklesEditor] Firing window.rezise event on initial setup to set initial height for embedded editor
+- [Readme] Documented `embedSelector` option.
+- [ClucklesEditor] Added the `setupEmbed` method which sets up the window.onresize event to make the editor responsive if embedded in an object/iframe
+- [Docs] Removed #demoJumbotron css and added forkme to theme.json
+- [Docs] Changed navbar to fixed, so navbar is always at top when scrolling
+- [Docs] Added IE compatibility and viewport metatarsi to demoiframe
+- [Docs] Moved Iframe alert to start of demo iframe
+- [Docs] Moved forkme ribbon to include file, added forkme class to img
+- [Package] Updated Bootstrap less files
+
 ## [0.8.0]
 
 - [Import] Fixed theme import bug

@@ -1,5 +1,5 @@
 /*!
- * Cluckles 0.8.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
+ * Cluckles 0.9.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
  * http://cluckles.com
  * 
  * Copyright 2014 Thomas Coleman <tom@ilikeprograms.com>
@@ -348,7 +348,7 @@
         // Provide less with the postProcessor callback we want to execute
         this.editor.lessGlobal.postProcessor = function (css) {
             // Generate/Regenerate both of the Download button Blob contents
-            this.editor.export.generateCssBlob(css.concat(customCss)); // Join the Compiled and Custom Css together
+            this.editor.export.generateCssBlob(css);
             this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
 
             // If the Scope option was provided, we want to prefix all the
@@ -7557,7 +7557,7 @@
         this.compiledCss = css + customCss;
 
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(css + customCss));
+        this.cssLink.setAttribute('href', this.generateBlob(this.compiledCss));
     };
 
     /**
@@ -8064,9 +8064,10 @@
      * @class ClucklesEditor
      * 
      * Generic Options:
-     * - scope:     {string} The CSS Selector to prefix the Compiled CSS selectors with.
-     * - delay:     {Number} Milliseconds delay between refresh updates (Default: 750).
-     * - undoSize:  {Number} Number of items to keep in the Undo history (Default: 10)
+     * - scope:         {string} The CSS Selector to prefix the Compiled CSS selectors with.
+     * - delay:         {Number} Milliseconds delay between refresh updates (Default: 750).
+     * - undoSize:      {Number} Number of items to keep in the Undo history (Default: 10)
+     * - embedSelector: {string} Will set this element to the height of the editor, if editor is in an embedded object.
      * 
      * @param {Object} less The Global less object.
      * 
@@ -8255,6 +8256,8 @@
         if (this.redoButton) {
             this.redoButton.setAttribute('disabled', 'disabled');
         }
+        
+        this.setupEmbed();
     };
 
     /**
@@ -8711,6 +8714,30 @@
 
         if (this.redoButton) {
             this.redoButton.addEventListener('click', this.redo.bind(this), false);
+        }
+    };
+
+    /**
+     * Sets up the window onresize event if the `embedSelector` option was provided
+     * and this cluckles instance is inside of an embedded object.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.setupEmbed = function () {
+        // If we have provided an embedSelector, we are assuming that the ClucklesEditor is
+        // inside an embeded object, so we need the parent element to be set the same height
+        // as the BODY of the embedded document
+        // if not in context of an emded, window.parent will be the same as window
+        if (this.options && this.options.hasOwnProperty('embedSelector') && window.parent !== window) {
+            window.onresize = function () {
+                // Window.parent = parent window which contains the embedded document
+                // then get the Document (parent document) and find our embeded object
+                // Then style the parent node (which ur emdeded object is a direct descendant)
+                window.parent.document.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
+            }.bind(this);
+
+            // Fire event after setup, to initially set the height
+            window.dispatchEvent(new Event('resize'));
         }
     };
 
