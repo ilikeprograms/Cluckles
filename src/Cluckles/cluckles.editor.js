@@ -678,6 +678,9 @@
                 // Then style the parent node (which ur emdeded object is a direct descendant)
                 window.parent.document.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
             }.bind(this);
+
+            // Fire event after setup, to initially set the height
+            window.dispatchEvent(new Event('resize'));
         }
     };
 
