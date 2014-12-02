@@ -162,8 +162,8 @@
      * @returns {undefined}
      */
     ThemeModifier.prototype.setupDataBinding = function () {
-        var self = this,
-            editor = this.editor, // ClucklesEditor instance
+        var self        = this,
+            editor      = this.editor, // ClucklesEditor instance
             // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
             subscribers = Array.prototype.slice.call(document.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
@@ -256,7 +256,10 @@
         subscribers.forEach(function (subscriber) {
             // Get the data attribute which should match the subscribeProperty of a modifier
             // which it wants to bind to
-            var subscribeToProperty = subscriber.getAttribute(this.subscriberDataAttribute);
+            var subscribeToProperty = subscriber.getAttribute(this.subscriberDataAttribute),
+                // Deletable attribute, points to a target to bind a Delete Event
+                deletableAttr       = subscriber.getAttribute('data-cluckles-delete'),
+                deleteTarget;
 
             Object.keys(this.modifiers).forEach(function (modifierName) {
                 // Get the modifier object
@@ -267,7 +270,7 @@
                     // Store the subscriber for this modifier
                     modifier.subscribers.push(subscriber);
 
-                    // Add a change event which will call the change function and pass
+                    // Add a Change Event which will call the change function and pass
                     // through the value of the DOM Element
                     subscriber.addEventListener('change', function (e) {
                         var suffixUnit = e.target.getAttribute('data-cluckles-unit');
@@ -281,6 +284,27 @@
                             modifier.changeFn(e.target.value);
                         }
                     }, false);
+                    
+                    // If the subscriber had a Delete target attr
+                    if (deletableAttr) {
+                        // Find the Delete target
+                        deleteTarget = document.querySelector(deletableAttr);
+                        
+                        if (deleteTarget) {
+                            // Add the Delete event
+                            deleteTarget.addEventListener('click', function () {
+                                // If the editor modifier has this property
+                                if (editor.modifiers.hasOwnProperty(modifier.variable)) {
+                                    // Delete the modifier from the editor
+                                    delete editor.modifiers[modifier.variable];
+
+                                    // Make the modifier value null, so it wont be fetched
+                                    // by editor.getModifiers()
+                                    modifier.value = null;
+                                }
+                            }, false);
+                        }
+                    }
                 }
             }, this);
         }, this);
