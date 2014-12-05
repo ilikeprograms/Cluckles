@@ -19,10 +19,6 @@
         this.themeModifiers     = {};
         this.themeExtra         = {};
 
-        // Import Headers to allow the Custom Less to be able to reference,
-        // variables and mixins
-        this.customStylesHeader = '@import "' + this.editor.lessPath + 'variables-custom.less";\n' + '@import "' + this.editor.lessPath + 'mixins.less";\n';
-
         // Custom Styles textarea template and Custom styles panel (where the textareas will reside)
         this.customStylesTemplate   = null;
         this.customStylesPanel      = document.getElementById('customPanel');
@@ -264,7 +260,7 @@
                 
                 // Append the Header and styling, so it can use vars/mixins
                 // Just use styling, it will be prefixed later
-                customStyle.innerHTML = this.customStylesHeader.concat(styles);
+                customStyle.innerHTML = styles;
             } else {
                 textArea.value = styles;
 
@@ -294,7 +290,7 @@
 
                 // Append the Header and styling, so it can use vars/mixins
                 // Just use styling, it will be prefixed later
-                customStyle.innerHTML = this.customStylesHeader + transformedModifiers + this.prefixLessImport(e.target.value);
+                customStyle.innerHTML = transformedModifiers + this.prefixLessImport(e.target.value);
             } else {
                 // Append the CSS styling (will be prefixed if the option was set)
                 customStyle.innerHTML = this.editor.processor.prefixCustomStyles(e.target.value, type);
