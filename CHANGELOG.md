@@ -8,6 +8,18 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.10.0]
+
+- [Package] Updated Cluckles to v0.10.0
+- [Export] Added Google Analytics Tracking for Download Buttons. Close #14
+- [Docs] Added Permalinks/Updated pages to use friendly URL's
+- [Import] removed `customStylesHeader` as it isn't needed
+- [Processor] Allowing matching `[]` in `cssSelectorRegex`
+- [Docs] Added UA Events to Index Buttons
+- [Example] Added delete buttons to all modifier inputs
+- [Example] Changes Navbar component's to use container-fluid, and added navbar-text example
+- [ThemeModifier] Added delete support
+
 ## [0.9.0]
 
 - [Package] Updated Cluckles to 0.9.0
