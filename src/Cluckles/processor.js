@@ -27,8 +27,8 @@
                         // or Match (these other elements/selector)
                         "(?:^\\w{0}a(?!\\w)|ul|li|textarea)" + 
                     ")" + 
-                    // Allow AlphaNumeric, - > : . \s characters to match (once or more times)
-                    "[\\w->:.\\s]+" + 
+                    // Allow AlphaNumeric, - > : . \s [ ] characters to match (once or more times)
+                    "[\\w->:\\[\\].\\s]+" + 
                 ")" + 
             "+)" + // Match selector pattern atleast once, e.g. allows .table to match, then move to > thead etc
             // End matches with , or {
