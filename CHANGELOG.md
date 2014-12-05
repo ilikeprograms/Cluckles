@@ -8,6 +8,11 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [0.10.1]
+
+- [Docs] Changes Index Jumbotron buttons transition duration to 0.5s
+- [Docs] Fixed Create a Theme button HREF
+
 ## [0.10.0]
 
 - [Package] Updated Cluckles to v0.10.0
