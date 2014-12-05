@@ -70,15 +70,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.html" title="Cluckles Homepage">Cluckles</a>
+      <a class="navbar-brand" href="/" title="Cluckles Homepage">Cluckles</a>
     </div> <!-- /Navbar Header -->
 
     <!-- Navbar Nav -->
     <div class="collapse navbar-collapse" id="mainNavigationNav">
       <ul class="nav navbar-nav">
-        <li><a href="demo.html" title="Cluckles Demo Page"><i class="fa fa-rocket"></i> Demo</a></li>
-        <li><a href="options.html" title="Cluckles Options Page"><i class="fa fa-cog"></i> Options</a></li>
-        <li><a href="about.html" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About</a></li>
+        <li><a href="/editor/" title="Cluckles Editor Page"><i class="fa fa-rocket"></i> Editor</a></li>
+        <li><a href="/options/" title="Cluckles Options Page"><i class="fa fa-cog"></i> Options</a></li>
+        <li><a href="/about/" title="Cluckles About Page"><i class="fa fa-question-circle"></i> About</a></li>
         <li><a href="https://github.com/ilikeprograms/Cluckles" target="_blank" title="Cluckles on Github"><i class="fa fa-github"></i> Github</a></li>
       </ul>
     </div> <!-- /Navbar Nav -->
@@ -103,10 +103,10 @@
     <hr />
 
     <div class="text-center">
-      <a href="demo.html" class="btn btn-lg btn-primary" title="ClucklesDemo Page">Create a Theme!</a>
-      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.9.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download">Download Source (zip)</a>
-      <a href="http://bower.io/search/?q=Cluckles" class="btn btn-lg btn-primary" title="Cluckles on Bower">Also on Bower</a><br />
-      <small>Current release v0.9.0</small><br />
+      <a href="editor.html" class="btn btn-lg btn-primary" title="ClucklesDemo Page" onclick="ga('send', 'event', 'indexButtons', 'click', 'Create a Theme!');">Create a Theme!</a>
+      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.10.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download" onclick="ga('send', 'event', 'indexButtons', 'click', 'Download Source');">Download Source (zip)</a>
+      <a href="http://bower.io/search/?q=Cluckles" class="btn btn-lg btn-primary" title="Cluckles on Bower" onclick="ga('send', 'event', 'indexButtons', 'click', 'Bower');">Also on Bower</a><br />
+      <small>Current release v0.10.0</small><br />
       
       <a class="FlattrButton text-center" style="display: none;" 
       title="Cluckles Live Theme Editor" 
@@ -127,7 +127,7 @@
       <div class="container">
         <h2>Getting started with Cluckles</h2>
 
-        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.9.0.zip" title="Cluckles latest Download" target="_blank">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
+        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.10.0.zip" title="Cluckles latest Download" target="_blank">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
           Now load up the Example site which is included or start composing your own:
         </p>
         
@@ -167,7 +167,7 @@
               <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               
               // Load our Fancy live editing Script
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.9.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.10.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
               <span class="nt">&lt;script&gt;</span>
                 <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
                     <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
