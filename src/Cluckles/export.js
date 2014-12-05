@@ -28,7 +28,7 @@
      * 
      * @returns {Export}
      */
-    var Export = function (editor, options) {
+    var Export = function (editor, options) {        
         this.editor     = editor;
         this.options    = options;
 
@@ -100,11 +100,13 @@
      * @returns {Element}
      */
     Export.prototype.createExportLink = function (exportType, options) {
-        var downloadBtn = this.createBsButton(),
-            dest = this.findExportTarget(options), // Find the Append Target
-            firstCharUpper = exportType.slice(0, 1).toUpperCase();
+        var clickCount      = 0,
+            downloadBtn     = this.createBsButton(),
+            dest            = this.findExportTarget(options), // Find the Append Target
+            firstCharUpper  = exportType.slice(0, 1).toUpperCase(),
+            camelCaseType   = firstCharUpper + exportType.slice(1);
 
-        downloadBtn.textContent = options.text || 'Download ' + firstCharUpper + exportType.slice(1);
+        downloadBtn.textContent = options.text || 'Download ' + camelCaseType;
         downloadBtn.setAttribute('id', options.id || 'download_' + exportType + '_link');
 
         // Download attribute allows the button to provided a file to download on click
@@ -113,6 +115,11 @@
 
         // Append the Download button to the document
         document.querySelector(dest).appendChild(downloadBtn);
+
+        // Send a Google Analytics Click Event specifying this button was clicked
+        downloadBtn.addEventListener('click', function () {
+            window.parent.ga('send', 'event', 'downloadButtons', 'click', camelCaseType, ++clickCount);
+        });
 
         return downloadBtn;
     };
