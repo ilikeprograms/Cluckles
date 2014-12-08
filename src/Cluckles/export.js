@@ -35,8 +35,6 @@
         this.jsonLink   = null;
         this.saveLink   = null;
         this.cssLink    = null;
-        
-        this.compiledCss    = '';
 
         // If either of the Export formats were provided
         if (options.hasOwnProperty('json')) {
@@ -192,10 +190,10 @@
      * @returns {undefined}
      */
     Export.prototype.generateCssBlob = function (css) {
-        var customStyleAttribute = 'data-clucklesCustomStyle';
+        var customStyleAttribute = 'data-clucklesCustomStyle',
+            customCss = "\n";
 
         css = this.editor.processor.removeScopeSelector(css);
-        var customCss = "\n";
 
         // Find each Custom style tag and process them
         [].slice.call(document.querySelectorAll('*['+ customStyleAttribute +']')).forEach(function (customStyle) {
@@ -212,11 +210,8 @@
             }
         }, this.editor.processor);
 
-        // Store the Compiled Css
-        this.compiledCss = css + customCss;
-
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(this.compiledCss));
+        this.cssLink.setAttribute('href', this.generateBlob(css + customCss));
     };
 
     /**
