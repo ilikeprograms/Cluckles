@@ -209,12 +209,10 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.refreshCustomStyles = function () {
-        var styleInputs = this.import.customStyleInputs;
+        var styleInputs = this.import.customStyleInputs.Less;
 
-        Object.keys(styleInputs).forEach(function (type) {
-            styleInputs[type].forEach(function (styleInput) {
-                styleInput.dispatchEvent(new Event('change'));
-            });
+        styleInputs.forEach(function (styleInput) {
+            styleInput.dispatchEvent(new Event('change'));
         });
     };
 
