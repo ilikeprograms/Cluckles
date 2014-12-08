@@ -31,8 +31,9 @@
             Less:   []
         };
 
-        this.setupCustomStyles(); // Setup the ability to handle Custom Css/Less
-        this.setupFileImport();   // Setup the File input so themes can be imported
+        this.setupVariablesOutput();    // Setup the Variables Output, so variables can be displayed/changed directly
+        this.setupCustomStyles();       // Setup the ability to handle Custom Css/Less
+        this.setupFileImport();         // Setup the File input so themes can be imported
 
         // Attempt to load and parse the theme file at the theme.src URL
         this.parseThemeFile(this.options);
@@ -107,7 +108,34 @@
             }
         });
     };
-    
+
+    /**
+     * Sets up the Variables Ouput change event, so when the variables are changed the modifications will be applied.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.setupVariablesOutput = function () {
+        var variablesOutput = document.querySelector('*[data-cluckles="variables"]');
+
+        variablesOutput.addEventListener('change', function (e) {
+            var parsedModifiers = this.editor.processor.parseVariables(e.target.value);
+
+            // Disable Refreshing/Applying modifiers
+            this.editor.refreshMonitor.disabled = true;
+
+            // Store and Load the modifiers, and refresh Custom Less
+            this.editor.modifiers   = parsedModifiers;
+            this.loadComponentModifiers(parsedModifiers);
+            this.editor.refreshCustomStyles();
+
+            // Allow Refreshing/Applying modifiers
+            this.editor.refreshMonitor.disabled = false;
+
+            // Now apply the modifications
+            this.editor.applyModifications(parsedModifiers);
+        }.bind(this));
+    };
+
     /**
      * Binds the Events to Setup a File import, to import theme modifications from a
      * json file. Will only bind to file inputs, and import json files.

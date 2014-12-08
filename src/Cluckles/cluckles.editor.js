@@ -430,7 +430,8 @@
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
 
-        document.getElementById('variablesTextarea').innerHTML = this.processor.transformToVariables(modifiers);
+        // Update the Variables output to display the variables being applied
+        document.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
 
         // Find the Calculated modifier values, will replace @variables with
         // their parent values, and perform any calculations to consolidate,
