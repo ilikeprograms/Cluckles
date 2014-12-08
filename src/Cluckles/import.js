@@ -320,13 +320,17 @@
      * @returns {undefined}
      */
     Import.prototype.resetCustomStyles = function () {
+        // Reset all the Stored Custom data
         this.customCss              = [];
         this.customLess             = [];
-        this.customStyleInputs      = [];
+        this.customStyleInputs.Less = [];
+        this.customStyleInputs.Css  = [];
         
+        // Clear the Custom Css/Less panels
         document.querySelector('#clucklesCustomLess .panel-body').innerHTML = '';
         document.querySelector('#clucklesCustomCss .panel-body').innerHTML  = '';
 
+        // Remove all Custom `style` elements
         [].slice.call(document.querySelectorAll('*[data-clucklesCustomStyle]')).forEach(function (customStyle) {
            customStyle.parentNode.removeChild(customStyle);
         });
