@@ -116,10 +116,12 @@
         // Append the Download button to the document
         document.querySelector(dest).appendChild(downloadBtn);
 
-        // Send a Google Analytics Click Event specifying this button was clicked
-        downloadBtn.addEventListener('click', function () {
-            window.parent.ga('send', 'event', 'downloadButtons', 'click', camelCaseType, ++clickCount);
-        });
+        if (window.parent.hasOwnProperty('ga')) {
+            // Send a Google Analytics Click Event specifying this button was clicked
+            downloadBtn.addEventListener('click', function () {
+                window.parent.ga('send', 'event', 'downloadButtons', 'click', camelCaseType, ++clickCount);
+            });
+        }
 
         return downloadBtn;
     };
