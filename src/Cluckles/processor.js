@@ -217,7 +217,32 @@
         
         return modifiers;
     };
-    
+
+    /**
+     * Parses the variables text content passed in and returns an array of variable names and values.
+     * 
+     * @param {string} variables The variables text to process to modifiers.
+     * 
+     * @returns {unresolved}
+     */
+    Processor.prototype.parseVariables = function (variables) {
+        // Matches @variable: value; and returns a match for each variable found
+        var variablesMatches = variables.match(/^@[\w-]+:\s?(?:.)*(?=;)/igm),
+            parsedVars = {};
+
+        if (variablesMatches) {
+            variablesMatches.forEach(function (variable) {
+                // Split the : to get the key/value
+                var variableParts = variable.split(':');
+
+                // Now add the keys/values to the parsedVars Object
+                parsedVars[variableParts[0]] = variableParts[1].trim();
+            }, this);
+        }
+
+        return parsedVars;
+    };
+
     /**
      * Transforms the modifiers into a Variables list (string) which is split up
      * between @variable: value; and new lines.
