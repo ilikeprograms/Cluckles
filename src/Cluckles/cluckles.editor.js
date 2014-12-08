@@ -71,11 +71,16 @@
         /**
          * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
          * 
+         * @property disabled   {Boolean} If disabled set to true, not refreshing, delaying, and applying modifications will be disabled.
          * @property canRefresh {Boolean} Tracks whether or not another refresh can be performed. (true = can refresh, false = cant refresh).
+         * @property canDelay   {Boolean} Tracks whether or not a refresh can be Delayed (and added to the Queue). (true = can delay, false = cant delay).
+         * 
          * @property delay {Number} Milliseconds delay between refresh updates (Default: 750).
          */
         this.refreshMonitor     = {
+            disabled:   false,
             canRefresh: true,
+            canDelay:   true,
             delay:      options.delay || 750
         };
 
@@ -377,26 +382,40 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.queueModifications = function () {
-        // If an update is allowed right now, apply the modifications,
-        // and refresh the custom styles, which allows the cutsom styles to updated vars
-        if (this.refreshMonitor.canRefresh === true) {
-            this.applyModifications();
+        if (this.refreshMonitor.disabled) { return; }
 
-            this.refreshCustomStyles();
+        var customStylesPresent = this.import.customLess.length > 0;
+
+        // If an update is allowed right now, apply the modifications,
+        // and refresh the custom styles, which allows the custom styles to update vars
+        if (this.refreshMonitor.canRefresh === true) {
+            if (customStylesPresent) {
+                this.refreshMonitor.disabled = true;
+                this.refreshCustomStyles();
+                this.refreshMonitor.disabled = false;
+            }
+
+            this.applyModifications();
             
             // Set the state to not ready for more updates yet
             this.refreshMonitor.canRefresh = false;
             
-            // Set a timeout to allow updates again after x time (refreshMonitor.rate)
-            // and apply the modifications that were pending (also refreshes custom styles)
-            setTimeout(function () {
-                this.applyModifications();
+            if (this.refreshMonitor.canDelay === true) {
+                // Set a timeout to allow updates again after x time (refreshMonitor.rate)
+                // and apply the modifications that were pending (also refreshes custom styles)
+                setTimeout(function () {
+                    if (customStylesPresent) {
+                        this.refreshMonitor.disabled = true;
+                        this.refreshCustomStyles();
+                        this.refreshMonitor.disabled = false;
+                    }
 
-                this.refreshCustomStyles();
+                    this.applyModifications();
 
-                // Allow updates again
-                this.refreshMonitor.canRefresh = true;
-            }.bind(this), this.refreshMonitor.delay);
+                    // Allow updates again
+                    this.refreshMonitor.canRefresh = true;
+                }.bind(this), this.refreshMonitor.delay);
+            }
         }
     };
     
@@ -406,8 +425,12 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
+        if (this.refreshMonitor.disabled) { return; }
+
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
+
+        document.getElementById('variablesTextarea').innerHTML = this.processor.transformToVariables(modifiers);
 
         // Find the Calculated modifier values, will replace @variables with
         // their parent values, and perform any calculations to consolidate,
@@ -485,8 +508,8 @@
         }
 
         // Disallow modifications to be tracked/applied automatically
-        this.canTrackUndo = false;
-        this.refreshMonitor.canRefresh = false;
+        this.canTrackUndo               = false;
+        this.refreshMonitor.disabled    = true;
 
         // Reset the Modifiers and Components
         this.modifiers = {};
@@ -505,13 +528,13 @@
 
         // Move the newest items from one stack to the other
         altStack.push(poppedStack);
-        
-        // Now apply the modifications to update the UI (will also set modifiers again)
-        this.applyModifications();
 
         // Allow modifications to be tracked/applied automatically
-        this.canTrackUndo = true;
-        this.refreshMonitor.canRefresh = true;
+        this.canTrackUndo               = true;
+        this.refreshMonitor.disabled    = false;
+
+        // Now apply the modifications to update the UI (will also set modifiers again)
+        this.applyModifications();
         
         // Now enable the altStackButton, effectively toggling the Undo/Redo buttons,
         // depending on which one has items in their stack
@@ -589,13 +612,10 @@
 
         // Disallow modifications to be tracked/applied automatically
         this.canTrackUndo    = false;
-        this.refreshMonitor.canRefresh  = false;
 
         // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
+        // It will automatically apply this
         this.import.handleThemeImport(modifiers);
-
-        // Now apply the theme modifiers which were reset to the theme
-        this.applyModifications();
 
         // Restore the undoStack (resetToDefault clears the stacks)
         this.undoStack = currentUndoStack;
@@ -604,7 +624,6 @@
 
         // Allow modifications to be tracked/applied automatically
         this.canTrackUndo = true;
-        this.refreshMonitor.canRefresh = true;
     };
 
     /**

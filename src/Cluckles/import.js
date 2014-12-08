@@ -322,9 +322,10 @@
     Import.prototype.resetCustomStyles = function () {
         this.customCss              = [];
         this.customLess             = [];
+        this.customStyleInputs      = [];
         
         document.querySelector('#clucklesCustomLess .panel-body').innerHTML = '';
-        document.querySelector('#clucklesCustomCss .panel-body').innerHTML = '';
+        document.querySelector('#clucklesCustomCss .panel-body').innerHTML  = '';
 
         [].slice.call(document.querySelectorAll('*[data-clucklesCustomStyle]')).forEach(function (customStyle) {
            customStyle.parentNode.removeChild(customStyle);
@@ -342,7 +343,7 @@
     Import.prototype.handleThemeImport = function (modifiers) {
         var extra = {};
         
-        this.editor.refreshMonitor.canRefresh = false;
+        this.editor.refreshMonitor.disabled = true;
 
         // Store the Modifiers
         this.editor.modifiers = modifiers;
@@ -355,13 +356,12 @@
             // Clone the Extra's Object, or after applying the
             // custom less, the custom css disappears
             extra = JSON.parse(JSON.stringify(modifiers._extra));
-            
+
             this.importThemeExtra(extra);
-        } else {
-            this.editor.applyModifications();
         }
-        
-        this.editor.refreshMonitor.canRefresh = true;
+
+        this.editor.refreshMonitor.disabled = false;
+        this.editor.applyModifications();
     };
     
     /**
@@ -380,11 +380,6 @@
                 lessStyles.push(this.addCustomStyles(lessText, 'Less'));
             }, this);
 
-            // Apply the modifications, and dont use cached styles
-            // Should recompile everything, this forces Less to compile
-            // the Custom Less
-            this.editor.applyModifications(null, true);
-
             lessStyles.forEach(function (style) {
                // Now the Less should be compiled to CSS, so we can attempt
                // to prefix the CSS
@@ -397,9 +392,5 @@
             extra.css.forEach(function (cssText) {
                 this.addCustomStyles(cssText, 'Css');
             }, this);
-
-            // Apply the modifications, should append the Custom Css to
-            // the Currently compiled Css
-            this.editor.applyModifications();
         }
     };
