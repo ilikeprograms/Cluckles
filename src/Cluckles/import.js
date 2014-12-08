@@ -26,7 +26,11 @@
         // Custom Styles
         this.customCss              = [];
         this.customLess             = [];
-        
+        this.customStyleInputs      = {
+            Css:    [],
+            Less:   []
+        };
+
         this.setupCustomStyles(); // Setup the ability to handle Custom Css/Less
         this.setupFileImport();   // Setup the File input so themes can be imported
 
@@ -207,12 +211,16 @@
     Import.prototype.addCustomStyles = function (styles, type) {
         var textArea    = this.customStylesTemplate.cloneNode(false),
             customStyle = document.createElement('style'),
+            styleInputs = this.customStyleInputs[type],
             // Were either adding/editing Less or Css
             styleArray  = this['custom' + type], // Array which stores styles of this Type
             styleId     = styleArray.length, // Store the index of the style
             styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body'),
             // The stylesheet Less outputs when it processes' less browser side
             lessOutputStylesheet = document.getElementById('less:' + this.editor.mainStylesheetHypenated);
+
+        // Store the Textarea in the StyleInput array, so we can avoid DOM Manipulation later
+        styleInputs.push(textArea);
 
         // Set a Data attribute so we can find the style's later
         customStyle.setAttribute('data-clucklesCustomStyle', type);

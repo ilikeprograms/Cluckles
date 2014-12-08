@@ -209,13 +209,12 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.refreshCustomStyles = function () {
-        var lessInputs  = [].slice.call(document.querySelectorAll('#clucklesCustomLess .panel-body > textarea')),
-            cssInputs   = [].slice.call(document.querySelectorAll('#clucklesCustomCss .panel-body > textarea'));
+        var styleInputs = this.import.customStyleInputs;
 
-        // Concatenate all the Custom styles textareas
-        lessInputs.concat(cssInputs).forEach(function (input) {
-            // Displatch a change event, to simulate a value change
-            input.dispatchEvent(new Event('change'));
+        Object.keys(styleInputs).forEach(function (type) {
+            styleInputs[type].forEach(function (styleInput) {
+                styleInput.dispatchEvent(new Event('change'));
+            });
         });
     };
 
