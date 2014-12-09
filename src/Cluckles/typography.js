@@ -10,11 +10,18 @@
 	 * @property {object} fontFamilySerif       The @font-family-serif variable which controls the Font Family Serif of the Typography Component.
 	 * @property {object} fontFamilyMonospace   The @font-family-serif variable which controls the Font Family Monospace of the Typography Component.
 	 * @property {object} fontSizeBase          The @font-size-base variable which controls the Font Size Base of the Typography Component.
+	 * @property {object} fontSizeH1            The @font-size-h1 variable which controls the H1 Font Size of the Typography Component.
+	 * @property {object} fontSizeH2            The @font-size-h1 variable which controls the H2 Font Size of the Typography Component.
+	 * @property {object} fontSizeH3            The @font-size-h1 variable which controls the H3 Font Size of the Typography Component.
+	 * @property {object} fontSizeH4            The @font-size-h1 variable which controls the H4 Font Size of the Typography Component.
+	 * @property {object} fontSizeH5            The @font-size-h1 variable which controls the H5 Font Size of the Typography Component.
+	 * @property {object} fontSizeH6            The @font-size-h1 variable which controls the H6 Font Size of the Typography Component.
 	 * @property {object} headingsFontFamily    The @headings-font-family variable which controls the Headings Font Family of the Typography Component.
 	 * @property {object} headingsFontWeight    The @headings-font-weight variable which controls the Headings Font Weight of the Typography Component.
 	 * @property {object} headingsLineHeight    The @headings-line-height variable which controls the Headings Line Height of the Typography Component.
 	 * @property {object} headingsColor         The @headings-color variable which controls the Headings Color of the Typography Component.
 	 * @property {object} headingsSmallColor    The @headings-small-color variable which controls the Headings Small Color of the Typography Component.
+	 * @property {object} lineHeightBase        The @line-height-base variable which controls the Line Height Base of the Typography Component.
      * @property {string} textMuted             The @text-muted variable which sets the Text Muted Color.
      * @property {string} abbrBorderColor       The @abbr-border-color variable which sets the Abbreviations and Acronyms Border Color.
 	 * 
@@ -55,12 +62,60 @@
             subscribers:        [],
 			_value:             null
 		};
+        this.fontSizeH1 = {
+            variable:           '@font-size-h1',
+			subscribeProperty:  'font-size-h1',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH1.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH2 = {
+            variable:           '@font-size-h2',
+			subscribeProperty:  'font-size-h2',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH2.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH3 = {
+            variable:           '@font-size-h3',
+			subscribeProperty:  'font-size-h3',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH3.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH4 = {
+            variable:           '@font-size-h4',
+			subscribeProperty:  'font-size-h4',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH4.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH5 = {
+            variable:           '@font-size-h5',
+			subscribeProperty:  'font-size-h5',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH5.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH6 = {
+            variable:           '@font-size-h6',
+			subscribeProperty:  'font-size-h6',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH6.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
 		this.headingsFontFamily = {
 			variable:           '@headings-font-family',
 			subscribeProperty:  'headings-font-family',
             changeFn:           this.setHeadingsFontFamily.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.headingsFontWeight = {
 			variable:           '@headings-font-weight',
@@ -90,6 +145,13 @@
             subscribers:        [],
 			_value:             null
         };
+        this.lineHeightBase = {
+            variable:           '@line-height-base',
+            subscribeProperty:  'line-height-base',
+            changeFn:           this.setLineHeightBase.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
         this.textMutedColor = {
             variable:           '@text-muted',
             subscribeProperty:  'text-muted-color',
@@ -111,11 +173,18 @@
             fontFamilySerif:        this.fontFamilySerif,
             fontFamilyMonospace:    this.fontFamilyMonospace,
             fontSizeBase:           this.fontSizeBase,
+            fontSizeH1:             this.fontSizeH1,
+            fontSizeH2:             this.fontSizeH2,
+            fontSizeH3:             this.fontSizeH3,
+            fontSizeH4:             this.fontSizeH4,
+            fontSizeH5:             this.fontSizeH5,
+            fontSizeH6:             this.fontSizeH6,
             headingsFontFamily:     this.headingsFontFamily,
             headingsFontWeight:     this.headingsFontWeight,
             headingsLineHeight:     this.headingsLineHeight,
             headingsColor:          this.headingsColor,
             headingsSmallColor:     this.headingsSmallColor,
+            lineHeightBase:         this.lineHeightBase,
             textMutedColor:         this.textMutedColor,
             abbrBorderColor:        this.abbrBorderColor
         };
@@ -208,6 +277,144 @@
         if (unit !== undefined) { this.modifiers.fontSizeBase.unit = unit; }
 
         this.modifiers.fontSizeBase.value = fontSizeBase;
+    };
+    
+    /**
+     * Gets the H1 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH1 = function () {
+        return this.modifiers.fontSizeH1.value;
+    };
+
+    /**
+     * Sets the H1 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH1   The Typography H1 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH1 = function (fontSizeH1, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH1.unit = unit; }
+
+        this.modifiers.fontSizeH1.value = fontSizeH1;
+    };
+    
+    /**
+     * Gets the H2 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH2 = function () {
+        return this.modifiers.fontSizeH2.value;
+    };
+
+    /**
+     * Sets the H2 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH2   The Typography H2 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH2 = function (fontSizeH2, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH2.unit = unit; }
+
+        this.modifiers.fontSizeH2.value = fontSizeH2;
+    };
+    
+    /**
+     * Gets the H3 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH3 = function () {
+        return this.modifiers.fontSizeH3.value;
+    };
+
+    /**
+     * Sets the H3 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH3   The Typography H3 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH3 = function (fontSizeH3, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH3.unit = unit; }
+
+        this.modifiers.fontSizeH3.value = fontSizeH3;
+    };
+    
+    /**
+     * Gets the H4 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH4 = function () {
+        return this.modifiers.fontSizeH4.value;
+    };
+
+    /**
+     * Sets the H4 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH4   The Typography H4 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH4 = function (fontSizeH4, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH4.unit = unit; }
+
+        this.modifiers.fontSizeH4.value = fontSizeH4;
+    };
+    
+    /**
+     * Gets the H5 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH5 = function () {
+        return this.modifiers.fontSizeH5.value;
+    };
+
+    /**
+     * Sets the H5 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH5   The Typography H5 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH5 = function (fontSizeH5, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH5.unit = unit; }
+
+        this.modifiers.fontSizeH5.value = fontSizeH5;
+    };
+    
+    /**
+     * Gets the H6 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH6 = function () {
+        return this.modifiers.fontSizeH6.value;
+    };
+
+    /**
+     * Sets the H6 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH6   The Typography H6 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH6 = function (fontSizeH6, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH6.unit = unit; }
+
+        this.modifiers.fontSizeH6.value = fontSizeH6;
     };
 
     /**
@@ -308,6 +515,26 @@
      */
     Typography.prototype.setHeadingsSmallColor = function (headingsSmallColor) {
         this.modifiers.headingsSmallColor.value = headingsSmallColor;
+    };
+
+    /**
+     * Gets the Line Height Base of the Typography Component.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.getLineHeightBase = function () {
+        return this.modifiers.lineHeightBase.value;
+    };
+
+    /**
+     * Sets the Line Height Base of the Typography Component.
+     * 
+     * @param {string} lineHeightBase The Typography Line Height Base to set.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setLineHeightBase = function (lineHeightBase) {
+        this.modifiers.lineHeightBase.value = lineHeightBase;
     };
 
     /**

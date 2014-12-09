@@ -10,6 +10,8 @@
      * @property {string} marginBottom      The @navbar-margin-bottom variable which sets the Margin Bottom of Navbar Components.
      * @property {string} borderRadius      The @navbar-border-radius variable which sets the Border Radius of Navbar Components.
      * @property {string} collapseMaxHeight The @navbar-collapse-max-height variable which sets the Max Height of the Navbar Collapse Components.
+     * @property {string} paddingHorizontal The @navbar-padding-horizontal variable which sets the Horizontal Padding of the Navbar Collapse Components.
+     * @property {string} paddingVertical   The @navbar-padding-vertical variable which sets the Vertical Padding of the Navbar Collapse Components.
      * 
      * @returns {NavbarBase}
      */
@@ -51,13 +53,31 @@
             subscribers:        [],
 			_value:             null
         };
+        this.paddingHorizontal = {
+            variable:           '@navbar-padding-horizontal',
+            subscribeProperty:  'padding-horizontal',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingHorizontal.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.paddingVertical = {
+            variable:           '@navbar-padding-vertical',
+            subscribeProperty:  'padding-vertical',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingVertical.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             height:             this.height,
             marginBottom:       this.marginBottom,
             borderRadius:       this.borderRadius,
-            collapseMaxHeight:  this.collapseMaxHeight
+            collapseMaxHeight:  this.collapseMaxHeight,
+            paddingHorizontal:  this.paddingHorizontal,
+            paddingVertical:    this.paddingVertical
         };
 
         this.setupDataBinding();
@@ -157,4 +177,50 @@
         if (unit !== undefined) { this.modifiers.collapseMaxHeight.unit = unit; }
 
         this.modifiers.collapseMaxHeight.value = collapseMaxHeight;
+    };
+
+    /**
+     * Gets the Horizontal Padding of the Navbar Components.
+     * 
+     * @returns {string}
+     */
+    NavbarBase.prototype.getPaddingHorizontal = function () {
+        return this.modifiers.paddingHorizontal.value;
+    };
+
+    /**
+     * Sets the Horizontal Padding of the Navbar Components.
+     * 
+     * @param {string} horizontalPadding The Navbar Horizontal Padding to set.
+     * @param {string} unit              The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    NavbarBase.prototype.setPaddingHorizontal = function (paddingHorizontal, unit) {
+        if (unit !== undefined) { this.modifiers.paddingHorizontal.unit = unit; }
+
+        this.modifiers.paddingHorizontal.value = paddingHorizontal;
+    };
+
+    /**
+     * Gets the Vertical Padding of the Navbar Components.
+     * 
+     * @returns {string}
+     */
+    NavbarBase.prototype.getPaddingVertical = function () {
+        return this.modifiers.paddingVertical.value;
+    };
+
+    /**
+     * Sets the Horizontal Padding of the Navbar Components.
+     * 
+     * @param {string} verticalPadding  The Navbar Horizontal Padding to set.
+     * @param {string} unit             The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    NavbarBase.prototype.setPaddingVertical = function (paddingVertical, unit) {
+        if (unit !== undefined) { this.modifiers.paddingVertical.unit = unit; }
+
+        this.modifiers.paddingVertical.value = paddingVertical;
     };

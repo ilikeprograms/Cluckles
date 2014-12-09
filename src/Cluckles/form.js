@@ -17,6 +17,7 @@
 	 * @property {object} legendBorderColor             The @legend-border-color variable which controls the Legend Border Color of the Form Component.
 	 * @property {object} inputGroupAddonBgColor        The @input-group-addon-bg variable which controls the Input Group Addon Background Color of the Form Component.
 	 * @property {object} inputGroupAddonBorderColor    The @input-group-addon-border-color variable which controls the Input Group Addon Border Color of the Form Component.
+	 * @property {object} cursorDisabled                The @input-cursor-disabled variable which controls the Cursor of Disabled Inputs of the Form Component.
 	 * 
 	 * @returns {Form}
 	 */
@@ -104,6 +105,13 @@
             subscribers:        [],
 			_value:             null
 		};
+		this.cursorDisabled = {
+			variable:           '@cursor-disabled',
+			subscribeProperty:  'cursor-disabled',
+            changeFn:           this.setCursorDisabled.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -117,7 +125,8 @@
             legendColor:                this.legendColor,
             legendBorderColor:          this.legendBorderColor,
             inputGroupAddonBgColor:     this.inputGroupAddonBgColor,
-            inputGroupAddonBorderColor: this.inputGroupAddonBorderColor
+            inputGroupAddonBorderColor: this.inputGroupAddonBorderColor,
+            cursorDisabled:             this.cursorDisabled
         };
 
         this.setupDataBinding();
@@ -348,4 +357,24 @@
      */
     Form.prototype.setInputGroupAddonBorderColor = function (inputGroupAddonBorderColor) {
         this.modifiers.inputGroupAddonBorderColor.value = inputGroupAddonBorderColor;
+    };
+
+    /**
+     * Gets the Cursor Disabled of the Form Component.
+     * 
+     * @returns {string}
+     */
+    Form.prototype.getCursorDisabled = function () {
+        return this.modifiers.cursorDisabled.value;
+    };
+
+    /**
+     * Sets the Cursor Disabled of the Form Component.
+     * 
+     * @param {string} cursorDisabled The Form Cursor Disabled to set.
+     * 
+     * @returns {undefined}
+     */
+    Form.prototype.setCursorDisabled = function (cursorDisabled) {
+        this.modifiers.cursorDisabled.value = cursorDisabled;
     };

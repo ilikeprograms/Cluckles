@@ -6,10 +6,12 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} bg            The @breadcrumb-bg variable which controls the Background Color of the Breadcrumb Component.
-	 * @property {object} color         The @breadcrumb-color variable which controls the Color of the Breadcrumb Component.
-	 * @property {object} activeColor   The @breadcrumb-active-color variable which controls the Active Color of the Breadcrumb Component.
-	 * @property {object} separator     The @breadcrumb-seperator variable which controls the Separator Character of the Breadcrumb Component.
+	 * @property {object} bg                The @breadcrumb-bg variable which controls the Background Color of the Breadcrumb Component.
+	 * @property {object} color             The @breadcrumb-color variable which controls the Color of the Breadcrumb Component.
+	 * @property {object} activeColor       The @breadcrumb-active-color variable which controls the Active Color of the Breadcrumb Component.
+	 * @property {object} separator         The @breadcrumb-seperator variable which controls the Separator Character of the Breadcrumb Component.
+     * @property {string} paddingHorizontal The @breadcrumb-padding-horizontal variable which sets the Horizontal Padding of the Breadcrumb Component.
+     * @property {string} paddingVertical   The @breadcrumb-padding-vertical variable which sets the Vertical Padding of the Breadcrumb Component.
      * 
      * @returns {Breadcrumb}
      */
@@ -46,12 +48,30 @@
             subscribers:        [],
 			_value:             null
         };
+        this.paddingHorizontal = {
+            variable:           '@breadcrumb-padding-horizontal',
+            subscribeProperty:  'padding-horizontal',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingHorizontal.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.paddingVertical = {
+            variable:           '@breadcrumb-padding-vertical',
+            subscribeProperty:  'padding-vertical',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingVertical.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
 
         this.modifiers = {
-            bg:             this.bg,
-            color:          this.color,
-            activeColor:    this.activeColor,
-            separator:      this.separator
+            bg:                 this.bg,
+            color:              this.color,
+            activeColor:        this.activeColor,
+            separator:          this.separator,
+            paddingHorizontal:  this.paddingHorizontal,
+            paddingVertical:    this.paddingVertical
         };
 
         this.setupDataBinding();
@@ -129,7 +149,7 @@
 	Breadcrumb.prototype.getSeperator = function () {
 		return this.modifiers.separator.value;
 	};
-	
+
 	/**
 	 * Sets the Separator Character of the Breadcrumb Component.
 	 * 
@@ -140,3 +160,40 @@
 	Breadcrumb.prototype.setSeparator = function (separator) {
 		this.modifiers.separator.value = separator;
 	};
+
+    /**
+     * Sets the Horizontal Padding of the Breadcrumb Components.
+     * 
+     * @param {string} horizontalPadding The Breadcrumb Horizontal Padding to set.
+     * @param {string} unit              The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Breadcrumb.prototype.setPaddingHorizontal = function (paddingHorizontal, unit) {
+        if (unit !== undefined) { this.modifiers.paddingHorizontal.unit = unit; }
+
+        this.modifiers.paddingHorizontal.value = paddingHorizontal;
+    };
+
+    /**
+     * Gets the Vertical Padding of the Breadcrumb Components.
+     * 
+     * @returns {string}
+     */
+    Breadcrumb.prototype.getPaddingVertical = function () {
+        return this.modifiers.paddingVertical.value;
+    };
+
+    /**
+     * Sets the Horizontal Padding of the Breadcrumb Components.
+     * 
+     * @param {string} verticalPadding  The Breadcrumb Horizontal Padding to set.
+     * @param {string} unit             The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Breadcrumb.prototype.setPaddingVertical = function (paddingVertical, unit) {
+        if (unit !== undefined) { this.modifiers.paddingVertical.unit = unit; }
+
+        this.modifiers.paddingVertical.value = paddingVertical;
+    };

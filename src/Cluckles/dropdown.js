@@ -9,6 +9,7 @@
 	 * @property {object} bg                The @dropdown-bg variable which controls the Background Color of the Dropdown Component.
 	 * @property {object} headerColor       The @dropdown-header-color variable which controls the Header Color of the Dropdown Component.
 	 * @property {object} border            The @dropdown-border variable which controls the Border Color of the Dropdown Component.
+	 * @property {object} fallbackBorder    The @dropdown-fallback-border variable which controls the Border Color (IE8) of the Dropdown Component.
 	 * @property {object} divider           The @dropdown-divider-bg variable which controls the Divider Color of the Dropdown Component.
 	 * @property {object} linkColor         The @dropdown-link-color variable which controls the Link Color of the Dropdown Component.
 	 * @property {object} linkDisabledColor The @dropdown-link-disabled-color variable which controls the Link Disabled Color of the Dropdown Component.
@@ -43,6 +44,13 @@
 			variable:           '@dropdown-border',
             subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
+			subscribers:        [],
+			_value:             null
+		};
+		this.fallbackBorder = {
+			variable:           '@dropdown-fallback-border',
+            subscribeProperty:  'fallback-border-color',
+            changeFn:           this.setFallbackBorderColor.bind(this),
 			subscribers:        [],
 			_value:             null
 		};
@@ -101,6 +109,7 @@
             bg:                 this.bg,
             headerColor:        this.headerColor,
             border:             this.border,
+            fallbackBorder:     this.fallbackBorder,
             divider:            this.divider,
             linkColor:          this.linkColor,
             linkDisabledColor:  this.linkDisabledColor,
@@ -175,6 +184,26 @@
 	 */
 	Dropdown.prototype.setBorderColor = function (borderColor) {
 		this.modifiers.border.value = borderColor;
+	};
+
+	/**
+	 * Gets the Fallback Border Color of the Dropdown Component.
+	 * 
+	 * @returns {string}
+	 */
+	Dropdown.prototype.getFallbackBorderColor = function () {
+		return this.modifiers.fallbackBorder.value;
+	};
+	
+	/**
+	 * Sets the Fallback Border Color of the Dropdown Component.
+	 * 
+	 * @param {string} fallbackBorder The Dropdown Fallback Border Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Dropdown.prototype.setFallbackBorderColor = function (fallbackBorder) {
+		this.modifiers.fallbackBorder.value = fallbackBorder;
 	};
 	
 	/**

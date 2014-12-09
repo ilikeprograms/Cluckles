@@ -6,15 +6,19 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {string} componentBaseBg       The @state-base-bg variable which sets the Background Color of bootstrap Components.
-     * @property {string} wellBg                The @well-base-bg variable which sets the Background Color of the Well Component.
-     * @property {string} bodyBg                The @body-bg variable which sets the Body Background color.
+     * @property {string} componentActiveBg     The @component-active-bg variable which sets the Global Background Color of bootstrap Components.
+     * @property {string} componentActiveColor  The @component-active-color variable which sets the Global Color of bootstrap Components.
+     * @property {string} wellBg                The @well-bg variable which sets the Background Color of the Well Component.
+     * @property {string} wellBorder            The @well-border variable which sets the Border Color of the Well Component.
+     * @property {string} bodyBg                The @body-bg variable which sets the Body Background Color.
      * @property {string} textColor             The @text-color variable which sets the Body Text color.
      * @property {string} pageHeaderBorderColor The @page-header-border-color variable which sets the Page Header Border Color.
      * @property {string} linkColor             The @link-color variable which sets the Link Color.
-     * @property {string} linkHoverColor        The @link-hover-color variable which sets the Link Hover color.
+     * @property {string} linkHoverColor        The @link-hover-color variable which sets the Link Hover Color.
+     * @property {string} linkHoverDecoration   The @link-hover-decoration variable which sets the Link Hover Decoration
      * @property {string} hrBorder              The @hr-border variable which sets the Color of the <hr> tag.
      * @property {string} borderRadiusBase      The @border-radius-base variable which sets the Base Border Radius.
+     * @property {string} iconFontPath          The @icon-font-path variable which sets Directory to load Glyphicon fonts from.
      * 
      * @returns {Misc}
      */
@@ -24,17 +28,31 @@
         this.subscriberDataAttribute = 'data-cluckles-misc';
 
         // Define the Modifiers
-        this.componentBaseBg = {
-            variable:           '@state-base-bg',
-            subscribeProperty:  'component-base-bg',
-            changeFn:           this.setComponentBaseBackgroundColor.bind(this),
+        this.componentActiveBg = {
+            variable:           '@component-active-bg',
+            subscribeProperty:  'component-active-bg',
+            changeFn:           this.setComponentActiveBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.componentActiveColor = {
+            variable:           '@component-active-color',
+            subscribeProperty:  'component-active-color',
+            changeFn:           this.setComponentActiveColor.bind(this),
             subscribers:        [],
 			_value:             null
         };
         this.wellBg = {
-            variable:           '@well-base-bg',
-            subscribeProperty:  'well-base-bg',
+            variable:           '@well-bg',
+            subscribeProperty:  'well-bg',
             changeFn:           this.setWellBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.wellBorder = {
+            variable:           '@well-border',
+            subscribeProperty:  'well-border',
+            changeFn:           this.setWellBorderColor.bind(this),
             subscribers:        [],
 			_value:             null
         };
@@ -73,9 +91,16 @@
             subscribers:        [],
 			_value:             null
         };
+        this.linkHoverDecoration = {
+            variable:           '@link-hover-decoration',
+            subscribeProperty:  'link-hover-decoration',
+            changeFn:           this.setLinkHoverDecoration.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
         this.hrBorder = {
             variable:           '@hr-border',
-            subscribeProperty:  'hr-rule-color',
+            subscribeProperty:  'horizontal-rule',
             changeFn:           this.setHrBorder.bind(this),
             subscribers:        [],
 			_value:             null
@@ -88,18 +113,29 @@
             subscribers:        [],
 			_value:             null
         };
+        this.iconFontPath = {
+            variable:           '@icon-font-path',
+            subscribeProperty:  'icon-font-path',
+            changeFn:           this.setIconFontPath.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
-            componentBaseBg:        this.componentBaseBg,
+            componentActiveBg:      this.componentActiveBg,
+            componentActiveColor:   this.componentActiveColor,
             wellBg:                 this.wellBg,
+            wellBorder:             this.wellBorder,
             bodyBg:                 this.bodyBg,
             textColor:              this.textColor,
             pageHeaderBorderColor:  this.pageHeaderBorderColor,
             linkColor:              this.linkColor,
             linkHoverColor:         this.linkHoverColor,
+            linkHoverDecoration:    this.linkHoverDecoration,
             hrBorder:               this.hrBorder,
-            borderRadiusBase:       this.borderRadiusBase
+            borderRadiusBase:       this.borderRadiusBase,
+            iconFontPath:           this.iconFontPath
         };
 
         this.setupDataBinding();
@@ -110,23 +146,43 @@
     Misc.prototype.constructor  = Misc;
 
     /**
-     * Gets the Background Color of Components.
+     * Gets the Global Background Color of Components.
      * 
      * @returns {string}
      */
-    Misc.prototype.getComponentBaseBackgroundColor = function () {
-        return this.modifiers.componentBaseBg.value;
+    Misc.prototype.getComponentActiveBackgroundColor = function () {
+        return this.modifiers.componentActiveBg.value;
     };
     
     /**
-     * Sets the Background Color of Components, such as Panel body, List Groups.
+     * Sets the Global Background Color of Components, such as Panel body, List Groups.
      * 
-     * @param {string} backgroundColor The Background Color of Components to set.
+     * @param {string} backgroundColor The Global Background Color of Components to set.
      * 
      * @returns {undefined}
      */
-    Misc.prototype.setComponentBaseBackgroundColor = function (backgroundColor) {
-        this.modifiers.componentBaseBg.value = backgroundColor;
+    Misc.prototype.setComponentActiveBackgroundColor = function (backgroundColor) {
+        this.modifiers.componentActiveBg.value = backgroundColor;
+    };
+
+    /**
+     * Gets the Global Color of Components.
+     * 
+     * @returns {string}
+     */
+    Misc.prototype.getComponentActiveColor = function () {
+        return this.modifiers.componentActiveColor.value;
+    };
+
+    /**
+     * Sets the Global Color of Components, such as Panel body, List Groups.
+     * 
+     * @param {string} backgroundColor The Global Color of Components to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setComponentActiveColor = function (color) {
+        this.modifiers.componentActiveColor.value = color;
     };
 
     /**
@@ -147,6 +203,26 @@
      */
     Misc.prototype.setWellBackgroundColor = function (wellBackgroundColor) {
         this.modifiers.wellBg.value = wellBackgroundColor;
+    };
+
+    /**
+     * Gets the Border Color of the Well Components.
+     * 
+     * @returns {string}
+     */
+    Misc.prototype.getWellBorderColor = function () {
+        return this.modifiers.wellBorder.value;
+    };
+
+    /**
+     * Sets the Border Color of the Well Component.
+     * 
+     * @param {string} wellBorder The Well Border Color to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setWellBorderColor = function (wellBorder) {
+        this.modifiers.wellBorder.value = wellBorder;
     };
 
     /**
@@ -250,7 +326,27 @@
     };
 
     /**
-     * Gets the Horizontal Rule color.
+     * Gets the Link Hover Decoration.
+     * 
+     * @returns {String}
+     */
+    Misc.prototype.getLinkHoverDecoration = function () {
+        return this.modifiers.linkHoverDecoration.value;
+    };
+
+    /**
+     * Sets the Link Hover Decoration.
+     * 
+     * @param {string} linkHoverDecoration The Link Hover Decoration to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setLinkHoverDecoration = function (linkHoverDecoration) {
+        this.modifiers.linkHoverDecoration.value = linkHoverDecoration;
+    };
+
+    /**
+     * Gets the Horizontal Rule Color.
      * 
      * @returns {String}
      */
@@ -290,4 +386,24 @@
         if (unit !== undefined) { this.modifiers.borderRadiusBase.unit = unit; }
 
         this.modifiers.borderRadiusBase.value = borderRadiusBase;
+    };
+
+    /**
+     * Gets the Icon Font Path.
+     * 
+     * @returns {String}
+     */
+    Misc.prototype.getIconFontPath = function () {
+        return this.modifiers.iconFontPath.value;
+    };
+    
+    /**
+     * Sets the Icon Font Path.
+     * 
+     * @param {string} hrBorder The Icon Font Path to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setIconFontPath = function (iconFontPath) {
+        this.modifiers.iconFontPath.value = iconFontPath;
     };

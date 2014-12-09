@@ -20,6 +20,9 @@
 	 * @property {object} brandColor        The @navbar-{style}-brand-color variable which controls the Brand Color of the Navbar Component.
 	 * @property {object} brandHoverColor   The @navbar-{style}-brand-hover-color variable which controls the Brand Hover Color of the Navbar Component.
 	 * @property {object} brandHoverBg      The @navbar-{style}-brand-hover-bg variable which controls the Brand Hover Background of the Navbar Component.
+	 * @property {object} toggleHoverBg     The @navbar-{style}-toggle-hover-bg variable which controls the Toggle Hover Background of the Navbar Component.
+	 * @property {object} toggleIconBarBg   The @navbar-{style}-toggle-icon-bar-bg variable which controls the Toggle Icon Bar Background of the Navbar Component.
+	 * @property {object} toggleBorderColor The @navbar-{style}-toggle-border-color variable which controls the Toggle BorderColor of the Navbar Component.
 	 * 
 	 * @returns {Navbar}
 	 */
@@ -122,6 +125,27 @@
             subscribers:        [],
 			_value:             null
 		};
+		this.toggleHoverBg = {
+			variable:           '@navbar-' + navbarStyle + '-toggle-hover-bg',
+			subscribeProperty:  'toggle-hover-bg',
+            changeFn:           this.setToggleHoverBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+		this.toggleIconBarBg = {
+			variable:           '@navbar-' + navbarStyle + '-toggle-icon-bar-bg',
+			subscribeProperty:  'toggle-icon-bar-bg',
+            changeFn:           this.setToggleIconBarBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+		this.toggleBorderColor = {
+			variable:           '@navbar-' + navbarStyle + '-toggle-border-color',
+			subscribeProperty:  'toggle-border-color',
+            changeFn:           this.setToggleBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -137,7 +161,10 @@
             linkDisabledBg:     this.linkDisabledBg,
             brandColor:         this.brandColor,
             brandHoverColor:    this.brandHoverColor,
-            brandHoverBg:       this.brandHoverBg
+            brandHoverBg:       this.brandHoverBg,
+            toggleHoverBg:      this.toggleHoverBg,
+            toggleIconBarBg:    this.toggleIconBarBg,
+            toggleBorderColor:  this.toggleBorderColor
         };
 
         this.setupDataBinding();
@@ -407,4 +434,64 @@
 	 */
 	Navbar.prototype.setBrandHoverBackgroundColor = function (brandHoverBackgroundColor) {
 		this.modifiers.brandHoverBg.value = brandHoverBackgroundColor;
+	};
+
+	/**
+	 * Gets the Toggle Hover Background Color of this Navbar instance.
+	 * 
+	 * @returns {string}
+	 */
+	Navbar.prototype.getToggleHoverBackgroundColor = function () {
+		return this.modifiers.toggleHoverBg.value;
+	};
+
+	/**
+	 * Sets the Toggle Hover Background Color of this Navbar instance.
+	 * 
+	 * @param {string} toggleHoverBg The Navbar instance Toggle Hover Background Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Navbar.prototype.setToggleHoverBackgroundColor = function (toggleHoverBg) {
+		this.modifiers.toggleHoverBg.value = toggleHoverBg;
+	};
+
+	/**
+	 * Gets the Toggle Icon Bar Background Color of this Navbar instance.
+	 * 
+	 * @returns {string}
+	 */
+	Navbar.prototype.getToggleIconBarBackgroundColor = function () {
+		return this.modifiers.toggleIconBarBg.value;
+	};
+	
+	/**
+	 * Sets the Toggle Icon Bar Background Color of this Navbar instance.
+	 * 
+	 * @param {string} toggleIconBarBg The Navbar instance Toggle Icon Bar Background Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Navbar.prototype.setToggleIconBarBackgroundColor = function (toggleIconBarBg) {
+		this.modifiers.toggleIconBarBg.value = toggleIconBarBg;
+	};
+
+	/**
+	 * Gets the Toggle Border Color of this Navbar instance.
+	 * 
+	 * @returns {string}
+	 */
+	Navbar.prototype.getToggleBorderColor = function () {
+		return this.modifiers.toggleBorderColor.value;
+	};
+
+	/**
+	 * Sets the Toggle Border Color of this Navbar instance.
+	 * 
+	 * @param {string} toggleBorderColor The Navbar instance Toggle Border Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Navbar.prototype.setToggleBorderColor = function (toggleBorderColor) {
+		this.modifiers.toggleBorderColor.value = toggleBorderColor;
 	};
