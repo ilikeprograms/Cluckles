@@ -10,7 +10,6 @@
      * @property {object} linkHoverBg               The @nav-link-hover-bg variable which controls the Link Hover Color of the Nav Component.
      * @property {object} linkDisabledColor         The @nav-disabled-link-color variable which controls the Disabled Link Color of the Nav Component.
      * @property {object} linkDisabledHoverColor    The @nav-disabled-link-hover-color variable which controls the Disabled Link Hover Color of the Nav Component.
-     * @property {object} linkOpenHoverColor        The @nav-open-link-hover-color variable which controls the Open Link Hover Color of the Nav Component.
      * 
      * @returns {Nav}
      */
@@ -49,21 +48,13 @@
             subscribers:        [],
 			_value:             null
         };
-        this.linkOpenHoverColor = {
-            variable:           '@nav-open-link-hover-color',
-            subscribeProperty:  'link-open-hover-color',
-            changeFn:           this.setLinkOpenHoverColor.bind(this),
-            subscribers:        [],
-			_value:             null
-        };
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             linkPadding:            this.linkPadding,
             linkHoverBg:            this.linkHoverBg,
             linkDisabledColor:      this.linkDisabledColor,
-            linkDisabledHoverColor: this.linkDisabledHoverColor,
-            linkOpenHoverColor:     this.linkOpenHoverColor
+            linkDisabledHoverColor: this.linkDisabledHoverColor
         };
 
         this.setupDataBinding();
@@ -155,23 +146,3 @@
 	Nav.prototype.setLinkDisabledHoverColor = function (linkDisabledHoverColor) {
 		this.modifiers.linkDisabledHoverColor.value = linkDisabledHoverColor;
 	};
-
-    /**
-     * Gets the Link Open Hover Color of the Nav Components.
-     * 
-     * @returns {string}
-     */
-    Nav.prototype.getLinkOpenHoverColor = function () {
-        return this.modifiers.linkOpenHoverColor.value;
-    };
-
-    /**
-     * Sets the Link Open Hover Color of the Nav Components.
-     * 
-     * @param {string} linkOpenHoverColor The Nav Link Open Hover Color to set.
-     * 
-     * @returns {string}
-     */
-    Nav.prototype.setLinkOpenHoverColor = function (linkOpenHoverColor) {
-        this.modifiers.linkOpenHoverColor.value = linkOpenHoverColor;
-    };
