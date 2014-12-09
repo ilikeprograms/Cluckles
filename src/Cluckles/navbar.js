@@ -87,20 +87,6 @@
             subscribers:        [],
 			_value:             null
 		};
-		this.linkHoverColor = {
-			variable:           '@navbar-' + navbarStyle + '-link-hover-color',
-			subscribeProperty:  'link-hover-color',
-            changeFn:           this.setLinkHoverColor.bind(this),
-            subscribers:        [],
-			_value:             null
-		};
-		this.linkHoverBg = {
-			variable:           '@navbar-' + navbarStyle + '-link-hover-bg',
-			subscribeProperty:  'link-hover-bg',
-            changeFn:           this.setLinkHoverBackgroundColor.bind(this),
-            subscribers:        [],
-			_value:             null
-		};
 		this.linkDisabledColor = {
 			variable:           '@navbar-' + navbarStyle + '-link-disabled-color',
 			subscribeProperty:  'link-disabled-color',
