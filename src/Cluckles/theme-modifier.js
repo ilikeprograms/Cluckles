@@ -22,12 +22,14 @@
             filteredModifiers = {},
             modifierNames = Object.keys(modifiers);
 
-        if (modifierNames.length === 0) { return {}; }
+        if (modifierNames.length === 0) { return filteredModifiers; }
 
         // Filter out modifiers which are still null
-        modifierNames.forEach(function (modifier) {
-            if (modifiers[modifier].value !== null) {
-                filteredModifiers[modifier] = modifiers[modifier];
+        modifierNames.forEach(function (modifierName) {
+            var modifier = modifiers[modifierName];
+
+            if (modifier.value !== null) {
+                filteredModifiers[modifierName] = modifier;
             }
         });
 
