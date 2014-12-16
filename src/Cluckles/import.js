@@ -128,15 +128,14 @@
             this.editor.refreshMonitor.disabled = true;
 
             // Store and Load the modifiers, and refresh Custom Less
-            this.editor.modifiers   = parsedModifiers;
+            this.editor.modifiers = parsedModifiers;
             this.loadComponentModifiers(parsedModifiers);
-            this.editor.refreshCustomStyles();
 
             // Allow Refreshing/Applying modifiers
             this.editor.refreshMonitor.disabled = false;
 
-            // Now apply the modifications
-            this.editor.applyModifications(parsedModifiers);
+            // Now apply the Custom Styles
+            this.editor.refreshCustomStyles(parsedModifiers);
         }.bind(this));
     };
 
