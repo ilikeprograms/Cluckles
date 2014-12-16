@@ -592,7 +592,7 @@
         this.resetComponents(); 
 
         // Now make less modify blank changes, resetting the Theme
-        this.applyModifications({});
+        this.applyModifications();
     };
 
     /**
