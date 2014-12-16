@@ -213,7 +213,9 @@
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.refreshCustomStyles = function () {
+    ClucklesEditor.prototype.refreshCustomStyles = function (modifiers) {
+        this.applyModifications(modifiers, true);
+
         var styleInputs = this.import.customStyleInputs.Less;
 
         styleInputs.forEach(function (styleInput) {
