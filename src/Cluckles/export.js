@@ -192,6 +192,8 @@
     Export.prototype.generateCssBlob = function (css) {
         var customStyleAttribute = 'data-clucklesCustomStyle',
             customCss = "\n";
+    
+        if (css === undefined) { css = this.editor.processor.postProcessorCss; }
 
         css = this.editor.processor.removeScopeSelector(css);
 
