@@ -360,8 +360,10 @@
      */
     ClucklesEditor.prototype.extractModifications = function (modifiers, modifiersType) {
         var modifiersOfType = modifiersType.getModifications();
+
         Object.keys(modifiersOfType).forEach(function (modifier) {
             var modifierObject = modifiersOfType[modifier];
+
             modifiers[modifierObject.variable] = modifierObject.value;
         });
     };
@@ -390,12 +392,10 @@
         // and refresh the custom styles, which allows the custom styles to update vars
         if (this.refreshMonitor.canRefresh === true) {
             if (customStylesPresent) {
-                this.refreshMonitor.disabled = true;
                 this.refreshCustomStyles();
-                this.refreshMonitor.disabled = false;
+            } else {
+                this.applyModifications();
             }
-
-            this.applyModifications();
             
             // Set the state to not ready for more updates yet
             this.refreshMonitor.canRefresh = false;
@@ -405,12 +405,10 @@
                 // and apply the modifications that were pending (also refreshes custom styles)
                 setTimeout(function () {
                     if (customStylesPresent) {
-                        this.refreshMonitor.disabled = true;
                         this.refreshCustomStyles();
-                        this.refreshMonitor.disabled = false;
+                    } else {
+                        this.applyModifications();
                     }
-
-                    this.applyModifications();
 
                     // Allow updates again
                     this.refreshMonitor.canRefresh = true;
@@ -418,7 +416,7 @@
             }
         }
     };
-    
+
     /**
      * Applies the Modifications to the Less Theme.
      * 
