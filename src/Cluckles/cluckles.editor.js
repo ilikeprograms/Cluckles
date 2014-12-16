@@ -430,8 +430,8 @@
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
 
-        // Update the Variables output to display the variables being applied
-        document.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
+        // Set the Variables in the Output
+        this.setVariablesOutput(modifiers);
 
         // Find the Calculated modifier values, will replace @variables with
         // their parent values, and perform any calculations to consolidate,
@@ -444,6 +444,16 @@
 
         // Now apply the Modifications to the Theme
         this.lessGlobal.refresh(false, modifiers);
+    /**
+     * Sets the Variables which are displayed in the Variables Output field to the modifiers passed in.
+     * 
+     * @param {object} modifiers The modifiers to display in the Variables Output field.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.setVariablesOutput = function (modifiers) {
+        // Update the Variables output to display the variables being applied
+        document.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
     };
     
     /**
