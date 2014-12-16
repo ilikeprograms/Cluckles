@@ -386,6 +386,8 @@
         // Now load the modifiers into each component
         this.loadComponentModifiers(this.editor.modifiers);
 
+        this.editor.refreshMonitor.disabled = false;
+
         // If the JSON has an _extra field
         if (modifiers.hasOwnProperty('_extra')) {
             // Clone the Extra's Object, or after applying the
@@ -393,10 +395,17 @@
             extra = JSON.parse(JSON.stringify(modifiers._extra));
 
             this.importThemeExtra(extra);
+
+            if (extra.hasOwnProperty('less')) {
+                // Make sure the Variables output shows all the modifiers from the theme
+                this.editor.setVariablesOutput(modifiers);
+
+                // we dont want to apply the modifications again
+                return;
+            }
         }
 
-        this.editor.refreshMonitor.disabled = false;
-        this.editor.applyModifications();
+        this.editor.applyModifications(modifiers, true);
     };
     
     /**
@@ -414,6 +423,9 @@
             extra.less.forEach(function (lessText) {
                 lessStyles.push(this.addCustomStyles(lessText, 'Less'));
             }, this);
+
+            // Apply the less modifications now before it gets prefixed and wont apply correctly
+            this.editor.applyModifications(null, true);
 
             lessStyles.forEach(function (style) {
                // Now the Less should be compiled to CSS, so we can attempt
