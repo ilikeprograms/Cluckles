@@ -318,13 +318,16 @@
 
             // Apply the modifications, and dont use cached styles, this will
             // make sure that it will parse the styling if the type is less
-            this.editor.applyModifications(this.editor.modifiers);
+            this.editor.applyModifications(this.editor.modifiers, true);
 
             if (type === 'Less') {
                 // Now that the less should have been compiled, it will be CSS,
                 // so we can prefix it now
                 customStyle.innerHTML = this.editor.processor.prefixCustomStyles(customStyle.innerHTML, type);
-            }            
+
+                // Update the CSS blob with the Compiled Custom Less
+                this.editor.export.generateCssBlob();
+            }
         }.bind(this));
 
         // Return the CustomStyle, so we can call the prefixCustomStyles method
@@ -395,14 +398,6 @@
             extra = JSON.parse(JSON.stringify(modifiers._extra));
 
             this.importThemeExtra(extra);
-
-            if (extra.hasOwnProperty('less')) {
-                // Make sure the Variables output shows all the modifiers from the theme
-                this.editor.setVariablesOutput(modifiers);
-
-                // we dont want to apply the modifications again
-                return;
-            }
         }
 
         this.editor.applyModifications(modifiers, true);
