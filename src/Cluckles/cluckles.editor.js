@@ -439,11 +439,12 @@
         modifiers = this.processor.calculateModifierValues(modifiers);
 
         if (reload !== undefined) {
-            this.lessGlobal.refresh(true, modifiers);
+            this.lessGlobal.refresh(reload, modifiers);
+        } else {
+            this.lessGlobal.refresh(false, modifiers);
         }
+    };
 
-        // Now apply the Modifications to the Theme
-        this.lessGlobal.refresh(false, modifiers);
     /**
      * Sets the Variables which are displayed in the Variables Output field to the modifiers passed in.
      * 
