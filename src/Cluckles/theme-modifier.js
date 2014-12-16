@@ -185,9 +185,9 @@
 
                         if (val !== null) {
                             // If the value contains the suffix already (such as when loading from file)
-                            if (val.indexOf(unit) !== -1) {
+                            if (val.slice(-unit.length) === unit) {
                                 // Store the val minus the prefix
-                                this._rawValue = val.slice(0, val.indexOf(unit));
+                                this._rawValue = val.slice(0, -unit.length);
                             } else {
                                 // If the val points to a parent variable (when setting using console API etc)
                                 if (val[0] === '@') {
