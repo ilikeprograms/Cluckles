@@ -14,8 +14,9 @@
      * @returns {Processor}
      */
     var Processor = function (editor, options) {
-        this.editor     = editor;
-        this.options    = options;
+        this.editor             = editor;
+        this.options            = options;
+        this.postProcessorCss   = '';
 
         this.cssSelectorRegex = new RegExp("" +
             "((?:" + 
@@ -51,6 +52,9 @@
 
         // Provide less with the postProcessor callback we want to execute
         this.editor.lessGlobal.postProcessor = function (css) {
+            // Store the CSS so it can be retrieved elsewhere
+            this.postProcessorCss = css;
+
             // Generate/Regenerate both of the Download button Blob contents
             this.editor.export.generateCssBlob(css);
             this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
