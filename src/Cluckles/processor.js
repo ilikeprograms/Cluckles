@@ -196,11 +196,10 @@
                                         noUnit      = rep.replace(pxRegex, ''), // Remove the "px" from inside the match
                                         // Use eval to perform the calculation inside the match
                                         calculated  = eval(noUnit); /* jshint ignore:line */
-                                    
-                                    
+
                                     // If there originally was a "px" inside the brackers, we add it back on
                                     if (hasUnit) { calculated += 'px'; }
-                                    
+
                                     // Now we replace the original match with the calculated value
                                     // e.g. (30px / 2) -> 15px
                                     modifier = modifier.replace(rep, calculated);
@@ -211,6 +210,13 @@
                             modifiers[modifierName] = modifier;
                         }
                     });
+                }
+                
+                // Remove the 'PX' from the end if we have brackets followed by PX,
+                // this would be caused by modifiers being imported and suffixed,
+                // instead of set manually
+                if (modifiers[modifierName].match(/\(.*\)px$/i)) {
+                    modifiers[modifierName] = modifiers[modifierName].slice(0, -2);
                 }
             }
         });
