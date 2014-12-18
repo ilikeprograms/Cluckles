@@ -19,6 +19,7 @@
       <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a></li>
       <li><a href="#" data-toggle="tab" data-target="#customEditorTab">Custom</a></li>
       <li><a href="#" data-toggle="tab" data-target="#variablesTab">Variables</a></li>
+      <li><a href="#" data-toggle="tab" data-target="#metaTab">Meta</a></li>
     </ul> <!-- /Editor Tabs -->
 
     <div class="tab-content">
@@ -171,6 +172,45 @@
             </form>
           </div>
         </div> <!-- Variables Panel End -->
+      </div>
+
+      <div class="tab-pane fade in" id="metaTab">
+        <!-- Meta Panel -->
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form role="form">
+              <div class="form-group">
+                <label for="clucklesMetaAuthor">Author</label>
+                <input type="text" class="form-control" id="clucklesMetaAuthor" name="clucklesMetaAuthor" placeholder="Thomas Coleman" data-cluckles-meta="author" />
+              </div>
+
+              <div class="form-group">
+                <label for="clucklesMetaEmail">Email</label>
+                <input type="email" class="form-control" id="clucklesMetaEmail" name="clucklesMetaEmail" placeholder="tom@ilikeprograms.com" data-cluckles-meta="email" />
+              </div>
+
+              <div class="form-group">
+                <label for="clucklesMetaUrl">URL</label>
+                <input type="url" class="form-control" id="clucklesMetaUrl" name="clucklesMetaUrl" placeholder="http://ilikeprograms.com" data-cluckles-meta="url" />
+              </div>
+
+              <div class="form-group">
+                <label for="clucklesMetaThemeName">Theme Name</label>
+                <input type="email" class="form-control" id="clucklesMetaThemeName" name="clucklesMetaThemeName" placeholder="Cluckles Docs Theme" data-cluckles-meta="themeName" />
+              </div>
+
+              <div class="form-group">
+                <label for="clucklesMetaVersion">Version</label>
+                <input type="text" class="form-control" id="clucklesMetaVersion" name="clucklesMetaVersion" placeholder="1.0.0" data-cluckles-meta="version" />
+              </div>
+
+              <div class="form-group">
+                <label for="clucklesMetaLicence">Licence</label>
+                <input type="text" class="form-control" id="clucklesMetaLicence" name="clucklesMetaLicence" placeholder="MIT" data-cluckles-meta="licence" />
+              </div>
+            </form>
+          </div>
+        </div> <!-- Meta Panel End -->
       </div>
     </div>
   </div> <!-- /Editor Row -->
