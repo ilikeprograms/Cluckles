@@ -18,6 +18,15 @@
         this.options            = options;
         this.themeModifiers     = {};
         this.themeExtra         = {};
+        
+        this.metaDataFields = {
+            author:     document.querySelector('*[data-cluckles-meta="author"]'),
+            email:      document.querySelector('*[data-cluckles-meta="email"]'),
+            url:        document.querySelector('*[data-cluckles-meta="url"]'),
+            themeName:  document.querySelector('*[data-cluckles-meta="themeName"]'),
+            version:    document.querySelector('*[data-cluckles-meta="version"]'),
+            licence:    document.querySelector('*[data-cluckles-meta="licence"]')
+        };        
 
         // Import Headers to allow the Custom Less to be able to reference,
         // variables and mixins
@@ -35,6 +44,7 @@
             Less:   []
         };
 
+        this.setupMetadata();
         this.setupVariablesOutput();    // Setup the Variables Output, so variables can be displayed/changed directly
         this.setupCustomStyles();       // Setup the ability to handle Custom Css/Less
         this.setupFileImport();         // Setup the File input so themes can be imported
@@ -111,6 +121,38 @@
                 component.loadModifiers(modifiers);
             }
         });
+    };
+
+    /**
+     * Attempts to find the Theme Metadata fields, and if they exist, bind a change
+     * event to them so the Metadata can be changed/set.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.setupMetadata = function () {        
+        Object.keys(this.metaDataFields).forEach(function (fieldName) {
+            var metaDataField = this.metaDataFields[fieldName];
+
+            if (metaDataField !== null) {
+                metaDataField.addEventListener('change', function (e) {
+                    var modifiersMeta = this.editor.modifiers._extra.meta;
+
+                    // If the field is blank
+                    if (e.target.value === '') {
+                        // Remove the Field if it exists
+                        if (modifiersMeta.hasOwnProperty(fieldName)) {
+                            delete modifiersMeta[fieldName];
+                        }
+                    } else {
+                        // Set the Meta with the field value
+                        modifiersMeta[fieldName] = e.target.value;
+                    }
+
+                    // Update the JSON Blob so the changes Metadata will be exported too!
+                    this.editor.export.generateJsonBlob();
+                }.bind(this));
+            }
+        }, this);
     };
 
     /**
@@ -369,6 +411,19 @@
            customStyle.parentNode.removeChild(customStyle);
         });
     };
+
+    /**
+     * Resets the Metadata Fields if they exist.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.resetMeta = function () {
+        Object.keys(this.metaDataFields).forEach(function (fieldName) {
+           if (this.metaDataFields[fieldName] !== null) {
+               this.metaDataFields[fieldName].value = '';
+           } 
+        }, this);
+    };
     
     /**
      * Stores and loads the Modifiers, then sets up the Custom Styles if
@@ -412,6 +467,16 @@
      */
     Import.prototype.importThemeExtra = function (extra) {
         var lessStyles = [];
+        
+        if (extra.hasOwnProperty('meta')) {
+            Object.keys(extra.meta).forEach(function (fieldName) {
+                if (this.metaDataFields.hasOwnProperty(fieldName)) {
+                    if (this.metaDataFields !== null) {
+                        this.metaDataFields[fieldName].value = extra.meta[fieldName];
+                    }
+                }
+            }, this);
+        }
 
         // If there is Custom Less
         if (extra.hasOwnProperty('less')) {
