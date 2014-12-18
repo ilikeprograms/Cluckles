@@ -596,8 +596,9 @@
             this.redoButton.setAttribute('disabled', 'disabled');
         }
 
-        // Reset the Custom Styles
+        // Reset the Custom Styles and Theme Metadata
         this.import.resetCustomStyles();
+        this.import.resetMeta();
 
         // Reset all the Components
         this.resetComponents(); 
@@ -647,7 +648,7 @@
     ClucklesEditor.prototype.resetToTheme = function () {
         this.resetFromModifiers(this.import.themeModifiers);
     };
-    
+
     /**
      * Reset all of the Components and their Subscribers.
      * 
@@ -666,7 +667,7 @@
         // Allow modification queuing
         this.refreshMonitor.canRefresh = true;
     };
-    
+
     ClucklesEditor.prototype.setupToolbar = function () {
         var resetButton         = document.querySelector('*[data-cluckles-options="reset"]'),
             resetThemeButton    = document.querySelector('*[data-cluckles-options="reset-theme"]');
