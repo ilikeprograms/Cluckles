@@ -249,7 +249,7 @@
             template            = document.createElement('textarea');
 
         // Setup the Attribute of the text area
-        template.setAttribute('rows', 5);
+        template.setAttribute('rows', 20);
         template.classList.add('form-control');
 
         template.setAttribute('id', 'clucklesCustomStylesTemplate');
