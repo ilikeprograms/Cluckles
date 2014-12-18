@@ -88,25 +88,22 @@
     <!-- Main container -->
         <div id="introJumbo" class="jumbotron seamless-jumbotron">
   <div class="container">
-    <div style="text-align: center;">
-      <div style="display: inline-block">
-        <h1>Cluckles</h1>
-
-          <img src="/assets/logo-new.png" width="323" height="289" alt="Cluckles logo" />
-      </div>
+    <div class="text-center">
+      <h1>Cluckles</h1><br />
+      <img src="/assets/logo-new.png" id="clucklesLogo" class="img-responsive" alt="Cluckles logo" />
     </div>
 
     <p><em>Cluckles</em> is a live theme editor that leverages <a href="http://lesscss.org/" title="lesscss Website" target="_blank">Less</a> to Customise <a href="http://getbootstrap.com/" target="_blank" title="Twitter Bootstrap Website">Twitter Bootstrap</a> <sup>(In the future I will look into adding support other CSS Frameworks).</sup></p>
-    <p><span class="label label-info">New!</span> You can directy import a <strong>variables.less</strong> file and Cluckles will take care of the rest!<br/>
-     You can also add <strong>Custom Less/Css</strong> to further customise your theme!</p>
-    <p>The included JS files can be distributed and used in other projects to provide Live editing functionality for Bootstrap. (An example site is also provided). <em>P.S. This website was completely Themed using Cluckles!</em></p>
+    <p><span class="label label-danger">Hey There!</span> I have spent a good while creating cluckles and have finally officially released V1. If you like it, please help me out and share it :)</p>
+    <p>Why not give it a try, and see what theme you can make (Let me know if you create anything your proud of)?</p>
+    <p><em>P.S. This website was completely Themed using Cluckles!</em></p>
     <hr />
 
     <div class="text-center">
       <a href="/editor/" class="btn btn-lg btn-primary" title="Cluckles Editor Page" onclick="ga('send', 'event', 'indexButtons', 'click', 'Create a Theme!');">Create a Theme!</a>
-      <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.10.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download" onclick="ga('send', 'event', 'indexButtons', 'click', 'Download Source');">Download Source (zip)</a>
+      <a href="https://github.com/ilikeprograms/Cluckles/archive/v1.0.0.zip" class="btn btn-lg btn-default" title="Cluckles latest Download" onclick="ga('send', 'event', 'indexButtons', 'click', 'Download Source');">Download Source (zip)</a>
       <a href="http://bower.io/search/?q=Cluckles" class="btn btn-lg btn-primary" title="Cluckles on Bower" onclick="ga('send', 'event', 'indexButtons', 'click', 'Bower');">Also on Bower</a><br />
-      <small>Current release v0.10.0</small><br />
+      <small>Current release v1.0.0</small><br />
       
       <a class="FlattrButton text-center" style="display: none;" 
       title="Cluckles Live Theme Editor" 
@@ -122,110 +119,29 @@
 
 <!-- Main Body Container -->
 <div class="container-fluid">
-  <div class="row showcase-darker">
+  <div class="row showcase-darker" id="features">
     <div class="col-md-12">
       <div class="container">
-        <h2>Getting started with Cluckles</h2>
+        <h2>Features of Cluckles</h2>
 
-        <p>To get started using Cluckles download the <a href="https://github.com/ilikeprograms/Cluckles/archive/v0.10.0.zip" title="Cluckles latest Download" target="_blank">latest distribution file</a> or browse the <a href="https://github.com/ilikeprograms/Cluckles/releases" title="Cluckles Releases on Github" target="_blank">Releases</a>
-          Now load up the Example site which is included or start composing your own:
-        </p>
-        
-        <!-- Getting Started Example -->
-        
-        <div class="highlight"><pre><code class="html"> 
-            <span class="cp">&lt;!DOCTYPE html&gt;</span>
-            <span class="nt">&lt;html&gt;</span>
-              <span class="nt">&lt;title&gt;</span>Example Cluckles<span class="nt">&lt;/title&gt;</span>
-
-              // Include the Customised Bootstrap.less file, which includes custom variables
-              // build/less/bootstrap.less
-              <span class="nt">&lt;link</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;../less/bootstrap.less&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet/less&quot;</span> <span class="nt">/&gt;</span>
-            <span class="nt">&lt;/head&gt;</span>
-            <span class="nt">&lt;body&gt;</span>
-              // Page Markup and such
-
-              // Include Bootstrap and jQuery which are needed
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-
-              // Configure the Less Global Object (Useful for Debugging)
-              <span class="nt">&lt;script&gt;</span>
-                <span class="nx">less</span> <span class="o">=</span> <span class="p">{</span>
-                    <span class="nx">env</span><span class="o">:</span> <span class="s2">&quot;development&quot;</span><span class="p">,</span>
-                    <span class="nx">logLevel</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-                    <span class="nx">async</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">fileAsync</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                    <span class="nx">poll</span><span class="o">:</span> <span class="mi">1000</span><span class="p">,</span>
-                    <span class="nx">functions</span><span class="o">:</span> <span class="p">{},</span>
-                    <span class="nx">dumpLineNumbers</span><span class="o">:</span> <span class="s2">&quot;comments&quot;</span><span class="p">,</span>
-                    <span class="nx">relativeUrls</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-                <span class="p">};</span>
-              <span class="nt">&lt;/script&gt;</span>
-
-              // Now load Less so we can process it
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//cdnjs.cloudflare.com/ajax/libs/less.js/1.7.0/less.min.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-              
-              // Load our Fancy live editing Script
-              <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;../cluckles-0.10.0.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
-              <span class="nt">&lt;script&gt;</span>
-                <span class="kd">var</span> <span class="nx">clucklesEditor</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">ClucklesEditor</span><span class="p">(</span><span class="nx">less</span><span class="p">,</span> <span class="p">{</span>
-                    <span class="kr">export</span><span class="o">:</span> <span class="p">{</span>
-                        <span class="nx">scope</span><span class="o">:</span> <span class="p">{</span>
-                          <span class="nx">selector</span><span class="o">:</span> <span class="s2">&quot;#mainContainer&quot;</span><span class="p">,</span>
-                          <span class="nx">customCss</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-                          <span class="nx">customLess</span><span class="o">:</span> <span class="kc">true</span>
-                        <span class="p">},</span>
-                        <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Fallback/General Target</span>
-                        <span class="nx">json</span><span class="o">:</span> <span class="p">{</span>
-                            <span class="nx">target</span><span class="o">:</span> <span class="s1">&#39;#download-panel-footer&#39;</span><span class="p">,</span> <span class="c1">// Custom Target</span>
-                            <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;download-theme-json&#39;</span><span class="p">,</span> <span class="c1">// Custom Id</span>
-                            <span class="nx">text</span><span class="o">:</span> <span class="s1">&#39;Download Json&#39;</span> <span class="c1">// Custom Text</span>
-                        <span class="p">},</span>
-                        <span class="nx">css</span><span class="o">:</span> <span class="p">{},</span> <span class="c1">// Blank Object provided makes the Css download button appear</span>
-                        <span class="nx">save</span><span class="o">:</span> <span class="p">{</span>
-                            <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;http://localhost:9000/example/&quot;</span><span class="p">,</span>
-                            <span class="nx">callback</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-                                <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Theme modifications have been saved&#39;</span><span class="p">);</span>
-                            <span class="p">}</span>
-                        <span class="p">}</span>
-                    <span class="p">}</span>
-                <span class="p">});</span>
-              <span class="nt">&lt;/script&gt;</span>
-            <span class="nt">&lt;/body&gt;</span>
-        
-</code></pre></div>
-        
-        <h3>Now Cluckles is loaded!</h3>
-        
-        <p>So we can go ahead and start using it. Cluckles has several API Components which can be used to interact with Bootstrap and change the styling. An example would be changing the body background color.</p>
-        <div class="highlight"><pre><code class="html">            // Through a page element, using the data-cluckles-{type}={bind-property} two way databinding
-            <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;color&quot;</span> <span class="na">data-cluckles-misc=</span><span class="s">&quot;body-bg&quot;</span> <span class="nt">/&gt;</span>
-        
-</code></pre></div>
-
-        <div class="highlight"><pre><code class="javascript">            <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-              <span class="c1">// Or Programmatically (type it in your browser&#39;s console/script)</span>
-              <span class="nx">clucklesEditor</span><span class="p">.</span><span class="nx">misc</span><span class="p">.</span><span class="nx">setBackgroundColor</span><span class="p">(</span><span class="s1">&#39;#BFFF85&#39;</span><span class="p">);</span>
-
-              <span class="c1">// Or manipulate the property manually</span>
-              <span class="nx">clucklesEditor</span><span class="p">.</span><span class="nx">misc</span><span class="p">.</span><span class="nx">bodyBg</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;#BFFF85&#39;</span><span class="p">;</span>
-              <span class="nx">clucklesEditor</span><span class="p">.</span><span class="nx">applyModifications</span><span class="p">();</span>
-            <span class="o">&lt;</span><span class="err">/script&gt;</span>
-        
-</code></pre></div>
-        
-        <p>Now be amazed as Cluckles restyles the page, and from this point you can get your Changes. If you have provided export options when you called <code>new ClucklesEditor(options);</code>, you will have download buttons, if not you can programmatically extract the changes:</p>
-        <div class="highlight"><pre><code class="javascript">          <span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
-            <span class="c1">// Will give you the JSON of the modified parts</span>
-            <span class="c1">// { &quot;@bodyBg&quot;: &quot;#BFFF85&quot;}</span>
-            <span class="nx">clucklesEditor</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">();</span>
-            
-            <span class="c1">// Property which holds the Compiled Css</span>
-            <span class="nx">clucklesEditor</span><span class="p">.</span><span class="kr">export</span><span class="p">.</span><span class="nx">compiledCss</span><span class="p">;</span>
-          <span class="o">&lt;</span><span class="err">/script&gt;</span>
-        
-</code></pre></div>
+        <div class="row">
+          <div class="col-md-4">
+            <i class="fa fa-paint-brush fa-5x"></i><br />Lets you Fully Customise Bootstrap v3.3.3<br />
+            <i class="fa fa-css3 fa-5x"></i><br />You can add Custom Less and CSS<br />
+            <i class="fa fa-exchange fa-5x"></i><br />Import/Export support so you can resume later<br />
+          </div>
+          <div class="col-md-4">
+            <i class="fa fa-shopping-cart fa-5x"></i><br />Doesnt cost a thing! Free and Open Source (MIT)<br />
+            <i class="fa fa-tags fa-5x"></i><br />You can name your themes and add extra metadata such as Author/Email etc<br />
+            <i class="fa fa-heart fa-5x"></i><br />Can even import Variables.less files, so you dont have to enter them in!<br />
+          </div>
+          
+          <div class="col-md-4">
+            <i class="fa fa-tachometer fa-5x"></i><br />Can help quickly prototype new Themes, so you can leave early and get a Coffee!<br />
+              <i class="fa fa-magic fa-5x"></i><br />You can use the <a href="/editor/" title="Cluckles Editor Page" onclick="ga('send', 'event', 'featuresLinks', 'click', 'Editor');">Editor</a> or <a href="https://github.com/ilikeprograms/Cluckles/archive/v1.0.0.zip" title="Cluckles latest Download" onclick="ga('send', 'event', 'featuresLinks', 'click', 'Download Source');">Download the source</a> and Embed the editor in another project<br />
+              <i class="fa fa-repeat fa-5x"></i><br />Has Undo/Redo inbuilt, so you dont have to pull your hair out<br />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -237,19 +153,19 @@
         <p>We would love to hear from you, we might even feature you, or put your nice words up as a testimonial!</p>
 
           <div class="row">
-            <div class="col-xs-6 col-md-4">
+            <div class="col-xs-4 col-md-4">
               <a href="#" class="thumbnail">
                 <img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">
               </a>
             </div>
 
-            <div class="col-xs-6 col-md-4">
+            <div class="col-xs-4 col-md-4">
               <a href="#" class="thumbnail">
                 <img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">
               </a>
             </div>
 
-            <div class="col-xs-6 col-md-4">
+            <div class="col-xs-4 col-md-4">
               <a href="#" class="thumbnail">
                 <img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">
               </a>
@@ -259,10 +175,41 @@
     </div>
   </div>
   
+  <div class="row showcase-darker text-center" id="builtUsing">
+    <div class="col-md-12">
+      <div class="container">
+        <h2>Built Using</h2>
+        
+        <div class="row">
+          <div class="col-xs-12 col-md-4">
+            <img src="/assets/img/bootstrap-logo.png" class="img-responsive" height="150" />
+            <!--<a href="#" class="thumbnail">-->
+              <!--<img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">-->
+            <!--</a>-->
+          </div>
+
+          <div class="col-xs-12 col-md-4">
+            <img src="/assets/img/grunt-logo.png" class="img-responsive" height="150" />
+            <!--<a href="#" class="thumbnail">-->
+              <!--<img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">-->
+            <!--</a>-->
+          </div>
+
+          <div class="col-xs-12 col-md-4">
+            <img src="/assets/img/less-logo.png" class="img-responsive" height="150" />
+            <!--<a href="#" class="thumbnail">-->
+              <!--<img data-src="holder.js/100%x250" alt="100%x250" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNTAiIGhlaWdodD0iMjUwIj48cmVjdCB3aWR0aD0iMzUwIiBoZWlnaHQ9IjI1MCIgZmlsbD0iI2VlZSIvPjx0ZXh0IHRleHQtYW5jaG9yPSJtaWRkbGUiIHg9IjE3NSIgeT0iMTI1IiBzdHlsZT0iZmlsbDojYWFhO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1zaXplOjEycHg7Zm9udC1mYW1pbHk6QXJpYWwsSGVsdmV0aWNhLHNhbnMtc2VyaWY7ZG9taW5hbnQtYmFzZWxpbmU6Y2VudHJhbCI+WW91ciBJbWFnZSBIZXJlPC90ZXh0Pjwvc3ZnPg==" style="height: 250px; width: 100%; display: block;">-->
+            <!--</a>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </div> <!-- /Main Body Container -->
 
 <div class="container-fluid">
-  <div class="row showcase-darker">
+  <div class="row showcase-lighterr">
     <div class="col-md-12">
       <div class="container">
         <h2 id="contributing">Contributing</h2>

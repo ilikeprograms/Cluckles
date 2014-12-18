@@ -348,13 +348,13 @@ textarea {
 }
 /* line 48, http://localhost:4000/assets/less/scaffolding.less */
 a {
-  color: #4d50c2;
+  color: #00a1dc;
   text-decoration: none;
 }
 /* line 52, http://localhost:4000/assets/less/scaffolding.less */
 a:hover,
 a:focus {
-  color: #323491;
+  color: #006990;
   text-decoration: underline;
 }
 /* line 58, http://localhost:4000/assets/less/scaffolding.less */
@@ -624,11 +624,11 @@ mark,
 }
 /* line 105, http://localhost:4000/assets/less/type.less */
 .text-primary {
-  color: #4d50c2;
+  color: #00a1dc;
 }
 /* line 5, http://localhost:4000/assets/less/mixins/text-emphasis.less */
 a.text-primary:hover {
-  color: #383ba4;
+  color: #007ca9;
 }
 /* line 108, http://localhost:4000/assets/less/type.less */
 .text-success {
@@ -665,11 +665,11 @@ a.text-danger:hover {
 /* line 124, http://localhost:4000/assets/less/type.less */
 .bg-primary {
   color: #fff;
-  background-color: #4d50c2;
+  background-color: #00a1dc;
 }
 /* line 5, http://localhost:4000/assets/less/mixins/background-variant.less */
 a.bg-primary:hover {
-  background-color: #383ba4;
+  background-color: #007ca9;
 }
 /* line 130, http://localhost:4000/assets/less/type.less */
 .bg-success {
@@ -1870,7 +1870,7 @@ th {
 }
 /* line 114, http://localhost:4000/assets/less/tables.less */
 .table-striped > tbody > tr:nth-child(odd) {
-  background-color: #e7f1fd;
+  background-color: #84d8f6;
 }
 /* line 125, http://localhost:4000/assets/less/tables.less */
 .table-hover > tbody > tr:hover {
@@ -2706,8 +2706,8 @@ fieldset[disabled] .btn-default.active {
 /* line 63, http://localhost:4000/assets/less/buttons.less */
 .btn-primary {
   color: #ffffff;
-  background-color: #4d50c2;
-  border-color: #4d50c2;
+  background-color: #00a1dc;
+  border-color: #00a1dc;
 }
 /* line 11, http://localhost:4000/assets/less/mixins/buttons.less */
 .btn-primary:hover,
@@ -2717,8 +2717,8 @@ fieldset[disabled] .btn-default.active {
 .btn-primary.active,
 .open > .dropdown-toggle.btn-primary {
   color: #ffffff;
-  background-color: #383ba4;
-  border-color: #36389c;
+  background-color: #007ca9;
+  border-color: #00749f;
 }
 /* line 21, http://localhost:4000/assets/less/mixins/buttons.less */
 .btn-primary:active,
@@ -2745,12 +2745,12 @@ fieldset[disabled] .btn-primary:active,
 .btn-primary.disabled.active,
 .btn-primary[disabled].active,
 fieldset[disabled] .btn-primary.active {
-  background-color: #4d50c2;
-  border-color: #4d50c2;
+  background-color: #00a1dc;
+  border-color: #00a1dc;
 }
 /* line 40, http://localhost:4000/assets/less/mixins/buttons.less */
 .btn-primary .badge {
-  color: #4d50c2;
+  color: #00a1dc;
   background-color: #ffffff;
 }
 /* line 67, http://localhost:4000/assets/less/buttons.less */
@@ -2955,7 +2955,7 @@ fieldset[disabled] .btn-danger.active {
 }
 /* line 88, http://localhost:4000/assets/less/buttons.less */
 .btn-link {
-  color: #4d50c2;
+  color: #00a1dc;
   font-weight: normal;
   border-radius: 0;
 }
@@ -2979,7 +2979,7 @@ fieldset[disabled] .btn-link {
 /* line 107, http://localhost:4000/assets/less/buttons.less */
 .btn-link:hover,
 .btn-link:focus {
-  color: #323491;
+  color: #006990;
   text-decoration: underline;
   background-color: transparent;
 }
@@ -3957,7 +3957,7 @@ tbody.collapse.in {
 .dropdown-menu > li > a:focus {
   text-decoration: none;
   color: #ffffff;
-  background-color: #4d50c2;
+  background-color: #00a1dc;
 }
 /* line 86, http://localhost:4000/assets/less/dropdowns.less */
 .dropdown-menu > .active > a,
@@ -3966,7 +3966,7 @@ tbody.collapse.in {
   color: #ffffff;
   text-decoration: none;
   outline: 0;
-  background-color: #4d50c2;
+  background-color: #00a1dc;
 }
 /* line 101, http://localhost:4000/assets/less/dropdowns.less */
 .dropdown-menu > .disabled > a,
@@ -4475,7 +4475,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: #4d50c2;
+  border-color: #00a1dc;
 }
 /* line 59, http://localhost:4000/assets/less/navs.less */
 .nav .nav-divider {
@@ -4589,7 +4589,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: #ffffff;
-  background-color: #4d50c2;
+  background-color: #00a1dc;
 }
 /* line 144, http://localhost:4000/assets/less/navs.less */
 .nav-stacked > li {
@@ -5181,8 +5181,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 /* line 529, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse {
-  background-color: #4c93f5;
-  border-color: #3484f4;
+  background-color: #00a1dc;
+  border-color: #008ec3;
 }
 /* line 533, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-brand {
@@ -5206,14 +5206,14 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
   color: #ffffff;
-  background-color: #3484f4;
+  background-color: #008ec3;
 }
 /* line 557, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-nav > .active > a,
 .navbar-inverse .navbar-nav > .active > a:hover,
 .navbar-inverse .navbar-nav > .active > a:focus {
   color: #ffffff;
-  background-color: #3484f4;
+  background-color: #008ec3;
 }
 /* line 565, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-nav > .disabled > a,
@@ -5224,12 +5224,12 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 /* line 575, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-toggle {
-  border-color: #3484f4;
+  border-color: #008ec3;
 }
 /* line 577, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
-  background-color: #3484f4;
+  background-color: #008ec3;
 }
 /* line 581, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-toggle .icon-bar {
@@ -5238,23 +5238,23 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 /* line 586, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #2a7ff3;
+  border-color: #0087b8;
 }
 /* line 594, http://localhost:4000/assets/less/navbar.less */
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
 .navbar-inverse .navbar-nav > .open > a:focus {
-  background-color: #3484f4;
+  background-color: #008ec3;
   color: #ffffff;
 }
 @media (max-width: 767px) {
   /* line 605, http://localhost:4000/assets/less/navbar.less */
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: #3484f4;
+    border-color: #008ec3;
   }
   /* line 608, http://localhost:4000/assets/less/navbar.less */
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #3484f4;
+    background-color: #008ec3;
   }
   /* line 611, http://localhost:4000/assets/less/navbar.less */
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
@@ -5264,14 +5264,14 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
     color: #ffffff;
-    background-color: #3484f4;
+    background-color: #008ec3;
   }
   /* line 620, http://localhost:4000/assets/less/navbar.less */
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
     color: #ffffff;
-    background-color: #3484f4;
+    background-color: #008ec3;
   }
   /* line 628, http://localhost:4000/assets/less/navbar.less */
   .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a,
@@ -5346,7 +5346,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   padding: 8px 12px;
   line-height: 1.42857143;
   text-decoration: none;
-  color: #4d50c2;
+  color: #00a1dc;
   background-color: #ffffff;
   border: 1px solid #dddddd;
   margin-left: -1px;
@@ -5369,7 +5369,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
 .pagination > li > span:hover,
 .pagination > li > a:focus,
 .pagination > li > span:focus {
-  color: #323491;
+  color: #006990;
   background-color: #eeeeee;
   border-color: #dddddd;
 }
@@ -5519,12 +5519,12 @@ a.label:focus {
 }
 /* line 46, http://localhost:4000/assets/less/labels.less */
 .label-primary {
-  background-color: #4d50c2;
+  background-color: #00a1dc;
 }
 /* line 7, http://localhost:4000/assets/less/mixins/labels.less */
 .label-primary[href]:hover,
 .label-primary[href]:focus {
-  background-color: #383ba4;
+  background-color: #007ca9;
 }
 /* line 50, http://localhost:4000/assets/less/labels.less */
 .label-success {
@@ -5601,7 +5601,7 @@ a.badge:focus {
 /* line 47, http://localhost:4000/assets/less/badges.less */
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #4d50c2;
+  color: #00a1dc;
   background-color: #ffffff;
 }
 /* line 52, http://localhost:4000/assets/less/badges.less */
@@ -5687,7 +5687,7 @@ a.badge:focus {
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: #4d50c2;
+  border-color: #00a1dc;
 }
 /* line 32, http://localhost:4000/assets/less/thumbnails.less */
 .thumbnail .caption {
@@ -5827,7 +5827,7 @@ a.thumbnail.active {
   line-height: 20px;
   color: #ffffff;
   text-align: center;
-  background-color: #4d50c2;
+  background-color: #00a1dc;
   -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   -webkit-transition: width 0.6s ease;
@@ -5998,8 +5998,8 @@ a.list-group-item:focus {
 .list-group-item.active:focus {
   z-index: 2;
   color: #ffffff;
-  background-color: #4d50c2;
-  border-color: #4d50c2;
+  background-color: #00a1dc;
+  border-color: #00a1dc;
 }
 /* line 90, http://localhost:4000/assets/less/list-group.less */
 .list-group-item.active .list-group-item-heading,
@@ -6017,7 +6017,7 @@ a.list-group-item:focus {
 .list-group-item.active .list-group-item-text,
 .list-group-item.active:hover .list-group-item-text,
 .list-group-item.active:focus .list-group-item-text {
-  color: #e5e5f6;
+  color: #a9e8ff;
 }
 /* line 4, http://localhost:4000/assets/less/mixins/list-group.less */
 .list-group-item-success {
@@ -6432,7 +6432,7 @@ a.list-group-item-danger.active:focus {
 /* line 6, http://localhost:4000/assets/less/mixins/panels.less */
 .panel-primary > .panel-heading {
   color: #ffffff;
-  background-color: #4d50c2;
+  background-color: #00a1dc;
   border-color: #dddddd;
 }
 /* line 11, http://localhost:4000/assets/less/mixins/panels.less */
@@ -6441,7 +6441,7 @@ a.list-group-item-danger.active:focus {
 }
 /* line 14, http://localhost:4000/assets/less/mixins/panels.less */
 .panel-primary > .panel-heading .badge {
-  color: #4d50c2;
+  color: #00a1dc;
   background-color: #ffffff;
 }
 /* line 20, http://localhost:4000/assets/less/mixins/panels.less */
@@ -7607,7 +7607,31 @@ button.close {
 }
 
 .showcase-darker {
-    background-color: #F9FCFF;
+    background-color: #06A2DA;
+    color: #C9FDFF;
+}
+
+.showcase-darker h2, .showcase-darker h3, .showcase-darker h4 {
+    color: #FFFFFF;
+}
+
+.showcase-darker a {
+    color: #2A4C7F;
+}
+
+#builtUsing {
+    padding-bottom: 15px;
+}
+
+#builtUsing img {
+    object-fit: contain;
+    width: 150px;
+    height: 150px;
+    display: inline-block;
+}
+
+#builtUsing .col-md-4:nth-of-type(1) img {
+    margin-bottom: 30px;
 }
 
 #pageFooter {
@@ -7636,14 +7660,30 @@ button.close {
 }
 
 #introJumbo .btn-primary {
-    transition: background 0.5s ease;
-    border: 2px solid #383ba4;
+    border-bottom: 1px solid #057da8;
+    background-image: -webkit-linear-gradient(#10bbf8, #06a2da 60%, #0593c6);
+    background-image: -o-linear-gradient(#10bbf8, #06a2da 60%, #0593c6);
+    background-image: linear-gradient(#10bbf8, #06a2da 60%, #0593c6);
+    background-repeat: no-repeat;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff10bbf8', endColorstr='#ff0593c6', GradientType=0);
+    filter: none;
 }
 
 #introJumbo .btn-primary:hover {
-    background: rgb(177, 151, 255);
-    text-shadow: 0px 0px 5px #6B08A5;
+    background: #07BEFF;
 }
+
+#clucklesLogo {
+    display: inline-block;
+    object-fit: contain;
+    height: 300px;
+    width: 300px;
+}
+
+.table-striped > tbody > tr:nth-child(odd) {
+  color: #FFFFFF;
+}
+
 /* line 16, /assets/less/theme.less */
 .btn-default,
 .btn-primary,
@@ -7700,25 +7740,25 @@ button.close {
 }
 /* line 64, /assets/less/theme.less */
 .btn-primary {
-  background-image: -webkit-linear-gradient(top, #4d50c2 0%, #36389c 100%);
-  background-image: -o-linear-gradient(top, #4d50c2 0%, #36389c 100%);
-  background-image: linear-gradient(to bottom, #4d50c2 0%, #36389c 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4d50c2', endColorstr='#ff36389c', GradientType=0);
+  background-image: -webkit-linear-gradient(top, #00a1dc 0%, #00749f 100%);
+  background-image: -o-linear-gradient(top, #00a1dc 0%, #00749f 100%);
+  background-image: linear-gradient(to bottom, #00a1dc 0%, #00749f 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00a1dc', endColorstr='#ff00749f', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
   background-repeat: repeat-x;
-  border-color: #333595;
+  border-color: #006d95;
 }
 /* line 40, /assets/less/theme.less */
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #36389c;
+  background-color: #00749f;
   background-position: 0 -15px;
 }
 /* line 46, /assets/less/theme.less */
 .btn-primary:active,
 .btn-primary.active {
-  background-color: #36389c;
-  border-color: #333595;
+  background-color: #00749f;
+  border-color: #006d95;
 }
 /* line 65, /assets/less/theme.less */
 .btn-success {
@@ -7817,23 +7857,23 @@ button.close {
 /* line 87, /assets/less/theme.less */
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-  background-image: -webkit-linear-gradient(top, #4d50c2 0%, #3f42b7 100%);
-  background-image: -o-linear-gradient(top, #4d50c2 0%, #3f42b7 100%);
-  background-image: linear-gradient(to bottom, #4d50c2 0%, #3f42b7 100%);
+  background-image: -webkit-linear-gradient(top, #00a1dc 0%, #008ec3 100%);
+  background-image: -o-linear-gradient(top, #00a1dc 0%, #008ec3 100%);
+  background-image: linear-gradient(to bottom, #00a1dc 0%, #008ec3 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4d50c2', endColorstr='#ff3f42b7', GradientType=0);
-  background-color: #3f42b7;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00a1dc', endColorstr='#ff008ec3', GradientType=0);
+  background-color: #008ec3;
 }
 /* line 92, /assets/less/theme.less */
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  background-image: -webkit-linear-gradient(top, #4d50c2 0%, #3f42b7 100%);
-  background-image: -o-linear-gradient(top, #4d50c2 0%, #3f42b7 100%);
-  background-image: linear-gradient(to bottom, #4d50c2 0%, #3f42b7 100%);
+  background-image: -webkit-linear-gradient(top, #00a1dc 0%, #008ec3 100%);
+  background-image: -o-linear-gradient(top, #00a1dc 0%, #008ec3 100%);
+  background-image: linear-gradient(to bottom, #00a1dc 0%, #008ec3 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4d50c2', endColorstr='#ff3f42b7', GradientType=0);
-  background-color: #3f42b7;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00a1dc', endColorstr='#ff008ec3', GradientType=0);
+  background-color: #008ec3;
 }
 /* line 106, /assets/less/theme.less */
 .navbar-default {
@@ -7864,20 +7904,20 @@ button.close {
 }
 /* line 124, /assets/less/theme.less */
 .navbar-inverse {
-  background-image: -webkit-linear-gradient(top, #7cb0f8 0%, #4c93f5 100%);
-  background-image: -o-linear-gradient(top, #7cb0f8 0%, #4c93f5 100%);
-  background-image: linear-gradient(to bottom, #7cb0f8 0%, #4c93f5 100%);
+  background-image: -webkit-linear-gradient(top, #10bfff 0%, #00a1dc 100%);
+  background-image: -o-linear-gradient(top, #10bfff 0%, #00a1dc 100%);
+  background-image: linear-gradient(to bottom, #10bfff 0%, #00a1dc 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff7cb0f8', endColorstr='#ff4c93f5', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff10bfff', endColorstr='#ff00a1dc', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 /* line 128, /assets/less/theme.less */
 .navbar-inverse .navbar-nav > .active > a {
-  background-image: -webkit-linear-gradient(top, #4c93f5 0%, #589af6 100%);
-  background-image: -o-linear-gradient(top, #4c93f5 0%, #589af6 100%);
-  background-image: linear-gradient(to bottom, #4c93f5 0%, #589af6 100%);
+  background-image: -webkit-linear-gradient(top, #00a1dc 0%, #00aae9 100%);
+  background-image: -o-linear-gradient(top, #00a1dc 0%, #00aae9 100%);
+  background-image: linear-gradient(to bottom, #00a1dc 0%, #00aae9 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4c93f5', endColorstr='#ff589af6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00a1dc', endColorstr='#ff00aae9', GradientType=0);
   -webkit-box-shadow: inset 0 3px 9px rgba(0, 0, 0, 0.25);
   box-shadow: inset 0 3px 9px rgba(0, 0, 0, 0.25);
 }
@@ -7944,11 +7984,11 @@ button.close {
 }
 /* line 188, /assets/less/theme.less */
 .progress-bar {
-  background-image: -webkit-linear-gradient(top, #4d50c2 0%, #383ba4 100%);
-  background-image: -o-linear-gradient(top, #4d50c2 0%, #383ba4 100%);
-  background-image: linear-gradient(to bottom, #4d50c2 0%, #383ba4 100%);
+  background-image: -webkit-linear-gradient(top, #00a1dc 0%, #007ca9 100%);
+  background-image: -o-linear-gradient(top, #00a1dc 0%, #007ca9 100%);
+  background-image: linear-gradient(to bottom, #00a1dc 0%, #007ca9 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4d50c2', endColorstr='#ff383ba4', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00a1dc', endColorstr='#ff007ca9', GradientType=0);
 }
 /* line 189, /assets/less/theme.less */
 .progress-bar-success {
@@ -7992,13 +8032,13 @@ button.close {
 .list-group-item.active,
 .list-group-item.active:hover,
 .list-group-item.active:focus {
-  text-shadow: 0 -1px 0 #383ba4;
-  background-image: -webkit-linear-gradient(top, #4d50c2 0%, #3b3ead 100%);
-  background-image: -o-linear-gradient(top, #4d50c2 0%, #3b3ead 100%);
-  background-image: linear-gradient(to bottom, #4d50c2 0%, #3b3ead 100%);
+  text-shadow: 0 -1px 0 #007ca9;
+  background-image: -webkit-linear-gradient(top, #00a1dc 0%, #0085b6 100%);
+  background-image: -o-linear-gradient(top, #00a1dc 0%, #0085b6 100%);
+  background-image: linear-gradient(to bottom, #00a1dc 0%, #0085b6 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4d50c2', endColorstr='#ff3b3ead', GradientType=0);
-  border-color: #3b3ead;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00a1dc', endColorstr='#ff0085b6', GradientType=0);
+  border-color: #0085b6;
 }
 /* line 219, /assets/less/theme.less */
 .panel {
@@ -8015,11 +8055,11 @@ button.close {
 }
 /* line 230, /assets/less/theme.less */
 .panel-primary > .panel-heading {
-  background-image: -webkit-linear-gradient(top, #4d50c2 0%, #3f42b7 100%);
-  background-image: -o-linear-gradient(top, #4d50c2 0%, #3f42b7 100%);
-  background-image: linear-gradient(to bottom, #4d50c2 0%, #3f42b7 100%);
+  background-image: -webkit-linear-gradient(top, #00a1dc 0%, #008ec3 100%);
+  background-image: -o-linear-gradient(top, #00a1dc 0%, #008ec3 100%);
+  background-image: linear-gradient(to bottom, #00a1dc 0%, #008ec3 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff4d50c2', endColorstr='#ff3f42b7', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00a1dc', endColorstr='#ff008ec3', GradientType=0);
 }
 /* line 231, /assets/less/theme.less */
 .panel-success > .panel-heading {
@@ -8064,13 +8104,13 @@ button.close {
   -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
 }
-/* line 19, input */
+/* line 21, input */
 .navbar {
   filter: none;
   -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
 }
-/* line 23, input */
+/* line 25, input */
 .navbar-default {
   background-image: -webkit-linear-gradient(#6b6ecc, #4d50c2 60%, #4043bb);
   background-image: -o-linear-gradient(#6b6ecc, #4d50c2 60%, #4043bb);
@@ -8080,7 +8120,7 @@ button.close {
   filter: none;
   border-bottom: 1px solid #383ba4;
 }
-/* line 12, input */
+/* line 14, input */
 .navbar-default:hover {
   background-image: -webkit-linear-gradient(#5c5fc7, #4d50c2 60%, #3b3eab);
   background-image: -o-linear-gradient(#5c5fc7, #4d50c2 60%, #3b3eab);
@@ -8088,58 +8128,58 @@ button.close {
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5c5fc7', endColorstr='#ff3b3eab', GradientType=0);
 }
-/* line 25, input */
+/* line 27, input */
 .navbar-default .badge {
   background-color: #fff;
   color: #4d50c2;
 }
-/* line 31, input */
+/* line 33, input */
 .navbar-inverse {
-  background-image: -webkit-linear-gradient(#73aaf7, #4c93f5 60%, #3987f4);
-  background-image: -o-linear-gradient(#73aaf7, #4c93f5 60%, #3987f4);
-  background-image: linear-gradient(#73aaf7, #4c93f5 60%, #3987f4);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff73aaf7', endColorstr='#ff3987f4', GradientType=0);
-  background-image: -webkit-linear-gradient(#73aaf7, #5f9ff6 60%, #428df4);
-  background-image: -o-linear-gradient(#73aaf7, #5f9ff6 60%, #428df4);
-  background-image: linear-gradient(#73aaf7, #5f9ff6 60%, #428df4);
+  background-image: -webkit-linear-gradient(#06bcff, #00a1dc 60%, #0092c8);
+  background-image: -o-linear-gradient(#06bcff, #00a1dc 60%, #0092c8);
+  background-image: linear-gradient(#06bcff, #00a1dc 60%, #0092c8);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff06bcff', endColorstr='#ff0092c8', GradientType=0);
+  background-image: -webkit-linear-gradient(#06bcff, #00b0f0 60%, #009ad2);
+  background-image: -o-linear-gradient(#06bcff, #00b0f0 60%, #009ad2);
+  background-image: linear-gradient(#06bcff, #00b0f0 60%, #009ad2);
   background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff73aaf7', endColorstr='#ff428df4', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff06bcff', endColorstr='#ff009ad2', GradientType=0);
   filter: none;
-  border-bottom: 1px solid #1c76f2;
+  border-bottom: 1px solid #007ca9;
 }
-/* line 12, input */
+/* line 14, input */
 .navbar-inverse:hover {
-  background-image: -webkit-linear-gradient(#5f9ff6, #4c93f5 60%, #257cf3);
-  background-image: -o-linear-gradient(#5f9ff6, #4c93f5 60%, #257cf3);
-  background-image: linear-gradient(#5f9ff6, #4c93f5 60%, #257cf3);
+  background-image: -webkit-linear-gradient(#00b0f0, #00a1dc 60%, #0083b3);
+  background-image: -o-linear-gradient(#00b0f0, #00a1dc 60%, #0083b3);
+  background-image: linear-gradient(#00b0f0, #00a1dc 60%, #0083b3);
   background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5f9ff6', endColorstr='#ff257cf3', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00b0f0', endColorstr='#ff0083b3', GradientType=0);
 }
-/* line 37, input */
+/* line 39, input */
 .navbar-inverse .badge {
   background-color: #fff;
-  color: #4c93f5;
+  color: #00a1dc;
 }
-/* line 43, input */
+/* line 45, input */
 .navbar .navbar-nav > li > a,
 .navbar-brand {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
 @media (max-width: 767px) {
-  /* line 53, input */
+  /* line 55, input */
   .navbar .dropdown-header {
     color: #fff;
   }
 }
-/* line 61, input */
+/* line 63, input */
 .btn {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
 }
-/* line 65, input */
+/* line 67, input */
 .btn .caret {
   border-top-color: #fff;
 }
-/* line 70, input */
+/* line 72, input */
 .btn-default {
   background-image: -webkit-linear-gradient(#ffffff, #ffffff 60%, #f5f5f5);
   background-image: -o-linear-gradient(#ffffff, #ffffff 60%, #f5f5f5);
@@ -8149,7 +8189,7 @@ button.close {
   filter: none;
   border-bottom: 1px solid #e6e6e6;
 }
-/* line 12, input */
+/* line 14, input */
 .btn-default:hover {
   background-image: -webkit-linear-gradient(#ffffff, #ffffff 60%, #ebebeb);
   background-image: -o-linear-gradient(#ffffff, #ffffff 60%, #ebebeb);
@@ -8157,15 +8197,15 @@ button.close {
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffebebeb', GradientType=0);
 }
-/* line 74, input */
+/* line 76, input */
 .btn-default:hover {
   color: #555555;
 }
-/* line 78, input */
+/* line 80, input */
 .btn-default .caret {
   border-top-color: #555555;
 }
-/* line 83, input */
+/* line 85, input */
 .btn-default {
   background-image: -webkit-linear-gradient(#ffffff, #ffffff 60%, #f5f5f5);
   background-image: -o-linear-gradient(#ffffff, #ffffff 60%, #f5f5f5);
@@ -8175,7 +8215,7 @@ button.close {
   filter: none;
   border-bottom: 1px solid #e6e6e6;
 }
-/* line 12, input */
+/* line 14, input */
 .btn-default:hover {
   background-image: -webkit-linear-gradient(#ffffff, #ffffff 60%, #ebebeb);
   background-image: -o-linear-gradient(#ffffff, #ffffff 60%, #ebebeb);
@@ -8183,25 +8223,25 @@ button.close {
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffebebeb', GradientType=0);
 }
-/* line 87, input */
+/* line 89, input */
 .btn-primary {
-  background-image: -webkit-linear-gradient(#6b6ecc, #4d50c2 60%, #4043bb);
-  background-image: -o-linear-gradient(#6b6ecc, #4d50c2 60%, #4043bb);
-  background-image: linear-gradient(#6b6ecc, #4d50c2 60%, #4043bb);
+  background-image: -webkit-linear-gradient(#06bcff, #00a1dc 60%, #0092c8);
+  background-image: -o-linear-gradient(#06bcff, #00a1dc 60%, #0092c8);
+  background-image: linear-gradient(#06bcff, #00a1dc 60%, #0092c8);
   background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff6b6ecc', endColorstr='#ff4043bb', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff06bcff', endColorstr='#ff0092c8', GradientType=0);
   filter: none;
-  border-bottom: 1px solid #383ba4;
+  border-bottom: 1px solid #007ca9;
 }
-/* line 12, input */
+/* line 14, input */
 .btn-primary:hover {
-  background-image: -webkit-linear-gradient(#5c5fc7, #4d50c2 60%, #3b3eab);
-  background-image: -o-linear-gradient(#5c5fc7, #4d50c2 60%, #3b3eab);
-  background-image: linear-gradient(#5c5fc7, #4d50c2 60%, #3b3eab);
+  background-image: -webkit-linear-gradient(#00b0f0, #00a1dc 60%, #0083b3);
+  background-image: -o-linear-gradient(#00b0f0, #00a1dc 60%, #0083b3);
+  background-image: linear-gradient(#00b0f0, #00a1dc 60%, #0083b3);
   background-repeat: no-repeat;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5c5fc7', endColorstr='#ff3b3eab', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff00b0f0', endColorstr='#ff0083b3', GradientType=0);
 }
-/* line 91, input */
+/* line 93, input */
 .btn-success {
   background-image: -webkit-linear-gradient(#0ab6ad, #088f88 60%, #077c76);
   background-image: -o-linear-gradient(#0ab6ad, #088f88 60%, #077c76);
@@ -8211,7 +8251,7 @@ button.close {
   filter: none;
   border-bottom: 1px solid #055f5a;
 }
-/* line 12, input */
+/* line 14, input */
 .btn-success:hover {
   background-image: -webkit-linear-gradient(#09a29a, #088f88 60%, #066863);
   background-image: -o-linear-gradient(#09a29a, #088f88 60%, #066863);
@@ -8219,7 +8259,7 @@ button.close {
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff09a29a', endColorstr='#ff066863', GradientType=0);
 }
-/* line 95, input */
+/* line 97, input */
 .btn-info {
   background-image: -webkit-linear-gradient(#73aaf7, #4c93f5 60%, #3987f4);
   background-image: -o-linear-gradient(#73aaf7, #4c93f5 60%, #3987f4);
@@ -8229,7 +8269,7 @@ button.close {
   filter: none;
   border-bottom: 1px solid #1c76f2;
 }
-/* line 12, input */
+/* line 14, input */
 .btn-info:hover {
   background-image: -webkit-linear-gradient(#5f9ff6, #4c93f5 60%, #257cf3);
   background-image: -o-linear-gradient(#5f9ff6, #4c93f5 60%, #257cf3);
@@ -8237,7 +8277,7 @@ button.close {
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5f9ff6', endColorstr='#ff257cf3', GradientType=0);
 }
-/* line 99, input */
+/* line 101, input */
 .btn-warning {
   background-image: -webkit-linear-gradient(#ff6707, #dd5600 60%, #c94e00);
   background-image: -o-linear-gradient(#ff6707, #dd5600 60%, #c94e00);
@@ -8247,7 +8287,7 @@ button.close {
   filter: none;
   border-bottom: 1px solid #aa4200;
 }
-/* line 12, input */
+/* line 14, input */
 .btn-warning:hover {
   background-image: -webkit-linear-gradient(#f15e00, #dd5600 60%, #b44600);
   background-image: -o-linear-gradient(#f15e00, #dd5600 60%, #b44600);
@@ -8255,7 +8295,7 @@ button.close {
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff15e00', endColorstr='#ffb44600', GradientType=0);
 }
-/* line 103, input */
+/* line 105, input */
 .btn-danger {
   background-image: -webkit-linear-gradient(#e12b31, #c71c22 60%, #b5191f);
   background-image: -o-linear-gradient(#e12b31, #c71c22 60%, #b5191f);
@@ -8265,7 +8305,7 @@ button.close {
   filter: none;
   border-bottom: 1px solid #9a161a;
 }
-/* line 12, input */
+/* line 14, input */
 .btn-danger:hover {
   background-image: -webkit-linear-gradient(#d91f25, #c71c22 60%, #a3171c);
   background-image: -o-linear-gradient(#d91f25, #c71c22 60%, #a3171c);
@@ -8273,7 +8313,7 @@ button.close {
   background-repeat: no-repeat;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd91f25', endColorstr='#ffa3171c', GradientType=0);
 }
-/* line 127, input */
+/* line 128, input */
 .panel-primary .panel-heading,
 .panel-success .panel-heading,
 .panel-warning .panel-heading,
@@ -8286,7 +8326,7 @@ button.close {
 .panel-info .panel-title {
   color: #fff;
 }
-/* line 133, input */
+/* line 134, input */
 .btn-default:hover,
 .btn-default:focus,
 .btn-primary:hover,
@@ -8300,5 +8340,19 @@ button.close {
 .btn-danger:hover,
 .btn-danger:focus {
   background-position: inherit;
+}
+/* line 150, input */
+#features {
+  text-align: center;
+  padding-bottom: 15px;
+}
+/* line 154, input */
+#features .col-md-3 {
+  margin-bottom: 30px;
+}
+/* line 158, input */
+#features .fa {
+  color: #2A4C7F;
+  margin-top: 30px;
 }
 
