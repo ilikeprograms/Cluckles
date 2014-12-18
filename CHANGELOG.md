@@ -8,6 +8,50 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [1.0.0]
+
+- [Docs] Improved Docs theme and made it striking.
+- [Docs] Improved Intro Jumbotron content
+- [Docs] Hopefully made Cluckles logo responsive
+- [Import] Custom styles now use `rows="20"`
+- [Docs] Made Options page consistent with changed theme
+- [Docs] Improved About page content and look
+- [Example] Added Meta tab to manage theme metadata
+- [Import] Added the ability to manage theme metadata information (Author, Email etc)
+- [Export] Allow `generateJsonBlob` to be called with no arguments
+- [Example] Added delete support notice
+- [Docs] Removed Notice about iframe
+- [Docs] Improved Built on section/made responsive
+- [Docs] Added features section to homepage
+- [Docs] Added built on section
+- [Docs] Added built on section logos
+- [Import] Calling `generateCssBlob` on Less input change
+- [Export] Using `postProcessorCss` in generateCssBlob if no arguments pass in
+- [Processor] Storing postProcessor callback css to be used elsewhere
+- [ClucklesEditor] Allowing less `refresh` bool param to be passed reload param
+- [ClucklesEditor] Calling `applyModifications` from `refreshCustomStyles`
+- [ClucklesEditor] Improved `queueModifications` method
+- [Import] Reduced `handleThemeImport` less processing. Improves speed a lot.
+- [Import] Calling refreshCustomStyles in variablesOutput.change (instead of applyModifications)
+- [ClucklesEditor] Moved setting variables output to its own method
+- [ClucklesEditor] Passing no args to `applyModifcations` on reset, makes the theme reset properly.
+- [Processor] Removing `px` at end of modifiers if follows brackets.
+- [ThemeModifier] Changed suffix prefixing to use `slice` instead of index of
+- [Docs] Changed `object` back to `iframe` so `contentWindow` property can be used from console
+- [Import] Readed `customStylesHeader` as it was needed
+- [Cluckles] Added support for all bootstrap vars v3.3.0
+- [Example] Editor now supports editing bootstrap v3.3.0
+- [Processor] Allowing '+' character in Regex, fixes breadcrumb separator
+- [Nav] Removed `linkOpenHoverColor` prop as it does nothing and was removed from Bootstrap?
+- [Navbar] Removed Duplicate properties
+- [Export] Stopped storing `compiledCss` as it was huge
+- [Import] Added support for viewing/modifying variables directly from an input
+- [Cluckles] Better peformance, decreased refreshing customStyles/modifiers.
+- [Cluckles] Only iterating over `Less` inputs in `refreshCustomStyles`, improves performance slighly (with 1 Less input)
+- [JS] Improved Performance of `refreshCustomStyles`
+- [Processor] Mv `parseVariablesFile` to `parseVariables`
+- [Export] Make sure `window.parent` has `ga` as own prop
+
 ## [0.10.1]
 
 - [Docs] Changes Index Jumbotron buttons transition duration to 0.5s

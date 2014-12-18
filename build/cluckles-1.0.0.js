@@ -1,5 +1,5 @@
 /*!
- * Cluckles 0.9.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
+ * Cluckles 1.0.0: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
  * http://cluckles.com
  * 
  * Copyright 2014 Thomas Coleman <tom@ilikeprograms.com>
@@ -30,12 +30,14 @@
             filteredModifiers = {},
             modifierNames = Object.keys(modifiers);
 
-        if (modifierNames.length === 0) { return {}; }
+        if (modifierNames.length === 0) { return filteredModifiers; }
 
         // Filter out modifiers which are still null
-        modifierNames.forEach(function (modifier) {
-            if (modifiers[modifier].value !== null) {
-                filteredModifiers[modifier] = modifiers[modifier];
+        modifierNames.forEach(function (modifierName) {
+            var modifier = modifiers[modifierName];
+
+            if (modifier.value !== null) {
+                filteredModifiers[modifierName] = modifier;
             }
         });
 
@@ -170,8 +172,8 @@
      * @returns {undefined}
      */
     ThemeModifier.prototype.setupDataBinding = function () {
-        var self = this,
-            editor = this.editor, // ClucklesEditor instance
+        var self        = this,
+            editor      = this.editor, // ClucklesEditor instance
             // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
             subscribers = Array.prototype.slice.call(document.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
@@ -191,9 +193,9 @@
 
                         if (val !== null) {
                             // If the value contains the suffix already (such as when loading from file)
-                            if (val.indexOf(unit) !== -1) {
+                            if (val.slice(-unit.length) === unit) {
                                 // Store the val minus the prefix
-                                this._rawValue = val.slice(0, val.indexOf(unit));
+                                this._rawValue = val.slice(0, -unit.length);
                             } else {
                                 // If the val points to a parent variable (when setting using console API etc)
                                 if (val[0] === '@') {
@@ -264,7 +266,10 @@
         subscribers.forEach(function (subscriber) {
             // Get the data attribute which should match the subscribeProperty of a modifier
             // which it wants to bind to
-            var subscribeToProperty = subscriber.getAttribute(this.subscriberDataAttribute);
+            var subscribeToProperty = subscriber.getAttribute(this.subscriberDataAttribute),
+                // Deletable attribute, points to a target to bind a Delete Event
+                deletableAttr       = subscriber.getAttribute('data-cluckles-delete'),
+                deleteTarget;
 
             Object.keys(this.modifiers).forEach(function (modifierName) {
                 // Get the modifier object
@@ -275,7 +280,7 @@
                     // Store the subscriber for this modifier
                     modifier.subscribers.push(subscriber);
 
-                    // Add a change event which will call the change function and pass
+                    // Add a Change Event which will call the change function and pass
                     // through the value of the DOM Element
                     subscriber.addEventListener('change', function (e) {
                         var suffixUnit = e.target.getAttribute('data-cluckles-unit');
@@ -289,6 +294,27 @@
                             modifier.changeFn(e.target.value);
                         }
                     }, false);
+                    
+                    // If the subscriber had a Delete target attr
+                    if (deletableAttr) {
+                        // Find the Delete target
+                        deleteTarget = document.querySelector(deletableAttr);
+                        
+                        if (deleteTarget) {
+                            // Add the Delete event
+                            deleteTarget.addEventListener('click', function () {
+                                // If the editor modifier has this property
+                                if (editor.modifiers.hasOwnProperty(modifier.variable)) {
+                                    // Delete the modifier from the editor
+                                    delete editor.modifiers[modifier.variable];
+
+                                    // Make the modifier value null, so it wont be fetched
+                                    // by editor.getModifiers()
+                                    modifier.value = null;
+                                }
+                            }, false);
+                        }
+                    }
                 }
             }, this);
         }, this);
@@ -310,8 +336,9 @@
      * @returns {Processor}
      */
     var Processor = function (editor, options) {
-        this.editor     = editor;
-        this.options    = options;
+        this.editor             = editor;
+        this.options            = options;
+        this.postProcessorCss   = '';
 
         this.cssSelectorRegex = new RegExp("" +
             "((?:" + 
@@ -323,8 +350,8 @@
                         // or Match (these other elements/selector)
                         "(?:^\\w{0}a(?!\\w)|ul|li|textarea)" + 
                     ")" + 
-                    // Allow AlphaNumeric, - > : . \s characters to match (once or more times)
-                    "[\\w->:.\\s]+" + 
+                    // Allow AlphaNumeric, - > : . \s [ ] characters to match (once or more times)
+                    "[\\w->+.:\\[\\]\\s]+" + 
                 ")" + 
             "+)" + // Match selector pattern atleast once, e.g. allows .table to match, then move to > thead etc
             // End matches with , or {
@@ -347,6 +374,9 @@
 
         // Provide less with the postProcessor callback we want to execute
         this.editor.lessGlobal.postProcessor = function (css) {
+            // Store the CSS so it can be retrieved elsewhere
+            this.postProcessorCss = css;
+
             // Generate/Regenerate both of the Download button Blob contents
             this.editor.export.generateCssBlob(css);
             this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
@@ -492,11 +522,10 @@
                                         noUnit      = rep.replace(pxRegex, ''), // Remove the "px" from inside the match
                                         // Use eval to perform the calculation inside the match
                                         calculated  = eval(noUnit); /* jshint ignore:line */
-                                    
-                                    
+
                                     // If there originally was a "px" inside the brackers, we add it back on
                                     if (hasUnit) { calculated += 'px'; }
-                                    
+
                                     // Now we replace the original match with the calculated value
                                     // e.g. (30px / 2) -> 15px
                                     modifier = modifier.replace(rep, calculated);
@@ -508,12 +537,44 @@
                         }
                     });
                 }
+                
+                // Remove the 'PX' from the end if we have brackets followed by PX,
+                // this would be caused by modifiers being imported and suffixed,
+                // instead of set manually
+                if (modifiers[modifierName].match(/\(.*\)px$/i)) {
+                    modifiers[modifierName] = modifiers[modifierName].slice(0, -2);
+                }
             }
         });
         
         return modifiers;
     };
-    
+
+    /**
+     * Parses the variables text content passed in and returns an array of variable names and values.
+     * 
+     * @param {string} variables The variables text to process to modifiers.
+     * 
+     * @returns {unresolved}
+     */
+    Processor.prototype.parseVariables = function (variables) {
+        // Matches @variable: value; and returns a match for each variable found
+        var variablesMatches = variables.match(/^@[\w-]+:\s?(?:.)*(?=;)/igm),
+            parsedVars = {};
+
+        if (variablesMatches) {
+            variablesMatches.forEach(function (variable) {
+                // Split the : to get the key/value
+                var variableParts = variable.split(':');
+
+                // Now add the keys/values to the parsedVars Object
+                parsedVars[variableParts[0]] = variableParts[1].trim();
+            }, this);
+        }
+
+        return parsedVars;
+    };
+
     /**
      * Transforms the modifiers into a Variables list (string) which is split up
      * between @variable: value; and new lines.
@@ -550,11 +611,18 @@
 	 * @property {object} fontFamilySerif       The @font-family-serif variable which controls the Font Family Serif of the Typography Component.
 	 * @property {object} fontFamilyMonospace   The @font-family-serif variable which controls the Font Family Monospace of the Typography Component.
 	 * @property {object} fontSizeBase          The @font-size-base variable which controls the Font Size Base of the Typography Component.
+	 * @property {object} fontSizeH1            The @font-size-h1 variable which controls the H1 Font Size of the Typography Component.
+	 * @property {object} fontSizeH2            The @font-size-h1 variable which controls the H2 Font Size of the Typography Component.
+	 * @property {object} fontSizeH3            The @font-size-h1 variable which controls the H3 Font Size of the Typography Component.
+	 * @property {object} fontSizeH4            The @font-size-h1 variable which controls the H4 Font Size of the Typography Component.
+	 * @property {object} fontSizeH5            The @font-size-h1 variable which controls the H5 Font Size of the Typography Component.
+	 * @property {object} fontSizeH6            The @font-size-h1 variable which controls the H6 Font Size of the Typography Component.
 	 * @property {object} headingsFontFamily    The @headings-font-family variable which controls the Headings Font Family of the Typography Component.
 	 * @property {object} headingsFontWeight    The @headings-font-weight variable which controls the Headings Font Weight of the Typography Component.
 	 * @property {object} headingsLineHeight    The @headings-line-height variable which controls the Headings Line Height of the Typography Component.
 	 * @property {object} headingsColor         The @headings-color variable which controls the Headings Color of the Typography Component.
 	 * @property {object} headingsSmallColor    The @headings-small-color variable which controls the Headings Small Color of the Typography Component.
+	 * @property {object} lineHeightBase        The @line-height-base variable which controls the Line Height Base of the Typography Component.
      * @property {string} textMuted             The @text-muted variable which sets the Text Muted Color.
      * @property {string} abbrBorderColor       The @abbr-border-color variable which sets the Abbreviations and Acronyms Border Color.
 	 * 
@@ -595,12 +663,60 @@
             subscribers:        [],
 			_value:             null
 		};
+        this.fontSizeH1 = {
+            variable:           '@font-size-h1',
+			subscribeProperty:  'font-size-h1',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH1.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH2 = {
+            variable:           '@font-size-h2',
+			subscribeProperty:  'font-size-h2',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH2.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH3 = {
+            variable:           '@font-size-h3',
+			subscribeProperty:  'font-size-h3',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH3.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH4 = {
+            variable:           '@font-size-h4',
+			subscribeProperty:  'font-size-h4',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH4.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH5 = {
+            variable:           '@font-size-h5',
+			subscribeProperty:  'font-size-h5',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH5.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.fontSizeH6 = {
+            variable:           '@font-size-h6',
+			subscribeProperty:  'font-size-h6',
+            suffixUnit:         true,
+            changeFn:           this.setFontSizeH6.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
 		this.headingsFontFamily = {
 			variable:           '@headings-font-family',
 			subscribeProperty:  'headings-font-family',
             changeFn:           this.setHeadingsFontFamily.bind(this),
             subscribers:        [],
-			_value: null
+			_value:             null
 		};
 		this.headingsFontWeight = {
 			variable:           '@headings-font-weight',
@@ -630,6 +746,13 @@
             subscribers:        [],
 			_value:             null
         };
+        this.lineHeightBase = {
+            variable:           '@line-height-base',
+            subscribeProperty:  'line-height-base',
+            changeFn:           this.setLineHeightBase.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
         this.textMutedColor = {
             variable:           '@text-muted',
             subscribeProperty:  'text-muted-color',
@@ -651,11 +774,18 @@
             fontFamilySerif:        this.fontFamilySerif,
             fontFamilyMonospace:    this.fontFamilyMonospace,
             fontSizeBase:           this.fontSizeBase,
+            fontSizeH1:             this.fontSizeH1,
+            fontSizeH2:             this.fontSizeH2,
+            fontSizeH3:             this.fontSizeH3,
+            fontSizeH4:             this.fontSizeH4,
+            fontSizeH5:             this.fontSizeH5,
+            fontSizeH6:             this.fontSizeH6,
             headingsFontFamily:     this.headingsFontFamily,
             headingsFontWeight:     this.headingsFontWeight,
             headingsLineHeight:     this.headingsLineHeight,
             headingsColor:          this.headingsColor,
             headingsSmallColor:     this.headingsSmallColor,
+            lineHeightBase:         this.lineHeightBase,
             textMutedColor:         this.textMutedColor,
             abbrBorderColor:        this.abbrBorderColor
         };
@@ -748,6 +878,144 @@
         if (unit !== undefined) { this.modifiers.fontSizeBase.unit = unit; }
 
         this.modifiers.fontSizeBase.value = fontSizeBase;
+    };
+    
+    /**
+     * Gets the H1 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH1 = function () {
+        return this.modifiers.fontSizeH1.value;
+    };
+
+    /**
+     * Sets the H1 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH1   The Typography H1 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH1 = function (fontSizeH1, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH1.unit = unit; }
+
+        this.modifiers.fontSizeH1.value = fontSizeH1;
+    };
+    
+    /**
+     * Gets the H2 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH2 = function () {
+        return this.modifiers.fontSizeH2.value;
+    };
+
+    /**
+     * Sets the H2 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH2   The Typography H2 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH2 = function (fontSizeH2, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH2.unit = unit; }
+
+        this.modifiers.fontSizeH2.value = fontSizeH2;
+    };
+    
+    /**
+     * Gets the H3 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH3 = function () {
+        return this.modifiers.fontSizeH3.value;
+    };
+
+    /**
+     * Sets the H3 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH3   The Typography H3 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH3 = function (fontSizeH3, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH3.unit = unit; }
+
+        this.modifiers.fontSizeH3.value = fontSizeH3;
+    };
+    
+    /**
+     * Gets the H4 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH4 = function () {
+        return this.modifiers.fontSizeH4.value;
+    };
+
+    /**
+     * Sets the H4 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH4   The Typography H4 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH4 = function (fontSizeH4, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH4.unit = unit; }
+
+        this.modifiers.fontSizeH4.value = fontSizeH4;
+    };
+    
+    /**
+     * Gets the H5 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH5 = function () {
+        return this.modifiers.fontSizeH5.value;
+    };
+
+    /**
+     * Sets the H5 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH5   The Typography H5 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH5 = function (fontSizeH5, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH5.unit = unit; }
+
+        this.modifiers.fontSizeH5.value = fontSizeH5;
+    };
+    
+    /**
+     * Gets the H6 Font Size Base the Typography Component.
+     * 
+     * @returns {string}
+     */
+    Typography.prototype.getFontSizeH6 = function () {
+        return this.modifiers.fontSizeH6.value;
+    };
+
+    /**
+     * Sets the H6 Font Size of the Typography Component.
+     * 
+     * @param {string} fontSizeH6   The Typography H6 Font Size to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setFontSizeH6 = function (fontSizeH6, unit) {
+        if (unit !== undefined) { this.modifiers.fontSizeH6.unit = unit; }
+
+        this.modifiers.fontSizeH6.value = fontSizeH6;
     };
 
     /**
@@ -851,6 +1119,26 @@
     };
 
     /**
+     * Gets the Line Height Base of the Typography Component.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.getLineHeightBase = function () {
+        return this.modifiers.lineHeightBase.value;
+    };
+
+    /**
+     * Sets the Line Height Base of the Typography Component.
+     * 
+     * @param {string} lineHeightBase The Typography Line Height Base to set.
+     * 
+     * @returns {undefined}
+     */
+    Typography.prototype.setLineHeightBase = function (lineHeightBase) {
+        this.modifiers.lineHeightBase.value = lineHeightBase;
+    };
+
+    /**
      * Gets the Text Muted color of the Typography Component.
      * 
      * @returns {String}
@@ -898,15 +1186,19 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
      * 
-     * @property {string} componentBaseBg       The @state-base-bg variable which sets the Background Color of bootstrap Components.
-     * @property {string} wellBg                The @well-base-bg variable which sets the Background Color of the Well Component.
-     * @property {string} bodyBg                The @body-bg variable which sets the Body Background color.
+     * @property {string} componentActiveBg     The @component-active-bg variable which sets the Global Background Color of bootstrap Components.
+     * @property {string} componentActiveColor  The @component-active-color variable which sets the Global Color of bootstrap Components.
+     * @property {string} wellBg                The @well-bg variable which sets the Background Color of the Well Component.
+     * @property {string} wellBorder            The @well-border variable which sets the Border Color of the Well Component.
+     * @property {string} bodyBg                The @body-bg variable which sets the Body Background Color.
      * @property {string} textColor             The @text-color variable which sets the Body Text color.
      * @property {string} pageHeaderBorderColor The @page-header-border-color variable which sets the Page Header Border Color.
      * @property {string} linkColor             The @link-color variable which sets the Link Color.
-     * @property {string} linkHoverColor        The @link-hover-color variable which sets the Link Hover color.
+     * @property {string} linkHoverColor        The @link-hover-color variable which sets the Link Hover Color.
+     * @property {string} linkHoverDecoration   The @link-hover-decoration variable which sets the Link Hover Decoration
      * @property {string} hrBorder              The @hr-border variable which sets the Color of the <hr> tag.
      * @property {string} borderRadiusBase      The @border-radius-base variable which sets the Base Border Radius.
+     * @property {string} iconFontPath          The @icon-font-path variable which sets Directory to load Glyphicon fonts from.
      * 
      * @returns {Misc}
      */
@@ -916,17 +1208,31 @@
         this.subscriberDataAttribute = 'data-cluckles-misc';
 
         // Define the Modifiers
-        this.componentBaseBg = {
-            variable:           '@state-base-bg',
-            subscribeProperty:  'component-base-bg',
-            changeFn:           this.setComponentBaseBackgroundColor.bind(this),
+        this.componentActiveBg = {
+            variable:           '@component-active-bg',
+            subscribeProperty:  'component-active-bg',
+            changeFn:           this.setComponentActiveBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.componentActiveColor = {
+            variable:           '@component-active-color',
+            subscribeProperty:  'component-active-color',
+            changeFn:           this.setComponentActiveColor.bind(this),
             subscribers:        [],
 			_value:             null
         };
         this.wellBg = {
-            variable:           '@well-base-bg',
-            subscribeProperty:  'well-base-bg',
+            variable:           '@well-bg',
+            subscribeProperty:  'well-bg',
             changeFn:           this.setWellBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.wellBorder = {
+            variable:           '@well-border',
+            subscribeProperty:  'well-border',
+            changeFn:           this.setWellBorderColor.bind(this),
             subscribers:        [],
 			_value:             null
         };
@@ -965,9 +1271,16 @@
             subscribers:        [],
 			_value:             null
         };
+        this.linkHoverDecoration = {
+            variable:           '@link-hover-decoration',
+            subscribeProperty:  'link-hover-decoration',
+            changeFn:           this.setLinkHoverDecoration.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
         this.hrBorder = {
             variable:           '@hr-border',
-            subscribeProperty:  'hr-rule-color',
+            subscribeProperty:  'horizontal-rule',
             changeFn:           this.setHrBorder.bind(this),
             subscribers:        [],
 			_value:             null
@@ -980,18 +1293,29 @@
             subscribers:        [],
 			_value:             null
         };
+        this.iconFontPath = {
+            variable:           '@icon-font-path',
+            subscribeProperty:  'icon-font-path',
+            changeFn:           this.setIconFontPath.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
-            componentBaseBg:        this.componentBaseBg,
+            componentActiveBg:      this.componentActiveBg,
+            componentActiveColor:   this.componentActiveColor,
             wellBg:                 this.wellBg,
+            wellBorder:             this.wellBorder,
             bodyBg:                 this.bodyBg,
             textColor:              this.textColor,
             pageHeaderBorderColor:  this.pageHeaderBorderColor,
             linkColor:              this.linkColor,
             linkHoverColor:         this.linkHoverColor,
+            linkHoverDecoration:    this.linkHoverDecoration,
             hrBorder:               this.hrBorder,
-            borderRadiusBase:       this.borderRadiusBase
+            borderRadiusBase:       this.borderRadiusBase,
+            iconFontPath:           this.iconFontPath
         };
 
         this.setupDataBinding();
@@ -1002,23 +1326,43 @@
     Misc.prototype.constructor  = Misc;
 
     /**
-     * Gets the Background Color of Components.
+     * Gets the Global Background Color of Components.
      * 
      * @returns {string}
      */
-    Misc.prototype.getComponentBaseBackgroundColor = function () {
-        return this.modifiers.componentBaseBg.value;
+    Misc.prototype.getComponentActiveBackgroundColor = function () {
+        return this.modifiers.componentActiveBg.value;
     };
     
     /**
-     * Sets the Background Color of Components, such as Panel body, List Groups.
+     * Sets the Global Background Color of Components, such as Panel body, List Groups.
      * 
-     * @param {string} backgroundColor The Background Color of Components to set.
+     * @param {string} backgroundColor The Global Background Color of Components to set.
      * 
      * @returns {undefined}
      */
-    Misc.prototype.setComponentBaseBackgroundColor = function (backgroundColor) {
-        this.modifiers.componentBaseBg.value = backgroundColor;
+    Misc.prototype.setComponentActiveBackgroundColor = function (backgroundColor) {
+        this.modifiers.componentActiveBg.value = backgroundColor;
+    };
+
+    /**
+     * Gets the Global Color of Components.
+     * 
+     * @returns {string}
+     */
+    Misc.prototype.getComponentActiveColor = function () {
+        return this.modifiers.componentActiveColor.value;
+    };
+
+    /**
+     * Sets the Global Color of Components, such as Panel body, List Groups.
+     * 
+     * @param {string} backgroundColor The Global Color of Components to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setComponentActiveColor = function (color) {
+        this.modifiers.componentActiveColor.value = color;
     };
 
     /**
@@ -1039,6 +1383,26 @@
      */
     Misc.prototype.setWellBackgroundColor = function (wellBackgroundColor) {
         this.modifiers.wellBg.value = wellBackgroundColor;
+    };
+
+    /**
+     * Gets the Border Color of the Well Components.
+     * 
+     * @returns {string}
+     */
+    Misc.prototype.getWellBorderColor = function () {
+        return this.modifiers.wellBorder.value;
+    };
+
+    /**
+     * Sets the Border Color of the Well Component.
+     * 
+     * @param {string} wellBorder The Well Border Color to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setWellBorderColor = function (wellBorder) {
+        this.modifiers.wellBorder.value = wellBorder;
     };
 
     /**
@@ -1142,7 +1506,27 @@
     };
 
     /**
-     * Gets the Horizontal Rule color.
+     * Gets the Link Hover Decoration.
+     * 
+     * @returns {String}
+     */
+    Misc.prototype.getLinkHoverDecoration = function () {
+        return this.modifiers.linkHoverDecoration.value;
+    };
+
+    /**
+     * Sets the Link Hover Decoration.
+     * 
+     * @param {string} linkHoverDecoration The Link Hover Decoration to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setLinkHoverDecoration = function (linkHoverDecoration) {
+        this.modifiers.linkHoverDecoration.value = linkHoverDecoration;
+    };
+
+    /**
+     * Gets the Horizontal Rule Color.
      * 
      * @returns {String}
      */
@@ -1182,6 +1566,26 @@
         if (unit !== undefined) { this.modifiers.borderRadiusBase.unit = unit; }
 
         this.modifiers.borderRadiusBase.value = borderRadiusBase;
+    };
+
+    /**
+     * Gets the Icon Font Path.
+     * 
+     * @returns {String}
+     */
+    Misc.prototype.getIconFontPath = function () {
+        return this.modifiers.iconFontPath.value;
+    };
+    
+    /**
+     * Sets the Icon Font Path.
+     * 
+     * @param {string} hrBorder The Icon Font Path to set.
+     * 
+     * @returns {undefined}
+     */
+    Misc.prototype.setIconFontPath = function (iconFontPath) {
+        this.modifiers.iconFontPath.value = iconFontPath;
     };
 
     /**
@@ -1430,10 +1834,12 @@
 	 * 
 	 * @param {ClucklesEditor} editor instance which manages the less modifications.
 	 * 
-	 * @property {object} bg            The @breadcrumb-bg variable which controls the Background Color of the Breadcrumb Component.
-	 * @property {object} color         The @breadcrumb-color variable which controls the Color of the Breadcrumb Component.
-	 * @property {object} activeColor   The @breadcrumb-active-color variable which controls the Active Color of the Breadcrumb Component.
-	 * @property {object} separator     The @breadcrumb-seperator variable which controls the Separator Character of the Breadcrumb Component.
+	 * @property {object} bg                The @breadcrumb-bg variable which controls the Background Color of the Breadcrumb Component.
+	 * @property {object} color             The @breadcrumb-color variable which controls the Color of the Breadcrumb Component.
+	 * @property {object} activeColor       The @breadcrumb-active-color variable which controls the Active Color of the Breadcrumb Component.
+	 * @property {object} separator         The @breadcrumb-seperator variable which controls the Separator Character of the Breadcrumb Component.
+     * @property {string} paddingHorizontal The @breadcrumb-padding-horizontal variable which sets the Horizontal Padding of the Breadcrumb Component.
+     * @property {string} paddingVertical   The @breadcrumb-padding-vertical variable which sets the Vertical Padding of the Breadcrumb Component.
      * 
      * @returns {Breadcrumb}
      */
@@ -1470,12 +1876,30 @@
             subscribers:        [],
 			_value:             null
         };
+        this.paddingHorizontal = {
+            variable:           '@breadcrumb-padding-horizontal',
+            subscribeProperty:  'padding-horizontal',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingHorizontal.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.paddingVertical = {
+            variable:           '@breadcrumb-padding-vertical',
+            subscribeProperty:  'padding-vertical',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingVertical.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
 
         this.modifiers = {
-            bg:             this.bg,
-            color:          this.color,
-            activeColor:    this.activeColor,
-            separator:      this.separator
+            bg:                 this.bg,
+            color:              this.color,
+            activeColor:        this.activeColor,
+            separator:          this.separator,
+            paddingHorizontal:  this.paddingHorizontal,
+            paddingVertical:    this.paddingVertical
         };
 
         this.setupDataBinding();
@@ -1553,7 +1977,7 @@
 	Breadcrumb.prototype.getSeperator = function () {
 		return this.modifiers.separator.value;
 	};
-	
+
 	/**
 	 * Sets the Separator Character of the Breadcrumb Component.
 	 * 
@@ -1564,6 +1988,43 @@
 	Breadcrumb.prototype.setSeparator = function (separator) {
 		this.modifiers.separator.value = separator;
 	};
+
+    /**
+     * Sets the Horizontal Padding of the Breadcrumb Components.
+     * 
+     * @param {string} horizontalPadding The Breadcrumb Horizontal Padding to set.
+     * @param {string} unit              The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Breadcrumb.prototype.setPaddingHorizontal = function (paddingHorizontal, unit) {
+        if (unit !== undefined) { this.modifiers.paddingHorizontal.unit = unit; }
+
+        this.modifiers.paddingHorizontal.value = paddingHorizontal;
+    };
+
+    /**
+     * Gets the Vertical Padding of the Breadcrumb Components.
+     * 
+     * @returns {string}
+     */
+    Breadcrumb.prototype.getPaddingVertical = function () {
+        return this.modifiers.paddingVertical.value;
+    };
+
+    /**
+     * Sets the Horizontal Padding of the Breadcrumb Components.
+     * 
+     * @param {string} verticalPadding  The Breadcrumb Horizontal Padding to set.
+     * @param {string} unit             The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Breadcrumb.prototype.setPaddingVertical = function (paddingVertical, unit) {
+        if (unit !== undefined) { this.modifiers.paddingVertical.unit = unit; }
+
+        this.modifiers.paddingVertical.value = paddingVertical;
+    };
 
     /**
      * Allows modification of the General Panel Component Styling.
@@ -1700,6 +2161,8 @@
      * @property {string} marginBottom      The @navbar-margin-bottom variable which sets the Margin Bottom of Navbar Components.
      * @property {string} borderRadius      The @navbar-border-radius variable which sets the Border Radius of Navbar Components.
      * @property {string} collapseMaxHeight The @navbar-collapse-max-height variable which sets the Max Height of the Navbar Collapse Components.
+     * @property {string} paddingHorizontal The @navbar-padding-horizontal variable which sets the Horizontal Padding of the Navbar Collapse Components.
+     * @property {string} paddingVertical   The @navbar-padding-vertical variable which sets the Vertical Padding of the Navbar Collapse Components.
      * 
      * @returns {NavbarBase}
      */
@@ -1741,13 +2204,31 @@
             subscribers:        [],
 			_value:             null
         };
+        this.paddingHorizontal = {
+            variable:           '@navbar-padding-horizontal',
+            subscribeProperty:  'padding-horizontal',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingHorizontal.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
+        this.paddingVertical = {
+            variable:           '@navbar-padding-vertical',
+            subscribeProperty:  'padding-vertical',
+            suffixUnit:         true,
+            changeFn:           this.setPaddingVertical.bind(this),
+            subscribers:        [],
+			_value:             null
+        };
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             height:             this.height,
             marginBottom:       this.marginBottom,
             borderRadius:       this.borderRadius,
-            collapseMaxHeight:  this.collapseMaxHeight
+            collapseMaxHeight:  this.collapseMaxHeight,
+            paddingHorizontal:  this.paddingHorizontal,
+            paddingVertical:    this.paddingVertical
         };
 
         this.setupDataBinding();
@@ -1847,6 +2328,52 @@
         if (unit !== undefined) { this.modifiers.collapseMaxHeight.unit = unit; }
 
         this.modifiers.collapseMaxHeight.value = collapseMaxHeight;
+    };
+
+    /**
+     * Gets the Horizontal Padding of the Navbar Components.
+     * 
+     * @returns {string}
+     */
+    NavbarBase.prototype.getPaddingHorizontal = function () {
+        return this.modifiers.paddingHorizontal.value;
+    };
+
+    /**
+     * Sets the Horizontal Padding of the Navbar Components.
+     * 
+     * @param {string} horizontalPadding The Navbar Horizontal Padding to set.
+     * @param {string} unit              The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    NavbarBase.prototype.setPaddingHorizontal = function (paddingHorizontal, unit) {
+        if (unit !== undefined) { this.modifiers.paddingHorizontal.unit = unit; }
+
+        this.modifiers.paddingHorizontal.value = paddingHorizontal;
+    };
+
+    /**
+     * Gets the Vertical Padding of the Navbar Components.
+     * 
+     * @returns {string}
+     */
+    NavbarBase.prototype.getPaddingVertical = function () {
+        return this.modifiers.paddingVertical.value;
+    };
+
+    /**
+     * Sets the Horizontal Padding of the Navbar Components.
+     * 
+     * @param {string} verticalPadding  The Navbar Horizontal Padding to set.
+     * @param {string} unit             The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    NavbarBase.prototype.setPaddingVertical = function (paddingVertical, unit) {
+        if (unit !== undefined) { this.modifiers.paddingVertical.unit = unit; }
+
+        this.modifiers.paddingVertical.value = paddingVertical;
     };
 
     /**
@@ -2209,7 +2736,6 @@
      * @property {object} linkHoverBg               The @nav-link-hover-bg variable which controls the Link Hover Color of the Nav Component.
      * @property {object} linkDisabledColor         The @nav-disabled-link-color variable which controls the Disabled Link Color of the Nav Component.
      * @property {object} linkDisabledHoverColor    The @nav-disabled-link-hover-color variable which controls the Disabled Link Hover Color of the Nav Component.
-     * @property {object} linkOpenHoverColor        The @nav-open-link-hover-color variable which controls the Open Link Hover Color of the Nav Component.
      * 
      * @returns {Nav}
      */
@@ -2248,21 +2774,13 @@
             subscribers:        [],
 			_value:             null
         };
-        this.linkOpenHoverColor = {
-            variable:           '@nav-open-link-hover-color',
-            subscribeProperty:  'link-open-hover-color',
-            changeFn:           this.setLinkOpenHoverColor.bind(this),
-            subscribers:        [],
-			_value:             null
-        };
         
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             linkPadding:            this.linkPadding,
             linkHoverBg:            this.linkHoverBg,
             linkDisabledColor:      this.linkDisabledColor,
-            linkDisabledHoverColor: this.linkDisabledHoverColor,
-            linkOpenHoverColor:     this.linkOpenHoverColor
+            linkDisabledHoverColor: this.linkDisabledHoverColor
         };
 
         this.setupDataBinding();
@@ -2354,26 +2872,6 @@
 	Nav.prototype.setLinkDisabledHoverColor = function (linkDisabledHoverColor) {
 		this.modifiers.linkDisabledHoverColor.value = linkDisabledHoverColor;
 	};
-
-    /**
-     * Gets the Link Open Hover Color of the Nav Components.
-     * 
-     * @returns {string}
-     */
-    Nav.prototype.getLinkOpenHoverColor = function () {
-        return this.modifiers.linkOpenHoverColor.value;
-    };
-
-    /**
-     * Sets the Link Open Hover Color of the Nav Components.
-     * 
-     * @param {string} linkOpenHoverColor The Nav Link Open Hover Color to set.
-     * 
-     * @returns {string}
-     */
-    Nav.prototype.setLinkOpenHoverColor = function (linkOpenHoverColor) {
-        this.modifiers.linkOpenHoverColor.value = linkOpenHoverColor;
-    };
 
 	/**
 	 * Allows modification of the Pagination component in Bootstrap.
@@ -3003,6 +3501,7 @@
 	 * @property {object} legendBorderColor             The @legend-border-color variable which controls the Legend Border Color of the Form Component.
 	 * @property {object} inputGroupAddonBgColor        The @input-group-addon-bg variable which controls the Input Group Addon Background Color of the Form Component.
 	 * @property {object} inputGroupAddonBorderColor    The @input-group-addon-border-color variable which controls the Input Group Addon Border Color of the Form Component.
+	 * @property {object} cursorDisabled                The @input-cursor-disabled variable which controls the Cursor of Disabled Inputs of the Form Component.
 	 * 
 	 * @returns {Form}
 	 */
@@ -3090,6 +3589,13 @@
             subscribers:        [],
 			_value:             null
 		};
+		this.cursorDisabled = {
+			variable:           '@cursor-disabled',
+			subscribeProperty:  'cursor-disabled',
+            changeFn:           this.setCursorDisabled.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -3103,7 +3609,8 @@
             legendColor:                this.legendColor,
             legendBorderColor:          this.legendBorderColor,
             inputGroupAddonBgColor:     this.inputGroupAddonBgColor,
-            inputGroupAddonBorderColor: this.inputGroupAddonBorderColor
+            inputGroupAddonBorderColor: this.inputGroupAddonBorderColor,
+            cursorDisabled:             this.cursorDisabled
         };
 
         this.setupDataBinding();
@@ -3334,6 +3841,26 @@
      */
     Form.prototype.setInputGroupAddonBorderColor = function (inputGroupAddonBorderColor) {
         this.modifiers.inputGroupAddonBorderColor.value = inputGroupAddonBorderColor;
+    };
+
+    /**
+     * Gets the Cursor Disabled of the Form Component.
+     * 
+     * @returns {string}
+     */
+    Form.prototype.getCursorDisabled = function () {
+        return this.modifiers.cursorDisabled.value;
+    };
+
+    /**
+     * Sets the Cursor Disabled of the Form Component.
+     * 
+     * @param {string} cursorDisabled The Form Cursor Disabled to set.
+     * 
+     * @returns {undefined}
+     */
+    Form.prototype.setCursorDisabled = function (cursorDisabled) {
+        this.modifiers.cursorDisabled.value = cursorDisabled;
     };
 
 	/**
@@ -3899,6 +4426,7 @@
 	 * @property {object} bg                The @dropdown-bg variable which controls the Background Color of the Dropdown Component.
 	 * @property {object} headerColor       The @dropdown-header-color variable which controls the Header Color of the Dropdown Component.
 	 * @property {object} border            The @dropdown-border variable which controls the Border Color of the Dropdown Component.
+	 * @property {object} fallbackBorder    The @dropdown-fallback-border variable which controls the Border Color (IE8) of the Dropdown Component.
 	 * @property {object} divider           The @dropdown-divider-bg variable which controls the Divider Color of the Dropdown Component.
 	 * @property {object} linkColor         The @dropdown-link-color variable which controls the Link Color of the Dropdown Component.
 	 * @property {object} linkDisabledColor The @dropdown-link-disabled-color variable which controls the Link Disabled Color of the Dropdown Component.
@@ -3933,6 +4461,13 @@
 			variable:           '@dropdown-border',
             subscribeProperty:  'border-color',
             changeFn:           this.setBorderColor.bind(this),
+			subscribers:        [],
+			_value:             null
+		};
+		this.fallbackBorder = {
+			variable:           '@dropdown-fallback-border',
+            subscribeProperty:  'fallback-border-color',
+            changeFn:           this.setFallbackBorderColor.bind(this),
 			subscribers:        [],
 			_value:             null
 		};
@@ -3991,6 +4526,7 @@
             bg:                 this.bg,
             headerColor:        this.headerColor,
             border:             this.border,
+            fallbackBorder:     this.fallbackBorder,
             divider:            this.divider,
             linkColor:          this.linkColor,
             linkDisabledColor:  this.linkDisabledColor,
@@ -4065,6 +4601,26 @@
 	 */
 	Dropdown.prototype.setBorderColor = function (borderColor) {
 		this.modifiers.border.value = borderColor;
+	};
+
+	/**
+	 * Gets the Fallback Border Color of the Dropdown Component.
+	 * 
+	 * @returns {string}
+	 */
+	Dropdown.prototype.getFallbackBorderColor = function () {
+		return this.modifiers.fallbackBorder.value;
+	};
+	
+	/**
+	 * Sets the Fallback Border Color of the Dropdown Component.
+	 * 
+	 * @param {string} fallbackBorder The Dropdown Fallback Border Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Dropdown.prototype.setFallbackBorderColor = function (fallbackBorder) {
+		this.modifiers.fallbackBorder.value = fallbackBorder;
 	};
 	
 	/**
@@ -6495,7 +7051,8 @@
 	 * @property {object} padding       The @jumbotron-padding variable which sets the Padding of the Jumbotron Component.
 	 * @property {object} bg            The @jumbotron-bg variable which sets the Background of the Jumbotron Component.
 	 * @property {object} headingColor  The @jumbotron-heading-color variable which sets the Heading of the Jumbotron Component.
-	 * @property {object} color         The @jumbotron-color variable which sets the color of the Jumbotron Component.
+	 * @property {object} color         The @jumbotron-color variable which sets the Color of the Jumbotron Component.
+	 * @property {object} fontSize      The @jumbotron-font-size variable which sets the Font Size of the Jumbotron Component.
 	 * 
 	 * @returns {Jumbotron}
 	 */
@@ -6534,13 +7091,22 @@
             subscribers:        [],
             _value:             null
         };
+        this.fontSize = {
+            variable:           '@jumbotron-font-size',
+            subscribeProperty:  'font-size',
+            suffixUnit:         true,
+            changeFn:           this.setFontSize.bind(this),
+            subscribers:        [],
+            _value:             null
+        };
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             padding:        this.padding,
             bg:             this.bg,
             headingColor:   this.headingColor,
-            color:          this.color
+            color:          this.color,
+            fontSize:       this.fontSize
         };
 
         this.setupDataBinding();
@@ -6562,15 +7128,15 @@
     /**
      * Sets the Padding of the Jumbotron Component.
      * 
-     * @param {string} color The Jumbotron Padding to set.
-     * @param {string} unit  The CSS measurement unit to suffix to the value.
+     * @param {string} padding  The Jumbotron Padding to set.
+     * @param {string} unit     The CSS measurement unit to suffix to the value.
      * 
      * @returns {undefined}
      */
-    Jumbotron.prototype.setPadding = function (color, unit) {
+    Jumbotron.prototype.setPadding = function (padding, unit) {
         if (unit !== undefined) { this.modifiers.padding.unit = unit; }
 
-        this.modifiers.padding.value = color;
+        this.modifiers.padding.value = padding;
     };
 
     /**
@@ -6633,6 +7199,29 @@
         this.modifiers.headingColor.value = headingColor;
     };
 
+    /**
+     * Gets the Font Size of the Jumbotron Component.
+     * 
+     * @returns {string}
+     */
+    Jumbotron.prototype.getFontSize = function () {
+        return this.modifiers.fontSize.value;
+    };
+
+    /**
+     * Sets the Font Size of the Jumbotron Component.
+     * 
+     * @param {string} fontSize The Jumbotron Font Size to set.
+     * @param {string} unit     The CSS measurement unit to suffix to the value.
+     * 
+     * @returns {undefined}
+     */
+    Jumbotron.prototype.setFontSize = function (fontSize, unit) {
+        if (unit !== undefined) { this.modifiers.fontSize.unit = unit; }
+
+        this.modifiers.fontSize.value = fontSize;
+    };
+
 	/**
 	 * Allows modifications of the ListGroup Component styling.
 	 * 
@@ -6643,13 +7232,18 @@
 	 * 
 	 * @property {object} bg                The @list-group-bg variable which sets the Background Color of the ListGroup Component.
 	 * @property {object} border            The @list-group-border variable which sets the Border Color of the ListGroup Component.
+	 * @property {object} borderRadius      The @list-group-border-radius variable which sets the Border Radius of the ListGroup Component.
 	 * @property {object} hoverBg           The @list-group-hover-bg variable which sets the Hover Background of the ListGroup Component.
-	 * @property {object} linkHeadingColor  The @list-group-link-heading-color variable which sets the Color of <h4> inside ListGroups.
-	 * @property {object} linkColor         The @list-group-link-color variable which sets the Color of <a> inside ListGroups.
 	 * @property {object} activeBg          The @list-group-active-bg variable which sets the Background Color of <a> inside ListGroups.
 	 * @property {object} activeBorder      The @list-group-active-border variable which sets the Active Border of the ListGroup Component.
 	 * @property {object} activeColor       The @list-group-active-color variable which sets the Color of <a> inside ListGroups.
 	 * @property {object} activeTextColor   The @list-group-active-text-color variable which sets the Color of <a> > <p> inside ListGroups.
+     * @property {object} linkColor         The @list-group-link-color variable which sets the Color of <a> inside ListGroups.
+     * @property {object} linkHeadingColor  The @list-group-link-heading-color variable which sets the Color of <h4> inside ListGroups.
+     * @property {object} linkHoverColor    The @list-group-link-heading-color variable which sets the Hover Color of <a> inside ListGroups.
+     * @property {object} disabledBg        The @list-group-disabled-bg variable which sets the Background Color of Disabled Items inside ListGroups.
+     * @property {object} disabledColor     The @list-group-disabled-color variable which sets the Color of Disabled Items inside ListGroups.
+     * @property {object} disabledTextColor The @list-group-disabled-text-color variable which sets the Text Color of Content in Disabled Items inside ListGroups.
 	 * 
 	 * @returns {ListGroup}
 	 */
@@ -6673,24 +7267,18 @@
             subscribers:        [],
 			_value:             null
 		};
+		this.borderRadius = {
+			variable:           '@list-group-border-radius',
+			subscribeProperty:  'border-radius',
+            suffixUnit:         true,
+            changeFn:           this.setBorderRadius.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
 		this.hoverBg = {
 			variable:           '@list-group-hover-bg',
 			subscribeProperty:  'hover-bg',
             changeFn:           this.setHoverBackgroundColor.bind(this),
-            subscribers:        [],
-			_value:             null
-		};
-		this.linkHeadingColor = {
-			variable:           '@list-group-link-heading-color',
-			subscribeProperty:  'link-heading-color',
-            changeFn:           this.setLinkHeadingColor.bind(this),
-            subscribers:        [],
-			_value:             null
-		};
-		this.linkColor = {
-			variable:           '@list-group-link-color',
-			subscribeProperty:  'link-color',
-            changeFn:           this.setLinkColor.bind(this),
             subscribers:        [],
 			_value:             null
 		};
@@ -6722,18 +7310,64 @@
             subscribers:        [],
 			_value:             null
 		};
+        this.linkColor = {
+			variable:           '@list-group-link-color',
+			subscribeProperty:  'link-color',
+            changeFn:           this.setLinkColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+        this.linkHeadingColor = {
+			variable:           '@list-group-link-heading-color',
+			subscribeProperty:  'link-heading-color',
+            changeFn:           this.setLinkHeadingColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+        this.linkHoverColor = {
+			variable:           '@list-group-link-hover-color',
+			subscribeProperty:  'link-hover-color',
+            changeFn:           this.setLinkHoverColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+        this.disabledBg = {
+			variable:           '@list-group-disabled-bg',
+			subscribeProperty:  'disabled-bg',
+            changeFn:           this.setDisabledBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+        this.disabledColor = {
+			variable:           '@list-group-disabled-color',
+			subscribeProperty:  'disabled-color',
+            changeFn:           this.setDisabledColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+		this.disabledTextColor = {
+			variable:           '@list-group-disabled-text-color',
+			subscribeProperty:  'disabled-text-color',
+            changeFn:           this.setDisabledTextColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
 		
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
             bg:                 this.bg,
             border:             this.border,
             hoverBg:            this.hoverBg,
-            linkHeadingColor:   this.linkHeadingColor,
-            linkColor:          this.linkColor,
             activeBg:           this.activeBg,
             activeBorder:       this.activeBorder,
             activeColor:        this.activeColor,
-            activeTextColor:    this.activeTextColor
+            activeTextColor:    this.activeTextColor,
+            linkColor:          this.linkColor,
+            linkHeadingColor:   this.linkHeadingColor,
+            linkHoverColor:     this.linkHoverColor,
+            disabledBg:         this.disabledBg,
+            disabledColor:      this.disabledColor,
+            disabledTextColor:  this.disabledTextColor
         };
 
         this.setupDataBinding();
@@ -6784,6 +7418,29 @@
 	};
 	
 	/**
+	 * Gets the Border Radius of the ListGroup Component.
+	 * 
+	 * @returns {string}
+	 */
+	ListGroup.prototype.getBorderRadius = function () {
+		return this.modifiers.borderRadius.value;
+	};
+	
+	/**
+	 * Sets the Border Radius of the ListGroup Component.
+	 * 
+	 * @param {string} borderRadius The ListGroup the Border Radius to set.
+     * @param {string} unit         The CSS measurement unit to suffix to the value.
+	 * 
+	 * @returns {undefined}
+	 */
+	ListGroup.prototype.setBorderRadius = function (borderRadius, unit) {
+        if (unit !== undefined) { this.modifiers.borderRadius.unit = unit; }
+
+		this.modifiers.borderRadius.value = borderRadius;
+	};
+	
+	/**
 	 * Gets the Hover Background Color of the ListGroup Component.
 	 * 
 	 * @returns {string}
@@ -6801,46 +7458,6 @@
 	 */
 	ListGroup.prototype.setHoverBackgroundColor = function (hoverBackgroundColor) {
 		this.modifiers.hoverBg.value = hoverBackgroundColor;
-	};
-	
- 	/**
-	 * Gets the Link Color of the ListGroup Component.
-	 * 
-	 * @returns {String}
-	 */
-	ListGroup.prototype.getLinkColor = function () {
-		return this.modifiers.linkColor.value;
-	};
-	
-	/**
-	 * Sets the Link Color of the ListGroup Component.
-	 * 
-	 * @param {string} linkColor The ListGroup Link Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	ListGroup.prototype.setLinkColor = function (linkColor) {
-		this.modifiers.linkColor.value = linkColor;
-	};
-	
-	/**
-	 * Gets the Link Heading Color of the ListGroup Component.
-	 * 
-	 * @returns {string}
-	 */
-	ListGroup.prototype.getLinkHeadingColor = function () {
-		return this.modifiers.linkHeadingColor.value;
-	};
-
-	/**
-	 * Sets the Link Heading Color of the ListGroup Component.
-	 * 
-	 * @param {string} linkHeadingColor The ListGroup Link Heading Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	ListGroup.prototype.setLinkHeadingColor = function (linkHeadingColor) {
-		this.modifiers.linkHeadingColor.value = linkHeadingColor;
 	};
 	
 	/**
@@ -6923,6 +7540,126 @@
 		this.modifiers.activeTextColor.value = activeTextColor;
 	};
 
+ 	/**
+	 * Gets the Link Color of the ListGroup Component.
+	 * 
+	 * @returns {String}
+	 */
+	ListGroup.prototype.getLinkColor = function () {
+		return this.modifiers.linkColor.value;
+	};
+	
+	/**
+	 * Sets the Link Color of the ListGroup Component.
+	 * 
+	 * @param {string} linkColor The ListGroup Link Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	ListGroup.prototype.setLinkColor = function (linkColor) {
+		this.modifiers.linkColor.value = linkColor;
+	};
+	
+	/**
+	 * Gets the Link Heading Color of the ListGroup Component.
+	 * 
+	 * @returns {string}
+	 */
+	ListGroup.prototype.getLinkHeadingColor = function () {
+		return this.modifiers.linkHeadingColor.value;
+	};
+
+	/**
+	 * Sets the Link Heading Color of the ListGroup Component.
+	 * 
+	 * @param {string} linkHeadingColor The ListGroup Link Heading Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	ListGroup.prototype.setLinkHeadingColor = function (linkHeadingColor) {
+		this.modifiers.linkHeadingColor.value = linkHeadingColor;
+	};
+
+	/**
+	 * Gets the Link Hover Color of the ListGroup Component.
+	 * 
+	 * @returns {string}
+	 */
+	ListGroup.prototype.getLinkHoverColor = function () {
+		return this.modifiers.linkHoverColor.value;
+	};
+
+	/**
+	 * Sets the Link Hover Color of the ListGroup Component.
+	 * 
+	 * @param {string} linkHoverColor The ListGroup Link Hover Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	ListGroup.prototype.setLinkHoverColor = function (linkHoverColor) {
+		this.modifiers.linkHoverColor.value = linkHoverColor;
+	};
+
+	/**
+	 * Gets the Disabled Background Color of the ListGroup Component.
+	 * 
+	 * @returns {string}
+	 */
+	ListGroup.prototype.getDisabledBackgroundColor = function () {
+		return this.modifiers.disabledBg.value;
+	};
+	
+	/**
+	 * Sets the Disabled Background Color of the ListGroup Component.
+	 * 
+	 * @param {string} disabledBackgroundColor The ListGroup Disabled Background Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	ListGroup.prototype.setDisabledBackgroundColor = function (disabledBackgroundColor) {
+		this.modifiers.disabledBg.value = disabledBackgroundColor;
+	};
+
+ 	/**
+	 * Gets the Disabled Color of the ListGroup Component.
+	 * 
+	 * @returns {String}
+	 */
+	ListGroup.prototype.getDisabledColor = function () {
+		return this.modifiers.disabledColor.value;
+	};
+	
+	/**
+	 * Sets the Disabled Color of the ListGroup Component.
+	 * 
+	 * @param {string} disabledColor The ListGroup Disabled Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	ListGroup.prototype.setDisabledColor = function (disabledColor) {
+		this.modifiers.disabledColor.value = disabledColor;
+	};
+
+ 	/**
+	 * Gets the Disabled Text Color of the ListGroup Component.
+	 * 
+	 * @returns {String}
+	 */
+	ListGroup.prototype.getDisabledTextColor = function () {
+		return this.modifiers.disabledTextColor.value;
+	};
+
+	/**
+	 * Sets the Disabled Text Color of the ListGroup Component.
+	 * 
+	 * @param {string} disabledTextColor The ListGroup Disabled Text Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	ListGroup.prototype.setDisabledTextColor = function (disabledTextColor) {
+		this.modifiers.disabledTextColor.value = disabledTextColor;
+	};
+
 	/**
 	 * Allows modification of the Navbar Component in Bootstrap.
 	 * 
@@ -6945,6 +7682,9 @@
 	 * @property {object} brandColor        The @navbar-{style}-brand-color variable which controls the Brand Color of the Navbar Component.
 	 * @property {object} brandHoverColor   The @navbar-{style}-brand-hover-color variable which controls the Brand Hover Color of the Navbar Component.
 	 * @property {object} brandHoverBg      The @navbar-{style}-brand-hover-bg variable which controls the Brand Hover Background of the Navbar Component.
+	 * @property {object} toggleHoverBg     The @navbar-{style}-toggle-hover-bg variable which controls the Toggle Hover Background of the Navbar Component.
+	 * @property {object} toggleIconBarBg   The @navbar-{style}-toggle-icon-bar-bg variable which controls the Toggle Icon Bar Background of the Navbar Component.
+	 * @property {object} toggleBorderColor The @navbar-{style}-toggle-border-color variable which controls the Toggle BorderColor of the Navbar Component.
 	 * 
 	 * @returns {Navbar}
 	 */
@@ -7012,20 +7752,6 @@
             subscribers:        [],
 			_value:             null
 		};
-		this.linkHoverColor = {
-			variable:           '@navbar-' + navbarStyle + '-link-hover-color',
-			subscribeProperty:  'link-hover-color',
-            changeFn:           this.setLinkHoverColor.bind(this),
-            subscribers:        [],
-			_value:             null
-		};
-		this.linkHoverBg = {
-			variable:           '@navbar-' + navbarStyle + '-link-hover-bg',
-			subscribeProperty:  'link-hover-bg',
-            changeFn:           this.setLinkHoverBackgroundColor.bind(this),
-            subscribers:        [],
-			_value:             null
-		};
 		this.linkDisabledColor = {
 			variable:           '@navbar-' + navbarStyle + '-link-disabled-color',
 			subscribeProperty:  'link-disabled-color',
@@ -7061,6 +7787,27 @@
             subscribers:        [],
 			_value:             null
 		};
+		this.toggleHoverBg = {
+			variable:           '@navbar-' + navbarStyle + '-toggle-hover-bg',
+			subscribeProperty:  'toggle-hover-bg',
+            changeFn:           this.setToggleHoverBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+		this.toggleIconBarBg = {
+			variable:           '@navbar-' + navbarStyle + '-toggle-icon-bar-bg',
+			subscribeProperty:  'toggle-icon-bar-bg',
+            changeFn:           this.setToggleIconBarBackgroundColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
+		this.toggleBorderColor = {
+			variable:           '@navbar-' + navbarStyle + '-toggle-border-color',
+			subscribeProperty:  'toggle-border-color',
+            changeFn:           this.setToggleBorderColor.bind(this),
+            subscribers:        [],
+			_value:             null
+		};
 
         // Configure the modifiers so they can be extracted easier
         this.modifiers = {
@@ -7076,7 +7823,10 @@
             linkDisabledBg:     this.linkDisabledBg,
             brandColor:         this.brandColor,
             brandHoverColor:    this.brandHoverColor,
-            brandHoverBg:       this.brandHoverBg
+            brandHoverBg:       this.brandHoverBg,
+            toggleHoverBg:      this.toggleHoverBg,
+            toggleIconBarBg:    this.toggleIconBarBg,
+            toggleBorderColor:  this.toggleBorderColor
         };
 
         this.setupDataBinding();
@@ -7348,6 +8098,66 @@
 		this.modifiers.brandHoverBg.value = brandHoverBackgroundColor;
 	};
 
+	/**
+	 * Gets the Toggle Hover Background Color of this Navbar instance.
+	 * 
+	 * @returns {string}
+	 */
+	Navbar.prototype.getToggleHoverBackgroundColor = function () {
+		return this.modifiers.toggleHoverBg.value;
+	};
+
+	/**
+	 * Sets the Toggle Hover Background Color of this Navbar instance.
+	 * 
+	 * @param {string} toggleHoverBg The Navbar instance Toggle Hover Background Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Navbar.prototype.setToggleHoverBackgroundColor = function (toggleHoverBg) {
+		this.modifiers.toggleHoverBg.value = toggleHoverBg;
+	};
+
+	/**
+	 * Gets the Toggle Icon Bar Background Color of this Navbar instance.
+	 * 
+	 * @returns {string}
+	 */
+	Navbar.prototype.getToggleIconBarBackgroundColor = function () {
+		return this.modifiers.toggleIconBarBg.value;
+	};
+	
+	/**
+	 * Sets the Toggle Icon Bar Background Color of this Navbar instance.
+	 * 
+	 * @param {string} toggleIconBarBg The Navbar instance Toggle Icon Bar Background Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Navbar.prototype.setToggleIconBarBackgroundColor = function (toggleIconBarBg) {
+		this.modifiers.toggleIconBarBg.value = toggleIconBarBg;
+	};
+
+	/**
+	 * Gets the Toggle Border Color of this Navbar instance.
+	 * 
+	 * @returns {string}
+	 */
+	Navbar.prototype.getToggleBorderColor = function () {
+		return this.modifiers.toggleBorderColor.value;
+	};
+
+	/**
+	 * Sets the Toggle Border Color of this Navbar instance.
+	 * 
+	 * @param {string} toggleBorderColor The Navbar instance Toggle Border Color to set.
+	 * 
+	 * @returns {undefined}
+	 */
+	Navbar.prototype.setToggleBorderColor = function (toggleBorderColor) {
+		this.modifiers.toggleBorderColor.value = toggleBorderColor;
+	};
+
     /**
      * Manages the Exporting of the Theme data, in JSON (modifications only)/Compiled CSS format,
      * aswell as creating the Download Blob's and the Links/Buttons to trigger the download.
@@ -7378,15 +8188,13 @@
      * 
      * @returns {Export}
      */
-    var Export = function (editor, options) {
+    var Export = function (editor, options) {        
         this.editor     = editor;
         this.options    = options;
 
         this.jsonLink   = null;
         this.saveLink   = null;
         this.cssLink    = null;
-        
-        this.compiledCss    = '';
 
         // If either of the Export formats were provided
         if (options.hasOwnProperty('json')) {
@@ -7450,11 +8258,13 @@
      * @returns {Element}
      */
     Export.prototype.createExportLink = function (exportType, options) {
-        var downloadBtn = this.createBsButton(),
-            dest = this.findExportTarget(options), // Find the Append Target
-            firstCharUpper = exportType.slice(0, 1).toUpperCase();
+        var clickCount      = 0,
+            downloadBtn     = this.createBsButton(),
+            dest            = this.findExportTarget(options), // Find the Append Target
+            firstCharUpper  = exportType.slice(0, 1).toUpperCase(),
+            camelCaseType   = firstCharUpper + exportType.slice(1);
 
-        downloadBtn.textContent = options.text || 'Download ' + firstCharUpper + exportType.slice(1);
+        downloadBtn.textContent = options.text || 'Download ' + camelCaseType;
         downloadBtn.setAttribute('id', options.id || 'download_' + exportType + '_link');
 
         // Download attribute allows the button to provided a file to download on click
@@ -7463,6 +8273,13 @@
 
         // Append the Download button to the document
         document.querySelector(dest).appendChild(downloadBtn);
+
+        if (window.parent.hasOwnProperty('ga')) {
+            // Send a Google Analytics Click Event specifying this button was clicked
+            downloadBtn.addEventListener('click', function () {
+                window.parent.ga('send', 'event', 'downloadButtons', 'click', camelCaseType, ++clickCount);
+            });
+        }
 
         return downloadBtn;
     };
@@ -7514,11 +8331,11 @@
         }
 
         // Add the Custom Css/less if any was provided
-        if (customCss.length > 0) {
+        if (customCss && customCss.length > 0) {
             modifiers._extra.css =  customCss;
         }
 
-        if (customLess.length > 0) {
+        if (customLess && customLess.length > 0) {
             modifiers._extra.less = customLess;
         }
         // Update the href of the download link, this now points to the JSON data
@@ -7533,10 +8350,12 @@
      * @returns {undefined}
      */
     Export.prototype.generateCssBlob = function (css) {
-        var customStyleAttribute = 'data-clucklesCustomStyle';
+        var customStyleAttribute = 'data-clucklesCustomStyle',
+            customCss = "\n";
+    
+        if (css === undefined) { css = this.editor.processor.postProcessorCss; }
 
         css = this.editor.processor.removeScopeSelector(css);
-        var customCss = "\n";
 
         // Find each Custom style tag and process them
         [].slice.call(document.querySelectorAll('*['+ customStyleAttribute +']')).forEach(function (customStyle) {
@@ -7553,11 +8372,8 @@
             }
         }, this.editor.processor);
 
-        // Store the Compiled Css
-        this.compiledCss = css + customCss;
-
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(this.compiledCss));
+        this.cssLink.setAttribute('href', this.generateBlob(css + customCss));
     };
 
     /**
@@ -7640,8 +8456,8 @@
      * Import Options:
      * - src: {string} The src path to the Theme file to load and parse.
      * 
-	 * @param {ClucklesEditor} editor instance which manages the less modifications.
-     * @param {object} options Import options.
+	 * @param {ClucklesEditor}  editor instance which manages the less modifications.
+     * @param {object}          Import options.
      * 
      * @returns {Import}
      */
@@ -7651,10 +8467,19 @@
         this.options            = options;
         this.themeModifiers     = {};
         this.themeExtra         = {};
+        
+        this.metaDataFields = {
+            author:     document.querySelector('*[data-cluckles-meta="author"]'),
+            email:      document.querySelector('*[data-cluckles-meta="email"]'),
+            url:        document.querySelector('*[data-cluckles-meta="url"]'),
+            themeName:  document.querySelector('*[data-cluckles-meta="themeName"]'),
+            version:    document.querySelector('*[data-cluckles-meta="version"]'),
+            licence:    document.querySelector('*[data-cluckles-meta="licence"]')
+        };        
 
         // Import Headers to allow the Custom Less to be able to reference,
         // variables and mixins
-        this.customStylesHeader = '@import "' + this.editor.lessPath + 'variables-custom.less";\n' + '@import "' + this.editor.lessPath + 'mixins.less";\n';
+        this.customStylesHeader = '@import "/' + editor.lessPath  + 'variables-custom.less";\n@import "/' + editor.lessPath + 'mixins.less";\n';
 
         // Custom Styles textarea template and Custom styles panel (where the textareas will reside)
         this.customStylesTemplate   = null;
@@ -7663,34 +8488,18 @@
         // Custom Styles
         this.customCss              = [];
         this.customLess             = [];
-        
-        this.setupCustomStyles(); // Setup the ability to handle Custom Css/Less
-        this.setupFileImport();   // Setup the File input so themes can be imported
+        this.customStyleInputs      = {
+            Css:    [],
+            Less:   []
+        };
+
+        this.setupMetadata();
+        this.setupVariablesOutput();    // Setup the Variables Output, so variables can be displayed/changed directly
+        this.setupCustomStyles();       // Setup the ability to handle Custom Css/Less
+        this.setupFileImport();         // Setup the File input so themes can be imported
 
         // Attempt to load and parse the theme file at the theme.src URL
         this.parseThemeFile(this.options);
-    };
-    
-    /**
-     * Parses the variables file text content passed in and returns an array of variable names and values.
-     * 
-     * @param {string} variables The variables text to process to modifiers
-     * @returns {unresolved}
-     */
-    Import.prototype.parseVariablesFile = function (variables) {
-        // Matches @variable: value; and returns a match for each variable found
-        var variablesMatches = variables.match(/^@[\w-]+:\s(?:.)*(?=;)/igm),
-            parsedVars = {};
-
-        variablesMatches.forEach(function (variable) {
-            // Split the : to get the key/value
-            var variableParts = variable.split(':');
-
-            // Now add the keys/values to the parsedVars Object
-            parsedVars[variableParts[0]] = variableParts[1].trim();
-        }, this);
-
-        return parsedVars;
     };
 
     /**
@@ -7762,7 +8571,65 @@
             }
         });
     };
-    
+
+    /**
+     * Attempts to find the Theme Metadata fields, and if they exist, bind a change
+     * event to them so the Metadata can be changed/set.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.setupMetadata = function () {        
+        Object.keys(this.metaDataFields).forEach(function (fieldName) {
+            var metaDataField = this.metaDataFields[fieldName];
+
+            if (metaDataField !== null) {
+                metaDataField.addEventListener('change', function (e) {
+                    var modifiersMeta = this.editor.modifiers._extra.meta;
+
+                    // If the field is blank
+                    if (e.target.value === '') {
+                        // Remove the Field if it exists
+                        if (modifiersMeta.hasOwnProperty(fieldName)) {
+                            delete modifiersMeta[fieldName];
+                        }
+                    } else {
+                        // Set the Meta with the field value
+                        modifiersMeta[fieldName] = e.target.value;
+                    }
+
+                    // Update the JSON Blob so the changes Metadata will be exported too!
+                    this.editor.export.generateJsonBlob();
+                }.bind(this));
+            }
+        }, this);
+    };
+
+    /**
+     * Sets up the Variables Ouput change event, so when the variables are changed the modifications will be applied.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.setupVariablesOutput = function () {
+        var variablesOutput = document.querySelector('*[data-cluckles="variables"]');
+
+        variablesOutput.addEventListener('change', function (e) {
+            var parsedModifiers = this.editor.processor.parseVariables(e.target.value);
+
+            // Disable Refreshing/Applying modifiers
+            this.editor.refreshMonitor.disabled = true;
+
+            // Store and Load the modifiers, and refresh Custom Less
+            this.editor.modifiers = parsedModifiers;
+            this.loadComponentModifiers(parsedModifiers);
+
+            // Allow Refreshing/Applying modifiers
+            this.editor.refreshMonitor.disabled = false;
+
+            // Now apply the Custom Styles
+            this.editor.refreshCustomStyles(parsedModifiers);
+        }.bind(this));
+    };
+
     /**
      * Binds the Events to Setup a File import, to import theme modifications from a
      * json file. Will only bind to file inputs, and import json files.
@@ -7797,7 +8664,7 @@
                         // If the File choosen was a Less file
                         if (file.name.match(/.less/i)) {
                             // Attempt to parse the variables from the file
-                            modifiers = this.parseVariablesFile(modifiers);
+                            modifiers = this.editor.processor.parseVariables(modifiers);
                         } else {
                             modifiers = JSON.parse(modifiers);
                         }
@@ -7831,7 +8698,7 @@
             template            = document.createElement('textarea');
 
         // Setup the Attribute of the text area
-        template.setAttribute('rows', 5);
+        template.setAttribute('rows', 20);
         template.classList.add('form-control');
 
         template.setAttribute('id', 'clucklesCustomStylesTemplate');
@@ -7866,12 +8733,16 @@
     Import.prototype.addCustomStyles = function (styles, type) {
         var textArea    = this.customStylesTemplate.cloneNode(false),
             customStyle = document.createElement('style'),
+            styleInputs = this.customStyleInputs[type],
             // Were either adding/editing Less or Css
             styleArray  = this['custom' + type], // Array which stores styles of this Type
             styleId     = styleArray.length, // Store the index of the style
             styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body'),
             // The stylesheet Less outputs when it processes' less browser side
             lessOutputStylesheet = document.getElementById('less:' + this.editor.mainStylesheetHypenated);
+
+        // Store the Textarea in the StyleInput array, so we can avoid DOM Manipulation later
+        styleInputs.push(textArea);
 
         // Set a Data attribute so we can find the style's later
         customStyle.setAttribute('data-clucklesCustomStyle', type);
@@ -7938,13 +8809,16 @@
 
             // Apply the modifications, and dont use cached styles, this will
             // make sure that it will parse the styling if the type is less
-            this.editor.applyModifications(this.editor.modifiers);
+            this.editor.applyModifications(this.editor.modifiers, true);
 
             if (type === 'Less') {
                 // Now that the less should have been compiled, it will be CSS,
                 // so we can prefix it now
                 customStyle.innerHTML = this.editor.processor.prefixCustomStyles(customStyle.innerHTML, type);
-            }            
+
+                // Update the CSS blob with the Compiled Custom Less
+                this.editor.export.generateCssBlob();
+            }
         }.bind(this));
 
         // Return the CustomStyle, so we can call the prefixCustomStyles method
@@ -7971,15 +8845,33 @@
      * @returns {undefined}
      */
     Import.prototype.resetCustomStyles = function () {
+        // Reset all the Stored Custom data
         this.customCss              = [];
         this.customLess             = [];
+        this.customStyleInputs.Less = [];
+        this.customStyleInputs.Css  = [];
         
+        // Clear the Custom Css/Less panels
         document.querySelector('#clucklesCustomLess .panel-body').innerHTML = '';
-        document.querySelector('#clucklesCustomCss .panel-body').innerHTML = '';
+        document.querySelector('#clucklesCustomCss .panel-body').innerHTML  = '';
 
+        // Remove all Custom `style` elements
         [].slice.call(document.querySelectorAll('*[data-clucklesCustomStyle]')).forEach(function (customStyle) {
            customStyle.parentNode.removeChild(customStyle);
         });
+    };
+
+    /**
+     * Resets the Metadata Fields if they exist.
+     * 
+     * @returns {undefined}
+     */
+    Import.prototype.resetMeta = function () {
+        Object.keys(this.metaDataFields).forEach(function (fieldName) {
+           if (this.metaDataFields[fieldName] !== null) {
+               this.metaDataFields[fieldName].value = '';
+           } 
+        }, this);
     };
     
     /**
@@ -7993,7 +8885,7 @@
     Import.prototype.handleThemeImport = function (modifiers) {
         var extra = {};
         
-        this.editor.refreshMonitor.canRefresh = false;
+        this.editor.refreshMonitor.disabled = true;
 
         // Store the Modifiers
         this.editor.modifiers = modifiers;
@@ -8001,18 +8893,18 @@
         // Now load the modifiers into each component
         this.loadComponentModifiers(this.editor.modifiers);
 
+        this.editor.refreshMonitor.disabled = false;
+
         // If the JSON has an _extra field
         if (modifiers.hasOwnProperty('_extra')) {
             // Clone the Extra's Object, or after applying the
             // custom less, the custom css disappears
             extra = JSON.parse(JSON.stringify(modifiers._extra));
-            
+
             this.importThemeExtra(extra);
-        } else {
-            this.editor.applyModifications();
         }
-        
-        this.editor.refreshMonitor.canRefresh = true;
+
+        this.editor.applyModifications(modifiers, true);
     };
     
     /**
@@ -8024,6 +8916,16 @@
      */
     Import.prototype.importThemeExtra = function (extra) {
         var lessStyles = [];
+        
+        if (extra.hasOwnProperty('meta')) {
+            Object.keys(extra.meta).forEach(function (fieldName) {
+                if (this.metaDataFields.hasOwnProperty(fieldName)) {
+                    if (this.metaDataFields !== null) {
+                        this.metaDataFields[fieldName].value = extra.meta[fieldName];
+                    }
+                }
+            }, this);
+        }
 
         // If there is Custom Less
         if (extra.hasOwnProperty('less')) {
@@ -8031,9 +8933,7 @@
                 lessStyles.push(this.addCustomStyles(lessText, 'Less'));
             }, this);
 
-            // Apply the modifications, and dont use cached styles
-            // Should recompile everything, this forces Less to compile
-            // the Custom Less
+            // Apply the less modifications now before it gets prefixed and wont apply correctly
             this.editor.applyModifications(null, true);
 
             lessStyles.forEach(function (style) {
@@ -8048,10 +8948,6 @@
             extra.css.forEach(function (cssText) {
                 this.addCustomStyles(cssText, 'Css');
             }, this);
-
-            // Apply the modifications, should append the Custom Css to
-            // the Currently compiled Css
-            this.editor.applyModifications();
         }
     };
 
@@ -8128,11 +9024,16 @@
         /**
          * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
          * 
+         * @property disabled   {Boolean} If disabled set to true, not refreshing, delaying, and applying modifications will be disabled.
          * @property canRefresh {Boolean} Tracks whether or not another refresh can be performed. (true = can refresh, false = cant refresh).
+         * @property canDelay   {Boolean} Tracks whether or not a refresh can be Delayed (and added to the Queue). (true = can delay, false = cant delay).
+         * 
          * @property delay {Number} Milliseconds delay between refresh updates (Default: 750).
          */
         this.refreshMonitor     = {
+            disabled:   false,
             canRefresh: true,
+            canDelay:   true,
             delay:      options.delay || 750
         };
 
@@ -8265,14 +9166,13 @@
      * 
      * @returns {undefined}
      */
-    ClucklesEditor.prototype.refreshCustomStyles = function () {
-        var lessInputs  = [].slice.call(document.querySelectorAll('#clucklesCustomLess .panel-body > textarea')),
-            cssInputs   = [].slice.call(document.querySelectorAll('#clucklesCustomCss .panel-body > textarea'));
+    ClucklesEditor.prototype.refreshCustomStyles = function (modifiers) {
+        this.applyModifications(modifiers, true);
 
-        // Concatenate all the Custom styles textareas
-        lessInputs.concat(cssInputs).forEach(function (input) {
-            // Displatch a change event, to simulate a value change
-            input.dispatchEvent(new Event('change'));
+        var styleInputs = this.import.customStyleInputs.Less;
+
+        styleInputs.forEach(function (styleInput) {
+            styleInput.dispatchEvent(new Event('change'));
         });
     };
 
@@ -8415,8 +9315,10 @@
      */
     ClucklesEditor.prototype.extractModifications = function (modifiers, modifiersType) {
         var modifiersOfType = modifiersType.getModifications();
+
         Object.keys(modifiersOfType).forEach(function (modifier) {
             var modifierObject = modifiersOfType[modifier];
+
             modifiers[modifierObject.variable] = modifierObject.value;
         });
     };
@@ -8437,37 +9339,52 @@
      * @returns {undefined}
      */
     ClucklesEditor.prototype.queueModifications = function () {
-        // If an update is allowed right now, apply the modifications,
-        // and refresh the custom styles, which allows the cutsom styles to updated vars
-        if (this.refreshMonitor.canRefresh === true) {
-            this.applyModifications();
+        if (this.refreshMonitor.disabled) { return; }
 
-            this.refreshCustomStyles();
+        var customStylesPresent = this.import.customLess.length > 0;
+
+        // If an update is allowed right now, apply the modifications,
+        // and refresh the custom styles, which allows the custom styles to update vars
+        if (this.refreshMonitor.canRefresh === true) {
+            if (customStylesPresent) {
+                this.refreshCustomStyles();
+            } else {
+                this.applyModifications();
+            }
             
             // Set the state to not ready for more updates yet
             this.refreshMonitor.canRefresh = false;
             
-            // Set a timeout to allow updates again after x time (refreshMonitor.rate)
-            // and apply the modifications that were pending (also refreshes custom styles)
-            setTimeout(function () {
-                this.applyModifications();
+            if (this.refreshMonitor.canDelay === true) {
+                // Set a timeout to allow updates again after x time (refreshMonitor.rate)
+                // and apply the modifications that were pending (also refreshes custom styles)
+                setTimeout(function () {
+                    if (customStylesPresent) {
+                        this.refreshCustomStyles();
+                    } else {
+                        this.applyModifications();
+                    }
 
-                this.refreshCustomStyles();
-
-                // Allow updates again
-                this.refreshMonitor.canRefresh = true;
-            }.bind(this), this.refreshMonitor.delay);
+                    // Allow updates again
+                    this.refreshMonitor.canRefresh = true;
+                }.bind(this), this.refreshMonitor.delay);
+            }
         }
     };
-    
+
     /**
      * Applies the Modifications to the Less Theme.
      * 
      * @returns {undefined}
      */
     ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
+        if (this.refreshMonitor.disabled) { return; }
+
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
+
+        // Set the Variables in the Output
+        this.setVariablesOutput(modifiers);
 
         // Find the Calculated modifier values, will replace @variables with
         // their parent values, and perform any calculations to consolidate,
@@ -8475,11 +9392,22 @@
         modifiers = this.processor.calculateModifierValues(modifiers);
 
         if (reload !== undefined) {
-            this.lessGlobal.refresh(true, modifiers);
+            this.lessGlobal.refresh(reload, modifiers);
+        } else {
+            this.lessGlobal.refresh(false, modifiers);
         }
+    };
 
-        // Now apply the Modifications to the Theme
-        this.lessGlobal.refresh(false, modifiers);
+    /**
+     * Sets the Variables which are displayed in the Variables Output field to the modifiers passed in.
+     * 
+     * @param {object} modifiers The modifiers to display in the Variables Output field.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.setVariablesOutput = function (modifiers) {
+        // Update the Variables output to display the variables being applied
+        document.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
     };
     
     /**
@@ -8545,8 +9473,8 @@
         }
 
         // Disallow modifications to be tracked/applied automatically
-        this.canTrackUndo = false;
-        this.refreshMonitor.canRefresh = false;
+        this.canTrackUndo               = false;
+        this.refreshMonitor.disabled    = true;
 
         // Reset the Modifiers and Components
         this.modifiers = {};
@@ -8565,13 +9493,13 @@
 
         // Move the newest items from one stack to the other
         altStack.push(poppedStack);
-        
-        // Now apply the modifications to update the UI (will also set modifiers again)
-        this.applyModifications();
 
         // Allow modifications to be tracked/applied automatically
-        this.canTrackUndo = true;
-        this.refreshMonitor.canRefresh = true;
+        this.canTrackUndo               = true;
+        this.refreshMonitor.disabled    = false;
+
+        // Now apply the modifications to update the UI (will also set modifiers again)
+        this.applyModifications();
         
         // Now enable the altStackButton, effectively toggling the Undo/Redo buttons,
         // depending on which one has items in their stack
@@ -8621,14 +9549,15 @@
             this.redoButton.setAttribute('disabled', 'disabled');
         }
 
-        // Reset the Custom Styles
+        // Reset the Custom Styles and Theme Metadata
         this.import.resetCustomStyles();
+        this.import.resetMeta();
 
         // Reset all the Components
         this.resetComponents(); 
 
         // Now make less modify blank changes, resetting the Theme
-        this.applyModifications({});
+        this.applyModifications();
     };
 
     /**
@@ -8649,13 +9578,10 @@
 
         // Disallow modifications to be tracked/applied automatically
         this.canTrackUndo    = false;
-        this.refreshMonitor.canRefresh  = false;
 
         // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
+        // It will automatically apply this
         this.import.handleThemeImport(modifiers);
-
-        // Now apply the theme modifiers which were reset to the theme
-        this.applyModifications();
 
         // Restore the undoStack (resetToDefault clears the stacks)
         this.undoStack = currentUndoStack;
@@ -8664,7 +9590,6 @@
 
         // Allow modifications to be tracked/applied automatically
         this.canTrackUndo = true;
-        this.refreshMonitor.canRefresh = true;
     };
 
     /**
@@ -8676,7 +9601,7 @@
     ClucklesEditor.prototype.resetToTheme = function () {
         this.resetFromModifiers(this.import.themeModifiers);
     };
-    
+
     /**
      * Reset all of the Components and their Subscribers.
      * 
@@ -8695,7 +9620,7 @@
         // Allow modification queuing
         this.refreshMonitor.canRefresh = true;
     };
-    
+
     ClucklesEditor.prototype.setupToolbar = function () {
         var resetButton         = document.querySelector('*[data-cluckles-options="reset"]'),
             resetThemeButton    = document.querySelector('*[data-cluckles-options="reset-theme"]');

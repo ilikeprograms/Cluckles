@@ -1,7 +1,7 @@
 {
   "name": "Cluckles",
   "nameLower": "cluckles",
-  "version": "0.10.0",
+  "version": "1.0.0",
   "description": "Cluckles is a live theme editor that leverages Less to Customise Twitter Bootstrap",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

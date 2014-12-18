@@ -77,6 +77,10 @@
             </li>
             <li><a href="#" data-toggle="tab" data-target="#customEditorTab">Custom</a>
             </li>
+            <li><a href="#" data-toggle="tab" data-target="#variablesTab">Variables</a>
+            </li>
+            <li><a href="#" data-toggle="tab" data-target="#metaTab">Meta</a>
+            </li>
         </ul>
         <!-- /Editor Tabs -->
 
@@ -507,6 +511,17 @@
                 <!-- Components Panel -->
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <div class="alert alert-success">
+                            <strong>
+              <span class="fa-stack fa-lg">
+                <i class="fa fa-square-o fa-stack-2x"></i>
+                <i class="fa fa-bullhorn fa-flip-horizontal fa-stack-1x"></i>
+              </span>
+              Just added Delete support</strong>
+                            <br />Click the Cross next to each input and it will be removed (and the default will be used)
+                        </div>
+                        <br />
+
                         <div class="panel-group" id="editorComponents">
                             <!-- Jumbotron Panel -->
                             <div class="panel panel-default">
@@ -564,6 +579,15 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td>Font Size</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value="21" placeholder="21" min="9" step="1" data-cluckles-jumbotron="font-size" data-cluckles-delete="#deleteJumbotronFontSize" /><span class="input-group-addon"><button id="deleteJumbotronFontSize" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -592,24 +616,6 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <td>Component Base Background</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="color" class="form-control" data-cluckles-misc="component-base-bg" data-cluckles-delete="#deleteMiscComponentBaseBg" /><span class="input-group-addon"><button id="deleteMiscComponentBaseBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Well Base Background</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="color" class="form-control" data-cluckles-misc="well-base-bg" data-cluckles-delete="#deleteMiscWellBaseBg" /><span class="input-group-addon"><button id="deleteMiscWellBaseBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
                                                     <td>Body Background</td>
                                                     <td></td>
                                                     <td>
@@ -624,15 +630,6 @@
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="color" class="form-control" data-cluckles-misc="text-color" data-cluckles-delete="#deleteMiscTextColor" /><span class="input-group-addon"><button id="deleteMiscTextColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Page Header Border Color</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="color" class="form-control" data-cluckles-misc="page-header-border-color" data-cluckles-delete="#deleteMiscPageHeaderBorderColor" /><span class="input-group-addon"><button id="deleteMiscPageHeaderBorderColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -655,11 +652,20 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td>Link Hover Decoration</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" value="underline" placeholder="underline" data-cluckles-misc="link-hover-decoration" data-cluckles-delete="#deleteMiscLinkHoverDecoration" /><span class="input-group-addon"><button id="deleteMiscLinkHoverDecoration" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td>Horizontal Rule Color</td>
                                                     <td></td>
                                                     <td>
                                                         <div class="input-group">
-                                                            <input type="color" class="form-control" data-cluckles-misc="horizontal-rule-color" data-cluckles-delete="#deleteMiscHorizontalRuleColor" /><span class="input-group-addon"><button id="deleteMiscHorizontalRuleColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                            <input type="color" class="form-control" data-cluckles-misc="horizontal-rule" data-cluckles-delete="#deleteMiscHorizontalRule" /><span class="input-group-addon"><button id="deleteMiscHorizontalRule" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -669,6 +675,60 @@
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="number" class="form-control" value="4" placeholder="4" min="0" step="1" data-cluckles-misc="border-radius-base" data-cluckles-delete="#deleteMiscBorderRadiusBase" /><span class="input-group-addon"><button id="deleteMiscBorderRadiusBase" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Component Active Background Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-misc="component-active-bg" data-cluckles-delete="#deleteMiscComponentActiveBg" /><span class="input-group-addon"><button id="deleteMiscComponentActiveBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Component Active Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-misc="component-active-color" data-cluckles-delete="#deleteMiscComponentActiveColor" /><span class="input-group-addon"><button id="deleteMiscComponentActiveColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Well Background</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-misc="well-bg" data-cluckles-delete="#deleteMiscWellBg" /><span class="input-group-addon"><button id="deleteMiscWellBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Well Border</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-misc="well-border" data-cluckles-delete="#deleteMiscWellBorder" /><span class="input-group-addon"><button id="deleteMiscWellBorder" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Page Header Border Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-misc="page-header-border-color" data-cluckles-delete="#deleteMiscPageHeaderBorderColor" /><span class="input-group-addon"><button id="deleteMiscPageHeaderBorderColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Icon Font Path</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" value="../fonts/" placeholder="../fonts/" data-cluckles-misc="icon-font-path" data-cluckles-delete="#deleteIconFontPath" /><span class="input-group-addon"><button id="deleteIconFontPath" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -729,6 +789,60 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td>H1 Font Size</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value='36' placeholder="36" min='9' step='1' data-cluckles-typography="font-size-h1" data-cluckles-delete="#deleteTypographyFontSizeH1" /><span class="input-group-addon"><button id="deleteTypographyFontSizeH1" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>H2 Font Size</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value='30' placeholder="30" min='9' step='1' data-cluckles-typography="font-size-h2" data-cluckles-delete="#deleteTypographyFontSizeH2" /><span class="input-group-addon"><button id="deleteTypographyFontSizeH2" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>H3 Font Size</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value='24' placeholder="24" min='9' step='1' data-cluckles-typography="font-size-h3" data-cluckles-delete="#deleteTypographyFontSizeH3" /><span class="input-group-addon"><button id="deleteTypographyFontSizeH3" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>H4 Font Size</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value='18' placeholder="18" min='9' step='1' data-cluckles-typography="font-size-h4" data-cluckles-delete="#deleteTypographyFontSizeH4" /><span class="input-group-addon"><button id="deleteTypographyFontSizeH4" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>H5 Font Size</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value='14' placeholder="14" min='9' step='1' data-cluckles-typography="font-size-h5" data-cluckles-delete="#deleteTypographyFontSizeH5" /><span class="input-group-addon"><button id="deleteTypographyFontSizeH5" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>H6 Font Size</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value='12' placeholder="12" min='9' step='1' data-cluckles-typography="font-size-h6" data-cluckles-delete="#deleteTypographyFontSizeH6" /><span class="input-group-addon"><button id="deleteTypographyFontSizeH6" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td>Headings Font Family</td>
                                                     <td></td>
                                                     <td>
@@ -770,6 +884,16 @@
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="color" class="form-control" data-cluckles-typography="headings-small-color" data-cluckles-delete="#deleteTypographyHeadingsSmallColor" /><span class="input-group-addon"><button id="deleteTypographyHeadingsSmallColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Line Height Base</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" value="1.428571429" placeholder="1.428571429" min="0.5" step="0.1" class="form-control" data-cluckles-typography="line-height-base" data-cluckles-delete="#deleteTypographyLineHeightBase"
+                                                            /><span class="input-group-addon"><button id="deleteTypographyLineHeightBase" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -1240,6 +1364,15 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                <tr>
+                                                    <td>Cursor Disabled</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" value="not-allowed" placeholder="not-allowed" data-cluckles-form="cursor-disabled" data-cluckles-delete="#deleteFormCursorDisabled" /><span class="input-group-addon"><button id="deleteFormCursorDisabled" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                     </div>
@@ -1314,6 +1447,24 @@
                                                             <td>
                                                                 <div class="input-group">
                                                                     <input type="number" class="form-control" value="340" placeholder="340" min="1" step="1" data-cluckles-navbar="collapse-max-height" data-cluckles-delete="#deleteNavbarCollapseMaxHeight" /><span class="input-group-addon"><button id="deleteNavbarCollapseMaxHeight" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Navbar Padding Horizontal</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="number" class="form-control" value="15" placeholder="15" min="1" step="1" data-cluckles-navbar="padding-horizontal" data-cluckles-delete="#deleteNavbarPaddingHorizontal" /><span class="input-group-addon"><button id="deleteNavbarPaddingHorizontal" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Navbar Padding Vertical</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="number" class="form-control" value="15" placeholder="15" min="1" step="1" data-cluckles-navbar="padding-vertical" data-cluckles-delete="#deleteNavbarPaddingVertical" /><span class="input-group-addon"><button id="deleteNavbarPaddingVertical" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -1450,6 +1601,33 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        <tr>
+                                                            <td>Toggle Hover Background</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="color" class="form-control" data-cluckles-navbar-default="toggle-hover-bg" data-cluckles-delete="#deleteNavbarDefaultToggleHoverBg" /><span class="input-group-addon"><button id="deleteNavbarDefaultToggleHoverBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Toggle Icon Bar Background</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="color" class="form-control" data-cluckles-navbar-default="toggle-icon-bar-bg" data-cluckles-delete="#deleteNavbarDefaultToggleIconBarBg" /><span class="input-group-addon"><button id="deleteNavbarDefaultToggleIconBarBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Toggle Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="color" class="form-control" data-cluckles-navbar-default="toggle-border-color" data-cluckles-delete="#deleteNavbarDefaultToggleBorderColor" /><span class="input-group-addon"><button id="deleteNavbarDefaultToggleBorderColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1580,6 +1758,33 @@
                                                             <td>
                                                                 <div class="input-group">
                                                                     <input type="color" class="form-control" data-cluckles-navbar-inverse="brand-hover-bg" data-cluckles-delete="#deleteNavbarInverseBrandHoverBg" /><span class="input-group-addon"><button id="deleteNavbarInverseBrandHoverBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Toggle Hover Background</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="color" class="form-control" data-cluckles-navbar-inverse="toggle-hover-bg" data-cluckles-delete="#deleteNavbarInverseToggleHoverBg" /><span class="input-group-addon"><button id="deleteNavbarInverseToggleHoverBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Toggle Icon Bar Background</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="color" class="form-control" data-cluckles-navbar-inverse="toggle-icon-bar-bg" data-cluckles-delete="#deleteNavbarInverseToggleIconBarBg" /><span class="input-group-addon"><button id="deleteNavbarInverseToggleIconBarBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Toggle Border Color</td>
+                                                            <td></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input type="color" class="form-control" data-cluckles-navbar-inverse="toggle-icon-border-color" data-cluckles-delete="#deleteNavbarInverseToggleBorderColor" /><span class="input-group-addon"><button id="deleteNavbarInverseToggleBorderColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -1807,15 +2012,6 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td>Open Link Hover Color</td>
-                                                            <td></td>
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    <input type="color" class="form-control" data-cluckles-nav="link-open-hover-color" data-cluckles-delete="#deleteNavLinkOpenHoverColor" /><span class="input-group-addon"><button id="deleteNavLinkOpenHoverColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1987,29 +2183,20 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td>Border Radius</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value="4" min="0" step="1" data-cluckles-listgroup="border-radius" data-cluckles-delete="#deleteListgroupBorderRadius" /><span class="input-group-addon"><button id="deleteListgroupBorderRadius" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
                                                     <td>Hover Background</td>
                                                     <td></td>
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="color" class="form-control" data-cluckles-listgroup="hover-bg" data-cluckles-delete="#deleteListgroupHoverBg" /><span class="input-group-addon"><button id="deleteListgroupHoverBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Link Heading Color</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="color" class="form-control" data-cluckles-listgroup="link-heading-color" data-cluckles-delete="#deleteListgroupLinkHeadingColor" /><span class="input-group-addon"><button id="deleteListgroupLinkHeadingColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Link Color</td>
-                                                    <td></td>
-                                                    <td>
-                                                        <div class="input-group">
-                                                            <input type="color" class="form-control" data-cluckles-listgroup="link-color" data-cluckles-delete="#deleteListgroupLinkColor" /><span class="input-group-addon"><button id="deleteListgroupLinkColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -2046,6 +2233,60 @@
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="color" class="form-control" data-cluckles-listgroup="active-text-color" data-cluckles-delete="#deleteListgroupActiveTextColor" /><span class="input-group-addon"><button id="deleteListgroupActiveTextColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Link Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-listgroup="link-color" data-cluckles-delete="#deleteListgroupLinkColor" /><span class="input-group-addon"><button id="deleteListgroupLinkColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Link Heading Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-listgroup="link-heading-color" data-cluckles-delete="#deleteListgroupLinkHeadingColor" /><span class="input-group-addon"><button id="deleteListgroupLinkHeadingColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Link Hover Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-listgroup="link-hover-color" data-cluckles-delete="#deleteListgroupLinkHoverColor" /><span class="input-group-addon"><button id="deleteListgroupLinkHoverColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Disabled Background Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-listgroup="disabled-bg" data-cluckles-delete="#deleteListgroupDisabledBg" /><span class="input-group-addon"><button id="deleteListgroupDisabledBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Disabled Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-listgroup="disabled-color" data-cluckles-delete="#deleteListgroupDisabledColor" /><span class="input-group-addon"><button id="deleteListgroupDisabledColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Disabled Text Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-listgroup="disabled-text-color" data-cluckles-delete="#deleteListgroupDisabledTextColor" /><span class="input-group-addon"><button id="deleteListgroupDisabledTextColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -2100,6 +2341,15 @@
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="color" class="form-control" data-cluckles-dropdown="border-color" data-cluckles-delete="#deleteDropdownBorderColor" /><span class="input-group-addon"><button id="deleteDropdownBorderColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Fallback Border Color</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="color" class="form-control" data-cluckles-dropdown="fallback-border-color" data-cluckles-delete="#deleteDropdownFallbackBorderColor" /><span class="input-group-addon"><button id="deleteDropdownFallbackBorderColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -2444,6 +2694,24 @@
                                                     <td>
                                                         <div class="input-group">
                                                             <input type="text" class="form-control" data-cluckles-breadcrumb="separator" placeholder="/" data-cluckles-delete="#deleteBreadcrumbSeperator" /><span class="input-group-addon"><button id="deleteBreadcrumbSeperator" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Padding Horizontal</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value="15" min="0" step="1" data-cluckles-breadcrumb="padding-horizontal" data-cluckles-delete="#deleteBreadcrumbPaddingHorizontal" /><span class="input-group-addon"><button id="deleteBreadcrumbPaddingHorizontal" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Padding Vertical</td>
+                                                    <td></td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <input type="number" class="form-control" value="8" min="0" step="1" data-cluckles-breadcrumb="padding-vertical" data-cluckles-delete="#deleteBreadcrumbPaddingVertical" /><span class="input-group-addon"><button id="deleteBreadcrumbPaddingVertical" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -3329,6 +3597,58 @@
                     </form>
                 </div>
                 <!-- /Custom Panel-->
+            </div>
+
+            <div class="tab-pane fade in" id="variablesTab">
+                <!-- Variables Panel -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form role="form">
+                            <textarea rows="20" class="form-control" data-cluckles="variables"></textarea>
+                        </form>
+                    </div>
+                </div>
+                <!-- Variables Panel End -->
+            </div>
+
+            <div class="tab-pane fade in" id="metaTab">
+                <!-- Meta Panel -->
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="clucklesMetaAuthor">Author</label>
+                                <input type="text" class="form-control" id="clucklesMetaAuthor" name="clucklesMetaAuthor" placeholder="Thomas Coleman" data-cluckles-meta="author" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clucklesMetaEmail">Email</label>
+                                <input type="email" class="form-control" id="clucklesMetaEmail" name="clucklesMetaEmail" placeholder="tom@ilikeprograms.com" data-cluckles-meta="email" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clucklesMetaUrl">URL</label>
+                                <input type="url" class="form-control" id="clucklesMetaUrl" name="clucklesMetaUrl" placeholder="http://ilikeprograms.com" data-cluckles-meta="url" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clucklesMetaThemeName">Theme Name</label>
+                                <input type="email" class="form-control" id="clucklesMetaThemeName" name="clucklesMetaThemeName" placeholder="Cluckles Docs Theme" data-cluckles-meta="themeName" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clucklesMetaVersion">Version</label>
+                                <input type="text" class="form-control" id="clucklesMetaVersion" name="clucklesMetaVersion" placeholder="1.0.0" data-cluckles-meta="version" />
+                            </div>
+
+                            <div class="form-group">
+                                <label for="clucklesMetaLicence">Licence</label>
+                                <input type="text" class="form-control" id="clucklesMetaLicence" name="clucklesMetaLicence" placeholder="MIT" data-cluckles-meta="licence" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Meta Panel End -->
             </div>
         </div>
     </div>
