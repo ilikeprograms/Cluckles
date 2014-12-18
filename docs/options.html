@@ -5,7 +5,7 @@ description: 'Cluckles is a Live Theme Editor for CSS Framework based on Less su
 permalink: /options/
 ---
 
-<div class="jumbotron">
+<div class="jumbotron seamless-jumbotron">
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12">
@@ -16,13 +16,15 @@ permalink: /options/
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
+<div class="container-fluid">
+  <div class="row showcase-darker">
     <div class="col-md-12">
-      {% capture options_content %}
-        {% include options.md %}
-      {% endcapture %}
-      {{ options_content | markdownify }}
+      <div class="container">
+        {% capture options_content %}
+          {% include options.md %}
+        {% endcapture %}
+        {{ options_content | markdownify }}
+      </div>
     </div>
   </div>
 </div>
