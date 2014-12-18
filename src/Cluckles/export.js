@@ -171,11 +171,11 @@
         }
 
         // Add the Custom Css/less if any was provided
-        if (customCss.length > 0) {
+        if (customCss && customCss.length > 0) {
             modifiers._extra.css =  customCss;
         }
 
-        if (customLess.length > 0) {
+        if (customLess && customLess.length > 0) {
             modifiers._extra.less = customLess;
         }
         // Update the href of the download link, this now points to the JSON data
