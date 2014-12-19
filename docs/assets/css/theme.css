@@ -7684,6 +7684,11 @@ button.close {
   color: #FFFFFF;
 }
 
+.screencast {
+  width: 1100px;
+  display: inline-block;
+  object-fit: contain;
+}
 /* line 16, /assets/less/theme.less */
 .btn-default,
 .btn-primary,
