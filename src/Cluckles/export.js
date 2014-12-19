@@ -212,8 +212,11 @@
             }
         }, this.editor.processor);
 
+        // Store the Compiled CSS which will also allow it to be exported on save
+        this.compiledCss = css + customCss;
+
         // Update the href of the download link, this now points to the CSS data
-        this.cssLink.setAttribute('href', this.generateBlob(css + customCss));
+        this.cssLink.setAttribute('href', this.generateBlob(this.compiledCss));
     };
 
     /**
