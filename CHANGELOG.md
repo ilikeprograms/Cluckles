@@ -8,6 +8,10 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [1.0.1]
+
+- [Export] Re-added in `this.compiledCss` as this is needed to export on save
+
 ## [1.0.0]
 
 - [Docs] Improved Docs theme and made it striking.
