@@ -6,6 +6,8 @@ Cluckles
 Cluckles Live Theme Editor for CSS Framework based on Less such as Twitter Bootstrap.
 There is an example page provided (`build/example/index.html`) which makes it easy to see it in action!
 
+![Screencast](https://raw.githubusercontent.com/ilikeprograms/Cluckles/gh-pages/assets/img/screencast.gif)
+
 There is also a Live demo which can be found at:
 `http://cluckles.com`
 
