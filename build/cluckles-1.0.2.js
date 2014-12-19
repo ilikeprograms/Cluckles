@@ -1,5 +1,5 @@
 /*!
- * Cluckles 1.0.1: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
+ * Cluckles 1.0.2: Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.
  * http://cluckles.com
  * 
  * Copyright 2014 Thomas Coleman <tom@ilikeprograms.com>
@@ -8587,7 +8587,20 @@
 
             if (metaDataField !== null) {
                 metaDataField.addEventListener('change', function (e) {
-                    var modifiersMeta = this.editor.modifiers._extra.meta;
+                    var modifiersMeta;
+
+                    // If the _extra property doesnt exist, create it
+                    if (!this.editor.modifiers.hasOwnProperty('_extra')) {
+                        this.editor.modifiers._extra = {};
+                    }
+
+                    // If the _extra.meta property doesnt exist, create it
+                    if (!this.editor.modifiers._extra.hasOwnProperty('meta')) {
+                        this.editor.modifiers._extra.meta = {};
+                    }
+
+                    // Now store a reference to the meta object
+                    modifiersMeta = this.editor.modifiers._extra.meta;
 
                     // If the field is blank
                     if (e.target.value === '') {
