@@ -204,7 +204,7 @@ An optional success callback can also be provided to fire when the changes have 
 
 ```html
 <!-- Load our Fancy live editing Cluckles -->
-<script src="../cluckles-1.0.0.js"></script>
+<script src="../cluckles-1.0.3.js"></script>
 <script>
   var clucklesEditor = new ClucklesEditor(less, {
     scope: {
