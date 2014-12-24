@@ -18,7 +18,7 @@
         this.options            = options;
         this.themeModifiers     = {};
         this.themeExtra         = {};
-        
+
         this.metaDataFields = {
             author:     document.querySelector('*[data-cluckles-meta="author"]'),
             email:      document.querySelector('*[data-cluckles-meta="email"]'),
@@ -183,14 +183,14 @@
             this.editor.refreshMonitor.disabled = true;
 
             // Store and Load the modifiers, and refresh Custom Less
-            this.editor.modifiers = parsedModifiers;
+            this.editor.modifiers.vars = parsedModifiers;
             this.loadComponentModifiers(parsedModifiers);
 
             // Allow Refreshing/Applying modifiers
             this.editor.refreshMonitor.disabled = false;
 
             // Now apply the Custom Styles
-            this.editor.refreshCustomStyles(parsedModifiers);
+            this.editor.refreshCustomStyles(this.editor.modifiers);
         }.bind(this));
     };
 
@@ -354,7 +354,8 @@
 
         // Setup the Change event to update the Style when the textarea changes (and recompile)
         textArea.addEventListener('change', function (e) {
-            var transformedModifiers = this.processor.transformToVariables(this.editor.modifiers);
+            var editorModifiers         = this.editor.modifiers,
+                transformedModifiers    = this.processor.transformToVariables(editorModifiers.vars);
 
             if (type === 'Less') {
                 // Set the Type to 'text/less' so less will recompile it
@@ -373,7 +374,7 @@
 
             // Apply the modifications, and dont use cached styles, this will
             // make sure that it will parse the styling if the type is less
-            this.editor.applyModifications(this.editor.modifiers, true);
+            this.editor.applyModifications(editorModifiers, true);
 
             if (type === 'Less') {
                 // Now that the less should have been compiled, it will be CSS,
@@ -450,12 +451,24 @@
         var extra = {};
         
         this.editor.refreshMonitor.disabled = true;
+        
+        if (modifiers.hasOwnProperty('vars')) {
+            this.editor.modifiers = modifiers;
+        } else {
+            // WARNING: In around 1.2.0 THIS WILL BE DEPRECATED
+            // we will be switching to storing modifiers under the
+            // vars property
 
-        // Store the Modifiers
-        this.editor.modifiers = modifiers;
+            // Store the Modifiers
+            this.editor.modifiers.vars = modifiers;
+            
+            if (modifiers.hasOwnProperty('_extra')) {
+                this.editor.modifiers._extra = JSON.parse(JSON.stringify(modifiers._extra));
+            }
+        }
 
         // Now load the modifiers into each component
-        this.loadComponentModifiers(this.editor.modifiers);
+        this.loadComponentModifiers(this.editor.modifiers.vars);
 
         this.editor.refreshMonitor.disabled = false;
 
@@ -468,7 +481,7 @@
             this.importThemeExtra(extra);
         }
 
-        this.editor.applyModifications(modifiers, true);
+        this.editor.applyModifications(this.editor.modifiers, true);
     };
     
     /**

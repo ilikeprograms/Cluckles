@@ -162,7 +162,7 @@
      * @returns {undefined}
      */
     Export.prototype.generateJsonBlob = function (customCss, customLess) {
-        var modifiers = this.editor.getModifiers();
+        var modifiers = this.editor.modifiers;
 
         // Add the "_extra" JSON,
         // used to export Custom Css and Less

@@ -235,13 +235,18 @@
             formStates  = this.formStates,
             modifiers   = this.modifiers;
 
+        // Make sure we always have the vars property as a minimum
+        if (!modifiers.hasOwnProperty('vars')) {
+            modifiers.vars = {};
+        }
+
         // Gray Base
         Object.keys(grayScale).forEach(function (style) {
             if (grayScale[style].color !== null) {
                 if (style === 'gray') {
-                    modifiers['@gray'] = grayScale[style].color;
+                    modifiers.vars['@gray'] = grayScale[style].color;
                 } else {
-                    modifiers['@gray-' + style] = grayScale[style].color;
+                    modifiers.vars['@gray-' + style] = grayScale[style].color;
                 }
             }
         });
@@ -366,7 +371,7 @@
         Object.keys(modifiersOfType).forEach(function (modifier) {
             var modifierObject = modifiersOfType[modifier];
 
-            modifiers[modifierObject.variable] = modifierObject.value;
+            modifiers.vars[modifierObject.variable] = modifierObject.value;
         });
     };
 
@@ -431,12 +436,12 @@
         var modifiers = modifications || this.getModifiers();
 
         // Set the Variables in the Output
-        this.setVariablesOutput(modifiers);
+        this.setVariablesOutput(modifiers.vars);
 
         // Find the Calculated modifier values, will replace @variables with
         // their parent values, and perform any calculations to consolidate,
         // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
-        modifiers = this.processor.calculateModifierValues(modifiers);
+        modifiers = this.processor.calculateModifierValues(modifiers.vars);
 
         if (reload !== undefined) {
             this.lessGlobal.refresh(reload, modifiers);
@@ -604,7 +609,7 @@
         this.resetComponents(); 
 
         // Now make less modify blank changes, resetting the Theme
-        this.applyModifications();
+        this.applyModifications(null, true);
     };
 
     /**
