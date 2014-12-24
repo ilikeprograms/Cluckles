@@ -713,8 +713,12 @@
                 window.parent.document.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
             }.bind(this);
 
-            // Fire event after setup, to initially set the height
-            window.dispatchEvent(new Event('resize'));
+            // Set timeout hack to make it fire once everything is loaded
+            // so we dont get the iframe being slighly too short
+            setTimeout(function () {
+                // Fire event after setup, to initially set the height
+                window.dispatchEvent(new Event('resize')); 
+            }, 0);
         }
     };
 
