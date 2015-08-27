@@ -167,7 +167,7 @@
         var self        = this,
             editor      = this.editor, // ClucklesEditor instance
             // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
-            subscribers = Array.prototype.slice.call(document.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
+            subscribers = Array.prototype.slice.call(docContext.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
         // Setup the value accessors, and configure them to Notify the subscribers of changes
         Object.keys(this.modifiers).forEach(function(modifierName) {
@@ -290,7 +290,7 @@
                     // If the subscriber had a Delete target attr
                     if (deletableAttr) {
                         // Find the Delete target
-                        deleteTarget = document.querySelector(deletableAttr);
+                        deleteTarget = docContext.querySelector(deletableAttr);
                         
                         if (deleteTarget) {
                             // Add the Delete event

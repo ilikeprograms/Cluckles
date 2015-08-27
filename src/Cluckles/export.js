@@ -112,7 +112,7 @@
         downloadBtn.setAttribute('download', 'theme.' + exportType);
 
         // Append the Download button to the document
-        document.querySelector(dest).appendChild(downloadBtn);
+        docContext.querySelector(dest).appendChild(downloadBtn);
 
         if (window.parent.hasOwnProperty('ga')) {
             // Send a Google Analytics Click Event specifying this button was clicked

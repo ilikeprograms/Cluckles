@@ -20,12 +20,12 @@
         this.themeExtra         = {};
 
         this.metaDataFields = {
-            author:     document.querySelector('*[data-cluckles-meta="author"]'),
-            email:      document.querySelector('*[data-cluckles-meta="email"]'),
-            url:        document.querySelector('*[data-cluckles-meta="url"]'),
-            themeName:  document.querySelector('*[data-cluckles-meta="themeName"]'),
-            version:    document.querySelector('*[data-cluckles-meta="version"]'),
-            licence:    document.querySelector('*[data-cluckles-meta="licence"]')
+            author:     docContext.querySelector('*[data-cluckles-meta="author"]'),
+            email:      docContext.querySelector('*[data-cluckles-meta="email"]'),
+            url:        docContext.querySelector('*[data-cluckles-meta="url"]'),
+            themeName:  docContext.querySelector('*[data-cluckles-meta="themeName"]'),
+            version:    docContext.querySelector('*[data-cluckles-meta="version"]'),
+            licence:    docContext.querySelector('*[data-cluckles-meta="licence"]')
         };        
 
         // Import Headers to allow the Custom Less to be able to reference,
@@ -34,7 +34,7 @@
 
         // Custom Styles textarea template and Custom styles panel (where the textareas will reside)
         this.customStylesTemplate   = null;
-        this.customStylesPanel      = document.getElementById('customPanel');
+        this.customStylesPanel      = docContext.getElementById('customPanel');
 
         // Custom Styles
         this.customCss              = [];
@@ -174,7 +174,7 @@
      * @returns {undefined}
      */
     Import.prototype.setupVariablesOutput = function () {
-        var variablesOutput = document.querySelector('*[data-cluckles="variables"]');
+        var variablesOutput = docContext.querySelector('*[data-cluckles="variables"]');
 
         variablesOutput.addEventListener('change', function (e) {
             var parsedModifiers = this.editor.processor.parseVariables(e.target.value);
@@ -201,7 +201,7 @@
      * @returns {undefined}
      */
     Import.prototype.setupFileImport = function () {
-        var importInput = document.querySelector('*[data-cluckles-options="import"]');
+        var importInput = docContext.querySelector('*[data-cluckles-options="import"]');
         
         // If we can find an <input type="file" />
         if (importInput && importInput.type === 'file') {
@@ -257,9 +257,9 @@
      * @returns {undefined}
      */
     Import.prototype.setupCustomStyles = function () {
-        var addCustomLessButton = document.querySelector('*[data-cluckles="add-custom-less"]'),
-            addCustomCssButton  = document.querySelector('*[data-cluckles="add-custom-css"]'),
-            template            = document.createElement('textarea');
+        var addCustomLessButton = docContext.querySelector('*[data-cluckles="add-custom-less"]'),
+            addCustomCssButton  = docContext.querySelector('*[data-cluckles="add-custom-css"]'),
+            template            = docContext.createElement('textarea');
 
         // Setup the Attribute of the text area
         template.setAttribute('rows', 20);
@@ -301,7 +301,7 @@
             // Were either adding/editing Less or Css
             styleArray  = this['custom' + type], // Array which stores styles of this Type
             styleId     = styleArray.length, // Store the index of the style
-            styleCollapse = document.querySelector('#clucklesCustom' + type + ' .panel-body'),
+            styleCollapse = docContext.querySelector('#clucklesCustom' + type + ' .panel-body'),
             // The stylesheet Less outputs when it processes' less browser side
             lessOutputStylesheet = document.getElementById('less:' + this.editor.mainStylesheetHypenated);
 
@@ -417,11 +417,11 @@
         this.customStyleInputs.Css  = [];
         
         // Clear the Custom Css/Less panels
-        document.querySelector('#clucklesCustomLess .panel-body').innerHTML = '';
-        document.querySelector('#clucklesCustomCss .panel-body').innerHTML  = '';
+        docContext.querySelector('#clucklesCustomLess .panel-body').innerHTML = '';
+        docContext.querySelector('#clucklesCustomCss .panel-body').innerHTML  = '';
 
         // Remove all Custom `style` elements
-        [].slice.call(document.querySelectorAll('*[data-clucklesCustomStyle]')).forEach(function (customStyle) {
+        [].slice.call(docContext.querySelectorAll('*[data-clucklesCustomStyle]')).forEach(function (customStyle) {
            customStyle.parentNode.removeChild(customStyle);
         });
     };
