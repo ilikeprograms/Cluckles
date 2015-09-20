@@ -28,6 +28,7 @@
     "README.md",
     "package.json",
     "CHANGELOG.md",
+    "build/*",
     "test",
     "tests"
   ],
