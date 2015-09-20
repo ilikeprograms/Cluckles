@@ -181,8 +181,8 @@
         this.modifiers      = {};
         
         // Undo/Redo stacks
-        this.undoButton     = document.querySelector('*[data-cluckles-options="undo"]');
-        this.redoButton     = document.querySelector('*[data-cluckles-options="redo"]');
+        this.undoButton     = docContext.querySelector('*[data-cluckles-options="undo"]');
+        this.redoButton     = docContext.querySelector('*[data-cluckles-options="redo"]');
         this.undoStack      = [];
         this.redoStack      = [];
         this.canTrackUndo   = true;
@@ -195,6 +195,7 @@
 
         // Configure the Options toolbar
         this.setupToolbar();
+        this.setupLocationHashes();
         
         // Disable the Undo and Redo buttons by default (will re enable when something is changed)
         if (this.undoButton) {
@@ -235,13 +236,18 @@
             formStates  = this.formStates,
             modifiers   = this.modifiers;
 
+        // Make sure we always have the vars property as a minimum
+        if (!modifiers.hasOwnProperty('vars')) {
+            modifiers.vars = {};
+        }
+
         // Gray Base
         Object.keys(grayScale).forEach(function (style) {
             if (grayScale[style].color !== null) {
                 if (style === 'gray') {
-                    modifiers['@gray'] = grayScale[style].color;
+                    modifiers.vars['@gray'] = grayScale[style].color;
                 } else {
-                    modifiers['@gray-' + style] = grayScale[style].color;
+                    modifiers.vars['@gray-' + style] = grayScale[style].color;
                 }
             }
         });
@@ -366,7 +372,7 @@
         Object.keys(modifiersOfType).forEach(function (modifier) {
             var modifierObject = modifiersOfType[modifier];
 
-            modifiers[modifierObject.variable] = modifierObject.value;
+            modifiers.vars[modifierObject.variable] = modifierObject.value;
         });
     };
 
@@ -431,12 +437,12 @@
         var modifiers = modifications || this.getModifiers();
 
         // Set the Variables in the Output
-        this.setVariablesOutput(modifiers);
+        this.setVariablesOutput(modifiers.vars);
 
         // Find the Calculated modifier values, will replace @variables with
         // their parent values, and perform any calculations to consolidate,
         // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
-        modifiers = this.processor.calculateModifierValues(modifiers);
+        modifiers = this.processor.calculateModifierValues(modifiers.vars);
 
         if (reload !== undefined) {
             this.lessGlobal.refresh(reload, modifiers);
@@ -454,7 +460,7 @@
      */
     ClucklesEditor.prototype.setVariablesOutput = function (modifiers) {
         // Update the Variables output to display the variables being applied
-        document.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
+        docContext.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
     };
     
     /**
@@ -604,7 +610,7 @@
         this.resetComponents(); 
 
         // Now make less modify blank changes, resetting the Theme
-        this.applyModifications();
+        this.applyModifications(null, true);
     };
 
     /**
@@ -668,9 +674,26 @@
         this.refreshMonitor.canRefresh = true;
     };
 
+    /**
+     * Sets up the Location Hashes so that clicking on buttons/links will jump the page content
+     * to that location on the page.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.setupLocationHashes = function () {
+        var locationHashedElements = [].slice.call(docContext.querySelectorAll('*[data-cluckles-location]'));
+
+        locationHashedElements.forEach(function (toHash) {
+            toHash.addEventListener('click', function () {
+                window.location.hash = null; // Clear the existing hash
+                window.location.hash = this.dataset.clucklesLocation; // Now jump to the location defined by the data attribute          
+            });
+        });
+    };
+
     ClucklesEditor.prototype.setupToolbar = function () {
-        var resetButton         = document.querySelector('*[data-cluckles-options="reset"]'),
-            resetThemeButton    = document.querySelector('*[data-cluckles-options="reset-theme"]');
+        var resetButton         = docContext.querySelector('*[data-cluckles-options="reset"]'),
+            resetThemeButton    = docContext.querySelector('*[data-cluckles-options="reset-theme"]');
 
         if (resetButton) {
             resetButton.addEventListener('click', this.resetToDefault.bind(this), false);
@@ -705,11 +728,21 @@
                 // Window.parent = parent window which contains the embedded document
                 // then get the Document (parent document) and find our embeded object
                 // Then style the parent node (which ur emdeded object is a direct descendant)
-                window.parent.document.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
+                docContext.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
             }.bind(this);
 
-            // Fire event after setup, to initially set the height
-            window.dispatchEvent(new Event('resize'));
+            // Set timeout hack to make it fire once everything is loaded
+            // so we dont get the iframe being slighly too short
+            setTimeout(function () {
+                // Fire event after setup, to initially set the height
+                window.dispatchEvent(new Event('resize'));
+            }, 0);
+
+            // Also add a ready event for the current DOM, so that we make sure once everything is loaded
+            // we are setting the correct height                    
+            docContext.addEventListener('DOMContentLoaded', function () {
+                window.dispatchEvent(new Event('resize'));
+            });
         }
     };
 

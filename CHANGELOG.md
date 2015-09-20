@@ -8,6 +8,24 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [1.1.0]
+
+- [Editor] Updated editor to move the sidebar from the right to the left
+- [ClucklesEditor] Wrapped resize initial fire in setTimeout, so it resizes properly with iframe seamless
+- [Docs] Added `frameBorder, seamless, scrolling` attr to iframe, make it seamless
+- [JS] Added support for storing modifiers under `vars` property. + allow import/export under `vars`. Fix #22
+- [Example] Removed the `.container` from Components section
+- [Example] Wrapped Jumbotron example in container-fluid. Fixed issue with no container parent,
+- [Example] Wrapped the Editor Panels in Columns.
+- [Layout] Swapped the Editor/Component columns around
+- [Layout] Updated Editor Components to add Jump to buttons, which jump to that section of the example frame
+- [Layout] Fixed the Dropdown/modal styling so it appears properly
+- [ClucklesEditor] Added the docContext variable at the top of cluckles, to store a reference to window.parent.document (outermost frame if cluckles is in iframe)
+- [ClucklesEditor] Added setupLocationHashes method to cluckles.editor to implement jumping to support from the JS side
+- [Bower] Updated bower.json to ignore .gitignore, .jshintrc and CNAME files
+- [Package] Updated build process to add dist task to grunt, which copies cluckles.min to dist folder (now ignoring build folder so only used when doing dev work)
+- [Package] Updated Cluckles to v1.1.0 last build before moving to Node-webkit based app
+
 ## [1.0.2]
 
 - [Import] Fixed bug with Metadata not being stored if the _extra.meta doesnt exist

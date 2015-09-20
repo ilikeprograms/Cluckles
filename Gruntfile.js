@@ -18,7 +18,8 @@ module.exports = function (grunt) {
                         ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
                         ' * Released under the <%= pkg.license %> license\n' +
                         ' */\n' +
-                        '(function (window) {\n',
+                        '(function (window) {\n' +
+                        '   var docContext = window.parent.document;\n',
                 footer: '\n})(window);'
             },
             
@@ -192,6 +193,16 @@ module.exports = function (grunt) {
                     {expand: true, cwd: 'build/', src: 'less/**', dest: 'docs/assets/'}
 //                    {expand: true, src: ['build/less/mixins'], flatten: true, dest: 'docs/assets/less/mixins', filter: 'isFile'}
                 ]
+            },
+            
+            dist: {
+                files: [
+                    // Main JS File
+                    {
+                        src: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.min.js',
+                        dest: 'dist/<%= pkg.nameLower %>.min.js'
+                    },
+                ]
             }
 		},
         
@@ -343,12 +354,15 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-html-build');
 
     // Register the "default" Task
-    grunt.registerTask("js", ["concat", "jshint", "uglify", "copy"]);
+    grunt.registerTask("js", ["concat", "jshint", "uglify", "copy:main"]);
     grunt.registerTask("html", ["htmlbuild:components", "htmlbuild:editor", "htmlbuild:build"]);
     grunt.registerTask("host", ["express", "open", "watch"]);
 
     grunt.registerTask("docs", ["js", "html", "copy:docs"]);
     grunt.registerTask("copyDocs", ["copy:docs"]);
+
+    // Dist
+    grunt.registerTask("dist", ["docs", "copy:dist"]);
 
 	grunt.registerTask("default", ["js", "html", "host"]);
 };

@@ -167,7 +167,7 @@
         var self        = this,
             editor      = this.editor, // ClucklesEditor instance
             // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
-            subscribers = Array.prototype.slice.call(document.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
+            subscribers = Array.prototype.slice.call(docContext.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
         // Setup the value accessors, and configure them to Notify the subscribers of changes
         Object.keys(this.modifiers).forEach(function(modifierName) {
@@ -192,7 +192,7 @@
                                 // If the val points to a parent variable (when setting using console API etc)
                                 if (val[0] === '@') {
                                     // Find the parent variable value, and store it in this._rawValue
-                                    this._rawValue = self.findParentVariableValue(val, self.editor.modifiers);
+                                    this._rawValue = self.findParentVariableValue(val, self.editor.modifiers.vars);
                                     // Store the parent variable name
                                     this.parentVar = val;
 
@@ -290,15 +290,15 @@
                     // If the subscriber had a Delete target attr
                     if (deletableAttr) {
                         // Find the Delete target
-                        deleteTarget = document.querySelector(deletableAttr);
+                        deleteTarget = docContext.querySelector(deletableAttr);
                         
                         if (deleteTarget) {
                             // Add the Delete event
                             deleteTarget.addEventListener('click', function () {
                                 // If the editor modifier has this property
-                                if (editor.modifiers.hasOwnProperty(modifier.variable)) {
+                                if (editor.modifiers.vars.hasOwnProperty(modifier.variable)) {
                                     // Delete the modifier from the editor
-                                    delete editor.modifiers[modifier.variable];
+                                    delete editor.modifiers.vars[modifier.variable];
 
                                     // Make the modifier value null, so it wont be fetched
                                     // by editor.getModifiers()

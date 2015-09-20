@@ -1,216 +1,222 @@
 <!-- Controls Column -->
-<div class='col-md-3'>
+<div class='col-sm-3 col-md-3 sidebar'>
   <div class="row">
-    <!-- build:section templates.page.toolbar -->
-    <!-- /build -->
+    <div class="col-md-12">
+      <!-- build:section templates.page.toolbar -->
+      <!-- /build -->
+    </div>
   </div>
 
   <!-- Download Row -->
   <div class="row">
-    <!-- build:section templates.page.downloadpanel -->
-    <!-- /build -->
+    <div class="col-md-12">
+      <!-- build:section templates.page.downloadpanel -->
+      <!-- /build -->
+    </div>
   </div> <!-- /Download Row -->
 
   <!-- Editor Row -->
   <div class="row">
-    <!-- Editor Tabs -->
-    <ul class="nav nav-tabs">
-      <li class="active"><a href="#" data-toggle="tab" data-target="#brandingEditorTab">Branding</a></li>
-      <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a></li>
-      <li><a href="#" data-toggle="tab" data-target="#customEditorTab">Custom</a></li>
-      <li><a href="#" data-toggle="tab" data-target="#variablesTab">Variables</a></li>
-      <li><a href="#" data-toggle="tab" data-target="#metaTab">Meta</a></li>
-    </ul> <!-- /Editor Tabs -->
+    <div class="col-md-12">
+      <!-- Editor Tabs -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#" data-toggle="tab" data-target="#brandingEditorTab">Branding</a></li>
+        <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a></li>
+        <li><a href="#" data-toggle="tab" data-target="#customEditorTab">Custom</a></li>
+        <li><a href="#" data-toggle="tab" data-target="#variablesTab">Variables</a></li>
+        <li><a href="#" data-toggle="tab" data-target="#metaTab">Meta</a></li>
+      </ul> <!-- /Editor Tabs -->
 
-    <div class="tab-content">
-      <div class="tab-pane fade in active" id="brandingEditorTab">
-        <!-- Branding Panel -->
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class='panel-group' id='brandColor'>
-              <!-- build:section templates.editor.branding.default -->
-              <!-- /build -->
-
-              <!-- build:section templates.editor.branding.primary -->
-              <!-- /build -->
-
-              <!-- build:section templates.editor.branding.success -->
-              <!-- /build -->
-
-              <!-- build:section templates.editor.branding.info -->
-              <!-- /build -->
-
-              <!-- build:section templates.editor.branding.warning -->
-              <!-- /build -->
-
-              <!-- build:section templates.editor.branding.danger -->
-              <!-- /build -->
-            </div>
-          </div>
-        </div> <!--/ Branding Panel End -->
-      </div>
-
-      <div class="tab-pane fade" id="componentsEditorTab">
-        <!-- Components Panel -->
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="alert alert-success">
-            <strong>
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-square-o fa-stack-2x"></i>
-                <i class="fa fa-bullhorn fa-flip-horizontal fa-stack-1x"></i>
-              </span>
-              Just added Delete support</strong><br />Click the Cross next to each input and it will be removed (and the default will be used)
-            </div><br />
-
-            <div class="panel-group" id="editorComponents">
-              <!-- build:section templates.editor.component.jumbotron --><!-- /build -->
-
-              <!-- build:section templates.editor.component.misc --><!-- /build -->
-
-              <!-- build:section templates.editor.component.typography --><!-- /build -->
-
-              <!-- build:section templates.editor.component.button --><!-- /build -->
-
-              <!-- build:section templates.editor.component.form --><!-- /build -->
-
-              <!-- build:section templates.editor.component.navbar --><!-- /build -->
-
-              <!-- build:section templates.editor.component.table --><!-- /build -->
-
-              <!-- build:section templates.editor.component.panel --><!-- /build -->
-
-              <!-- build:section templates.editor.component.nav --><!-- /build -->
-
-              <!-- build:section templates.editor.component.listgroup --><!-- /build -->
-
-              <!-- build:section templates.editor.component.dropdown --><!-- /build -->
-
-              <!-- build:section templates.editor.component.pagination --><!-- /build -->
-
-              <!-- build:section templates.editor.component.breadcrumb --><!-- /build -->
-
-              <!-- build:section templates.editor.component.thumbnail --><!-- /build -->
-
-              <!-- build:section templates.editor.component.label --><!-- /build -->
-
-              <!-- build:section templates.editor.component.badge --><!-- /build -->
-
-              <!-- build:section templates.editor.component.tooltip --><!-- /build -->
-
-              <!-- build:section templates.editor.component.popover --><!-- /build -->
-
-              <!-- build:section templates.editor.component.carousel --><!-- /build -->
-
-              <!-- build:section templates.editor.component.modal --><!-- /build -->
-
-              <!-- build:section templates.editor.component.code --><!-- /build -->
-
-              <!-- build:section templates.editor.component.blockquote --><!-- /build -->
-            </div>
-          </div>
-        </div> <!-- /Components Panel -->
-      </div>
-
-      <div class="tab-pane fade in" id="customEditorTab">
-        <!-- Custom Panel -->
-        <div class="panel panel-default">
-          <form role="form">
+      <div class="tab-content">
+        <div class="tab-pane fade in active" id="brandingEditorTab">
+          <!-- Branding Panel -->
+          <div class="panel panel-default">
             <div class="panel-body">
-              <div class="well well-sm">
-                You can add custom <strong>Less</strong> and <strong>Css</strong> to the Theme here, which can be imported/exported by Cluckles.
-              </div>
+              <div class='panel-group' id='brandColor'>
+                <!-- build:section templates.editor.branding.default -->
+                <!-- /build -->
 
-              <div class="panel-group" id="customPanel" role="tablist">
-                <!-- Custom Less Panel -->
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="clucklesCustomLessHeading">
-                    <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomLess" aria-expanded="true" aria-controls="clucklesCustomLess">
-                        Custom Less
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="clucklesCustomLess" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="clucklesCustomLessHeading">
-                    <div class="panel-body">
-                    </div>
-                    <div class="panel-footer">
-                      <button type="button" class="btn btn-success" data-cluckles="add-custom-less">Add Less</button>
-                    </div>
-                  </div>
-                </div> <!-- /Custom Less Panel -->
+                <!-- build:section templates.editor.branding.primary -->
+                <!-- /build -->
 
-                <!-- Custom CSS Panel -->
-                <div class="panel panel-default">
-                  <div class="panel-heading" role="tab" id="clucklesCustomCssHeading">
-                    <h4 class="panel-title">
-                      <a class="collapsed" data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomCss" aria-expanded="true" aria-controls="clucklesCustomCss">
-                        Custom Css
-                      </a>
-                    </h4>
-                  </div>
-                  <div id="clucklesCustomCss" class="panel-collapse collapse" role="tabpanel" aria-labelledby="clucklesCustomCssHeading">
-                    <div class="panel-body">
-                    </div>
-                    <div class="panel-footer">
-                      <button type="button" class="btn btn-success" data-cluckles="add-custom-css">Add Css</button>
-                    </div>
-                  </div>
-                </div> <!-- /Custom CSS Panel -->
+                <!-- build:section templates.editor.branding.success -->
+                <!-- /build -->
+
+                <!-- build:section templates.editor.branding.info -->
+                <!-- /build -->
+
+                <!-- build:section templates.editor.branding.warning -->
+                <!-- /build -->
+
+                <!-- build:section templates.editor.branding.danger -->
+                <!-- /build -->
               </div>
             </div>
-          </form>
-        </div> <!-- /Custom Panel-->
-      </div>
-      
-      <div class="tab-pane fade in" id="variablesTab">
-        <!-- Variables Panel -->
-        <div class="panel panel-default">
-          <div class="panel-body">
+          </div> <!--/ Branding Panel End -->
+        </div>
+
+        <div class="tab-pane fade" id="componentsEditorTab">
+          <!-- Components Panel -->
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="alert alert-success">
+              <strong>
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-square-o fa-stack-2x"></i>
+                  <i class="fa fa-bullhorn fa-flip-horizontal fa-stack-1x"></i>
+                </span>
+                Just added Delete support</strong><br />Click the Cross next to each input and it will be removed (and the default will be used)
+              </div><br />
+
+              <div class="panel-group" id="editorComponents">
+                <!-- build:section templates.editor.component.jumbotron --><!-- /build -->
+
+                <!-- build:section templates.editor.component.misc --><!-- /build -->
+
+                <!-- build:section templates.editor.component.typography --><!-- /build -->
+
+                <!-- build:section templates.editor.component.button --><!-- /build -->
+
+                <!-- build:section templates.editor.component.form --><!-- /build -->
+
+                <!-- build:section templates.editor.component.navbar --><!-- /build -->
+
+                <!-- build:section templates.editor.component.table --><!-- /build -->
+
+                <!-- build:section templates.editor.component.panel --><!-- /build -->
+
+                <!-- build:section templates.editor.component.nav --><!-- /build -->
+
+                <!-- build:section templates.editor.component.listgroup --><!-- /build -->
+
+                <!-- build:section templates.editor.component.dropdown --><!-- /build -->
+
+                <!-- build:section templates.editor.component.pagination --><!-- /build -->
+
+                <!-- build:section templates.editor.component.breadcrumb --><!-- /build -->
+
+                <!-- build:section templates.editor.component.thumbnail --><!-- /build -->
+
+                <!-- build:section templates.editor.component.label --><!-- /build -->
+
+                <!-- build:section templates.editor.component.badge --><!-- /build -->
+
+                <!-- build:section templates.editor.component.tooltip --><!-- /build -->
+
+                <!-- build:section templates.editor.component.popover --><!-- /build -->
+
+                <!-- build:section templates.editor.component.carousel --><!-- /build -->
+
+                <!-- build:section templates.editor.component.modal --><!-- /build -->
+
+                <!-- build:section templates.editor.component.code --><!-- /build -->
+
+                <!-- build:section templates.editor.component.blockquote --><!-- /build -->
+              </div>
+            </div>
+          </div> <!-- /Components Panel -->
+        </div>
+
+        <div class="tab-pane fade in" id="customEditorTab">
+          <!-- Custom Panel -->
+          <div class="panel panel-default">
             <form role="form">
-              <textarea rows="20" class="form-control" data-cluckles="variables"></textarea>
+              <div class="panel-body">
+                <div class="well well-sm">
+                  You can add custom <strong>Less</strong> and <strong>Css</strong> to the Theme here, which can be imported/exported by Cluckles.
+                </div>
+
+                <div class="panel-group" id="customPanel" role="tablist">
+                  <!-- Custom Less Panel -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="clucklesCustomLessHeading">
+                      <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomLess" aria-expanded="true" aria-controls="clucklesCustomLess">
+                          Custom Less
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="clucklesCustomLess" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="clucklesCustomLessHeading">
+                      <div class="panel-body">
+                      </div>
+                      <div class="panel-footer">
+                        <button type="button" class="btn btn-success" data-cluckles="add-custom-less">Add Less</button>
+                      </div>
+                    </div>
+                  </div> <!-- /Custom Less Panel -->
+
+                  <!-- Custom CSS Panel -->
+                  <div class="panel panel-default">
+                    <div class="panel-heading" role="tab" id="clucklesCustomCssHeading">
+                      <h4 class="panel-title">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#customPanel" href="#clucklesCustomCss" aria-expanded="true" aria-controls="clucklesCustomCss">
+                          Custom Css
+                        </a>
+                      </h4>
+                    </div>
+                    <div id="clucklesCustomCss" class="panel-collapse collapse" role="tabpanel" aria-labelledby="clucklesCustomCssHeading">
+                      <div class="panel-body">
+                      </div>
+                      <div class="panel-footer">
+                        <button type="button" class="btn btn-success" data-cluckles="add-custom-css">Add Css</button>
+                      </div>
+                    </div>
+                  </div> <!-- /Custom CSS Panel -->
+                </div>
+              </div>
             </form>
-          </div>
-        </div> <!-- Variables Panel End -->
-      </div>
+          </div> <!-- /Custom Panel-->
+        </div>
 
-      <div class="tab-pane fade in" id="metaTab">
-        <!-- Meta Panel -->
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <form role="form">
-              <div class="form-group">
-                <label for="clucklesMetaAuthor">Author</label>
-                <input type="text" class="form-control" id="clucklesMetaAuthor" name="clucklesMetaAuthor" placeholder="Thomas Coleman" data-cluckles-meta="author" />
-              </div>
+        <div class="tab-pane fade in" id="variablesTab">
+          <!-- Variables Panel -->
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form role="form">
+                <textarea rows="20" class="form-control" data-cluckles="variables"></textarea>
+              </form>
+            </div>
+          </div> <!-- Variables Panel End -->
+        </div>
 
-              <div class="form-group">
-                <label for="clucklesMetaEmail">Email</label>
-                <input type="email" class="form-control" id="clucklesMetaEmail" name="clucklesMetaEmail" placeholder="tom@ilikeprograms.com" data-cluckles-meta="email" />
-              </div>
+        <div class="tab-pane fade in" id="metaTab">
+          <!-- Meta Panel -->
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <form role="form">
+                <div class="form-group">
+                  <label for="clucklesMetaAuthor">Author</label>
+                  <input type="text" class="form-control" id="clucklesMetaAuthor" name="clucklesMetaAuthor" placeholder="Thomas Coleman" data-cluckles-meta="author" />
+                </div>
 
-              <div class="form-group">
-                <label for="clucklesMetaUrl">URL</label>
-                <input type="url" class="form-control" id="clucklesMetaUrl" name="clucklesMetaUrl" placeholder="http://ilikeprograms.com" data-cluckles-meta="url" />
-              </div>
+                <div class="form-group">
+                  <label for="clucklesMetaEmail">Email</label>
+                  <input type="email" class="form-control" id="clucklesMetaEmail" name="clucklesMetaEmail" placeholder="tom@ilikeprograms.com" data-cluckles-meta="email" />
+                </div>
 
-              <div class="form-group">
-                <label for="clucklesMetaThemeName">Theme Name</label>
-                <input type="email" class="form-control" id="clucklesMetaThemeName" name="clucklesMetaThemeName" placeholder="Cluckles Docs Theme" data-cluckles-meta="themeName" />
-              </div>
+                <div class="form-group">
+                  <label for="clucklesMetaUrl">URL</label>
+                  <input type="url" class="form-control" id="clucklesMetaUrl" name="clucklesMetaUrl" placeholder="http://ilikeprograms.com" data-cluckles-meta="url" />
+                </div>
 
-              <div class="form-group">
-                <label for="clucklesMetaVersion">Version</label>
-                <input type="text" class="form-control" id="clucklesMetaVersion" name="clucklesMetaVersion" placeholder="1.0.0" data-cluckles-meta="version" />
-              </div>
+                <div class="form-group">
+                  <label for="clucklesMetaThemeName">Theme Name</label>
+                  <input type="email" class="form-control" id="clucklesMetaThemeName" name="clucklesMetaThemeName" placeholder="Cluckles Docs Theme" data-cluckles-meta="themeName" />
+                </div>
 
-              <div class="form-group">
-                <label for="clucklesMetaLicence">Licence</label>
-                <input type="text" class="form-control" id="clucklesMetaLicence" name="clucklesMetaLicence" placeholder="MIT" data-cluckles-meta="licence" />
-              </div>
-            </form>
-          </div>
-        </div> <!-- Meta Panel End -->
+                <div class="form-group">
+                  <label for="clucklesMetaVersion">Version</label>
+                  <input type="text" class="form-control" id="clucklesMetaVersion" name="clucklesMetaVersion" placeholder="1.0.0" data-cluckles-meta="version" />
+                </div>
+
+                <div class="form-group">
+                  <label for="clucklesMetaLicence">Licence</label>
+                  <input type="text" class="form-control" id="clucklesMetaLicence" name="clucklesMetaLicence" placeholder="MIT" data-cluckles-meta="licence" />
+                </div>
+              </form>
+            </div>
+          </div> <!-- Meta Panel End -->
+        </div>
       </div>
     </div>
   </div> <!-- /Editor Row -->
