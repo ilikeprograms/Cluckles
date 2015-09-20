@@ -18,7 +18,8 @@ module.exports = function (grunt) {
                         ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
                         ' * Released under the <%= pkg.license %> license\n' +
                         ' */\n' +
-                        '(function (window) {\n',
+                        '(function (window) {\n' +
+                        '   var docContext = window.parent.document;\n',
                 footer: '\n})(window);'
             },
             
