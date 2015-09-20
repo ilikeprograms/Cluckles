@@ -195,6 +195,7 @@
 
         // Configure the Options toolbar
         this.setupToolbar();
+        this.setupLocationHashes();
         
         // Disable the Undo and Redo buttons by default (will re enable when something is changed)
         if (this.undoButton) {
@@ -671,6 +672,23 @@
 
         // Allow modification queuing
         this.refreshMonitor.canRefresh = true;
+    };
+
+    /**
+     * Sets up the Location Hashes so that clicking on buttons/links will jump the page content
+     * to that location on the page.
+     * 
+     * @returns {undefined}
+     */
+    ClucklesEditor.prototype.setupLocationHashes = function () {
+        var locationHashedElements = [].slice.call(docContext.querySelectorAll('*[data-cluckles-location]'));
+
+        locationHashedElements.forEach(function (toHash) {
+            toHash.addEventListener('click', function () {
+                window.location.hash = null; // Clear the existing hash
+                window.location.hash = this.dataset.clucklesLocation; // Now jump to the location defined by the data attribute          
+            });
+        });
     };
 
     ClucklesEditor.prototype.setupToolbar = function () {
