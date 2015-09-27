@@ -2,6 +2,7 @@
   "name": "Cluckles",
   "nameLower": "cluckles",
   "version": "1.1.0",
+  "main": "main.js",
   "description": "Cluckles is a live theme editor that leverages Less to Customise Twitter Bootstrap",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,6 +30,7 @@
     "grunt-express": "~1.0.0-beta2",
     "grunt-open": "~0.2.1",
     "grunt-contrib-concat": "~0.4.0",
-    "grunt-html-build": "~0.3.2"
+    "grunt-html-build": "~0.3.2",
+    "electron-prebuilt": "~0.33.3"
   }
 }
