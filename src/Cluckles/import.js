@@ -212,7 +212,7 @@
 
                 // If no file was chosen, dont try to read undefined,
                 // or a json file was not selected
-                if (!file || (file.type !== 'application/json' && !file.name.match(/.less/i))) {
+                if (!file || (!file.name.match(/\.(less|json)$/i))) {
                     alert('Please Select a JSON or Less file (like one exported from Cluckles)');
                     return;
                 }
