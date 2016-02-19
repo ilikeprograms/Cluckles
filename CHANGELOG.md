@@ -8,6 +8,9 @@ into a general description. So the changelog doesnt become too large.
 The intent is so that people can look at the changelog and roughly see whats changed,
 without getting into too much detail.
 
+## [1.1.1]
+- [js] Fixed bug with filename check in import.js where on windows file.type is blank (updated name regex to check for json aswell as less)"
+
 ## [1.1.0]
 
 - [Editor] Updated editor to move the sidebar from the right to the left
