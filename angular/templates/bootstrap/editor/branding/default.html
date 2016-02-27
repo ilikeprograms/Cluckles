@@ -1,0 +1,61 @@
+<!-- Default Color Branding Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">
+    <a data-toggle="collapse" data-parent="#brandColor" href="#defaultBrandingEditor">
+      Base/Default
+    </a>
+    </h4>
+  </div>
+  <div class="panel-collapse collapse in" id="defaultBrandingEditor">
+    <div class="panel-body">
+      <p>Grayscale</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Base</td><td></td><td><input type="color" onchange="clucklesEditor.grayScale.base.setColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Darker</td><td></td><td><input type="color" onchange="clucklesEditor.grayScale.darker.setColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Dark</td><td></td><td><input type="color" onchange="clucklesEditor.grayScale.dark.setColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Gray</td><td></td><td><input type="color" onchange="clucklesEditor.grayScale.gray.setColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Light</td><td></td><td><input type="color" onchange="clucklesEditor.grayScale.light.setColor(this.value);" /></td>
+          </tr>
+          <tr>
+            <td>Lighter</td><td></td><td><input type="color" onchange="clucklesEditor.grayScale.lighter.setColor(this.value);" /></td>
+          </tr>
+        </tbody>
+      </table>
+      
+      <p>Default</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Button Background</td><td><button class="btn btn-default">Default Btn</button></td><td><input type="color" data-cluckles-branding="default" /></td>
+          </tr>
+          <tr>
+            <td>Alert/Panel Background Color</td><td></td><td><input type="color" data-cluckles-formstate-default="heading-bg" /></td>
+          </tr>
+          <tr>
+            <td>Text Color</td><td><span class="text-default">Primary Text</span></td><td><input type="color" data-cluckles-formstate-default="text" /></td>
+          </tr>
+          <tr>
+            <td>Border Color</td><td></td><td><input type="color" data-cluckles-formstate-default="border-color" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- /Default Color Branding Panel -->

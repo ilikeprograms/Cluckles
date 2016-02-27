@@ -1,0 +1,47 @@
+<!-- Label Panel -->
+<div class="panel panel-default">
+  <div class="panel-heading clearfix">
+    <h4 class="panel-title pull-left">
+      <a data-toggle="collapse" data-parent="#editorComponents" href="#labelEditor">
+        Labels
+      </a>
+    </h4>
+    <a data-cluckles-location="#label-component" class="btn btn-default btn-xs pull-right"><i class="fa fa-arrow-right"></i></a>
+  </div>
+  <div class="panel-collapse collapse" id="labelEditor">
+    <div class="panel-body">
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Property</th><th>Example</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Color</td><td></td><td><div class="input-group"><input type="color" class="form-control" data-cluckles-label="color" data-cluckles-delete="#deleteLabelColor" /><span class="input-group-addon"><button id="deleteLabelColor" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span></div></td>
+          </tr>
+          <!-- This seems to not change. Work out why ->
+<!--          <tr>
+            <td>Link Hover Color</td><td></td><td><input type="color" data-cluckles-label="link-hover-color" /></td>
+          </tr>-->
+          <tr>
+            <td>Default Background Color</td><td></td><td><div class="input-group"><input type="color" class="form-control" data-cluckles-label="default-bg" data-cluckles-delete="#deleteLabelDefaultBg" /><span class="input-group-addon"><button id="deleteLabelDefaultBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span></div></td>
+          </tr>
+          <tr>
+            <td>Primary Background Color</td><td></td><td><div class="input-group"><input type="color" class="form-control" data-cluckles-label="primary-bg" data-cluckles-delete="#deleteLabelPrimaryBg" /><span class="input-group-addon"><button id="deleteLabelPrimaryBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span></div></td>
+          </tr>
+          <tr>
+            <td>Success Background Color</td><td></td><td><div class="input-group"><input type="color" class="form-control" data-cluckles-label="success-bg" data-cluckles-delete="#deleteLabelSuccessBg" /><span class="input-group-addon"><button id="deleteLabelSuccessBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span></div></td>
+          </tr>
+          <tr>
+            <td>Info Background Color</td><td></td><td><div class="input-group"><input type="color" class="form-control" data-cluckles-label="info-bg" data-cluckles-delete="#deleteLabelInfoBg" /><span class="input-group-addon"><button id="deleteLabelInfoBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span></div></td>
+          </tr>
+          <tr>
+            <td>Warning Background Color</td><td></td><td><div class="input-group"><input type="color" class="form-control" data-cluckles-label="warning-bg" data-cluckles-delete="#deleteLabelWarningBg" /><span class="input-group-addon"><button id="deleteLabelWarningBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span></div></td>
+          </tr>
+          <tr>
+            <td>Danger Background Color</td><td></td><td><div class="input-group"><input type="color" class="form-control" data-cluckles-label="danger-bg" data-cluckles-delete="#deleteLabelDangerBg" /><span class="input-group-addon"><button id="deleteLabelDangerBg" type="button" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></span></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> <!-- /Label Panel -->
