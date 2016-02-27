@@ -1,0 +1,1 @@
+var clucklesBootstrapModule = angular.module('clucklesBootstrapModule', []);

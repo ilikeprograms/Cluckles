@@ -20,8 +20,8 @@
     <div class="col-md-12">
       <!-- Editor Tabs -->
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#" data-toggle="tab" data-target="#brandingEditorTab">Branding</a></li>
-        <li><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a></li>
+        <li><a href="#" data-toggle="tab" data-target="#brandingEditorTab">Branding</a></li>
+        <li class="active"><a href="#" data-toggle="tab" data-target="#componentsEditorTab">Components</a></li>
         <li><a href="#" data-toggle="tab" data-target="#customEditorTab">Custom</a></li>
         <li><a href="#" data-toggle="tab" data-target="#variablesTab">Variables</a></li>
         <li><a href="#" data-toggle="tab" data-target="#metaTab">Meta</a></li>
@@ -33,6 +33,12 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <div class='panel-group' id='brandColor'>
+                <span ng-include="'bootstrap/templates/editor/component/default.html'"></span>
+                <span ng-include="'bootstrap/templates/editor/component/primary.html'"></span>
+                <span ng-include="'bootstrap/templates/editor/component/success.html'"></span>
+                <span ng-include="'bootstrap/templates/editor/component/info.html'"></span>
+                <span ng-include="'bootstrap/templates/editor/component/warning.html'"></span>
+                <span ng-include="'bootstrap/templates/editor/component/danger.html'"></span>
                 <!-- build:section templates.editor.branding.default -->
                 <!-- /build -->
 
@@ -69,49 +75,49 @@
               </div><br />
 
               <div class="panel-group" id="editorComponents">
-                <!-- build:section templates.editor.component.jumbotron --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/jumbotron.html'"></span>
 
-                <!-- build:section templates.editor.component.misc --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/misc.html'"></span>
 
-                <!-- build:section templates.editor.component.typography --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/typography.html'"></span>
 
-                <!-- build:section templates.editor.component.button --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/button.html'"></span>
 
-                <!-- build:section templates.editor.component.form --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/form.html'"></span>
 
-                <!-- build:section templates.editor.component.navbar --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/navbar.html'"></span>
 
-                <!-- build:section templates.editor.component.table --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/table.html'"></span>
 
-                <!-- build:section templates.editor.component.panel --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/panel.html'"></span>
 
-                <!-- build:section templates.editor.component.nav --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/nav.html'"></span>
 
-                <!-- build:section templates.editor.component.listgroup --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/listgroup.html'"></span>
 
-                <!-- build:section templates.editor.component.dropdown --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/dropdown.html'"></span>
 
-                <!-- build:section templates.editor.component.pagination --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/pagination.html'"></span>
 
-                <!-- build:section templates.editor.component.breadcrumb --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/breadcrumb.html'"></span>
 
-                <!-- build:section templates.editor.component.thumbnail --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/thumbnail.html'"></span>
 
-                <!-- build:section templates.editor.component.label --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/label.html'"></span>
 
-                <!-- build:section templates.editor.component.badge --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/badge.html'"></span>
 
-                <!-- build:section templates.editor.component.tooltip --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/tooltip.html'"></span>
 
-                <!-- build:section templates.editor.component.popover --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/popover.html'"></span>
 
-                <!-- build:section templates.editor.component.carousel --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/carousel.html'"></span>
 
-                <!-- build:section templates.editor.component.modal --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/modal.html'"></span>
 
-                <!-- build:section templates.editor.component.code --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/code.html'"></span>
 
-                <!-- build:section templates.editor.component.blockquote --><!-- /build -->
+                <span ng-include="'bootstrap/templates/editor/component/blockquote.html'"></span>
               </div>
             </div>
           </div> <!-- /Components Panel -->

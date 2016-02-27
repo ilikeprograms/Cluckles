@@ -3,14 +3,15 @@
 /* App Module */
 
 window.clucklesApp = angular.module('clucklesApp', [
-  'ngRoute'
+  'ngRoute',
+  'clucklesBootstrapModule'
 ]);
 
 clucklesApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/editor', {
-        templateUrl: 'templates/pages/editor.html',
+        templateUrl: 'bootstrap/templates/editorlayout.html',
       }).
       otherwise({
         redirectTo: '/editor'
