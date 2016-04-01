@@ -20,6 +20,21 @@ You can even add Custom Less/CSS and import/export it!
 The included files can be distributed and used in other projects to provide live editing functionality for Bootstrap.
 The files are also available on bower.
 
+## Coming Soon - Cluckles2/Desktop
+
+Cluckles is being expanded to include much more functionality soon.
+Including the following:
+- [ ] Split up so we have Cluckles core JS,
+- [ ] Add additional support for SASS
+- [ ] Migrate to using ES6, and possibly modules and Webpack2/Babel
+- [ ] Modules to support different CSS Frameworks (Bootstrap, foundation etc)
+- [ ] Editor built with Angular.
+- [ ] Editor bridges Core JS with UI
+- [ ] Make Editor embeddable. E.g embeds in Joomla etc
+- [ ] Make Cluckles core JS work with Node (to support theme customising from CLI)
+- [ ] Make editors UI for different frameworks
+- [ ] Add ability to build for single frameworks to embed.
+
 ## Quick Start
 
 - Download the Project by either `cloning` or `forking`. (Then CD into Cluckles)
