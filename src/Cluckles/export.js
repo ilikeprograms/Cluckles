@@ -30,22 +30,22 @@
      */
     var Export = function (editor, options) {        
         this.editor     = editor;
-        this.options    = options;
+        this.options    = options || {};
 
         this.jsonLink   = null;
         this.saveLink   = null;
         this.cssLink    = null;
 
         // If either of the Export formats were provided
-        if (options.hasOwnProperty('json')) {
+        if (this.options.hasOwnProperty('json')) {
             this.jsonLink = this.createExportLink('json', options.json);
         }
-        if (options.hasOwnProperty('css')) {
+        if (this.options.hasOwnProperty('css')) {
             this.cssLink = this.createExportLink('css', options.css);
         }
 
         // If the Save option was provided
-        if (options.hasOwnProperty('save')) {
+        if (this.options.hasOwnProperty('save')) {
             this.createSaveLink();
         }
     };
@@ -164,6 +164,8 @@
     Export.prototype.generateJsonBlob = function (customCss, customLess) {
         var modifiers = this.editor.modifiers;
 
+        if (!this.jsonLink) { return; }
+
         // Add the "_extra" JSON,
         // used to export Custom Css and Less
         if (!modifiers.hasOwnProperty('_extra')) {
@@ -178,6 +180,8 @@
         if (customLess && customLess.length > 0) {
             modifiers._extra.less = customLess;
         }
+        
+        
         // Update the href of the download link, this now points to the JSON data
         this.jsonLink.setAttribute('href', this.generateBlob(JSON.stringify(modifiers)));
     };
@@ -192,6 +196,8 @@
     Export.prototype.generateCssBlob = function (css) {
         var customStyleAttribute = 'data-clucklesCustomStyle',
             customCss = "\n";
+    
+        if (!this.cssLink) { return; }
     
         if (css === undefined) { css = this.editor.processor.postProcessorCss; }
 
