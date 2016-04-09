@@ -49,25 +49,29 @@
     Processor.prototype.setupPostProcessor = function () {
         var processedCss,
             customCss;
+    
+        if (this.editor.activePreProcessorName === 'less') {
+            var preProcessorBridge = this.editor.getActivePreProcessorBridge();
 
-        // Provide less with the postProcessor callback we want to execute
-        this.editor.lessGlobal.postProcessor = function (css) {
-            // Store the CSS so it can be retrieved elsewhere
-            this.postProcessorCss = css;
+            // Provide less with the postProcessor callback we want to execute
+            preProcessorBridge.postProcessor = function (css) {
+                // Store the CSS so it can be retrieved elsewhere
+                this.postProcessorCss = css;
 
-            // Generate/Regenerate both of the Download button Blob contents
-            this.editor.export.generateCssBlob(css);
-            this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
+                // Generate/Regenerate both of the Download button Blob contents
+                this.editor.export.generateCssBlob(css);
+                this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
 
-            // If the Scope option was provided, we want to prefix all the
-            // CSS selectors with our scope, so the theme changes are only
-            // applied to the DOMElement we choose and its children
-            processedCss = this.selectorProcessor(css);
-            customCss    = this.prefixCustomStyles(this.editor.import.customCss, 'Css');
+                // If the Scope option was provided, we want to prefix all the
+                // CSS selectors with our scope, so the theme changes are only
+                // applied to the DOMElement we choose and its children
+                processedCss = this.selectorProcessor(css);
+                customCss    = this.prefixCustomStyles(this.editor.import.customCss, 'Css');
 
-            // Return the Processed and Custom Css
-            return processedCss.concat(customCss);
-        }.bind(this);
+                // Return the Processed and Custom Css
+                return processedCss.concat(customCss);
+            }.bind(this);
+        }
     };
     
     /**
