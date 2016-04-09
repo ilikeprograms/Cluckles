@@ -49,24 +49,18 @@
      * 
      * @returns {ClucklesEditor}
      */
-    var ClucklesEditor = function (less, options) {
-        this.lessGlobal         = less;
+    var ClucklesEditor = function (options) {
         this.options            = options;
         
-        // Main Less stylesheet (bootstrap.less)
-        this.mainStylesheet             = document.querySelector('link[rel="stylesheet/less"]');
-        // The URL path of the href attribute e.g. [0] = assets, [1] = less, [2] = bootstrap.less etc
-        this.mainStylesheetPath         = this.mainStylesheet.getAttribute('href').split('/').slice(1);
-        this.mainStylesheetHypenated    = this.mainStylesheetPath.slice(0 , -1)
-                .concat(
-                    this.mainStylesheetPath[this.mainStylesheetPath.length - 1] // Get bootstrap.less etc
-                    .slice(0, -5) // Now remove the ".less"
-                ).join('-'); 
-                // Join with - to give us "assets-less-bootstrap" for example, which is part of the ID which less
-                // assigned to the Stylesheet it outputs after processing client side
+        this.sassBridge         = new SassBridge();
+        this.lessBridge         = new LessBridge();
 
-        // The path to the less folder e.g. assets/less/
-        this.lessPath                   = this.mainStylesheetPath.slice(0, -1).join('/') + '/';
+        this.preProcessorBridges = {
+            'sass': this.sassBridge,
+            'less': this.lessBridge
+        };
+
+        this.activePreProcessorBridgeName = 'sass';
         
         /**
          * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
@@ -207,6 +201,22 @@
         }
         
         this.setupEmbed();
+    };
+
+    /**
+     * Gets the Currently Active PreProcessor Bridge which can be used to compile the modifiers
+     * into a theme.
+     * 
+     * Throws an Exception if the active preprocessor bridge name, is not a configured bridge.
+     * 
+     * @return object The currently active PreProcessor Bridge.
+     */
+    ClucklesEditor.prototype.getActivePreProcessorBridge = function () {
+        if (this.preProcessorBridges.hasOwnProperty(this.activePreProcessorBridgeName)) {
+            return this.preProcessorBridges[this.activePreProcessorBridgeName];
+        } else {
+            throw new Exception('Cluckles could not get non configured PreProcessorBridge "' + this.activePreProcessorBridgeName  + '"');
+        }
     };
 
     /**
@@ -433,6 +443,7 @@
     ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
         if (this.refreshMonitor.disabled) { return; }
 
+        var preProcessorBridge = this.getActivePreProcessorBridge();
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
 
@@ -444,11 +455,7 @@
         // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
         modifiers = this.processor.calculateModifierValues(modifiers.vars);
 
-        if (reload !== undefined) {
-            this.lessGlobal.refresh(reload, modifiers);
-        } else {
-            this.lessGlobal.refresh(false, modifiers);
-        }
+        preProcessorBridge.apply(modifiers, reload);
     };
 
     /**
