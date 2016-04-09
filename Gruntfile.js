@@ -61,6 +61,8 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/theme-modifier.js',
                     'src/<%= pkg.name %>/export.js',
                     'src/<%= pkg.name %>/import.js',
+                    'src/<%= pkg.name %>/preprocessorbridge/sassbridge.js',
+                    'src/<%= pkg.name %>/preprocessorbridge/lessbridge.js',
                     'src/<%= pkg.name %>/cluckles.editor.js'
                 ],
                 dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.js'
