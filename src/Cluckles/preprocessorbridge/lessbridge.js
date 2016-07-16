@@ -9,14 +9,14 @@
                 .concat(
                     this.mainStylesheetPath[this.mainStylesheetPath.length - 1] // Get bootstrap.less etc
                     .slice(0, -5) // Now remove the ".less"
-                ).join('-'); 
+                ).join('-');
                 // Join with - to give us "assets-less-bootstrap" for example, which is part of the ID which less
                 // assigned to the Stylesheet it outputs after processing client side
 
         // The path to the less folder e.g. assets/less/
         this.lessPath                   = this.mainStylesheetPath.slice(0, -1).join('/') + '/';
     };
-    
+
     LessBridge.prototype.apply = function (modifiers, reload) {
         if (reload !== undefined) {
             this.lessLib.refresh(reload, modifiers);
