@@ -7,24 +7,23 @@ module.exports = function (grunt) {
         examplesrc: 'example-src',
 
         // Concat task to Contatenate all the Cluckles files together
-        concat: {
-            options: {
-                separator: grunt.util.linefeed + grunt.util.linefeed,
-                banner: '/*!\n' +
-                        ' * <%= pkg.name %> <%= pkg.version %>:' +
-                        ' Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.\n' +
-                        ' * <%= pkg.website %>\n' +
-                        ' * \n' +
-                        ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
-                        ' * Released under the <%= pkg.license %> license\n' +
-                        ' */\n' +
-                        '(function (window) {\n' +
-                        '   var docContext = window.parent.document;\n',
-                footer: '\n})(window);'
-            },
-            
+        concat: {            
             // The Main lib files used to make cluckles.js
             main: {
+                options: {
+                    separator: grunt.util.linefeed + grunt.util.linefeed,
+                    banner: '/*!\n' +
+                            ' * <%= pkg.name %> <%= pkg.version %>:' +
+                            ' Cluckles Live Theme Editor for CSS Frameworks based on Less such as Twitter Bootstrap.\n' +
+                            ' * <%= pkg.website %>\n' +
+                            ' * \n' +
+                            ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+                            ' * Released under the <%= pkg.license %> license\n' +
+                            ' */\n' +
+                            '(function (window) {\n' +
+                            '   var docContext = window.parent.document;\n',
+                    footer: '\n})(window);'
+                },
                 src: [
                     'src/<%= pkg.name %>/theme-modifier.js',
                     'src/<%= pkg.name %>/processor.js',
@@ -66,6 +65,27 @@ module.exports = function (grunt) {
                     'src/<%= pkg.name %>/cluckles.editor.js'
                 ],
                 dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.js'
+            },
+            bootstrapLess: {
+                options: {
+                    separator: grunt.util.linefeed + grunt.util.linefeed,
+                    banner: '/*!\n' +
+                            ' * <%= pkg.name %> <%= pkg.version %>:' +
+                            ' Twitter Bootstrap Less module for Cluckles.\n' +
+                            ' * <%= pkg.website %>\n' +
+                            ' * \n' +
+                            ' * Copyright <%= grunt.template.today("yyyy") %> <%= pkg.author %>\n' +
+                            ' * Released under the <%= pkg.license %> license\n' +
+                            ' */\n' +
+                            '(function (window) {\n' +
+                            '   var docContext = window.parent.document;\n',
+                    footer: '\n})(window);'
+                },
+                src: [
+                    'src/<%= pkg.name %>/Frameworks/Bootstrap-less/components/branding.js',
+                    'src/<%= pkg.name %>/Frameworks/Bootstrap-less/main.js'
+                ],
+                dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>-bootstrap-less.js'
             }
         },
 
@@ -158,7 +178,8 @@ module.exports = function (grunt) {
                     // Copy the Custom Bootstrap.less file which adds the theme.less as an import
                     {expand: true, src: "src/bootstrap.less", flatten: true, dest: 'build/less/'},
                     
-                    {expand: true, src: "build/cluckles-1.1.0.js", flatten: true, dest: 'angular/js/lib/'}
+                    {expand: true, src: "build/cluckles-1.1.0.js", flatten: true, dest: 'angular/js/lib/'},
+                    {expand: true, src: "build/cluckles-1.1.0-bootstrap-less.js", flatten: true, dest: 'angular/js/lib/'}
 				],
 				options: {
                     // Replace "variables.less" with "variables-custom.less"
