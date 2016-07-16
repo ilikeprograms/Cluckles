@@ -4,7 +4,8 @@
 
 window.clucklesApp = angular.module('clucklesApp', [
   'ngRoute',
-  'clucklesBootstrapModule'
+  'clucklesBootstrapModule',
+  'clucklesmodule'
 ]);
 
 clucklesApp.config(['$routeProvider',
@@ -17,3 +18,15 @@ clucklesApp.config(['$routeProvider',
         redirectTo: '/editor'
       });
   }]);
+  
+angular.module('clucklesApp').run(['$rootScope', 'cluckleseditor', function($rootScope, cluckleseditor) {
+//    var clucklesInitialised = false;
+
+    $rootScope.$on('$includeContentLoaded', function () {
+//        if (!clucklesInitialised) {
+            cluckleseditor.init();
+
+//            clucklesInitialised = true;
+//        }
+    });
+}]);

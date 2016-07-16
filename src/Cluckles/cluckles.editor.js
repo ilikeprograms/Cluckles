@@ -170,13 +170,21 @@
             this.formStates.danger,
             this.listGroup
         ];
+        
+        window.addEventListener('ClucklesFrameworkModuleLoaded', function (e) {
+            console.log('hrere');
+            e.stopPropagation();
+
+            this.components.concat(e.detail.module.components);
+            console.log(this.components);
+        }, false);
 
         // All modifier vars
         this.modifiers      = {};
         
         // Undo/Redo stacks
-        this.undoButton     = docContext.querySelector('*[data-cluckles-options="undo"]');
-        this.redoButton     = docContext.querySelector('*[data-cluckles-options="redo"]');
+//        this.undoButton     = docContext.querySelector('*[data-cluckles-options="undo"]');
+//        this.redoButton     = docContext.querySelector('*[data-cluckles-options="redo"]');
         this.undoStack      = [];
         this.redoStack      = [];
         this.canTrackUndo   = true;
@@ -192,15 +200,15 @@
         this.setupLocationHashes();
         
         // Disable the Undo and Redo buttons by default (will re enable when something is changed)
-        if (this.undoButton) {
-            this.undoButton.setAttribute('disabled', 'disabled');
-        }
+//        if (this.undoButton) {
+//            this.undoButton.setAttribute('disabled', 'disabled');
+//        }
 
-        if (this.redoButton) {
-            this.redoButton.setAttribute('disabled', 'disabled');
-        }
+//        if (this.redoButton) {
+//            this.redoButton.setAttribute('disabled', 'disabled');
+//        }
         
-        this.setupEmbed();
+//        this.setupEmbed();
     };
 
     /**
@@ -752,5 +760,5 @@
             });
         }
     };
-
+    
     window.ClucklesEditor = ClucklesEditor;

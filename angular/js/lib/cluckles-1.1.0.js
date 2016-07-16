@@ -372,25 +372,29 @@
     Processor.prototype.setupPostProcessor = function () {
         var processedCss,
             customCss;
+    
+        if (this.editor.activePreProcessorName === 'less') {
+            var preProcessorBridge = this.editor.getActivePreProcessorBridge();
 
-        // Provide less with the postProcessor callback we want to execute
-        this.editor.lessGlobal.postProcessor = function (css) {
-            // Store the CSS so it can be retrieved elsewhere
-            this.postProcessorCss = css;
+            // Provide less with the postProcessor callback we want to execute
+            preProcessorBridge.postProcessor = function (css) {
+                // Store the CSS so it can be retrieved elsewhere
+                this.postProcessorCss = css;
 
-            // Generate/Regenerate both of the Download button Blob contents
-            this.editor.export.generateCssBlob(css);
-            this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
+                // Generate/Regenerate both of the Download button Blob contents
+                this.editor.export.generateCssBlob(css);
+                this.editor.export.generateJsonBlob(this.editor.import.customCss, this.editor.import.customLess); // Pass both the Custom Css and Less
 
-            // If the Scope option was provided, we want to prefix all the
-            // CSS selectors with our scope, so the theme changes are only
-            // applied to the DOMElement we choose and its children
-            processedCss = this.selectorProcessor(css);
-            customCss    = this.prefixCustomStyles(this.editor.import.customCss, 'Css');
+                // If the Scope option was provided, we want to prefix all the
+                // CSS selectors with our scope, so the theme changes are only
+                // applied to the DOMElement we choose and its children
+                processedCss = this.selectorProcessor(css);
+                customCss    = this.prefixCustomStyles(this.editor.import.customCss, 'Css');
 
-            // Return the Processed and Custom Css
-            return processedCss.concat(customCss);
-        }.bind(this);
+                // Return the Processed and Custom Css
+                return processedCss.concat(customCss);
+            }.bind(this);
+        }
     };
     
     /**
@@ -8191,22 +8195,22 @@
      */
     var Export = function (editor, options) {        
         this.editor     = editor;
-        this.options    = options;
+        this.options    = options || {};
 
         this.jsonLink   = null;
         this.saveLink   = null;
         this.cssLink    = null;
 
         // If either of the Export formats were provided
-        if (options.hasOwnProperty('json')) {
+        if (this.options.hasOwnProperty('json')) {
             this.jsonLink = this.createExportLink('json', options.json);
         }
-        if (options.hasOwnProperty('css')) {
+        if (this.options.hasOwnProperty('css')) {
             this.cssLink = this.createExportLink('css', options.css);
         }
 
         // If the Save option was provided
-        if (options.hasOwnProperty('save')) {
+        if (this.options.hasOwnProperty('save')) {
             this.createSaveLink();
         }
     };
@@ -8325,6 +8329,8 @@
     Export.prototype.generateJsonBlob = function (customCss, customLess) {
         var modifiers = this.editor.modifiers;
 
+        if (!this.jsonLink) { return; }
+
         // Add the "_extra" JSON,
         // used to export Custom Css and Less
         if (!modifiers.hasOwnProperty('_extra')) {
@@ -8339,6 +8345,8 @@
         if (customLess && customLess.length > 0) {
             modifiers._extra.less = customLess;
         }
+        
+        
         // Update the href of the download link, this now points to the JSON data
         this.jsonLink.setAttribute('href', this.generateBlob(JSON.stringify(modifiers)));
     };
@@ -8353,6 +8361,8 @@
     Export.prototype.generateCssBlob = function (css) {
         var customStyleAttribute = 'data-clucklesCustomStyle',
             customCss = "\n";
+    
+        if (!this.cssLink) { return; }
     
         if (css === undefined) { css = this.editor.processor.postProcessorCss; }
 
@@ -8479,8 +8489,7 @@
             themeName:  docContext.querySelector('*[data-cluckles-meta="themeName"]'),
             version:    docContext.querySelector('*[data-cluckles-meta="version"]'),
             licence:    docContext.querySelector('*[data-cluckles-meta="licence"]')
-        };
-        console.log(docContext, docContext.querySelector('*[data-cluckles-meta="author"]'));
+        };        
 
         // Import Headers to allow the Custom Less to be able to reference,
         // variables and mixins
@@ -8499,12 +8508,12 @@
         };
 
         this.setupMetadata();
-//        this.setupVariablesOutput();    // Setup the Variables Output, so variables can be displayed/changed directly
-//        this.setupCustomStyles();       // Setup the ability to handle Custom Css/Less
-//        this.setupFileImport();         // Setup the File input so themes can be imported
-//
-//        // Attempt to load and parse the theme file at the theme.src URL
-//        this.parseThemeFile(this.options);
+        this.setupVariablesOutput();    // Setup the Variables Output, so variables can be displayed/changed directly
+        this.setupCustomStyles();       // Setup the ability to handle Custom Css/Less
+        this.setupFileImport();         // Setup the File input so themes can be imported
+
+        // Attempt to load and parse the theme file at the theme.src URL
+        this.parseThemeFile(this.options);
     };
 
     /**
@@ -8982,6 +8991,123 @@
         }
     };
 
+    var SassBridge = function () {
+        this.sassLib = require('node-sass');
+    };
+    
+    SassBridge.prototype.apply = function (modifiers) {
+        var sassImportStatements = this.getCssFrameworkImports();
+
+        modifiers = this.convertModifiersToRenderFormat(modifiers);
+
+        this.sassLib.render({
+            data: modifiers + sassImportStatements,
+            includePaths: ['./bower_components/bootstrap-sass/assets/stylesheets/']
+        }, function (error, result) {
+            var stylesheet = document.createElement('style');
+            stylesheet.innerHTML = result.css.toString();
+            document.head.appendChild(stylesheet);
+        });
+    };
+    
+    SassBridge.prototype.convertModifiersToRenderFormat = function (modifiers) {
+        var convertedModifiers = '';
+
+        Object.keys(modifiers).forEach(function (modifierName) {
+           convertedModifiers = modifierName + ': ' + modifiers[modifierName] + ';'; 
+        });
+        
+        // Hardcoded to convert between less/sass format while WIP
+        convertedModifiers = convertedModifiers.replace('@', '$');
+        
+        return convertedModifiers;
+    };
+    
+    SassBridge.prototype.getCssFrameworkImports = function () {
+        var importStatements = '';
+        
+        // HARCODED TO WORK WITH SASS VERSION OF BOOTSTRAP WHILE WIP
+        var imports =  [
+            'variables',
+            'mixins',
+            'normalize',
+            'print',
+            'glyphicons',
+            'scaffolding',
+            'type',
+            'code',
+            'grid',
+            'tables',
+            'forms',
+            'buttons',
+            // Components
+            'component-animations',
+            'dropdowns',
+            'button-groups',
+            'input-groups',
+            'navs',
+            'navbar',
+            'breadcrumbs',
+            'pagination',
+            'pager',
+            'labels',
+            'badges',
+            'jumbotron',
+            'thumbnails',
+            'alerts',
+            'progress-bars',
+            'media',
+            'list-group',
+            'panels',
+            'responsive-embed',
+            'wells',
+            'close',
+
+            // Components w/ JavaScript
+            'modals',
+            'tooltip',
+            'popovers',
+            'carousel',
+
+            // Utility classes
+            'utilities',
+            'responsive-utilities',
+        ];
+
+        imports.forEach(function (importName) {
+           importStatements += '@import "bootstrap/' + importName + '";';
+        });
+
+        return importStatements;
+    };
+
+    var LessBridge = function () {
+        this.lessLib = window.less;
+
+        // Main Less stylesheet (bootstrap.less)
+        this.mainStylesheet             = document.querySelector('link[rel="stylesheet/less"]');
+        // The URL path of the href attribute e.g. [0] = assets, [1] = less, [2] = bootstrap.less etc
+        this.mainStylesheetPath         = this.mainStylesheet.getAttribute('href').split('/').slice(1);
+        this.mainStylesheetHypenated    = this.mainStylesheetPath.slice(0 , -1)
+                .concat(
+                    this.mainStylesheetPath[this.mainStylesheetPath.length - 1] // Get bootstrap.less etc
+                    .slice(0, -5) // Now remove the ".less"
+                ).join('-'); 
+                // Join with - to give us "assets-less-bootstrap" for example, which is part of the ID which less
+                // assigned to the Stylesheet it outputs after processing client side
+
+        // The path to the less folder e.g. assets/less/
+        this.lessPath                   = this.mainStylesheetPath.slice(0, -1).join('/') + '/';
+    };
+    
+    LessBridge.prototype.apply = function (modifiers, reload) {
+        if (reload !== undefined) {
+            this.lessLib.refresh(reload, modifiers);
+        } else {
+            this.lessLib.refresh(false, modifiers);
+        }
+    };
+
     /**
      * ClucklesEditor class holds the modifications to the less theme using sub classes
      * which hold information about the modifications, for each different part of the theme.
@@ -9033,24 +9159,18 @@
      * 
      * @returns {ClucklesEditor}
      */
-    var ClucklesEditor = function (less, options) {
-        this.lessGlobal         = less;
+    var ClucklesEditor = function (options) {
         this.options            = options;
         
-        // Main Less stylesheet (bootstrap.less)
-//        this.mainStylesheet             = document.querySelector('link[rel="stylesheet/less"]');
-//        // The URL path of the href attribute e.g. [0] = assets, [1] = less, [2] = bootstrap.less etc
-//        this.mainStylesheetPath         = this.mainStylesheet.getAttribute('href').split('/').slice(1);
-//        this.mainStylesheetHypenated    = this.mainStylesheetPath.slice(0 , -1)
-//                .concat(
-//                    this.mainStylesheetPath[this.mainStylesheetPath.length - 1] // Get bootstrap.less etc
-//                    .slice(0, -5) // Now remove the ".less"
-//                ).join('-'); 
-//                // Join with - to give us "assets-less-bootstrap" for example, which is part of the ID which less
-//                // assigned to the Stylesheet it outputs after processing client side
-//
-//        // The path to the less folder e.g. assets/less/
-//        this.lessPath                   = this.mainStylesheetPath.slice(0, -1).join('/') + '/';
+        this.sassBridge         = new SassBridge();
+        this.lessBridge         = new LessBridge();
+
+        this.preProcessorBridges = {
+            'sass': this.sassBridge,
+            'less': this.lessBridge
+        };
+
+        this.activePreProcessorBridgeName = 'sass';
         
         /**
          * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
@@ -9068,101 +9188,109 @@
             delay:      options.delay || 750
         };
 
-//        this.misc               = new Misc(this);
-//        // Component vars
-//        this.typography         = new Typography(this);
-//        this.table              = new Table(this);
-//        this.breadcrumb         = new Breadcrumb(this);
-//        this.dropdown           = new Dropdown(this);
-//        this.tooltip            = new Tooltip(this);
-//        this.popover            = new Popover(this);
-//        this.thumbnail          = new Thumbnail(this);
-//        this.badge              = new Badge(this);
-//        this.carousel           = new Carousel(this);
-//        this.code               = new Code(this);
-//        this.blockquote         = new Blockquote(this);
-//        this.modal              = new Modal(this);
-//        this.jumbotron          = new Jumbotron(this);
-//        this.grayScale          = new GrayScale(this);
-//        this.nav                = new Nav(this);
-//        this.tab                = new Tab(this);
-//        this.pill               = new Pill(this);
-//        this.pagination         = new Pagination(this);
-//        this.pager              = new Pager(this);
-//        this.form               = new Form(this);
-//        this.branding           = new BrandModifier(this);
-//        this.label              = new Label(this);
-//        this.panelBase          = new PanelBase(this);
-//        this.navbarBase         = new NavbarBase(this);
-//        this.buttonBase         = new ButtonBase(this);
-//        this.navbar = {
-//            'default':            new Navbar(this),
-//            'inverse':            new Navbar(this, 'inverse')
-//        };
-//        this.buttons = {
-//            'default':            new Button(this, 'default'),
-//            'primary':            new Button(this, 'primary'),
-//            'success':            new Button(this, 'success'),
-//            'info':               new Button(this, 'info'),
-//            'warning':            new Button(this, 'warning'),
-//            'danger':             new Button(this, 'danger')
-//        };
-//        this.formStates = {
-//            'default':            new FormState(this, 'default'),
-//            'primary':            new FormState(this, 'primary'),
-//            'success':            new FormState(this, 'success'),
-//            'info':               new FormState(this, 'info'),
-//            'warning':            new FormState(this, 'warning'),
-//            'danger':             new FormState(this, 'danger')
-//        };
-//        this.listGroup          = new ListGroup(this);
+        this.misc               = new Misc(this);
+        // Component vars
+        this.typography         = new Typography(this);
+        this.table              = new Table(this);
+        this.breadcrumb         = new Breadcrumb(this);
+        this.dropdown           = new Dropdown(this);
+        this.tooltip            = new Tooltip(this);
+        this.popover            = new Popover(this);
+        this.thumbnail          = new Thumbnail(this);
+        this.badge              = new Badge(this);
+        this.carousel           = new Carousel(this);
+        this.code               = new Code(this);
+        this.blockquote         = new Blockquote(this);
+        this.modal              = new Modal(this);
+        this.jumbotron          = new Jumbotron(this);
+        this.grayScale          = new GrayScale(this);
+        this.nav                = new Nav(this);
+        this.tab                = new Tab(this);
+        this.pill               = new Pill(this);
+        this.pagination         = new Pagination(this);
+        this.pager              = new Pager(this);
+        this.form               = new Form(this);
+        this.branding           = new BrandModifier(this);
+        this.label              = new Label(this);
+        this.panelBase          = new PanelBase(this);
+        this.navbarBase         = new NavbarBase(this);
+        this.buttonBase         = new ButtonBase(this);
+        this.navbar = {
+            'default':            new Navbar(this),
+            'inverse':            new Navbar(this, 'inverse')
+        };
+        this.buttons = {
+            'default':            new Button(this, 'default'),
+            'primary':            new Button(this, 'primary'),
+            'success':            new Button(this, 'success'),
+            'info':               new Button(this, 'info'),
+            'warning':            new Button(this, 'warning'),
+            'danger':             new Button(this, 'danger')
+        };
+        this.formStates = {
+            'default':            new FormState(this, 'default'),
+            'primary':            new FormState(this, 'primary'),
+            'success':            new FormState(this, 'success'),
+            'info':               new FormState(this, 'info'),
+            'warning':            new FormState(this, 'warning'),
+            'danger':             new FormState(this, 'danger')
+        };
+        this.listGroup          = new ListGroup(this);
 
-//        this.components = [
-//            this.misc,
-//            this.typography,
-//            this.table,
-//            this.breadcrumb,
-//            this.dropdown,
-//            this.tooltip,
-//            this.popover,
-//            this.thumbnail,
-//            this.badge,
-//            this.carousel,
-//            this.code,
-//            this.blockquote,
-//            this.modal,
-//            this.jumbotron,
-//            this.grayScale,
-//            this.nav,
-//            this.tab,
-//            this.pill,
-//            this.pagination,
-//            this.pager,
-//            this.form,
-//            this.branding,
-//            this.label,
-//            this.panelBase,
-//            this.navbarBase,
-//            this.buttonBase,
-//            this.navbar.default,
-//            this.navbar.inverse,
-//            this.buttons.default,
-//            this.buttons.primary,
-//            this.buttons.success,
-//            this.buttons.info,
-//            this.buttons.warning,
-//            this.buttons.danger,
-//            this.formStates.default,
-//            this.formStates.primary,
-//            this.formStates.success,
-//            this.formStates.info,
-//            this.formStates.warning,
-//            this.formStates.danger,
-//            this.listGroup
-//        ];
+        this.components = [
+            this.misc,
+            this.typography,
+            this.table,
+            this.breadcrumb,
+            this.dropdown,
+            this.tooltip,
+            this.popover,
+            this.thumbnail,
+            this.badge,
+            this.carousel,
+            this.code,
+            this.blockquote,
+            this.modal,
+            this.jumbotron,
+            this.grayScale,
+            this.nav,
+            this.tab,
+            this.pill,
+            this.pagination,
+            this.pager,
+            this.form,
+            this.branding,
+            this.label,
+            this.panelBase,
+            this.navbarBase,
+            this.buttonBase,
+            this.navbar.default,
+            this.navbar.inverse,
+            this.buttons.default,
+            this.buttons.primary,
+            this.buttons.success,
+            this.buttons.info,
+            this.buttons.warning,
+            this.buttons.danger,
+            this.formStates.default,
+            this.formStates.primary,
+            this.formStates.success,
+            this.formStates.info,
+            this.formStates.warning,
+            this.formStates.danger,
+            this.listGroup
+        ];
+        
+        window.addEventListener('ClucklesFrameworkModuleLoaded', function (e) {
+            console.log('hrere');
+            e.stopPropagation();
+
+            this.components.concat(e.detail.module.components);
+            console.log(this.components);
+        }, false);
 
         // All modifier vars
-//        this.modifiers      = {};
+        this.modifiers      = {};
         
         // Undo/Redo stacks
 //        this.undoButton     = docContext.querySelector('*[data-cluckles-options="undo"]');
@@ -9174,12 +9302,12 @@
         this.processor      = new Processor(this, options);
 
         // Import/Export Management
-//        this.export         = new Export(this, options.export);
+        this.export         = new Export(this, options.export);
         this.import         = new Import(this, this.processor, options.theme);
 
         // Configure the Options toolbar
-//        this.setupToolbar();
-//        this.setupLocationHashes();
+        this.setupToolbar();
+        this.setupLocationHashes();
         
         // Disable the Undo and Redo buttons by default (will re enable when something is changed)
 //        if (this.undoButton) {
@@ -9191,6 +9319,22 @@
 //        }
         
 //        this.setupEmbed();
+    };
+
+    /**
+     * Gets the Currently Active PreProcessor Bridge which can be used to compile the modifiers
+     * into a theme.
+     * 
+     * Throws an Exception if the active preprocessor bridge name, is not a configured bridge.
+     * 
+     * @return object The currently active PreProcessor Bridge.
+     */
+    ClucklesEditor.prototype.getActivePreProcessorBridge = function () {
+        if (this.preProcessorBridges.hasOwnProperty(this.activePreProcessorBridgeName)) {
+            return this.preProcessorBridges[this.activePreProcessorBridgeName];
+        } else {
+            throw new Exception('Cluckles could not get non configured PreProcessorBridge "' + this.activePreProcessorBridgeName  + '"');
+        }
     };
 
     /**
@@ -9417,6 +9561,7 @@
     ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
         if (this.refreshMonitor.disabled) { return; }
 
+        var preProcessorBridge = this.getActivePreProcessorBridge();
         // Allow the function to accept custom modifications
         var modifiers = modifications || this.getModifiers();
 
@@ -9428,11 +9573,7 @@
         // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
         modifiers = this.processor.calculateModifierValues(modifiers.vars);
 
-        if (reload !== undefined) {
-            this.lessGlobal.refresh(reload, modifiers);
-        } else {
-            this.lessGlobal.refresh(false, modifiers);
-        }
+        preProcessorBridge.apply(modifiers, reload);
     };
 
     /**
@@ -9729,6 +9870,6 @@
             });
         }
     };
-
+    
     window.ClucklesEditor = ClucklesEditor;
 })(window);
