@@ -2,12 +2,12 @@ module.exports = function (grunt) {
 	// Setup
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-        
+
         // Example-src folder location
         examplesrc: 'example-src',
 
         // Concat task to Contatenate all the Cluckles files together
-        concat: {            
+        concat: {
             // The Main lib files used to make cluckles.js
             main: {
                 options: {
@@ -97,11 +97,27 @@ module.exports = function (grunt) {
 
 			build: {
                 // Theme Editor Files
-				src: '<%= concat.main.dest %>',
+				src: 'build/<%= pkg.nameLower %>',
                 dest: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.min.js'
 			}
 		},
-        
+
+		babel: {
+      options: {
+          sourceMap: true,
+          presets: ['es2015']
+      },
+      dist: {
+          files: [{
+						expand: true,
+						flatten: true,
+              src: 'src/Cluckles/**/*.js',
+							dest: 'build/es5',
+							ext: '.js'
+          }]
+      }
+    },
+
         // Create a localhost server to host the example demo
         express: {
             all: {
@@ -114,14 +130,14 @@ module.exports = function (grunt) {
                 }
             }
         },
-        
+
         // Automatically open the path when Grunt is run
         open: {
             all: {
                 path: "http://localhost:9000/example" // ./build/example (index.html)
             }
         },
-        
+
         watch: {
             // Run the tasks when any of the example-src files are changed
             "example-src": {
@@ -132,7 +148,7 @@ module.exports = function (grunt) {
                   livereload: true
                 }
             },
-            
+
             // Reload the GruntFile.js when it is changed
             // TODO: Look into getting it to rerun the build process and start
             // watching again when this is done
@@ -142,7 +158,7 @@ module.exports = function (grunt) {
                     reload: true
                 }
             },
-            
+
             // Run the tasks when the Cluckles JS files change
             scripts: {
                 files: "src/<%= pkg.nameLower %>/*",
@@ -165,19 +181,19 @@ module.exports = function (grunt) {
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'build/js/lib'},
 					{expand: true, src: ['bower_components/bootstrap/dist/js/bootstrap.min.js'], flatten: true, dest: 'build/js/lib'},
                     {expand: true, src: ['bower_components/less.js/dist/less-2.0.0.min.js'], flatten: true, dest: 'build/js/lib'},
-					
+
 					// Bootstrap less files
 					{expand: true, src: ['bower_components/bootstrap/less/*'], flatten: true, dest: 'build/less', filter: 'isFile'},
 					{expand: true, src: ['bower_components/bootstrap/less/mixins/*'], flatten: true, dest: 'build/less/mixins', filter: 'isFile'},
 					{expand: true, src: ['bower_components/bootstrap/fonts/*'], flatten: true, dest: 'build/fonts', filter: 'isFile'},
-                    
+
                     // Custom Bootstrap variables file
 					{expand: true, src: 'src/variables-custom.less', flatten: true, dest: 'build/less/'},
 					{expand: true, src: 'src/theme.less', flatten: true, dest: 'build/less/'},
 
                     // Copy the Custom Bootstrap.less file which adds the theme.less as an import
                     {expand: true, src: "src/bootstrap.less", flatten: true, dest: 'build/less/'},
-                    
+
                     {expand: true, src: "build/cluckles-1.1.0.js", flatten: true, dest: 'angular/js/lib/'},
                     {expand: true, src: "build/cluckles-1.1.0-bootstrap-less.js", flatten: true, dest: 'angular/js/lib/'}
 				],
@@ -199,27 +215,27 @@ module.exports = function (grunt) {
                         src: 'build/<%= pkg.nameLower %>-<%= pkg.version %>.min.js',
                         dest: 'docs/assets/js/<%= pkg.nameLower %>.min.js'
                     },
-                    
+
                     // Copy the Example files
                     {src: "<%= examplesrc %>/css/component-example-fix.css", dest: 'docs/assets/css/component-example-fix.css' },
                     {src: "<%= examplesrc %>/js/component-example-fix.js", dest: 'docs/assets/js/component-example-fix.js'},
                     {src: "build/example/component.html", dest: 'docs/_includes/component.html'},
                     {src: "build/example/editor.html", dest: 'docs/_includes/editor.html'},
-                    
+
                     // Font files
                     { src: "build/fonts/*", dest: 'docs/assets/fonts', expand: true, flatten: true },
-                    
+
                     // JS lib files
 					{expand: true, src: ['bower_components/jquery/dist/jquery.min.js', 'bower_components/jquery/dist/jquery.min.map'], flatten: true, dest: 'docs/assets/js/lib'},
 					{src: 'bower_components/bootstrap/dist/js/bootstrap.min.js', dest: 'docs/assets/js/lib/bootstrap.min.js'},
                     {src: 'bower_components/less.js/dist/less-2.0.0.min.js', dest: 'docs/assets/js/lib/less.min.js'},
-                    
+
                     // Build Less Files
                     {expand: true, cwd: 'build/', src: 'less/**', dest: 'docs/assets/'}
 //                    {expand: true, src: ['build/less/mixins'], flatten: true, dest: 'docs/assets/less/mixins', filter: 'isFile'}
                 ]
             },
-            
+
             dist: {
                 files: [
                     // Main JS File
@@ -230,7 +246,7 @@ module.exports = function (grunt) {
                 ]
             }
 		},
-        
+
         // Builds the main Example demo pages
         htmlbuild: {
             components: {
@@ -273,7 +289,7 @@ module.exports = function (grunt) {
                     }
                 }
             },
-            
+
             editor: {
                 src: '<%= examplesrc %>/templates/editor.html',
                 dest: 'build/example/',
@@ -337,7 +353,7 @@ module.exports = function (grunt) {
                 dest: 'build/example/', // Place the build files in build/example/
                 options: {
                     beautify: true,
-                    
+
                     styles: {
                         example: [
                             'build/example/css/component-example-fix.css'
@@ -348,7 +364,7 @@ module.exports = function (grunt) {
                         templates: {
                             component: 'build/example/component.html',
                             editor: 'build/example/editor.html',
-                            
+
                             // Page Elements
                             page: {
                                 navigation: '<%= examplesrc %>/templates/page/navigation.html'
@@ -362,7 +378,8 @@ module.exports = function (grunt) {
         // Turn on JShint for the build cluckles.js file
 		jshint: {
 			options: {
-				jshintrc: true
+				jshintrc: true,
+				esnext: true
 			},
 			files: ['build/<%= pkg.nameLower %>-<%= pkg.version %>.js']
 		}
@@ -377,9 +394,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-express');
     grunt.loadNpmTasks('grunt-open');
     grunt.loadNpmTasks('grunt-html-build');
+		grunt.loadNpmTasks('grunt-babel');
 
     // Register the "default" Task
-    grunt.registerTask("js", ["concat", "jshint", "uglify", "copy:main"]);
+    grunt.registerTask("js", ["concat", "jshint", "babel", "uglify", "copy:main"]);
     grunt.registerTask("html", ["htmlbuild:components", "htmlbuild:editor", "htmlbuild:build"]);
     grunt.registerTask("host", ["express", "open", "watch"]);
 

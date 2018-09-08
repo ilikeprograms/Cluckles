@@ -7,319 +7,330 @@
  */
 (function (window) {
    var docContext = window.parent.document;
-    var ThemeModifier = function (editor) {
-        Object.defineProperties(this, {
-            'editor': {
-                enumerable: false,
-                value: editor
-            },
-            'modifiers': {
-                enumerable: false,
-                writable: true,
-                value: {}
-            }
-        });
-    };
+// var ThemeModifier = function (editor) {
+//     Object.defineProperties(this, {
+//         'editor': {
+//             enumerable: false,
+//             value: editor
+//         },
+//         'modifiers': {
+//             enumerable: false,
+//             writable: true,
+//             value: {}
+//         }
+//     });
+// };
 
-    /**
-     * Finds the modifications to the Component styling.
-     * 
-     * @returns {object}
-     */
-    ThemeModifier.prototype.getModifications = function () {
-        var modifiers = this.modifiers,
-            filteredModifiers = {},
-            modifierNames = Object.keys(modifiers);
+class ThemeModifier {
+  constructor(editor) {
+    this.editor = editor;
+    this.modifiers = {};
+  }
 
-        if (modifierNames.length === 0) { return filteredModifiers; }
+  /**
+   * Finds the modifications to the Component styling.
+   *
+   * @returns {Object}
+   */
+  getModifications() {
+    const modifiers = this.modifiers;
+    const filteredModifiers = {};
+    const modifierNames = Object.keys(modifiers);
 
-        // Filter out modifiers which are still null
-        modifierNames.forEach(function (modifierName) {
-            var modifier = modifiers[modifierName];
+    if (modifierNames.length === 0) { return filteredModifiers; }
 
-            if (modifier.value !== null) {
-                filteredModifiers[modifierName] = modifier;
-            }
-        });
+    // Filter out modifiers which are still null
+    modifierNames.forEach((modifierName) => {
+      const modifier = modifiers[modifierName];
 
-        return filteredModifiers;
-    };
+      if (modifier.value !== null) {
+        filteredModifiers[modifierName] = modifier;
+      }
+    });
 
-    /**
-     * Loads the modifiers input (by setting the value) into this components modifiers, if the modifier
-     * variable names match.
-     * 
-     * @param {object} importModifiers The parsed theme modifiers to load into this component.
-     * 
-     * @returns {undefined}
-     */
-    ThemeModifier.prototype.loadModifiers = function (importModifiers) {
-        // Make sure we have Modifiers to import
-        if (importModifiers === undefined) { return; }
+    return filteredModifiers;
+  }
 
-        var modifierNames   = Object.keys(importModifiers);
+  /**
+   * Loads the modifiers input (by setting the value) into this components
+   * modifiers, if the modifier variable names match.
+   *
+   * @param {object} importModifiers The parsed theme modifiers to load into this component.
+   *
+   * @returns {undefined}
+   */
+  loadModifiers(importModifiers) {
+    // Make sure we have Modifiers to import
+    if (importModifiers === undefined) { return; }
 
-        // Itterate over each importModifier name
-        modifierNames.forEach(function (modifierName) {
-            // All of the modifiers of the current component
-            var componentModifiers = this.modifiers;
+    const modifierNames = Object.keys(importModifiers);
 
-            // Itterate over each component modifer name
-            Object.keys(componentModifiers).forEach(function (componentModifierName) {
-                var componentModifier   = componentModifiers[componentModifierName],
-                    importModifier      = importModifiers[modifierName];
+    // Itterate over each importModifier name
+    modifierNames.forEach((modifierName) => {
+      // All of the modifiers of the current component
+      const componentModifiers = this.modifiers;
 
-                // If this component modifier (e.g. this.bg) variable property (e.g. '@jumbotron-bg')
-                // matches the import modifier variable name, then set the value
-                // of the component modifier, which will set the value and trigger
-                // the data binding and update the data subscribers
-                if (componentModifier.variable === modifierName) {
-                    componentModifier.value = this.findParentVariableValue(modifierName, importModifiers);
-                    
-                    if (importModifier[0] === '@') {
-                        componentModifier.parentVar = importModifier;
-                    }
-                }
-            }, this);            
-        }, this);
-    };
-    
-    /**
-     * Cascades a parents value to any Component modifier, whos parentVar is set
-     * to the the parent variable.
-     * 
-     * @param {string} parentVariable The name of the parent variable.
-     * @param {string} parentValue The value of the parent variable.
-     * 
-     * @returns {undefined}
-     */
-    ThemeModifier.prototype.cascadeModifier = function (parentVariable, parentValue) {
-        this.editor.components.forEach(function (component) {
-            // Some of the "components" may be object literals containing
-            // actual "components" which inherit from ThemeModifier
-            if (component instanceof ThemeModifier) {
-                // Load the modifiers into the component, triggering the
-                // two way data binding and updating the data subscribers
-                var componentModifiers = component.modifiers;
-                
-                Object.keys(componentModifiers).forEach(function (modifierName) {
-                    var modifier = componentModifiers[modifierName];
+      // Itterate over each component modifer name
+      Object.keys(componentModifiers).forEach((componentModifierName) => {
+        const componentModifier = componentModifiers[componentModifierName];
+        const importModifier = importModifiers[modifierName];
 
-                    if (modifier.parentVar === parentVariable) {
-                        modifier.value      = parentValue;
-                        modifier.parentVar  = parentVariable;
-                    }
-                });
-            }
-        });
-    };
+        // If this component modifier (e.g. this.bg) variable property (e.g. '@jumbotron-bg')
+        // matches the import modifier variable name, then set the value
+        // of the component modifier, which will set the value and trigger
+        // the data binding and update the data subscribers
+        if (componentModifier.variable === modifierName) {
+          componentModifier.value = this.findParentVariableValue(modifierName, importModifiers);
 
-    /**
-     * Attempts to find the parent value of the @variable passed in as variableName, by searching
-     * through the modifiers object, until a parent variable is no longer found, in which case returns's
-     * the variable.
-     * 
-     * @param {string} variableName The variable name or variable value (@variable || #000000 etc).
-     * @param {object} modifiers The modifiers object to search through.
-     * 
-     * @returns {string}
-     */
-    ThemeModifier.prototype.findParentVariableValue = function (variableName, modifiers) {
-        var variableValue;
-
-        // If the variable exists in the modifiers
-        if (modifiers.hasOwnProperty(variableName)) {
-            // Find the variable's value
-            variableValue = modifiers[variableName];
-
-            // If the first character is a @, it points to a parent variable
-            if (variableValue[0] === '@') {
-                // Now try to find the parent variable
-                return this.findParentVariableValue(variableValue, modifiers);
-            }
-
-            return variableValue;
+          if (importModifier[0] === '@') {
+            componentModifier.parentVar = importModifier;
+          }
         }
+      });
+    });
+  }
 
-        // If the modifiers doesnt have a value set for this variable
-        return null;
-    };
-    
-    /**
-     * Resets all of the Modifiers that this classes stores.
-     *  
-     * @returns {undefined}
-     */
-    ThemeModifier.prototype.resetModifiers = function() {
-        var componentModifiers = this.modifiers;
+  /**
+   * Cascades a parents value to any Component modifier, whos parentVar is set
+   * to the the parent variable.
+   *
+   * @param {string} parentVariable The name of the parent variable.
+   * @param {string} parentValue The value of the parent variable.
+   *
+   * @returns {undefined}
+   */
+  cascadeModifier(parentVariable, parentValue) {
+    this.editor.components.forEach((component) => {
+      // Some of the "components" may be object literals containing
+      // actual "components" which inherit from ThemeModifier
+      if (component instanceof ThemeModifier) {
+        // Load the modifiers into the component, triggering the
+        // two way data binding and updating the data subscribers
+        const componentModifiers = component.modifiers;
 
-        // Itterate over each component modifer name
-        Object.keys(componentModifiers).forEach(function (componentModifierName) {
-           this[componentModifierName].value = null;
-        }, componentModifiers);
-    };
+        Object.keys(componentModifiers).forEach((modifierName) => {
+          const modifier = componentModifiers[modifierName];
 
-    /**
-     * Configured the Two Way Databinding for the modifiers, which includes
-     * binding multiple DOM Element subscribers which have the "data-cluckles-{{type}}" attribute,
-     * which makes them update when the modifiers change, and changing the modifiers when the DOM
-     * Element's values change.
-     * 
-     * Example of Two Way Databinding:
-     * 
-     * editor.jumbotron.setBackgroundColor('#000000'); // Will Update the modifier and all Subscribers
-     * <input type="color" data-cluckles-jumbotron="bg" /> // Will Update the modifier and all Subscribers
-     * 
-     * @returns {undefined}
-     */
-    ThemeModifier.prototype.setupDataBinding = function () {
-        var self        = this,
-            editor      = this.editor, // ClucklesEditor instance
-            // DOM Element Subscribers                                       // *[data-cluckles-{{type}}] e.g. *[data-cluckles-jumbotron]
-            subscribers = Array.prototype.slice.call(docContext.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
+          if (modifier.parentVar === parentVariable) {
+            modifier.value = parentValue;
+            modifier.parentVar = parentVariable;
+          }
+        });
+      }
+    });
+  }
 
-        // Setup the value accessors, and configure them to Notify the subscribers of changes
-        Object.keys(this.modifiers).forEach(function(modifierName) {
-            var modifier = this.modifiers[modifierName];
+  /**
+   * Attempts to find the parent value of the @variable passed in as
+   * variableName, by searching through the modifiers object, until a parent
+   * variable is no longer found, in which case returns's
+   * the variable.
+   *
+   * @param {string} variableName The variable name or variable value (@variable || #000000 etc).
+   * @param {object} modifiers The modifiers object to search through.
+   *
+   * @returns {string}
+   */
+  findParentVariableValue(variableName, modifiers) {
+    let variableValue;
 
-            // If a value property has already been defined, we dont need to attach
-            // a generic value accessor methods
-            if (!modifier.hasOwnProperty('value')) {
-                // Define getters/setters to change the value, apply it, and notify subscribers
-                Object.defineProperty(modifier, 'value', {
-                    get: function () { return this._value; },
-                    set: function (val) {
-                        var unit        = this.unit || 'px', // Default unit to append (px, em, rem, etc)
-                            hasParent   = false;
+    // If the variable exists in the modifiers
+    if (modifiers.hasOwnProperty(variableName)) {
+      // Find the variable's value
+      variableValue = modifiers[variableName];
 
-                        if (val !== null) {
-                            // If the value contains the suffix already (such as when loading from file)
-                            if (val.slice(-unit.length) === unit) {
-                                // Store the val minus the prefix
-                                this._rawValue = val.slice(0, -unit.length);
-                            } else {
-                                // If the val points to a parent variable (when setting using console API etc)
-                                if (val[0] === '@') {
-                                    // Find the parent variable value, and store it in this._rawValue
-                                    this._rawValue = self.findParentVariableValue(val, self.editor.modifiers.vars);
-                                    // Store the parent variable name
-                                    this.parentVar = val;
+      // If the first character is a @, it points to a parent variable
+      if (variableValue[0] === '@') {
+        // Now try to find the parent variable
+        return this.findParentVariableValue(variableValue, modifiers);
+      }
 
-                                    // Make sure we dont remove this.parentVar
-                                    hasParent = true;
-                                } else {
-                                    // If we have a short color code #FFF etc, turn into #FFFFFF
-                                    if (val[0] === '#' && val.length === 4) {
-                                        this._rawValue = '#' + val.slice(1) + val.slice(1);
-                                    } else {
-                                        // Store the val
-                                        this._rawValue = val;
-                                    }
-                                }
-                            }
+      return variableValue;
+    }
 
-                            // If this property requires a suffix unit
-                            // val !== NULL makes sure we can set _value to null,
-                            // but stops _value being set to null + unit
-                            // without this the theme breaks after being reset
-                            if (this.suffixUnit) {
-                                // Combine the value with the unit
-                                this._value = this._rawValue + unit;
-                            } else {
-                                // Store the new value
-                                this._value = this._rawValue;
-                            }
-                        } else {
-                            this._rawValue  = null;
-                            this._value     = null;
-                        }
+    // If the modifiers doesnt have a value set for this variable
+    return null;
+  }
 
-                        // Queue the modifications to be applied by less
-                        editor.queueModifications();
+  /**
+   * Resets all of the Modifiers that this classes stores.
+   *
+   * @returns {undefined}
+   */
+  resetModifiers() {
+    const componentModifiers = this.modifiers;
 
-                        // If a value is provided
-                        if (val !== null) {
-                            // We want to store the current cluckles modifiers 
-                            // in the undoStack, so it can be reversed later
-                            editor.pushUndoStack();
-                        }
+    // Itterate over each component modifer name
+    Object.keys(componentModifiers).forEach(function inner(componentModifierName) {
+      this[componentModifierName].value = null;
+    }, componentModifiers);
+  }
 
-                        // Cascade the Modifier value to any component modifier
-                        // whos value is set to the parent variable
-                        self.cascadeModifier(this.variable, this._rawValue);
+  /**
+   * Configured the Two Way Databinding for the modifiers, which includes
+   * binding multiple DOM Element subscribers which have the "data-cluckles-{{type}}" attribute,
+   * which makes them update when the modifiers change, and changing the modifiers when the DOM
+   * Element's values change.
+   *
+   * Example of Two Way Databinding:
+   *
+   * editor.jumbotron.setBackgroundColor('#000000'); // Will Update the modifier and all Subscribers
+   * <input type="color" data-cluckles-jumbotron="bg" /> // Will Update the modifier and all Subscribers
+   *
+   * @returns {undefined}
+   */
+  setupDataBinding() {
+    const self = this;
+    const editor = this.editor;
+    const subscribers = Array.of(docContext.querySelectorAll('*[' + this.subscriberDataAttribute + ']'));
 
-                        // Remove the parentVar if we are directly setting the value,
-                        // aslong as we arent setting to a parentVar
-                        if (!hasParent && this.hasOwnProperty('parentVar')) {
-                            delete this.parentVar;
-                        }
+    Object.keys(this.modifiers).forEach((modifierName) => {
+      const modifier = this.modifiers[modifierName];
 
-                        // Notify each of the Subscribers of the value change
-                        this.subscribers.forEach(function (subscriber) {
-                            subscriber.value = this._rawValue;
-                        }, this);
-                    } 
-                });
-            }
-        }, this);
+      // If a value property has already been defined, we dont need to attach
+      // a generic value accessor methods
+      if (!modifier.hasOwnProperty('value')) {
+        // Define getters/setters to change the value, apply it, and notify subscribers
+        Object.defineProperty(modifier, 'value', {
+          /* eslint object-shorthand: off*/
+          get: function getter() { return this._value; },
+          set: function setter(val) {
+            const unit = this.unit || 'px'; // Default unit to append (px, em, rem, etc)
+            let hasParent = false;
 
-        // Store the Subscribers, and setup their 'change' listeners
-        subscribers.forEach(function (subscriber) {
-            // Get the data attribute which should match the subscribeProperty of a modifier
-            // which it wants to bind to
-            var subscribeToProperty = subscriber.getAttribute(this.subscriberDataAttribute),
-                // Deletable attribute, points to a target to bind a Delete Event
-                deletableAttr       = subscriber.getAttribute('data-cluckles-delete'),
-                deleteTarget;
+            if (val !== null) {
+              // If the value contains the suffix already (such as when loading from file)
+              if (val.slice(-unit.length) === unit) {
+                // Store the val minus the prefix
+                this._rawValue = val.slice(0, -unit.length);
+              } else {
+                // If the val points to a parent variable (when setting using console API etc)
+                if (val[0] === '@') {
+                  // Find the parent variable value, and store it in this._rawValue
+                  this._rawValue = self.findParentVariableValue(val, editor.modifiers.vars);
+                  // Store the parent variable name
+                  this.parentVar = val;
 
-            Object.keys(this.modifiers).forEach(function (modifierName) {
-                // Get the modifier object
-                var modifier = this.modifiers[modifierName];
-
-                // If this modifiers handles the property we want to subscribe to
-                if (modifier.subscribeProperty === subscribeToProperty) {
-                    // Store the subscriber for this modifier
-                    modifier.subscribers.push(subscriber);
-
-                    // Add a Change Event which will call the change function and pass
-                    // through the value of the DOM Element
-                    subscriber.addEventListener('change', function (e) {
-                        var suffixUnit = e.target.getAttribute('data-cluckles-unit');
-                        
-                        // If the DOM Element has a "unit" data binding
-                        if (suffixUnit) {
-                            // Call the change function and provide the extra suffix
-                            modifier.changeFn(e.target.value, suffixUnit);
-                        } else {
-                            // else call change function as default
-                            modifier.changeFn(e.target.value);
-                        }
-                    }, false);
-                    
-                    // If the subscriber had a Delete target attr
-                    if (deletableAttr) {
-                        // Find the Delete target
-                        deleteTarget = docContext.querySelector(deletableAttr);
-                        
-                        if (deleteTarget) {
-                            // Add the Delete event
-                            deleteTarget.addEventListener('click', function () {
-                                // If the editor modifier has this property
-                                if (editor.modifiers.vars.hasOwnProperty(modifier.variable)) {
-                                    // Delete the modifier from the editor
-                                    delete editor.modifiers.vars[modifier.variable];
-
-                                    // Make the modifier value null, so it wont be fetched
-                                    // by editor.getModifiers()
-                                    modifier.value = null;
-                                }
-                            }, false);
-                        }
-                    }
+                  // Make sure we dont remove this.parentVar
+                  hasParent = true;
+                } else {
+                  // If we have a short color code #FFF etc, turn into #FFFFFF
+                  if (val[0] === '#' && val.length === 4) {
+                    this._rawValue = '#' + val.slice(1) + val.slice(1);
+                  } else {
+                      // Store the val
+                    this._rawValue = val;
+                  }
                 }
-            }, this);
-        }, this);
-    };
+              }
+
+              // If this property requires a suffix unit
+              // val !== NULL makes sure we can set _value to null,
+              // but stops _value being set to null + unit
+              // without this the theme breaks after being reset
+              if (this.suffixUnit) {
+                // Combine the value with the unit
+                this._value = this._rawValue + unit;
+              } else {
+                // Store the new value
+                this._value = this._rawValue;
+              }
+            } else {
+              this._rawValue = null;
+              this._value = null;
+            }
+
+            // Queue the modifications to be applied by less
+            editor.queueModifications();
+
+            // If a value is provided
+            if (val !== null) {
+              // We want to store the current cluckles modifiers
+              // in the undoStack, so it can be reversed later
+              editor.pushUndoStack();
+            }
+
+            // Cascade the Modifier value to any component modifier
+            // whos value is set to the parent variable
+            self.cascadeModifier(this.variable, this._rawValue);
+
+            // Remove the parentVar if we are directly setting the value,
+            // aslong as we arent setting to a parentVar
+            if (!hasParent && this.hasOwnProperty('parentVar')) {
+              delete this.parentVar;
+            }
+
+            // Notify each of the Subscribers of the value change
+            this.subscribers.forEach((subscriber) => {
+              subscriber.value = this._rawValue;
+            });
+          }
+        });
+      }
+    });
+
+    // Store the Subscribers, and setup their 'change' listeners
+    subscribers.forEach((subscriber) => {
+      // Get the data attribute which should match the subscribeProperty of a modifier
+      // which it wants to bind to
+      const subscribeToProperty = subscriber.getAttribute(this.subscriberDataAttribute);
+      // Deletable attribute, points to a target to bind a Delete Event
+      const deletableAttr = subscriber.getAttribute('data-cluckles-delete');
+
+      let deleteTarget;
+
+      Object.keys(this.modifiers).forEach((modifierName) => {
+        // Get the modifier object
+        const modifier = this.modifiers[modifierName];
+
+        // If this modifiers handles the property we want to subscribe to
+        if (modifier.subscribeProperty === subscribeToProperty) {
+          // Store the subscriber for this modifier
+          modifier.subscribers.push(subscriber);
+
+          // Add a Change Event which will call the change function and pass
+          // through the value of the DOM Element
+          subscriber.addEventListener('change', (e) => {
+            const suffixUnit = e.target.getAttribute('data-cluckles-unit');
+
+            // If the DOM Element has a "unit" data binding
+            if (suffixUnit) {
+              // Call the change function and provide the extra suffix
+              modifier.changeFn(e.target.value, suffixUnit);
+            } else {
+              // else call change function as default
+              modifier.changeFn(e.target.value);
+            }
+          }, false);
+
+          // If the subscriber had a Delete target attr
+          if (deletableAttr) {
+            // Find the Delete target
+            deleteTarget = docContext.querySelector(deletableAttr);
+
+            if (deleteTarget) {
+              // Add the Delete event
+              deleteTarget.addEventListener('click', () => {
+                // If the editor modifier has this property
+                if (editor.modifiers.vars.hasOwnProperty(modifier.variable)) {
+                  // Delete the modifier from the editor
+                  delete editor.modifiers.vars[modifier.variable];
+
+                  // Make the modifier value null, so it wont be fetched
+                  // by editor.getModifiers()
+                  modifier.value = null;
+                }
+              }, false);
+            }
+          }
+        }
+      });
+    });
+  }
+}
+
+export Default ThemeModifier;
+
 
     /**
      * Processor which allows the CSS/Less which is output by less to be processed.
@@ -4216,209 +4227,232 @@
 		this.modifiers.linkActiveColor.value = linkActiveColor;
 	};
 
-	/**
-	 * Allows editing of the @brand-{style} variables which affect alerts/panel headers,
-	 * the Primary branding, however affects more, such as the ListGroup background, links etc.
-	 * 
-	 * @class BrandModifier
-	 * @extends ThemeModifier
-	 * 
-	 * @param {ClucklesEditor} editor instance which manages the less modifications.
-	 * 
-	 * @property {string} default   The @brand-default variable which affects the Default styles.
-	 * @property {string} primary   The @brand-primary variable which affects the Primary styles.
-	 * @property {string} success   The @brand-success variable which affects the Success styles.
-	 * @property {string} info      The @brand-info variable which affects the Info styles.
-	 * @property {string} warning   The @brand-warning variable which affects the Warning styles.
-	 * @property {string} danger    The @brand-danger variable which affects the Danger styles.
-	 * 
-	 * @returns {BrandModifier}
-	 */
-	var BrandModifier = function (editor) {
-		ThemeModifier.call(this, editor); // Call parent constructor
+import ThemeModifier from 'ThemeModifier';
 
-        this.subscriberDataAttribute = 'data-cluckles-branding';
+/**
+ * Allows editing of the @brand-{style} variables which affect alerts/panel headers,
+ * the Primary branding, however affects more, such as the ListGroup background, links etc.
+ *
+ * @class BrandModifier
+ * @extends ThemeModifier
+ *
+ * @param {ClucklesEditor} editor instance which manages the less modifications.
+ *
+ * @property {string} default   The @brand-default variable which affects the Default styles.
+ * @property {string} primary   The @brand-primary variable which affects the Primary styles.
+ * @property {string} success   The @brand-success variable which affects the Success styles.
+ * @property {string} info      The @brand-info variable which affects the Info styles.
+ * @property {string} warning   The @brand-warning variable which affects the Warning styles.
+ * @property {string} danger    The @brand-danger variable which affects the Danger styles.
+ *
+ * @returns {BrandModifier}
+ */
+class BrandModifier extends ThemeModifier {
+	constructor(editor) {
+		super(editor); // Call parent constructor
 
-        // Configure the Modifiers
+		this.subscriberDataAttribute = 'data-cluckles-branding';
+
+    // Configure the Modifiers
 		this.default = {
 			variable:           '@brand-default',
-            subscribeProperty:  'default',
-            changeFn:           this.setDefaultColor.bind(this),
-            subscribers:        [],
+	          subscribeProperty:  'default',
+	          changeFn:           this.setDefaultColor.bind(this),
+	          subscribers:        [],
 			_value:             null
 		};
 		this.primary = {
 			variable:           '@brand-primary',
 			subscribeProperty:  'primary',
-            changeFn:           this.setPrimaryColor.bind(this),
-            subscribers:        [],
+	          changeFn:           this.setPrimaryColor.bind(this),
+	          subscribers:        [],
 			_value:             null
 		};
 		this.success = {
 			variable:           '@brand-success',
 			subscribeProperty:  'success',
-            changeFn:           this.setSuccessColor.bind(this),
-            subscribers:        [],
+	          changeFn:           this.setSuccessColor.bind(this),
+	          subscribers:        [],
 			_value:             null
 		};
 		this.info = {
-            variable:           '@brand-info',
+	          variable:           '@brand-info',
 			subscribeProperty:  'info',
-            changeFn:           this.setInfoColor.bind(this),
-            subscribers:        [],
+	          changeFn:           this.setInfoColor.bind(this),
+	          subscribers:        [],
 			_value:             null
 		};
 		this.warning = {
-            variable:           '@brand-warning',
+	          variable:           '@brand-warning',
 			subscribeProperty:  'warning',
-            changeFn:           this.setWarningColor.bind(this),
-            subscribers:        [],
+	          changeFn:           this.setWarningColor.bind(this),
+	          subscribers:        [],
 			_value:             null
 		};
 		this.danger	= {
-            variable:           '@brand-danger',
+	          variable:           '@brand-danger',
 			subscribeProperty:  'danger',
-            changeFn:           this.setDangerColor.bind(this),
-            subscribers:        [],
+	          changeFn:           this.setDangerColor.bind(this),
+	          subscribers:        [],
 			_value:             null
 		};
-		
-        // Configure the modifiers so they can be extracted easier
-        this.modifiers = {
-            default:    this.default,
-            primary:    this.primary,
-            success:    this.success,
-            info:       this.info,
-            warning:    this.warning,
-            danger:     this.danger
-        };
 
-        this.setupDataBinding();
-	};
-	
-	// Inherit from parent Prototype and preserve constructor
-	BrandModifier.prototype             = Object.create(ThemeModifier.prototype);
-	BrandModifier.prototype.constructor = BrandModifier;
+    // Configure the modifiers so they can be extracted easier
+    this.modifiers = {
+      default: this.default,
+      primary: this.primary,
+      success: this.success,
+      info: this.info,
+      warning: this.warning,
+      danger: this.danger
+    };
 
-	/**
-	 * Gets the Default Branding Color.
-	 * 
-	 * @returns {undefined}
-	 */
-	BrandModifier.prototype.getDefaultColor = function () {
+    this.setupDataBinding();
+	}
+
+	getDefaultColor() {
 		return this.modifiers.default.value;
-	};
+	}
 
-	/**
-	 * Sets the Default Branding Color.
-	 * 
-	 * @param {string} color The Default Branding Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	BrandModifier.prototype.setDefaultColor = function (color) {
-		this.modifiers.default.value = color;
-	};
+	setDefaultColor(color) {
+		this.modifier.default.value = color;
+	}
 
-	/**
-	 * Gets the Primary Branding Color.
-	 * 
-	 * @returns {string}
-	 */
-	BrandModifier.prototype.getPrimaryColor = function () {
-		return this.modifiers.primary.value;
-	};
+	getPrimaryColor() {
+		return this.modifiers.default.value;
+	}
 
-	/**
-	 * Sets the Primary Branding Color.
-	 * 
-	 * @param {string} color The Primary Branding Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	BrandModifier.prototype.setPrimaryColor = function (color) {
-		this.modifiers.primary.value = color;
-	};
+	setPrimaryColor(color) {
+		this.modifier.default.value = color;
+	}
+};
 
-	/**
-	 * Gets the Success Branding Color.
-	 * 
-	 * @returns {string}
-	 */
-	BrandModifier.prototype.getSuccessColor = function () {
-		return this.modifiers.success.value;
-	};
+export Default BrandModifier;
 
-	/**
-	 * Sets the Success Branding Color.
-	 * 
-	 * @param {string} color The Success Branding Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	BrandModifier.prototype.setSuccessColor = function (color) {
-		this.modifiers.success.value = color;
-	};
+// Inherit from parent Prototype and preserve constructor
+// BrandModifier.prototype             = Object.create(ThemeModifier.prototype);
+// BrandModifier.prototype.constructor = BrandModifier;
+//
+// /**
+//  * Gets the Default Branding Color.
+//  *
+//  * @returns {undefined}
+//  */
+// BrandModifier.prototype.getDefaultColor = function () {
+// 	return this.modifiers.default.value;
+// };
+//
+// /**
+//  * Sets the Default Branding Color.
+//  *
+//  * @param {string} color The Default Branding Color to set.
+//  *
+//  * @returns {undefined}
+//  */
+// BrandModifier.prototype.setDefaultColor = function (color) {
+// 	this.modifiers.default.value = color;
+// };
+//
+// /**
+//  * Gets the Primary Branding Color.
+//  *
+//  * @returns {string}
+//  */
+// BrandModifier.prototype.getPrimaryColor = function () {
+// 	return this.modifiers.primary.value;
+// };
+//
+// /**
+//  * Sets the Primary Branding Color.
+//  *
+//  * @param {string} color The Primary Branding Color to set.
+//  *
+//  * @returns {undefined}
+//  */
+// BrandModifier.prototype.setPrimaryColor = function (color) {
+// 	this.modifiers.primary.value = color;
+// };
+//
+// /**
+//  * Gets the Success Branding Color.
+//  *
+//  * @returns {string}
+//  */
+// BrandModifier.prototype.getSuccessColor = function () {
+// 	return this.modifiers.success.value;
+// };
+//
+// /**
+//  * Sets the Success Branding Color.
+//  *
+//  * @param {string} color The Success Branding Color to set.
+//  *
+//  * @returns {undefined}
+//  */
+// BrandModifier.prototype.setSuccessColor = function (color) {
+// 	this.modifiers.success.value = color;
+// };
+//
+// /**
+//  * Gets the Info Branding Color.
+//  *
+//  * @returns {string}
+//  */
+// BrandModifier.prototype.getInfoColor = function () {
+// 	return this.modifiers.info.value;
+// };
+//
+// /**
+//  * Sets the Info Branding Color.
+//  *
+//  * @param {string} color The Info Branding Color to set.
+//  *
+//  * @returns {undefined}
+//  */
+// BrandModifier.prototype.setInfoColor = function (color) {
+// 	this.modifiers.info.value = color;
+// };
+//
+// /**
+//  * Gets the Warning Branding Color.
+//  *
+//  * @returns {string}
+//  */
+// BrandModifier.prototype.getWarningColor = function () {
+// 	return this.modifiers.warning.value;
+// };
+//
+// /**
+//  * Sets the Warning Branding Color.
+//  *
+//  * @param {type} color The Warning Branding Color to set.
+//  *
+//  * @returns {undefined}
+//  */
+// BrandModifier.prototype.setWarningColor = function (color) {
+// 	this.modifiers.warning.value = color;
+// };
+//
+// /**
+//  * Gets the Danger Branding Color.
+//  *
+//  * @returns {string}
+//  */
+// BrandModifier.prototype.getDangerColor = function () {
+// 	return this.modifiers.danger.value;
+// };
+//
+// /**
+//  * Sets the Danger Branding Color.
+//  *
+//  * @param {string} color The Danger Branding Color to set.
+//  *
+//  * @returns {undefined}
+//  */
+// BrandModifier.prototype.setDangerColor = function (color) {
+// 	this.modifiers.danger.value = color;
+// };
 
-	/**
-	 * Gets the Info Branding Color.
-	 * 
-	 * @returns {string}
-	 */
-	BrandModifier.prototype.getInfoColor = function () {
-		return this.modifiers.info.value;
-	};
-
-	/**
-	 * Sets the Info Branding Color.
-	 * 
-	 * @param {string} color The Info Branding Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	BrandModifier.prototype.setInfoColor = function (color) {
-		this.modifiers.info.value = color;
-	};
-
-	/**
-	 * Gets the Warning Branding Color.
-	 * 
-	 * @returns {string}
-	 */
-	BrandModifier.prototype.getWarningColor = function () {
-		return this.modifiers.warning.value;
-	};
-
-	/**
-	 * Sets the Warning Branding Color.
-	 * 
-	 * @param {type} color The Warning Branding Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	BrandModifier.prototype.setWarningColor = function (color) {
-		this.modifiers.warning.value = color;
-	};
-
-	/**
-	 * Gets the Danger Branding Color.
-	 * 
-	 * @returns {string}
-	 */
-	BrandModifier.prototype.getDangerColor = function () {
-		return this.modifiers.danger.value;
-	};
-
-	/**
-	 * Sets the Danger Branding Color.
-	 * 
-	 * @param {string} color The Danger Branding Color to set.
-	 * 
-	 * @returns {undefined}
-	 */
-	BrandModifier.prototype.setDangerColor = function (color) {
-		this.modifiers.danger.value = color;
-	};
 
 	/**
 	 * Allows modification of the Dropdown Component styling.
@@ -9092,14 +9126,14 @@
                 .concat(
                     this.mainStylesheetPath[this.mainStylesheetPath.length - 1] // Get bootstrap.less etc
                     .slice(0, -5) // Now remove the ".less"
-                ).join('-'); 
+                ).join('-');
                 // Join with - to give us "assets-less-bootstrap" for example, which is part of the ID which less
                 // assigned to the Stylesheet it outputs after processing client side
 
         // The path to the less folder e.g. assets/less/
         this.lessPath                   = this.mainStylesheetPath.slice(0, -1).join('/') + '/';
     };
-    
+
     LessBridge.prototype.apply = function (modifiers, reload) {
         if (reload !== undefined) {
             this.lessLib.refresh(reload, modifiers);
@@ -9108,208 +9142,216 @@
         }
     };
 
-    /**
-     * ClucklesEditor class holds the modifications to the less theme using sub classes
-     * which hold information about the modifications, for each different part of the theme.
-     * Such as branding, base colors, navbar, etc etc. These modifications can then be
-     * retrieved or applied to the current page.
-     * 
-     * @class ClucklesEditor
-     * 
-     * Generic Options:
-     * - scope:         {string} The CSS Selector to prefix the Compiled CSS selectors with.
-     * - delay:         {Number} Milliseconds delay between refresh updates (Default: 750).
-     * - undoSize:      {Number} Number of items to keep in the Undo history (Default: 10)
-     * - embedSelector: {string} Will set this element to the height of the editor, if editor is in an embedded object.
-     * 
-     * @param {Object} less The Global less object.
-     * 
-     * @property {Export} export Manages the Theme exporting.
-     * @property {Typography} typography Holds modifications to the Typography component.
-     * @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
-     * @property {Table} table Holds modifications to the Table component.
-     * @property {Breadcrumb} breadcrumb Holds modifications to the Breadcrumb component.
-     * @property {Dropdown} dropdown Holds modifications to the Dropdown component.
-     * @property {Tooltip} tooltip Holds modifications to the Tooltip component.
-     * @property {Popover} popover Holds modifications to the Popover component.
-     * @property {Thumbnail} thumbnail Holds modifications to the Thumbnail component.
-     * @property {Badge} badge Holds modifications to the Badge component.
-     * @property {Carousel} carousel Holds modifications to the Carousel component.
-     * @property {Code} carousel Holds modifications to the Code component.
-     * @property {Blockquote} blockquote Holds modifications to the Blockquote component.
-     * @property {Modal} modal Holds modifications to the Modal component.
-     * @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
-     * @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
-     * @property {Nav} navs Holds the modifications to the Nav Components.
-     * @property {Tab} tab Holds the modifications to the Tab Components.
-     * @property {Pill} pill Holds the modifications to the Pill Components.
-     * @property {Pagination} pagination Holds the modifications to the Pagination Components.
-     * @property {Pager} pager Holds the modifications to the Pager Components.
-     * @property {Form} form Holds the modifications to the Form Components.
-     * @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
-     * @property {Label} label Holds the changes to the Label Components.
-     * @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
-     * @property {NavbarBase} navbarBase Holds the changes to the General Navbar styling of Navbar Components.
-     * @property {ButtonBase} buttonBase Holds the changes to the General Button styling of Button Components.
-     * @property {Object} navbar Holds Navbar instances which control the styling of Navbar Components.
-     * @property {Object} buttons Holds Button instances which control the styling of Button Components.
-     * @property {Object} formStates Holds FormState instances which control the styling of various components, (Alerts/Panels).
-     * @property {ListGroup} listGroup Holds the changes to the ListGroup component.
-     * @property {object} modifiers Holds all of the Modifications to the whole theme.
-     * 
-     * @returns {ClucklesEditor}
-     */
-    var ClucklesEditor = function (options) {
-        this.options            = options;
-        
-        this.sassBridge         = new SassBridge();
-        this.lessBridge         = new LessBridge();
 
-        this.preProcessorBridges = {
-            'sass': this.sassBridge,
-            'less': this.lessBridge
-        };
+import SassBridge from './preprocessorbridge.sassbridge';
+import LessBridge from './preprocessorbridge.lessbridge';
 
-        this.activePreProcessorBridgeName = 'sass';
-        
-        /**
-         * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
-         * 
-         * @property disabled   {Boolean} If disabled set to true, not refreshing, delaying, and applying modifications will be disabled.
-         * @property canRefresh {Boolean} Tracks whether or not another refresh can be performed. (true = can refresh, false = cant refresh).
-         * @property canDelay   {Boolean} Tracks whether or not a refresh can be Delayed (and added to the Queue). (true = can delay, false = cant delay).
-         * 
-         * @property delay {Number} Milliseconds delay between refresh updates (Default: 750).
-         */
-        this.refreshMonitor     = {
-            disabled:   false,
-            canRefresh: true,
-            canDelay:   true,
-            delay:      options.delay || 750
-        };
+import { Processor } from './processor';
+import { Export } from './export';
+import { Import } from './import';
 
-        this.misc               = new Misc(this);
-        // Component vars
-        this.typography         = new Typography(this);
-        this.table              = new Table(this);
-        this.breadcrumb         = new Breadcrumb(this);
-        this.dropdown           = new Dropdown(this);
-        this.tooltip            = new Tooltip(this);
-        this.popover            = new Popover(this);
-        this.thumbnail          = new Thumbnail(this);
-        this.badge              = new Badge(this);
-        this.carousel           = new Carousel(this);
-        this.code               = new Code(this);
-        this.blockquote         = new Blockquote(this);
-        this.modal              = new Modal(this);
-        this.jumbotron          = new Jumbotron(this);
-        this.grayScale          = new GrayScale(this);
-        this.nav                = new Nav(this);
-        this.tab                = new Tab(this);
-        this.pill               = new Pill(this);
-        this.pagination         = new Pagination(this);
-        this.pager              = new Pager(this);
-        this.form               = new Form(this);
-        this.branding           = new BrandModifier(this);
-        this.label              = new Label(this);
-        this.panelBase          = new PanelBase(this);
-        this.navbarBase         = new NavbarBase(this);
-        this.buttonBase         = new ButtonBase(this);
-        this.navbar = {
-            'default':            new Navbar(this),
-            'inverse':            new Navbar(this, 'inverse')
-        };
-        this.buttons = {
-            'default':            new Button(this, 'default'),
-            'primary':            new Button(this, 'primary'),
-            'success':            new Button(this, 'success'),
-            'info':               new Button(this, 'info'),
-            'warning':            new Button(this, 'warning'),
-            'danger':             new Button(this, 'danger')
-        };
-        this.formStates = {
-            'default':            new FormState(this, 'default'),
-            'primary':            new FormState(this, 'primary'),
-            'success':            new FormState(this, 'success'),
-            'info':               new FormState(this, 'info'),
-            'warning':            new FormState(this, 'warning'),
-            'danger':             new FormState(this, 'danger')
-        };
-        this.listGroup          = new ListGroup(this);
+/**
+* ClucklesEditor class holds the modifications to the less theme using sub classes
+* which hold information about the modifications, for each different part of the theme.
+* Such as branding, base colors, navbar, etc etc. These modifications can then be
+* retrieved or applied to the current page.
+*
+* @class ClucklesEditor
+*
+* Generic Options:
+* - scope:         {string} The CSS Selector to prefix the Compiled CSS selectors with.
+* - delay:         {Number} Milliseconds delay between refresh updates (Default: 750).
+* - undoSize:      {Number} Number of items to keep in the Undo history (Default: 10)
+* - embedSelector: {string} Will set this element to the height of the editor, if editor is in an embedded object.
+*
+* @param {Object} less The Global less object.
+*
+* @property {Export} export Manages the Theme exporting.
+* @property {Typography} typography Holds modifications to the Typography component.
+* @property {Misc} misc Holds miscellaneous modifications to Bootstrap.
+* @property {Table} table Holds modifications to the Table component.
+* @property {Breadcrumb} breadcrumb Holds modifications to the Breadcrumb component.
+* @property {Dropdown} dropdown Holds modifications to the Dropdown component.
+* @property {Tooltip} tooltip Holds modifications to the Tooltip component.
+* @property {Popover} popover Holds modifications to the Popover component.
+* @property {Thumbnail} thumbnail Holds modifications to the Thumbnail component.
+* @property {Badge} badge Holds modifications to the Badge component.
+* @property {Carousel} carousel Holds modifications to the Carousel component.
+* @property {Code} carousel Holds modifications to the Code component.
+* @property {Blockquote} blockquote Holds modifications to the Blockquote component.
+* @property {Modal} modal Holds modifications to the Modal component.
+* @property {Jumbotron} jumbotron Hold modifications to the Jumbotron component.
+* @property {GrayScale} grayScale Holds the modifications to the base gray colors of the Theme.
+* @property {Nav} navs Holds the modifications to the Nav Components.
+* @property {Tab} tab Holds the modifications to the Tab Components.
+* @property {Pill} pill Holds the modifications to the Pill Components.
+* @property {Pagination} pagination Holds the modifications to the Pagination Components.
+* @property {Pager} pager Holds the modifications to the Pager Components.
+* @property {Form} form Holds the modifications to the Form Components.
+* @property {BrandModifier} branding Holds the changes to the Branding colors of the Theme.
+* @property {Label} label Holds the changes to the Label Components.
+* @property {PanelBase} panelBase Holds the changes to the General Panel styling of Panel Components.
+* @property {NavbarBase} navbarBase Holds the changes to the General Navbar styling of Navbar Components.
+* @property {ButtonBase} buttonBase Holds the changes to the General Button styling of Button Components.
+* @property {Object} navbar Holds Navbar instances which control the styling of Navbar Components.
+* @property {Object} buttons Holds Button instances which control the styling of Button Components.
+* @property {Object} formStates Holds FormState instances which control the styling of various components, (Alerts/Panels).
+* @property {ListGroup} listGroup Holds the changes to the ListGroup component.
+* @property {object} modifiers Holds all of the Modifications to the whole theme.
+*
+* @returns {ClucklesEditor}
+*/
+class ClucklesEditor {
+  constructor(options) {
+    this.options = options;
+    this.sassBridge = new SassBridge();
+    this.lessBridge = new LessBridge();
 
-        this.components = [
-            this.misc,
-            this.typography,
-            this.table,
-            this.breadcrumb,
-            this.dropdown,
-            this.tooltip,
-            this.popover,
-            this.thumbnail,
-            this.badge,
-            this.carousel,
-            this.code,
-            this.blockquote,
-            this.modal,
-            this.jumbotron,
-            this.grayScale,
-            this.nav,
-            this.tab,
-            this.pill,
-            this.pagination,
-            this.pager,
-            this.form,
-            this.branding,
-            this.label,
-            this.panelBase,
-            this.navbarBase,
-            this.buttonBase,
-            this.navbar.default,
-            this.navbar.inverse,
-            this.buttons.default,
-            this.buttons.primary,
-            this.buttons.success,
-            this.buttons.info,
-            this.buttons.warning,
-            this.buttons.danger,
-            this.formStates.default,
-            this.formStates.primary,
-            this.formStates.success,
-            this.formStates.info,
-            this.formStates.warning,
-            this.formStates.danger,
-            this.listGroup
-        ];
-        
-        window.addEventListener('ClucklesFrameworkModuleLoaded', function (e) {
-            console.log('hrere');
-            e.stopPropagation();
+    this.preProcessorBridges = {
+      'sass': this.sassBridge,
+      'less': this.lessBridge
+    };
 
-            this.components.concat(e.detail.module.components);
-            console.log(this.components);
-        }, false);
+    this.activePreProcessorBridgeName = 'sass';
 
-        // All modifier vars
-        this.modifiers      = {};
-        
-        // Undo/Redo stacks
+  /**
+   * Monitors the refreshing of the less files, enables it to be blocked for x duration between refreshes. To avoid crashing the brower :).
+   *
+   * @property disabled   {Boolean} If disabled set to true, not refreshing, delaying, and applying modifications will be disabled.
+   * @property canRefresh {Boolean} Tracks whether or not another refresh can be performed. (true = can refresh, false = cant refresh).
+   * @property canDelay   {Boolean} Tracks whether or not a refresh can be Delayed (and added to the Queue). (true = can delay, false = cant delay).
+   *
+   * @property delay {Number} Milliseconds delay between refresh updates (Default: 750).
+   */
+  this.refreshMonitor     = {
+      disabled:   false,
+      canRefresh: true,
+      canDelay:   true,
+      delay:      options.delay || 750
+  };
+
+  // this.misc               = new Misc(this);
+  // Component vars
+  // this.typography         = new Typography(this);
+  // this.table              = new Table(this);
+  // this.breadcrumb         = new Breadcrumb(this);
+  // this.dropdown           = new Dropdown(this);
+  // this.tooltip            = new Tooltip(this);
+  // this.popover            = new Popover(this);
+  // this.thumbnail          = new Thumbnail(this);
+  // this.badge              = new Badge(this);
+  // this.carousel           = new Carousel(this);
+  // this.code               = new Code(this);
+  // this.blockquote         = new Blockquote(this);
+  // this.modal              = new Modal(this);
+  // this.jumbotron          = new Jumbotron(this);
+  // this.grayScale          = new GrayScale(this);
+  // this.nav                = new Nav(this);
+  // this.tab                = new Tab(this);
+  // this.pill               = new Pill(this);
+  // this.pagination         = new Pagination(this);
+  // this.pager              = new Pager(this);
+  // this.form               = new Form(this);
+  this.branding           = new BrandModifier(this);
+  // this.label              = new Label(this);
+  // this.panelBase          = new PanelBase(this);
+  // this.navbarBase         = new NavbarBase(this);
+  // this.buttonBase         = new ButtonBase(this);
+  // this.navbar = {
+  //     'default':            new Navbar(this),
+  //     'inverse':            new Navbar(this, 'inverse')
+  // };
+  // this.buttons = {
+  //     'default':            new Button(this, 'default'),
+  //     'primary':            new Button(this, 'primary'),
+  //     'success':            new Button(this, 'success'),
+  //     'info':               new Button(this, 'info'),
+  //     'warning':            new Button(this, 'warning'),
+  //     'danger':             new Button(this, 'danger')
+  // };
+  // this.formStates = {
+  //     'default':            new FormState(this, 'default'),
+  //     'primary':            new FormState(this, 'primary'),
+  //     'success':            new FormState(this, 'success'),
+  //     'info':               new FormState(this, 'info'),
+  //     'warning':            new FormState(this, 'warning'),
+  //     'danger':             new FormState(this, 'danger')
+  // };
+  // this.listGroup          = new ListGroup(this);
+
+  this.components = [
+      // this.misc,
+      // this.typography,
+      // this.table,
+      // this.breadcrumb,
+      // this.dropdown,
+      // this.tooltip,
+      // this.popover,
+      // this.thumbnail,
+      // this.badge,
+      // this.carousel,
+      // this.code,
+      // this.blockquote,
+      // this.modal,
+      // this.jumbotron,
+      // this.grayScale,
+      // this.nav,
+      // this.tab,
+      // this.pill,
+      // this.pagination,
+      // this.pager,
+      // this.form,
+      this.branding,
+      // this.label,
+      // this.panelBase,
+      // this.navbarBase,
+      // this.buttonBase,
+      // this.navbar.default,
+      // this.navbar.inverse,
+      // this.buttons.default,
+      // this.buttons.primary,
+      // this.buttons.success,
+      // this.buttons.info,
+      // this.buttons.warning,
+      // this.buttons.danger,
+      // this.formStates.default,
+      // this.formStates.primary,
+      // this.formStates.success,
+      // this.formStates.info,
+      // this.formStates.warning,
+      // this.formStates.danger,
+      // this.listGroup
+  ];
+
+  window.addEventListener('ClucklesFrameworkModuleLoaded', function (e) {
+      console.log('hrere');
+      e.stopPropagation();
+
+      this.components.concat(e.detail.module.components);
+      console.log(this.components);
+  }, false);
+
+  // All modifier vars
+  this.modifiers      = {};
+
+  // Undo/Redo stacks
 //        this.undoButton     = docContext.querySelector('*[data-cluckles-options="undo"]');
 //        this.redoButton     = docContext.querySelector('*[data-cluckles-options="redo"]');
-        this.undoStack      = [];
-        this.redoStack      = [];
-        this.canTrackUndo   = true;
+  this.undoStack      = [];
+  this.redoStack      = [];
+  this.canTrackUndo   = true;
 
-        this.processor      = new Processor(this, options);
+  this.processor      = new Processor(this, options);
 
-        // Import/Export Management
-        this.export         = new Export(this, options.export);
-        this.import         = new Import(this, this.processor, options.theme);
+  // Import/Export Management
+  this.export         = new Export(this, options.export);
+  this.import         = new Import(this, this.processor, options.theme);
 
-        // Configure the Options toolbar
-        this.setupToolbar();
-        this.setupLocationHashes();
-        
-        // Disable the Undo and Redo buttons by default (will re enable when something is changed)
+  // Configure the Options toolbar
+  this.setupToolbar();
+  this.setupLocationHashes();
+
+  // Disable the Undo and Redo buttons by default (will re enable when something is changed)
 //        if (this.undoButton) {
 //            this.undoButton.setAttribute('disabled', 'disabled');
 //        }
@@ -9317,559 +9359,561 @@
 //        if (this.redoButton) {
 //            this.redoButton.setAttribute('disabled', 'disabled');
 //        }
-        
+
 //        this.setupEmbed();
-    };
-
-    /**
-     * Gets the Currently Active PreProcessor Bridge which can be used to compile the modifiers
-     * into a theme.
-     * 
-     * Throws an Exception if the active preprocessor bridge name, is not a configured bridge.
-     * 
-     * @return object The currently active PreProcessor Bridge.
-     */
-    ClucklesEditor.prototype.getActivePreProcessorBridge = function () {
-        if (this.preProcessorBridges.hasOwnProperty(this.activePreProcessorBridgeName)) {
-            return this.preProcessorBridges[this.activePreProcessorBridgeName];
-        } else {
-            throw new Exception('Cluckles could not get non configured PreProcessorBridge "' + this.activePreProcessorBridgeName  + '"');
-        }
-    };
-
-    /**
-     * Refreshes all the Custom styles by triggering change event against each one.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.refreshCustomStyles = function (modifiers) {
-        this.applyModifications(modifiers, true);
-
-        var styleInputs = this.import.customStyleInputs.Less;
-
-        styleInputs.forEach(function (styleInput) {
-            styleInput.dispatchEvent(new Event('change'));
-        });
-    };
-
-    /**
-     * Get the Modifications which have been stored.
-     * 
-     * @returns {Object}
-     */
-    ClucklesEditor.prototype.getModifiers = function () {
-        var grayScale   = this.grayScale,
-            navbar      = this.navbar,
-            buttons     = this.buttons,
-            formStates  = this.formStates,
-            modifiers   = this.modifiers;
-
-        // Make sure we always have the vars property as a minimum
-        if (!modifiers.hasOwnProperty('vars')) {
-            modifiers.vars = {};
-        }
-
-        // Gray Base
-        Object.keys(grayScale).forEach(function (style) {
-            if (grayScale[style].color !== null) {
-                if (style === 'gray') {
-                    modifiers.vars['@gray'] = grayScale[style].color;
-                } else {
-                    modifiers.vars['@gray-' + style] = grayScale[style].color;
-                }
-            }
-        });
-
-        // Navbars
-        // Itterate over the object to extract modifications for both styles of Navbar's
-        Object.keys(navbar).forEach(function (style) {
-            var navbarStyle = navbar[style];
-
-            this.extractModifications(modifiers, navbarStyle);
-        }, this);
-
-        // FormStates
-        // Itterate over the object to extract modifications for each styles of FormState's
-        Object.keys(formStates).forEach(function (style) {
-            var formStatesStyle = formStates[style];
-
-            this.extractModifications(modifiers, formStatesStyle);
-        }, this);
-
-        // Buttons
-        // Itterate over the object to extract modifications for each styles of Button
-        Object.keys(buttons).forEach(function (style) {
-            var buttonsStyle = buttons[style];
-
-            this.extractModifications(modifiers, buttonsStyle);
-        }, this);
-
-        // Typography
-        this.extractModifications(modifiers, this.typography);
-
-        // Panel Base
-        this.extractModifications(modifiers, this.panelBase);
-
-        // Table
-        this.extractModifications(modifiers, this.table);
-
-        // Navbar Base
-        this.extractModifications(modifiers, this.navbarBase);
-
-        // Button Base
-        this.extractModifications(modifiers, this.buttonBase);
-
-        // Misc
-        this.extractModifications(modifiers, this.misc);
+  }
+
+/**
+* Gets the Currently Active PreProcessor Bridge which can be used to compile the modifiers
+* into a theme.
+*
+* Throws an Exception if the active preprocessor bridge name, is not a configured bridge.
+*
+* @return object The currently active PreProcessor Bridge.
+*/
+getActivePreProcessorBridge() {
+  if (this.preProcessorBridges.hasOwnProperty(this.activePreProcessorBridgeName)) {
+      return this.preProcessorBridges[this.activePreProcessorBridgeName];
+  } else {
+      throw new Exception('Cluckles could not get non configured PreProcessorBridge "' + this.activePreProcessorBridgeName  + '"');
+  }
+};
+
+/**
+* Refreshes all the Custom styles by triggering change event against each one.
+*
+* @returns {undefined}
+*/
+refreshCustomStyles(modifiers) {
+  this.applyModifications(modifiers, true);
+
+  var styleInputs = this.import.customStyleInputs.Less;
+
+  styleInputs.forEach((styleInput) => {
+    styleInput.dispatchEvent(new Event('change'));
+  });
+};
+
+/**
+* Get the Modifications which have been stored.
+*
+* @returns {Object}
+*/
+getModifiers() {
+  var grayScale   = this.grayScale,
+      navbar      = this.navbar,
+      buttons     = this.buttons,
+      formStates  = this.formStates,
+      modifiers   = this.modifiers;
+
+  // Make sure we always have the vars property as a minimum
+  if (!modifiers.hasOwnProperty('vars')) {
+      modifiers.vars = {};
+  }
+
+  // Gray Base
+  Object.keys(grayScale).forEach(function (style) {
+      if (grayScale[style].color !== null) {
+          if (style === 'gray') {
+              modifiers.vars['@gray'] = grayScale[style].color;
+          } else {
+              modifiers.vars['@gray-' + style] = grayScale[style].color;
+          }
+      }
+  });
+
+  // Navbars
+  // Itterate over the object to extract modifications for both styles of Navbar's
+  Object.keys(navbar).forEach(function (style) {
+      var navbarStyle = navbar[style];
+
+      this.extractModifications(modifiers, navbarStyle);
+  }, this);
+
+  // FormStates
+  // Itterate over the object to extract modifications for each styles of FormState's
+  Object.keys(formStates).forEach(function (style) {
+      var formStatesStyle = formStates[style];
+
+      this.extractModifications(modifiers, formStatesStyle);
+  }, this);
+
+  // Buttons
+  // Itterate over the object to extract modifications for each styles of Button
+  Object.keys(buttons).forEach(function (style) {
+      var buttonsStyle = buttons[style];
+
+      this.extractModifications(modifiers, buttonsStyle);
+  }, this);
+
+  // Typography
+  this.extractModifications(modifiers, this.typography);
+
+  // Panel Base
+  this.extractModifications(modifiers, this.panelBase);
+
+  // Table
+  this.extractModifications(modifiers, this.table);
+
+  // Navbar Base
+  this.extractModifications(modifiers, this.navbarBase);
+
+  // Button Base
+  this.extractModifications(modifiers, this.buttonBase);
+
+  // Misc
+  this.extractModifications(modifiers, this.misc);
 
-        // Nav
-        this.extractModifications(modifiers, this.nav);
+  // Nav
+  this.extractModifications(modifiers, this.nav);
 
-        // Tab
-        this.extractModifications(modifiers, this.tab);
+  // Tab
+  this.extractModifications(modifiers, this.tab);
 
-        // Pill
-        this.extractModifications(modifiers, this.pill);
+  // Pill
+  this.extractModifications(modifiers, this.pill);
 
-        // Pagination
-        this.extractModifications(modifiers, this.pagination);
-
-        // Pager
-        this.extractModifications(modifiers, this.pager);
-
-        // Form
-        this.extractModifications(modifiers, this.form);
-
-        // Branding
-        this.extractModifications(modifiers, this.branding);
-
-        // Label
-        this.extractModifications(modifiers, this.label);
-
-        // Breadcrumb
-        this.extractModifications(modifiers, this.breadcrumb);
-
-        // Dropdown
-        this.extractModifications(modifiers, this.dropdown);
-
-        // Tooltip
-        this.extractModifications(modifiers, this.tooltip);
-
-        // Popover
-        this.extractModifications(modifiers, this.popover);
-
-        // Thumbnail
-        this.extractModifications(modifiers, this.thumbnail);
-
-        // Badge
-        this.extractModifications(modifiers, this.badge);
-
-        // Carousel
-        this.extractModifications(modifiers, this.carousel);
-
-        // Code
-        this.extractModifications(modifiers, this.code);
-
-        // Blockquote
-        this.extractModifications(modifiers, this.blockquote);
-
-        // Modal
-        this.extractModifications(modifiers, this.modal);
-
-        // Jumbotron
-        this.extractModifications(modifiers, this.jumbotron);
-
-        // List Group
-        this.extractModifications(modifiers, this.listGroup);
-
-        return modifiers;
-    };
-
-    /**
-     * Extracts the Modifications for the particular style/component by using
-     * ThemeModifier.prototype.getModifications() and adds them to ClucklesEditor.modifications.
-     * 
-     * @param {Object} modifiers All of the modifications to the theme.
-     * @param {Obejct} modifiersType The object which holds the modifications for a particular style/components.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.extractModifications = function (modifiers, modifiersType) {
-        var modifiersOfType = modifiersType.getModifications();
-
-        Object.keys(modifiersOfType).forEach(function (modifier) {
-            var modifierObject = modifiersOfType[modifier];
-
-            modifiers.vars[modifierObject.variable] = modifierObject.value;
-        });
-    };
-
-    /**
-     * Turns the Modifications to the Theme into JSON.
-     * 
-     * @returns {String}
-     */
-    ClucklesEditor.prototype.getJSON = function () {
-        return JSON.stringify(this.getModifiers());
-    };
-
-    /**
-     * Applies the modification, or makes the refreshMonitor queue a single update
-     * in x milliseconds from now, controlled by this.refreshMonitor.delay.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.queueModifications = function () {
-        if (this.refreshMonitor.disabled) { return; }
-
-        var customStylesPresent = this.import.customLess.length > 0;
-
-        // If an update is allowed right now, apply the modifications,
-        // and refresh the custom styles, which allows the custom styles to update vars
-        if (this.refreshMonitor.canRefresh === true) {
-            if (customStylesPresent) {
-                this.refreshCustomStyles();
-            } else {
-                this.applyModifications();
-            }
-            
-            // Set the state to not ready for more updates yet
-            this.refreshMonitor.canRefresh = false;
-            
-            if (this.refreshMonitor.canDelay === true) {
-                // Set a timeout to allow updates again after x time (refreshMonitor.rate)
-                // and apply the modifications that were pending (also refreshes custom styles)
-                setTimeout(function () {
-                    if (customStylesPresent) {
-                        this.refreshCustomStyles();
-                    } else {
-                        this.applyModifications();
-                    }
-
-                    // Allow updates again
-                    this.refreshMonitor.canRefresh = true;
-                }.bind(this), this.refreshMonitor.delay);
-            }
-        }
-    };
-
-    /**
-     * Applies the Modifications to the Less Theme.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.applyModifications = function (modifications, reload) {
-        if (this.refreshMonitor.disabled) { return; }
-
-        var preProcessorBridge = this.getActivePreProcessorBridge();
-        // Allow the function to accept custom modifications
-        var modifiers = modifications || this.getModifiers();
-
-        // Set the Variables in the Output
-        this.setVariablesOutput(modifiers.vars);
-
-        // Find the Calculated modifier values, will replace @variables with
-        // their parent values, and perform any calculations to consolidate,
-        // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
-        modifiers = this.processor.calculateModifierValues(modifiers.vars);
-
-        preProcessorBridge.apply(modifiers, reload);
-    };
-
-    /**
-     * Sets the Variables which are displayed in the Variables Output field to the modifiers passed in.
-     * 
-     * @param {object} modifiers The modifiers to display in the Variables Output field.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.setVariablesOutput = function (modifiers) {
-        // Update the Variables output to display the variables being applied
-        docContext.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
-    };
-    
-    /**
-     * Stores the Most up to date set of Modifiers in the Undo Stack.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.pushUndoStack = function () {
-        // If we cant track the state, such as when undo/redoing
-        if (this.canTrackUndo === false) { return; }
-
-        var undo                = this.undoStack,
-            clonedModifiers     = {},
-            originalModifiers   = this.modifiers;
-
-        // We have performed a new action, so we invalidate the ability to redo previous
-        // undo's, so reset the redo stack
-        this.redoStack = [];
-
-        // If the Stack has 10 or more items
-        if (undo.length > (this.options.undoSize - 1 || 9)) {
-            // Remove the first item (oldest) from stack
-            undo.shift();
-        }
-
-        // Now clone the existing modifiers (this.modifiers)
-        clonedModifiers = Object.keys(this.modifiers).reduce(function (clone, variable) {
-            clone[variable] = originalModifiers[variable];
-            return clone;
-        }, clonedModifiers);
-
-        // Now push the clone (newest item) to the Stack (undoStack)
-        undo.push(clonedModifiers);
-
-        if (this.undoButton && this.undoButton.hasAttribute('disabled')) {
-            this.undoButton.removeAttribute('disabled');
-        }
-    };
-
-    /**
-     * Updates the Cluckles modifiers with the newest item from either
-     * the undo or redo stacks, depending on direction.
-     * 
-     * @param {string} direction The direction to pull modifiers from (undo/redo(
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.applyModificationRevision = function (direction) {
-        var stack           = direction === 'undo' ? this.undoStack     : this.redoStack,
-            stackButton     = direction === 'undo' ? this.undoButton    : this.redoButton,
-            altStack        = direction === 'undo' ? this.redoStack     : this.undoStack,
-            altStackButton  = direction === 'undo' ? this.redoButton    : this.undoButton,
-            poppedStack;
-    
-        // Disable the Undo button if there is nothing to undo
-        if (stackButton && stack.length <= 1) {
-            stackButton.setAttribute('disabled', 'disabled');
-        }
-
-        // If the undo/redo stacks are empty, dont continue
-        if (stack.length === 0) {
-            return;
-        }
-
-        // Disallow modifications to be tracked/applied automatically
-        this.canTrackUndo               = false;
-        this.refreshMonitor.disabled    = true;
-
-        // Reset the Modifiers and Components
-        this.modifiers = {};
-        this.resetComponents();
-        
-        // Pop the newest item of the top of the stacj
-        poppedStack = stack.pop();
-
-        // If we are undoing, we want to load the second to last item in the stack (last item already popped)
-        if (direction === 'undo') {
-            this.import.loadComponentModifiers(stack[stack.length - 1]);
-        } else {
-            // If we are redoing, we want to load the item we popped
-            this.import.loadComponentModifiers(poppedStack);
-        }
-
-        // Move the newest items from one stack to the other
-        altStack.push(poppedStack);
-
-        // Allow modifications to be tracked/applied automatically
-        this.canTrackUndo               = true;
-        this.refreshMonitor.disabled    = false;
-
-        // Now apply the modifications to update the UI (will also set modifiers again)
-        this.applyModifications();
-        
-        // Now enable the altStackButton, effectively toggling the Undo/Redo buttons,
-        // depending on which one has items in their stack
-        if (altStackButton && altStackButton.hasAttribute('disabled')) {
-            altStackButton.removeAttribute('disabled');
-        }
-    };
-    
-    /**
-     * Undo's modifications which have been applied and moved the newest modifications
-     * to the redoStack.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.undo = function () {        
-        this.applyModificationRevision('undo');
-    };
-    
-    /**
-     * Redo modifications that were pushed into the redoStack after applying an undo.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.redo = function () {
-        this.applyModificationRevision('redo');
-    };
-
-    /**
-     * Resets the current Theme to the Bootstrap default (or whatever .less file the browser
-     * has loaded e.g. <link type="text/css" href="../less/bootstrap.less" rel="stylesheet/less" />)
-     * including any modifications which have been stored, and resets the editor inputs.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.resetToDefault = function () {
-        // Remove all stored modifications
-        this.modifiers = {};
-        this.undoStack = [];
-        this.redoStack = [];
-
-        // Disable the Undo and Redo buttons when resetting to Default
-        if (this.undoButton && !this.undoButton.hasAttribute('disabled')) {
-            this.undoButton.setAttribute('disabled', 'disabled');
-        }
-
-        if (this.redoButton && !this.redoButton.hasAttribute('disabled')) {
-            this.redoButton.setAttribute('disabled', 'disabled');
-        }
-
-        // Reset the Custom Styles and Theme Metadata
-        this.import.resetCustomStyles();
-        this.import.resetMeta();
-
-        // Reset all the Components
-        this.resetComponents(); 
-
-        // Now make less modify blank changes, resetting the Theme
-        this.applyModifications(null, true);
-    };
-
-    /**
-     * Resets the Modifiers loaded into Cluckles and loads the modifiers passed
-     * in.
-     * 
-     * @param {object} modifiers The modifiers to load.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.resetFromModifiers = function (modifiers) {
-        // Copy the current undoStack
-        var currentUndoStack = this.undoStack.slice(0);
-
-        // Reset to the Defaults, so we dont get weird hangover between the theme
-        // and new modifications
-        this.resetToDefault();
-
-        // Disallow modifications to be tracked/applied automatically
-        this.canTrackUndo    = false;
-
-        // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
-        // It will automatically apply this
-        this.import.handleThemeImport(modifiers);
-
-        // Restore the undoStack (resetToDefault clears the stacks)
-        this.undoStack = currentUndoStack;
-        // Push the modifiers from the Theme onto the undo stack
-        this.pushUndoStack();
-
-        // Allow modifications to be tracked/applied automatically
-        this.canTrackUndo = true;
-    };
-
-    /**
-     * Resets the current Theme to the Theme which was imported by providing the
-     * theme.src option (including resetting the components/subscribers).
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.resetToTheme = function () {
-        this.resetFromModifiers(this.import.themeModifiers);
-    };
-
-    /**
-     * Reset all of the Components and their Subscribers.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.resetComponents = function () {
-        // Disable modification queuing
-        this.refreshMonitor.canRefresh = false;
-
-        this.components.forEach(function (component) {
-            if (component instanceof ThemeModifier) {
-                component.resetModifiers();
-            }
-        });
-
-        // Allow modification queuing
-        this.refreshMonitor.canRefresh = true;
-    };
-
-    /**
-     * Sets up the Location Hashes so that clicking on buttons/links will jump the page content
-     * to that location on the page.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.setupLocationHashes = function () {
-        var locationHashedElements = [].slice.call(docContext.querySelectorAll('*[data-cluckles-location]'));
-
-        locationHashedElements.forEach(function (toHash) {
-            toHash.addEventListener('click', function () {
-                window.location.hash = null; // Clear the existing hash
-                window.location.hash = this.dataset.clucklesLocation; // Now jump to the location defined by the data attribute          
-            });
-        });
-    };
-
-    ClucklesEditor.prototype.setupToolbar = function () {
-        var resetButton         = docContext.querySelector('*[data-cluckles-options="reset"]'),
-            resetThemeButton    = docContext.querySelector('*[data-cluckles-options="reset-theme"]');
-
-        if (resetButton) {
-            resetButton.addEventListener('click', this.resetToDefault.bind(this), false);
-        }
-
-        if (resetThemeButton) {
-            resetThemeButton.addEventListener('click', this.resetToTheme.bind(this), false);
-        }
-
-        if (this.undoButton) {
-            this.undoButton.addEventListener('click', this.undo.bind(this), false);
-        }
-
-        if (this.redoButton) {
-            this.redoButton.addEventListener('click', this.redo.bind(this), false);
-        }
-    };
-
-    /**
-     * Sets up the window onresize event if the `embedSelector` option was provided
-     * and this cluckles instance is inside of an embedded object.
-     * 
-     * @returns {undefined}
-     */
-    ClucklesEditor.prototype.setupEmbed = function () {
-        // If we have provided an embedSelector, we are assuming that the ClucklesEditor is
-        // inside an embeded object, so we need the parent element to be set the same height
-        // as the BODY of the embedded document
-        // if not in context of an emded, window.parent will be the same as window
-        if (this.options && this.options.hasOwnProperty('embedSelector') && window.parent !== window) {
-            window.onresize = function () {
-                // Window.parent = parent window which contains the embedded document
-                // then get the Document (parent document) and find our embeded object
-                // Then style the parent node (which ur emdeded object is a direct descendant)
-                docContext.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
-            }.bind(this);
-
-            // Set timeout hack to make it fire once everything is loaded
-            // so we dont get the iframe being slighly too short
-            setTimeout(function () {
-                // Fire event after setup, to initially set the height
-                window.dispatchEvent(new Event('resize'));
-            }, 0);
-
-            // Also add a ready event for the current DOM, so that we make sure once everything is loaded
-            // we are setting the correct height                    
-            docContext.addEventListener('DOMContentLoaded', function () {
-                window.dispatchEvent(new Event('resize'));
-            });
-        }
-    };
-    
-    window.ClucklesEditor = ClucklesEditor;
+  // Pagination
+  this.extractModifications(modifiers, this.pagination);
+
+  // Pager
+  this.extractModifications(modifiers, this.pager);
+
+  // Form
+  this.extractModifications(modifiers, this.form);
+
+  // Branding
+  this.extractModifications(modifiers, this.branding);
+
+  // Label
+  this.extractModifications(modifiers, this.label);
+
+  // Breadcrumb
+  this.extractModifications(modifiers, this.breadcrumb);
+
+  // Dropdown
+  this.extractModifications(modifiers, this.dropdown);
+
+  // Tooltip
+  this.extractModifications(modifiers, this.tooltip);
+
+  // Popover
+  this.extractModifications(modifiers, this.popover);
+
+  // Thumbnail
+  this.extractModifications(modifiers, this.thumbnail);
+
+  // Badge
+  this.extractModifications(modifiers, this.badge);
+
+  // Carousel
+  this.extractModifications(modifiers, this.carousel);
+
+  // Code
+  this.extractModifications(modifiers, this.code);
+
+  // Blockquote
+  this.extractModifications(modifiers, this.blockquote);
+
+  // Modal
+  this.extractModifications(modifiers, this.modal);
+
+  // Jumbotron
+  this.extractModifications(modifiers, this.jumbotron);
+
+  // List Group
+  this.extractModifications(modifiers, this.listGroup);
+
+  return modifiers;
+};
+
+/**
+* Extracts the Modifications for the particular style/component by using
+* ThemeModifier.prototype.getModifications() and adds them to ClucklesEditor.modifications.
+*
+* @param {Object} modifiers All of the modifications to the theme.
+* @param {Obejct} modifiersType The object which holds the modifications for a particular style/components.
+*
+* @returns {undefined}
+*/
+extractModifications(modifiers, modifiersType) {
+  var modifiersOfType = modifiersType.getModifications();
+
+  Object.keys(modifiersOfType).forEach(function (modifier) {
+      var modifierObject = modifiersOfType[modifier];
+
+      modifiers.vars[modifierObject.variable] = modifierObject.value;
+  });
+};
+
+/**
+* Turns the Modifications to the Theme into JSON.
+*
+* @returns {String}
+*/
+getJSON () {
+  return JSON.stringify(this.getModifiers());
+};
+
+/**
+* Applies the modification, or makes the refreshMonitor queue a single update
+* in x milliseconds from now, controlled by this.refreshMonitor.delay.
+*
+* @returns {undefined}
+*/
+queueModifications() {
+  if (this.refreshMonitor.disabled) { return; }
+
+  var customStylesPresent = this.import.customLess.length > 0;
+
+  // If an update is allowed right now, apply the modifications,
+  // and refresh the custom styles, which allows the custom styles to update vars
+  if (this.refreshMonitor.canRefresh === true) {
+      if (customStylesPresent) {
+          this.refreshCustomStyles();
+      } else {
+          this.applyModifications();
+      }
+
+      // Set the state to not ready for more updates yet
+      this.refreshMonitor.canRefresh = false;
+
+      if (this.refreshMonitor.canDelay === true) {
+          // Set a timeout to allow updates again after x time (refreshMonitor.rate)
+          // and apply the modifications that were pending (also refreshes custom styles)
+          setTimeout(() => {
+              if (customStylesPresent) {
+                  this.refreshCustomStyles();
+              } else {
+                  this.applyModifications();
+              }
+
+              // Allow updates again
+              this.refreshMonitor.canRefresh = true;
+          }, this.refreshMonitor.delay);
+      }
+  }
+};
+
+/**
+* Applies the Modifications to the Less Theme.
+*
+* @returns {undefined}
+*/
+applyModifications (modifications, reload) {
+  if (this.refreshMonitor.disabled) { return; }
+
+  var preProcessorBridge = this.getActivePreProcessorBridge();
+  // Allow the function to accept custom modifications
+  var modifiers = modifications || this.getModifiers();
+
+  // Set the Variables in the Output
+  this.setVariablesOutput(modifiers.vars);
+
+  // Find the Calculated modifier values, will replace @variables with
+  // their parent values, and perform any calculations to consolidate,
+  // to single values e.g. floor((@grid-gutter-width / 2)) -> floor(15px)
+  modifiers = this.processor.calculateModifierValues(modifiers.vars);
+
+  preProcessorBridge.apply(modifiers, reload);
+};
+
+/**
+* Sets the Variables which are displayed in the Variables Output field to the modifiers passed in.
+*
+* @param {object} modifiers The modifiers to display in the Variables Output field.
+*
+* @returns {undefined}
+*/
+setVariablesOutput(modifiers) {
+  // Update the Variables output to display the variables being applied
+  docContext.querySelector('*[data-cluckles="variables"]').innerHTML = this.processor.transformToVariables(modifiers);
+};
+
+/**
+* Stores the Most up to date set of Modifiers in the Undo Stack.
+*
+* @returns {undefined}
+*/
+pushUndoStack() {
+  // If we cant track the state, such as when undo/redoing
+  if (this.canTrackUndo === false) { return; }
+
+  var undo                = this.undoStack,
+      clonedModifiers     = {},
+      originalModifiers   = this.modifiers;
+
+  // We have performed a new action, so we invalidate the ability to redo previous
+  // undo's, so reset the redo stack
+  this.redoStack = [];
+
+  // If the Stack has 10 or more items
+  if (undo.length > (this.options.undoSize - 1 || 9)) {
+      // Remove the first item (oldest) from stack
+      undo.shift();
+  }
+
+  // Now clone the existing modifiers (this.modifiers)
+  clonedModifiers = Object.keys(this.modifiers).reduce(function (clone, variable) {
+      clone[variable] = originalModifiers[variable];
+      return clone;
+  }, clonedModifiers);
+
+  // Now push the clone (newest item) to the Stack (undoStack)
+  undo.push(clonedModifiers);
+
+  if (this.undoButton && this.undoButton.hasAttribute('disabled')) {
+      this.undoButton.removeAttribute('disabled');
+  }
+};
+
+/**
+* Updates the Cluckles modifiers with the newest item from either
+* the undo or redo stacks, depending on direction.
+*
+* @param {string} direction The direction to pull modifiers from (undo/redo(
+*
+* @returns {undefined}
+*/
+applyModificationRevision(direction) {
+  var stack           = direction === 'undo' ? this.undoStack     : this.redoStack,
+      stackButton     = direction === 'undo' ? this.undoButton    : this.redoButton,
+      altStack        = direction === 'undo' ? this.redoStack     : this.undoStack,
+      altStackButton  = direction === 'undo' ? this.redoButton    : this.undoButton,
+      poppedStack;
+
+  // Disable the Undo button if there is nothing to undo
+  if (stackButton && stack.length <= 1) {
+      stackButton.setAttribute('disabled', 'disabled');
+  }
+
+  // If the undo/redo stacks are empty, dont continue
+  if (stack.length === 0) {
+      return;
+  }
+
+  // Disallow modifications to be tracked/applied automatically
+  this.canTrackUndo               = false;
+  this.refreshMonitor.disabled    = true;
+
+  // Reset the Modifiers and Components
+  this.modifiers = {};
+  this.resetComponents();
+
+  // Pop the newest item of the top of the stacj
+  poppedStack = stack.pop();
+
+  // If we are undoing, we want to load the second to last item in the stack (last item already popped)
+  if (direction === 'undo') {
+      this.import.loadComponentModifiers(stack[stack.length - 1]);
+  } else {
+      // If we are redoing, we want to load the item we popped
+      this.import.loadComponentModifiers(poppedStack);
+  }
+
+  // Move the newest items from one stack to the other
+  altStack.push(poppedStack);
+
+  // Allow modifications to be tracked/applied automatically
+  this.canTrackUndo               = true;
+  this.refreshMonitor.disabled    = false;
+
+  // Now apply the modifications to update the UI (will also set modifiers again)
+  this.applyModifications();
+
+  // Now enable the altStackButton, effectively toggling the Undo/Redo buttons,
+  // depending on which one has items in their stack
+  if (altStackButton && altStackButton.hasAttribute('disabled')) {
+      altStackButton.removeAttribute('disabled');
+  }
+};
+
+/**
+* Undo's modifications which have been applied and moved the newest modifications
+* to the redoStack.
+*
+* @returns {undefined}
+*/
+undo() {
+  this.applyModificationRevision('undo');
+};
+
+/**
+* Redo modifications that were pushed into the redoStack after applying an undo.
+*
+* @returns {undefined}
+*/
+redo() {
+  this.applyModificationRevision('redo');
+};
+
+/**
+* Resets the current Theme to the Bootstrap default (or whatever .less file the browser
+* has loaded e.g. <link type="text/css" href="../less/bootstrap.less" rel="stylesheet/less" />)
+* including any modifications which have been stored, and resets the editor inputs.
+*
+* @returns {undefined}
+*/
+resetToDefault() {
+  // Remove all stored modifications
+  this.modifiers = {};
+  this.undoStack = [];
+  this.redoStack = [];
+
+  // Disable the Undo and Redo buttons when resetting to Default
+  if (this.undoButton && !this.undoButton.hasAttribute('disabled')) {
+      this.undoButton.setAttribute('disabled', 'disabled');
+  }
+
+  if (this.redoButton && !this.redoButton.hasAttribute('disabled')) {
+      this.redoButton.setAttribute('disabled', 'disabled');
+  }
+
+  // Reset the Custom Styles and Theme Metadata
+  this.import.resetCustomStyles();
+  this.import.resetMeta();
+
+  // Reset all the Components
+  this.resetComponents();
+
+  // Now make less modify blank changes, resetting the Theme
+  this.applyModifications(null, true);
+};
+
+/**
+* Resets the Modifiers loaded into Cluckles and loads the modifiers passed
+* in.
+*
+* @param {object} modifiers The modifiers to load.
+*
+* @returns {undefined}
+*/
+resetFromModifiers(modifiers) {
+  // Copy the current undoStack
+  var currentUndoStack = this.undoStack.slice(0);
+
+  // Reset to the Defaults, so we dont get weird hangover between the theme
+  // and new modifications
+  this.resetToDefault();
+
+  // Disallow modifications to be tracked/applied automatically
+  this.canTrackUndo    = false;
+
+  // Now import the theme modifiers (from the theme.json file { theme: 'theme.json' })
+  // It will automatically apply this
+  this.import.handleThemeImport(modifiers);
+
+  // Restore the undoStack (resetToDefault clears the stacks)
+  this.undoStack = currentUndoStack;
+  // Push the modifiers from the Theme onto the undo stack
+  this.pushUndoStack();
+
+  // Allow modifications to be tracked/applied automatically
+  this.canTrackUndo = true;
+};
+
+/**
+* Resets the current Theme to the Theme which was imported by providing the
+* theme.src option (including resetting the components/subscribers).
+*
+* @returns {undefined}
+*/
+resetToTheme() {
+  this.resetFromModifiers(this.import.themeModifiers);
+};
+
+/**
+* Reset all of the Components and their Subscribers.
+*
+* @returns {undefined}
+*/
+resetComponents() {
+  // Disable modification queuing
+  this.refreshMonitor.canRefresh = false;
+
+  this.components.forEach((component) => {
+      if (component instanceof ThemeModifier) {
+          component.resetModifiers();
+      }
+  });
+
+  // Allow modification queuing
+  this.refreshMonitor.canRefresh = true;
+};
+
+/**
+* Sets up the Location Hashes so that clicking on buttons/links will jump the page content
+* to that location on the page.
+*
+* @returns {undefined}
+*/
+setupLocationHashes() {
+  var locationHashedElements = [].slice.call(docContext.querySelectorAll('*[data-cluckles-location]'));
+
+  locationHashedElements.forEach(function (toHash) {
+      toHash.addEventListener('click', function () {
+          window.location.hash = null; // Clear the existing hash
+          window.location.hash = this.dataset.clucklesLocation; // Now jump to the location defined by the data attribute
+      });
+  });
+};
+
+setupToolbar() {
+  var resetButton         = docContext.querySelector('*[data-cluckles-options="reset"]'),
+      resetThemeButton    = docContext.querySelector('*[data-cluckles-options="reset-theme"]');
+
+  if (resetButton) {
+      resetButton.addEventListener('click', this.resetToDefault.bind(this), false);
+  }
+
+  if (resetThemeButton) {
+      resetThemeButton.addEventListener('click', this.resetToTheme.bind(this), false);
+  }
+
+  if (this.undoButton) {
+      this.undoButton.addEventListener('click', this.undo.bind(this), false);
+  }
+
+  if (this.redoButton) {
+      this.redoButton.addEventListener('click', this.redo.bind(this), false);
+  }
+};
+
+/**
+* Sets up the window onresize event if the `embedSelector` option was provided
+* and this cluckles instance is inside of an embedded object.
+*
+* @returns {undefined}
+*/
+setupEmbed() {
+  // If we have provided an embedSelector, we are assuming that the ClucklesEditor is
+  // inside an embeded object, so we need the parent element to be set the same height
+  // as the BODY of the embedded document
+  // if not in context of an emded, window.parent will be the same as window
+  if (this.options && this.options.hasOwnProperty('embedSelector') && window.parent !== window) {
+      window.onresize = function () {
+          // Window.parent = parent window which contains the embedded document
+          // then get the Document (parent document) and find our embeded object
+          // Then style the parent node (which ur emdeded object is a direct descendant)
+          docContext.querySelector(this.options.embedSelector).parentNode.style.height = window.document.body.clientHeight + 'px';
+      }.bind(this);
+
+      // Set timeout hack to make it fire once everything is loaded
+      // so we dont get the iframe being slighly too short
+      setTimeout(function () {
+          // Fire event after setup, to initially set the height
+          window.dispatchEvent(new Event('resize'));
+      }, 0);
+
+      // Also add a ready event for the current DOM, so that we make sure once everything is loaded
+      // we are setting the correct height
+      docContext.addEventListener('DOMContentLoaded', function () {
+          window.dispatchEvent(new Event('resize'));
+      });
+  }
+};
+}
+
+export Default ClucklesEditor;
+
 })(window);
