@@ -5113,6 +5113,10 @@ sass-loader@~6.0.7:
     neo-async "^2.5.0"
     pify "^3.0.0"
 
+sass.js@^0.10.10:
+  version "0.10.10"
+  resolved "https://registry.yarnpkg.com/sass.js/-/sass.js-0.10.10.tgz#239b46c3279e3a166c7f68c9ff7808b69e2345f3"
+
 saucelabs@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/saucelabs/-/saucelabs-1.5.0.tgz#9405a73c360d449b232839919a86c396d379fd9d"
