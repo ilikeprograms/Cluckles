@@ -5677,6 +5677,11 @@ sass-loader@7.1.0:
     pify "^3.0.0"
     semver "^5.5.0"
 
+sass.js@^0.10.13:
+  version "0.10.13"
+  resolved "https://registry.yarnpkg.com/sass.js/-/sass.js-0.10.13.tgz#6f39698755a14d7a7795f9dc85175f122ad91d9b"
+  integrity sha512-kgx2iuK+Rg2GM9mNTL9nYsJVTRp64JcHTIgkkHb+TsZY/+C2X6gd3rD7j+SPohNNHewEIBLZ9zpTpDGXX/3Ksg==
+
 saucelabs@^1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/saucelabs/-/saucelabs-1.5.0.tgz#9405a73c360d449b232839919a86c396d379fd9d"
