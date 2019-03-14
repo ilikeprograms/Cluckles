@@ -7,6 +7,7 @@ import { ClarityModule } from '@clr/angular';
 import { AppComponent } from './app.component';
 import { appRoutes } from './app-routing.module';
 import { LayoutModule } from './layout/layout.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { LayoutModule } from './layout/layout.module';
     BrowserModule,
     ClarityModule,
     BrowserAnimationsModule,
+    CoreModule,
     LayoutModule,
     appRoutes
   ],
