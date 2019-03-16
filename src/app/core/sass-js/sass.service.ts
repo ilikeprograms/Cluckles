@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
+
 import { BehaviorSubject } from 'rxjs';
 
-var Sass = require('sass.js/dist/sass');
+import { ISassJs, ISassJsCompileCallbackResult } from './sassjs.interface';
+
+const Sass = require('sass.js/dist/sass');
 
 Sass.setWorkerUrl('assets/dist/sass.worker.js');
 
-console.log(Sass);
-
-const sass = new Sass();
-
-
-console.log(sass);
-
-var scss = '$someVar: 123px; .some-selector { width: $someVar; }';
+const sass: ISassJs = new Sass();
 
 var files = [
   'custom.scss',
@@ -108,33 +104,14 @@ var base = '../../assets/bootstrap';
 // the directory files should be made available in
 var directory = '';
 
-// register the files to be loaded when required
-// sass.preloadFiles(base, directory, files, function(result) {
-//   console.log(result, 'loaded');
-
-//   sass.compile('@import "custom.scss"', function(result) {
-//     console.log("compiled", result);
-
-//     const styleTag: HTMLStyleElement = document.createElement('style');
-
-//     styleTag.innerText = result.text;
-
-//     document.body.appendChild(styleTag);
-//   });
-
-// });
 
 @Injectable()
 export class SassService {
   public compilation$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   public compile(scssToCompile: string) {
-    sass.preloadFiles(base, directory, files, (result) => {
-      console.log(result, 'loaded');
-
-      sass.compile(scssToCompile, (result2) => {
-        console.log('result', result2);
-
+    sass.preloadFiles(base, directory, files, () => {
+      sass.compile(scssToCompile, (result2: ISassJsCompileCallbackResult) => {
         this.compilation$.next(result2.text);
       });
     });
