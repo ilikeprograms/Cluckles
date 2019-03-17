@@ -1,0 +1,19 @@
+:host {
+  .spinner-container {
+    background: black;
+    color: white;
+    opacity: 0.75;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

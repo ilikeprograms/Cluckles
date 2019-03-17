@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { appRoutes } from './app-routing.module';
 import { LayoutModule } from './layout/layout.module';
 import { CoreModule } from './core/core.module';
+import { CommonModule } from '@angular/common';
+import { UiBlockerModule } from './common/ui-blocker/ui-blocker.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     ClarityModule,
     BrowserAnimationsModule,
-    CoreModule,
+    CoreModule.forRoot(),
     LayoutModule,
     appRoutes
   ],

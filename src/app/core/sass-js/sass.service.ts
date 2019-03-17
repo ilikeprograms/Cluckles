@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone, ChangeDetectorRef, ApplicationRef } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 import { ISassJs, ISassJsCompileCallbackResult } from './sassjs.interface';
 
@@ -105,14 +105,27 @@ var base = '../../assets/bootstrap';
 var directory = '';
 
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SassService {
   public compilation$: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public compilationWaitingSubject$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public compilationWaiting$: Observable<boolean>;
 
-  public compile(scssToCompile: string) {
+  constructor(private ref: ApplicationRef) {
+    this.compilationWaiting$ = this.compilationWaitingSubject$.asObservable();
+  }
+
+  public compile(scssToCompile: string): void {
+    this.compilationWaitingSubject$.next(true);
+
     sass.preloadFiles(base, directory, files, () => {
       sass.compile(scssToCompile, (result2: ISassJsCompileCallbackResult) => {
         this.compilation$.next(result2.text);
+        this.compilationWaitingSubject$.next(false);
+
+        this.ref.tick();
       });
     });
   }
