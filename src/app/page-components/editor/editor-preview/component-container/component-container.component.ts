@@ -19,5 +19,8 @@ export class ComponentContainerComponent {
 
       elementRef.nativeElement.shadowRoot.insertBefore(styleTag, elementRef.nativeElement.childNodes[0]);
     });
+
+    // Compile with default
+    this.sassService.compile('@import "custom.scss"');
   }
 }

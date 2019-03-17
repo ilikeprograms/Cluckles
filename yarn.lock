@@ -302,6 +302,21 @@
   resolved "https://registry.yarnpkg.com/@clr/ui/-/ui-1.1.1.tgz#29abef9f82daff13f6c50ab589017f2f95bfdc4f"
   integrity sha512-bODUUoScEKpQKGWdy6I5JAdAA2Y6rxkt0UzSsOLRB0d72rLldHj0/m1c5ntQxSn9fEISTfhiHJT4MGdmP07bbQ==
 
+"@ngrx/effects@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.3.0.tgz#9bc3d58c7e6c810083870b3cd84bfe339847c5c0"
+  integrity sha512-PxZQaKTUmdsTPpd/0vCbYmVn8KtnvlmMDv4GflU7TVhZPe8uibaPN4HNkJMZD2gPe6qk3R7wGwuyXlFWBeQiUw==
+
+"@ngrx/store-devtools@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-7.3.0.tgz#a178e66083343d81e554cfc092101f5bf8311908"
+  integrity sha512-//zuFcXUEJO3H/KfT3ontsosdF+dBphvoT4NHHZQAewaGUmn/z6OqgJv41n0d8NmAjVmKYYA73jtWwRmfSHTcA==
+
+"@ngrx/store@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-7.3.0.tgz#12684cef59765f161d0152b12a6caad63dbb832a"
+  integrity sha512-cELOO+kHYo100Q2wi1cZqhK9jA/NJs5//0lkphoR/AKxShGmJCkub6L+qnJCrzROu4Bvod4DAlA9VAQSq4EYLg==
+
 "@ngtools/webpack@7.3.5":
   version "7.3.5"
   resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-7.3.5.tgz#e17bf6b7fc515cfa8a8e285daf64508b46074d0d"

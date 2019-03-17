@@ -1,6 +1,10 @@
-<form clrForm [formGroup]="colorPickerForm">
+<form
+  clrForm
+  clrLayout="vertical"
+  [formGroup]="colorPickerForm"
+>
     <clr-input-container>
       <label>Background color</label>
-      <input placeholder="#000000" clrInput formControlName="colorPicker" name="colorPicker" />
+      <input placeholder="#000000" clrInput type="color" formControlName="colorPicker" name="colorPicker" />
     </clr-input-container>
   </form>

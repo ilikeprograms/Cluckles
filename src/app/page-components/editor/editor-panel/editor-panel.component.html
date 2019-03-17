@@ -1,3 +1,4 @@
 Editor Panel
 
-<app-color-picker (colorChanged)="compileChange($event)"></app-color-picker>
+<app-color-picker [color]="jumbotronColor$ | async" (colorChanged)="compileChange($event)"></app-color-picker>
+<app-size-unit (sizeChanged)="sizeChange($event)"></app-size-unit>
