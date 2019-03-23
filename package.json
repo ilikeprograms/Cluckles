@@ -5,12 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "jest",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/jest": "^7.4.0",
     "@angular/animations": "~7.2.0",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
@@ -23,10 +24,13 @@
     "@clr/icons": "1.1.1",
     "@clr/ui": "1.1.1",
     "@ngrx/effects": "^7.3.0",
+    "@ngrx/entity": "^7.3.0",
     "@ngrx/store": "^7.3.0",
     "@ngrx/store-devtools": "^7.3.0",
+    "@types/jest": "^24.0.11",
     "@webcomponents/custom-elements": "^1.0.0",
     "core-js": "^2.5.4",
+    "jest": "^24.5.0",
     "rxjs": "~6.3.3",
     "sass.js": "^0.10.13",
     "tslib": "^1.9.0",
@@ -37,20 +41,25 @@
     "@angular/cli": "~7.3.5",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
-    "@types/jasmine": "~2.8.8",
-    "@types/jasminewd2": "~2.0.3",
-    "@types/node": "~8.9.4",
+    "@types/node": "^11.11.6",
     "codelyzer": "~4.5.0",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~4.0.0",
-    "karma-chrome-launcher": "~2.2.0",
-    "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~1.1.2",
-    "karma-jasmine-html-reporter": "^0.2.2",
+    "jest-preset-angular": "^7.0.1",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
+  },
+  "jest": {
+    "preset": "jest-preset-angular",
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png)$": "<rootDir>/__mocks__/image.js",
+      "^@lib/(.*)$": "<rootDir>/src/lib/$1",
+      "^test/(.*)$": "<rootDir>/test/$1"
+    },
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setupJest.ts"
+    ]
   }
 }

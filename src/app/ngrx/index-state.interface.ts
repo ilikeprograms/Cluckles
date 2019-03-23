@@ -1,8 +1,7 @@
-import { IVariable, IColorType } from "./variables.interface";
+import { IBootstrapState } from './bootstrap/bootstrap-state.interface';
+import { EntityState } from '@ngrx/entity';
+import { IVariable } from './bootstrap/variables.interface';
 
 export interface IndexState {
-  jumbotron: {
-    padding: string;
-    background: IColorType;
-  }
+  bootstrap: EntityState<IVariable<any>>;
 }

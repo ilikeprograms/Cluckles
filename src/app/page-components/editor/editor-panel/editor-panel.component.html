@@ -1,4 +1,15 @@
 Editor Panel
 
-<app-color-picker [color]="jumbotronColor$ | async" (colorChanged)="compileChange($event)"></app-color-picker>
-<app-size-unit (sizeChanged)="sizeChange($event)"></app-size-unit>
+{{ (selectedComponentProperties$ | async) }}
+
+<ng-container *ngFor="let component of (selectedComponentProperties$ | async)">
+  <ng-container [ngSwitch]="component.type">
+    <div *ngSwitchCase="variableTypes.color">
+      {{ component | json }}
+      <app-color-picker [color]="component.value" (colorChanged)="compileChange(component, $event)"></app-color-picker>
+    </div>
+    <div *ngSwitchDefault>
+      <app-size-unit [size]="component.value" (sizeChanged)="sizeChange(component, $event)"></app-size-unit>
+    </div>
+  </ng-container>
+</ng-container>

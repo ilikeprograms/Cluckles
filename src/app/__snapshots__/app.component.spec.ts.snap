@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppComponent should match snapshot 1`] = `
+<div
+  id="root0"
+  ng-version="7.2.9"
+>
+  <clr-main-container>
+    <app-header />
+    <div
+      class="content-container"
+    >
+      <div
+        class="content-area"
+      >
+        <router-outlet />
+      </div>
+      <clr-vertical-nav>
+        <clr-vertical-nav-group>
+          <clr-icon
+            clrverticalnavicon=""
+            shape="flame"
+          />
+           Dr T. 
+          <clr-vertical-nav-group-children>
+            <a
+              clrverticalnavlink=""
+            >
+              Charmander
+            </a>
+            <a
+              clrverticalnavlink=""
+            >
+              Jigglypuff
+            </a>
+            <a
+              clrverticalnavlink=""
+            >
+              Pikachu
+            </a>
+            <a
+              clrverticalnavlink=""
+            >
+              Raichu
+            </a>
+            <a
+              clrverticalnavlink=""
+            >
+              Snorlax
+            </a>
+            <div
+              class="nav-divider"
+            />
+            <a
+              clrverticalnavlink=""
+            >
+              Credit
+            </a>
+          </clr-vertical-nav-group-children>
+        </clr-vertical-nav-group>
+      </clr-vertical-nav>
+    </div>
+  </clr-main-container>
+</div>
+`;

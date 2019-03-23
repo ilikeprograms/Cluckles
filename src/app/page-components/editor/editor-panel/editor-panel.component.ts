@@ -3,11 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 
 import { SassService } from 'src/app/core/sass-js/sass.service';
-import { BootstrapFacade } from 'src/app/ngrx/bootstrap.facade';
-import { IColorType } from 'src/app/ngrx/variables.interface';
+import { BootstrapFacade } from 'src/app/ngrx/bootstrap/bootstrap.facade';
 import { Observable } from 'rxjs';
-
-const toCompile = '@import "custom.scss"';
+import { IVariable, VariableTypes, IColorType } from 'src/app/ngrx/bootstrap/variables.interface';
 
 @Component({
   selector: 'app-editor-panel',
@@ -15,26 +13,31 @@ const toCompile = '@import "custom.scss"';
   styleUrls: ['./editor-panel.component.scss']
 })
 export class EditorPanelComponent implements OnInit {
-  public jumbotronColor$: Observable<string>;
+  // public jumbotronColor$: Observable<string>;
+  public selectedComponent$: Observable<IVariable<VariableTypes>>;
+  public selectedComponentProperties$: Observable<Array<IVariable<VariableTypes>>>;
+
+  public variableTypes = VariableTypes;
 
   constructor(
-    private sassService: SassService,
     private bootstrapFacade: BootstrapFacade
   ) {
-
+    this.selectedComponentProperties$ = this.bootstrapFacade.selectedComponentProperties$;
   }
 
   public ngOnInit(): void {
-    this.jumbotronColor$ = this.bootstrapFacade.selectColor('jumbotron', 'background').pipe(map((value: IColorType) => {
-      return value.value;
-    }));
+    // this.jumbotronColor$ = this.bootstrapFacade.selectColor('jumbotron', 'background').pipe(map((value: IColorType) => {
+    //   return value.value;
+    // }));
+
+    // this.selectedComponentProperties$ = this.bootstrapFacade.selectedComponentProperties$;
   }
 
-  public compileChange(color: string) {
-    this.bootstrapFacade.updateColor('jumbotron', 'background', color);
+  public compileChange(component, value: string) {
+    this.bootstrapFacade.updateComponentProperty(component.id, value);
   }
 
-  public sizeChange(size: string) {
-    this.sassService.compile('$jumbotron-padding: ' + size + '; ' + toCompile);
+  public sizeChange(component, value: string) {
+    this.bootstrapFacade.updateComponentProperty(component.id, value);
   }
 }
