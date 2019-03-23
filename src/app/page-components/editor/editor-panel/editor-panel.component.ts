@@ -16,6 +16,7 @@ export class EditorPanelComponent implements OnInit {
   // public jumbotronColor$: Observable<string>;
   public selectedComponent$: Observable<IVariable<VariableTypes>>;
   public selectedComponentProperties$: Observable<Array<IVariable<VariableTypes>>>;
+  public componentProperties$: Observable<Map<string, IVariable<VariableTypes>>>;
 
   public variableTypes = VariableTypes;
 
@@ -23,9 +24,11 @@ export class EditorPanelComponent implements OnInit {
     private bootstrapFacade: BootstrapFacade
   ) {
     this.selectedComponentProperties$ = this.bootstrapFacade.selectedComponentProperties$;
+    // this.componentProperties$ = this.bootstrapFacade.componentProperties$;
   }
 
   public ngOnInit(): void {
+    this.componentProperties$ = this.bootstrapFacade.componentProperties$;
     // this.jumbotronColor$ = this.bootstrapFacade.selectColor('jumbotron', 'background').pipe(map((value: IColorType) => {
     //   return value.value;
     // }));

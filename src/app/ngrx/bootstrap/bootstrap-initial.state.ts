@@ -35,5 +35,5 @@ const initialEntities: { [x: number]: IVariable<VariableTypes> } = {
 export const bootstrapInitialState: IBootstrapState = bootstrapAdapter.getInitialState({
   entities: initialEntities,
   ids: [id1, id2, id3],
-  selectedComponent: 'jumbotron'
+  selectedComponent: ''
 });

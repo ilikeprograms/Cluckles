@@ -3,7 +3,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-size-unit',
-  templateUrl: './size-unit.component.html'
+  templateUrl: './size-unit.component.html',
+  styleUrls: ['./size-unit.component.scss']
 })
 export class SizeUnitComponent implements OnInit, OnChanges {
   public sizeUnitForm: FormGroup;

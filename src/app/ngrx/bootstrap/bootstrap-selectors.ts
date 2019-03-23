@@ -37,3 +37,21 @@ export const getSelectedComponentProperties = createSelector(
     return entities.filter((entity: IVariable<VariableTypes>) => entity.component === selectedComponent);
   }
 );
+
+export const getComponentProperties = createSelector(
+  selectAllBootstrapComponents,
+  (entities: Array<IVariable<VariableTypes>>): Map<string, IVariable<VariableTypes>> => {
+    const components = new Map();
+
+    entities.map((entity: IVariable<VariableTypes>) => {
+      components.set(entity.component, {
+        ...components.get(entity.component),
+        [entity.type]: entity
+      })
+    });
+
+    console.log(components.entries());
+
+    return components;
+  }
+);

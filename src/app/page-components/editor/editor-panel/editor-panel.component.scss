@@ -1,8 +1,22 @@
 :host {
   background-color: #eee;
-
   padding: 20px;
-
-
   flex-basis: 300px;
+
+  // Label for component name
+  clr-stack-view /deep/ .stack-view > clr-stack-block:first-child > .stack-block-label {
+    flex-grow: 1;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  // Content block inside component name area
+  clr-stack-view /deep/ .stack-view > clr-stack-block:first-child > .stack-block-content {
+    display: none;
+  }
+
+  // Label inside content of Editor components
+  clr-stack-block /deep/ .stack-children clr-stack-block .stack-block-label {
+    display: none;
+  }
 }
