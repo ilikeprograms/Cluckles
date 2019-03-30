@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 const id1 = uuid();
 const id2 = uuid();
 const id3 = uuid();
+const id4 = uuid();
 
 const initialEntities: { [x: number]: IVariable<VariableTypes> } = {
     [id1]: {
@@ -30,10 +31,17 @@ const initialEntities: { [x: number]: IVariable<VariableTypes> } = {
     variable: '$card-bg',
     component: 'card'
   },
+  [id4]: {
+    id: id4,
+    type: VariableTypes.color,
+    value: '#E9ECEF',
+    variable: '$progress-bg',
+    component: 'progress'
+  },
 };
 
 export const bootstrapInitialState: IBootstrapState = bootstrapAdapter.getInitialState({
   entities: initialEntities,
-  ids: [id1, id2, id3],
+  ids: [id1, id2, id3, id4],
   selectedComponent: ''
 });
