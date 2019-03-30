@@ -3,45 +3,18 @@ import { IBootstrapState } from './bootstrap-state.interface';
 import { IVariable, VariableTypes } from './variables.interface';
 
 import { v4 as uuid } from 'uuid';
+import { bootstrapVariables } from './data/bootstrap-variables.const';
+import { bootstrapComponentNames } from './data/bootstrap-component-names.const';
 
-const id1 = uuid();
-const id2 = uuid();
-const id3 = uuid();
-const id4 = uuid();
+const initialEntities: { [x: number]: IVariable<VariableTypes> } = {};
 
-const initialEntities: { [x: number]: IVariable<VariableTypes> } = {
-    [id1]: {
-      id: id1,
-      type: VariableTypes.size,
-      value: '2rem',
-      variable: '$jumbotron-padding',
-      component: 'jumbotron'
-  },
-  [id2]: {
-      id: id2,
-      type: VariableTypes.color,
-      value: '#E9ECEF',
-      variable: '$jumbotron-bg',
-      component: 'jumbotron'
-  },
-  [id3]: {
-    id: id3,
-    type: VariableTypes.color,
-    value: '#E9ECEF',
-    variable: '$card-bg',
-    component: 'card'
-  },
-  [id4]: {
-    id: id4,
-    type: VariableTypes.color,
-    value: '#E9ECEF',
-    variable: '$progress-bg',
-    component: 'progress'
-  },
-};
+// Itterate over each variable and get the ID out of it and turn it into an object
+bootstrapVariables.forEach((entity: IVariable<VariableTypes>) => {
+  initialEntities[entity.id] = entity;
+});
 
 export const bootstrapInitialState: IBootstrapState = bootstrapAdapter.getInitialState({
   entities: initialEntities,
-  ids: [id1, id2, id3, id4],
-  selectedComponent: ''
+  ids: bootstrapVariables.map((entity: IVariable<VariableTypes>) => entity.id),
+  selectedComponents: bootstrapComponentNames
 });

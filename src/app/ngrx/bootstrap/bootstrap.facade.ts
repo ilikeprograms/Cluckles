@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import { IndexState } from '../index-state.interface';
-import { getSelectedComponentProperties, getComponentProperties } from './bootstrap-selectors';
-import { UpdateComponentPropertyAction } from './bootstrap.actions';
+import { getSelectedComponents, getComponentProperties } from './bootstrap-selectors';
+import { UpdateComponentPropertyAction, ToggleComponentVisible } from './bootstrap.actions';
 import { IVariable, VariableTypes } from './variables.interface';
 import { Observable } from 'rxjs';
 
@@ -16,22 +16,15 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class BootstrapFacade {
-  public selectedComponent$: Observable<IVariable<VariableTypes>>;
+  public selectedComponents$: Observable<Array<string>>;
   public selectedComponentProperties$: Observable<Array<IVariable<VariableTypes>>>;
   public componentProperties$: Observable<Map<string, IVariable<VariableTypes>>>;
-
-
-  getComponentProperties
 
   constructor(
     private store: Store<IndexState>
   ) {
-    this.selectedComponentProperties$ = this.store.pipe(select(getSelectedComponentProperties));
+    this.selectedComponents$ = this.store.pipe(select(getSelectedComponents));
     this.componentProperties$ = this.store.pipe(select(getComponentProperties));
-  }
-
-  public selectColor(component: string, color: string) {
-    // return this.store.pipe(select(selectColor, {component, color}));
   }
 
   public updateComponentProperty(id: string, value: string) {
@@ -43,5 +36,9 @@ export class BootstrapFacade {
         }
       }
     }));
+  }
+
+  public toggleComponentVisible(componentName: string): void {
+    this.store.dispatch(new ToggleComponentVisible(componentName));
   }
 }

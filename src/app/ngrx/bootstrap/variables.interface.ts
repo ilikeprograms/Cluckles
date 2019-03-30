@@ -1,6 +1,7 @@
 export enum VariableTypes {
   color = 'color',
-  size = 'size'
+  size = 'size',
+  fontweight = 'fontweight'
 }
 
 export interface IVariable<T> {
@@ -8,6 +9,7 @@ export interface IVariable<T> {
   type: T;
   value: string;
   variable: string;
+  label: string;
   component: string;
 }
 

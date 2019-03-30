@@ -13,6 +13,9 @@ export class SizeUnitComponent implements OnInit, OnChanges {
   @Input()
   public size: string;
 
+  @Input()
+  public label: string = '';
+
   @Output()
   public sizeChanged: EventEmitter<string> = new EventEmitter<string>();
 

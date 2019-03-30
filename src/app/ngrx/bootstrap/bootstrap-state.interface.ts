@@ -7,5 +7,5 @@ export interface IBootstrapState extends EntityState<IVariable<any>> {
   //   padding: IVariable<VariableTypes.size>;
   //   background: IVariable<VariableTypes.color>;
   // };
-  selectedComponent: string | null;
+  selectedComponents: Array<string>;
 }

@@ -4,10 +4,10 @@ import { IBootstrapState } from './bootstrap-state.interface';
 import { bootstrapAdapter } from './bootstrap-entity.adapter';
 import { IVariable, VariableTypes } from './variables.interface';
 import { Observable } from 'rxjs';
-import { EntityState, Dictionary } from '@ngrx/entity';
+import { EntityState, Dictionary, createEntityAdapter } from '@ngrx/entity';
 
 export const getFeature = createFeatureSelector<IBootstrapState>('bootstrap');
-export const getSelectedComponentId = createSelector(getFeature, (state: IBootstrapState) => state.selectedComponent);
+export const getSelectedComponents = createSelector(getFeature, (state: IBootstrapState) => state.selectedComponents);
 
 // get the selectors
 const {
@@ -29,28 +29,29 @@ export const selectAllBootstrapComponents = createSelector(getFeature, selectAll
 // select the total BootstrapComponent count
 export const selectBootstrapComponentTotal = createSelector(getFeature, selectTotal);
 
-export const getSelectedComponentProperties = createSelector(
-  getSelectedComponentId,
-  selectAllBootstrapComponents,
-  (selectedComponent: string, entities: Array<IVariable<VariableTypes>>): Array<IVariable<VariableTypes>> => {
-    console.log(entities.filter((entity: IVariable<VariableTypes>) => entity.component === selectedComponent));
-    return entities.filter((entity: IVariable<VariableTypes>) => entity.component === selectedComponent);
-  }
-);
-
 export const getComponentProperties = createSelector(
   selectAllBootstrapComponents,
   (entities: Array<IVariable<VariableTypes>>): Map<string, IVariable<VariableTypes>> => {
     const components = new Map();
 
+    console.log(entities);
+
     entities.map((entity: IVariable<VariableTypes>) => {
-      components.set(entity.component, {
-        ...components.get(entity.component),
-        [entity.type]: entity
-      })
+      const componentName: string = entity.component;
+      const exitingMapComponent = components.get(componentName);
+
+      components.set(componentName, {
+        ...exitingMapComponent,
+        properties: [
+          ...(exitingMapComponent !== undefined ? exitingMapComponent.properties : []),
+          entity
+        ]
+
+        // [entity.type]: entity
+      });
     });
 
-    console.log(components.entries());
+    console.log(components);
 
     return components;
   }

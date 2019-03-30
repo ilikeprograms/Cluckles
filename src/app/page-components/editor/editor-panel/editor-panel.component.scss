@@ -2,6 +2,7 @@
   background-color: #eee;
   padding: 20px;
   flex-basis: 300px;
+  flex-shrink: 0;
 
   // Label for component name
   clr-stack-view /deep/ .stack-view > clr-stack-block:first-child > .stack-block-label {
@@ -18,5 +19,21 @@
   // Label inside content of Editor components
   clr-stack-block /deep/ .stack-children clr-stack-block .stack-block-label {
     display: none;
+  }
+
+  /deep/ clr-stack-block > .stack-block-label {
+    flex-basis: 100%;
+    max-width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    clr-stack-label {
+      flex-grow: 1;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 }

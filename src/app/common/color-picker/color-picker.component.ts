@@ -19,6 +19,9 @@ export class ColorPickerComponent implements OnInit, OnChanges {
   @Input()
   public color: string;
 
+  @Input()
+  public label: string = '';
+
   @Output()
   public colorChanged: EventEmitter<string> = new EventEmitter<string>();
 

@@ -4,7 +4,8 @@ import { Update } from '@ngrx/entity';
 
 export enum BootstrapTypes {
   UpdateComponentProperty = '[Bootstrap] UpdateColor',
-  Compile = '[Bootstrap] Compile'
+  Compile = '[Bootstrap] Compile',
+  ToggleComponentVisible = '[Bootstrap] ToggleComponentVisible'
 }
 
 export class UpdateComponentPropertyAction implements Action {
@@ -19,4 +20,12 @@ export class CompileAction implements Action {
   readonly type = BootstrapTypes.Compile;
 }
 
-export type BootstrapActionsUnion = UpdateComponentPropertyAction | CompileAction;
+export class ToggleComponentVisible implements Action {
+  readonly type = BootstrapTypes.ToggleComponentVisible;
+
+  constructor(
+    public componentName: string
+  ) {}
+}
+
+export type BootstrapActionsUnion = UpdateComponentPropertyAction | CompileAction | ToggleComponentVisible;

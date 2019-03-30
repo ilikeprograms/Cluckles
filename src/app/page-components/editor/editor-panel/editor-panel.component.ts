@@ -13,27 +13,24 @@ import { IVariable, VariableTypes, IColorType } from 'src/app/ngrx/bootstrap/var
   styleUrls: ['./editor-panel.component.scss']
 })
 export class EditorPanelComponent implements OnInit {
-  // public jumbotronColor$: Observable<string>;
-  public selectedComponent$: Observable<IVariable<VariableTypes>>;
   public selectedComponentProperties$: Observable<Array<IVariable<VariableTypes>>>;
   public componentProperties$: Observable<Map<string, IVariable<VariableTypes>>>;
 
+  public selectedComponents: Array<string>;
   public variableTypes = VariableTypes;
 
   constructor(
     private bootstrapFacade: BootstrapFacade
   ) {
+    this.bootstrapFacade.selectedComponents$.subscribe((selectedComponents: Array<string>) => {
+      this.selectedComponents = selectedComponents;
+    });
     this.selectedComponentProperties$ = this.bootstrapFacade.selectedComponentProperties$;
     // this.componentProperties$ = this.bootstrapFacade.componentProperties$;
   }
 
   public ngOnInit(): void {
     this.componentProperties$ = this.bootstrapFacade.componentProperties$;
-    // this.jumbotronColor$ = this.bootstrapFacade.selectColor('jumbotron', 'background').pipe(map((value: IColorType) => {
-    //   return value.value;
-    // }));
-
-    // this.selectedComponentProperties$ = this.bootstrapFacade.selectedComponentProperties$;
   }
 
   public compileChange(component, value: string) {
@@ -42,5 +39,16 @@ export class EditorPanelComponent implements OnInit {
 
   public sizeChange(component, value: string) {
     this.bootstrapFacade.updateComponentProperty(component.id, value);
+  }
+
+  public isComponentVisible(componentName: string): boolean {
+    return this.selectedComponents.indexOf(componentName) !== -1;
+  }
+
+  public toggleComponentVisible(componentName: string, event) {
+    this.bootstrapFacade.toggleComponentVisible(componentName);
+
+    event.preventDefault();
+    event.stopPropagation();
   }
 }

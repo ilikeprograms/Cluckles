@@ -1,2 +1,29 @@
-<app-jumbotron></app-jumbotron>
-<app-progress></app-progress>
+<div class="component" *ngIf="isComponentVisible('alert')">
+  <h1>Alerts</h1>
+  <app-alert></app-alert>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('badges')">
+  <h1>Badges</h1>
+  <app-badge></app-badge>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('breadcrumbs')">
+  <h1>Breadcrumbs</h1>
+  <app-breadcrumbs></app-breadcrumbs>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('buttons')">
+  <h1>Button</h1>
+  <app-button></app-button>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('jumbotron')">
+  <h1>Jumbotron</h1>
+  <app-jumbotron></app-jumbotron>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('progress')">
+  <h1>Progress</h1>
+  <app-progress></app-progress>
+</div>

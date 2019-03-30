@@ -118,14 +118,24 @@ export class SassService {
   }
 
   public compile(scssToCompile: string): void {
+
+    console.log(scssToCompile);
+
+
+
     this.compilationWaitingSubject$.next(true);
 
     sass.preloadFiles(base, directory, files, () => {
       sass.compile(scssToCompile, (result2: ISassJsCompileCallbackResult) => {
-        this.compilation$.next(result2.text);
-        this.compilationWaitingSubject$.next(false);
+        console.log(result2);
+        if (result2.status !== 0) {
+          console.error(result2);
+        } else {
+          this.compilation$.next(result2.text);
+          this.ref.tick();
+        }
 
-        this.ref.tick();
+        this.compilationWaitingSubject$.next(false);
       });
     });
   }

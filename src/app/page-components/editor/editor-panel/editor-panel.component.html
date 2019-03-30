@@ -1,57 +1,32 @@
-<!-- Editor Panel -->
-
-<!-- {{ (selectedComponentProperties$ | async) }}
-
-<ng-container *ngFor="let component of (selectedComponentProperties$ | async)">
-  <ng-container [ngSwitch]="component.type">
-    <div *ngSwitchCase="variableTypes.color">
-      <app-color-picker [color]="component.value" (colorChanged)="compileChange(component, $event)"></app-color-picker>
-    </div>
-    <div *ngSwitchDefault>
-      <app-size-unit [size]="component.value" (sizeChanged)="sizeChange(component, $event)"></app-size-unit>
-    </div>
-  </ng-container>
-</ng-container> -->
-
 <clr-stack-view>
   <clr-stack-header>Components</clr-stack-header>
 
-  <!-- <clr-stack-block [clrSbExpanded]="true">
-      <clr-stack-label>Jumbotron</clr-stack-label>
+  <clr-stack-block *ngFor="let component of (componentProperties$ | async) | keyvalue">
+    <clr-stack-label>
+      {{ component.key | titlecase }}
 
-      <clr-stack-block *ngFor="let component of (selectedComponentProperties$ | async)">
-        <clr-stack-label>{{ component.type }}</clr-stack-label>
-        <clr-stack-content>
+      <clr-icon shape="eye" *ngIf="isComponentVisible(component.key)" (click)="toggleComponentVisible(component.key, $event)"></clr-icon>
+      <clr-icon shape="eye-hide" *ngIf="!isComponentVisible(component.key)" (click)="toggleComponentVisible(component.key, $event)"></clr-icon>
+    </clr-stack-label>
 
-          <ng-container [ngSwitch]="component.type">
-            <div *ngSwitchCase="variableTypes.color">
-              <app-color-picker [color]="component.value" (colorChanged)="compileChange(component, $event)"></app-color-picker>
-            </div>
-            <div *ngSwitchDefault>
-              <app-size-unit [size]="component.value" (sizeChanged)="sizeChange(component, $event)"></app-size-unit>
-            </div>
-          </ng-container>
-
-        </clr-stack-content>
-      </clr-stack-block>
-  </clr-stack-block> -->
-
-
-  <!-- {{ (componentProperties$ | async)?.entries() | json }} -->
-
-  <clr-stack-block [clrSbExpanded]="true" *ngFor="let component of (componentProperties$ | async) | keyvalue">
-    <clr-stack-label>{{ component.key }}</clr-stack-label>
-
-    <clr-stack-block *ngFor="let property of component.value | keyvalue">
+    <clr-stack-block *ngFor="let property of component.value.properties">
       <clr-stack-label>{{ property.key }}</clr-stack-label>
       <clr-stack-content>
 
-        <ng-container [ngSwitch]="property.value.type">
+        <ng-container [ngSwitch]="property.type">
           <div *ngSwitchCase="variableTypes.color">
-            <app-color-picker [color]="property.value.value" (colorChanged)="compileChange(property.value, $event)"></app-color-picker>
+            <app-color-picker
+              [color]="property.value"
+              [label]="property.label"
+              (colorChanged)="compileChange(property, $event)"
+            ></app-color-picker>
           </div>
           <div *ngSwitchDefault>
-            <app-size-unit [size]="property.value.value" (sizeChanged)="sizeChange(property.value, $event)"></app-size-unit>
+            <app-size-unit
+              [size]="property.value"
+              [label]="property.label"
+              (sizeChanged)="sizeChange(property, $event)"
+            ></app-size-unit>
           </div>
         </ng-container>
 

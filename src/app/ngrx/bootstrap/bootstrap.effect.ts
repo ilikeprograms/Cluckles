@@ -30,9 +30,14 @@ export class BootstrapEffects {
 
       components.forEach((component: IVariable<VariableTypes>) => {
         toCompile += `${component.variable}: ${component.value}; `;
-
-        this.sassService.compile(toCompile + '@import "custom.scss"');
       });
+
+
+      console.log(toCompile);
+
+      this.sassService.compile(toCompile + '@import "custom.scss"');
+
+
     })
   );
 

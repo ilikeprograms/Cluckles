@@ -10,4 +10,4 @@ import { JumbotronComponent } from './jumbotron.component';
     JumbotronComponent
   ]
 })
-export class  JumbotronModule {}
+export class JumbotronModule {}

@@ -38,6 +38,23 @@ export function indexReducer(state: IBootstrapState = bootstrapInitialState, act
       return bootstrapAdapter.updateOne(action.payload.component, state);
     }
 
+    case BootstrapTypes.ToggleComponentVisible: {
+      const componentsVisible: Array<string> = state.selectedComponents;
+
+      const componentIndex: number = componentsVisible.indexOf(action.componentName);
+
+      if (componentIndex === -1) {
+        componentsVisible.push(action.componentName);
+      } else {
+        componentsVisible.splice(componentIndex, 1);
+      }
+
+      return {
+        ...state,
+        componentsVisible
+      };
+    }
+
     // case BootstrapTypes.UpdateComponentProperty:
     //   const component = state[action.component];
     //   const componentProperty = component[action.property];
