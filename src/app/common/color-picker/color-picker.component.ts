@@ -1,18 +1,26 @@
-import { Component, OnInit, Output, EventEmitter, Input, SimpleChanges, OnChanges } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  SimpleChanges,
+  OnChanges
+} from "@angular/core";
 
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
-  selector: 'app-color-picker',
-  templateUrl: './color-picker.component.html',
-  styleUrls: ['./color-picker.component.scss']
+  selector: "app-color-picker",
+  templateUrl: "./color-picker.component.html",
+  styleUrls: ["./color-picker.component.scss"]
 })
 export class ColorPickerComponent implements OnInit, OnChanges {
   public colorPickerForm: FormGroup;
 
   constructor() {
     this.colorPickerForm = new FormGroup({
-      colorPicker: new FormControl('')
+      colorPicker: new FormControl("")
     });
   }
 
@@ -20,7 +28,7 @@ export class ColorPickerComponent implements OnInit, OnChanges {
   public color: string;
 
   @Input()
-  public label: string = '';
+  public label: string = "";
 
   @Output()
   public colorChanged: EventEmitter<string> = new EventEmitter<string>();
@@ -32,13 +40,15 @@ export class ColorPickerComponent implements OnInit, OnChanges {
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes, this.colorPickerForm);
     if (changes && changes.color && this.colorPickerForm) {
-      this.colorPickerForm.patchValue({
-        colorPicker: changes.color.currentValue
-      }, {
-        emitEvent: false
-      });
+      this.colorPickerForm.patchValue(
+        {
+          colorPicker: changes.color.currentValue
+        },
+        {
+          emitEvent: false
+        }
+      );
     }
   }
 }

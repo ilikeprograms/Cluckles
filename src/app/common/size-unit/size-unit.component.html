@@ -1,10 +1,23 @@
-<form
-  clrForm
-  clrLayout="vertical"
-  [formGroup]="sizeUnitForm"
->
-    <clr-input-container>
-      <label>{{ label }}</label>
-      <input placeholder="10" clrInput formControlName="sizeValue" name="sizeValue" />
-    </clr-input-container>
-  </form>
+<form clrForm clrLayout="vertical" [formGroup]="sizeUnitForm">
+  <div class="clr-row">
+    <div class="clr-col-7">
+      <clr-input-container>
+        <label>{{ label }}</label>
+        <input
+          placeholder="10"
+          clrInput
+          formControlName="sizeValue"
+          name="sizeValue"
+        />
+      </clr-input-container>
+    </div>
+    <div class="clr-col-5">
+      <ng-select formControlName="unit" appendTo="body" [clearable]="false">
+        <ng-option [value]="'px'">Px</ng-option>
+        <ng-option [value]="'em'">Em</ng-option>
+        <ng-option [value]="'%'">%</ng-option>
+        <ng-option [value]="'rem'">Rem</ng-option>
+      </ng-select>
+    </div>
+  </div>
+</form>

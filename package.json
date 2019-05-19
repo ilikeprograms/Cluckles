@@ -23,6 +23,7 @@
     "@clr/angular": "^1.1.1",
     "@clr/icons": "1.1.1",
     "@clr/ui": "1.1.1",
+    "@ng-select/ng-select": "^2.16.4",
     "@ngrx/effects": "^7.3.0",
     "@ngrx/entity": "^7.3.0",
     "@ngrx/store": "^7.3.0",

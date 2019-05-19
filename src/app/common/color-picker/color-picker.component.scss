@@ -1,5 +1,7 @@
+@import "../mixins/clarity-form-reset.scss";
+@import "../mixins/clarity-input-container.scss";
+
 :host {
-  .clr-form-control {
-    margin-top: 0;
-  }
+  @include clarityFormReset();
+  @include clarityInputContainer();
 }

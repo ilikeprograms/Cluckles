@@ -1,18 +1,27 @@
 <clr-stack-view>
   <clr-stack-header>Components</clr-stack-header>
 
-  <clr-stack-block *ngFor="let component of (componentProperties$ | async) | keyvalue">
+  <clr-stack-block
+    *ngFor="let component of (componentProperties$ | async | keyvalue)"
+  >
     <clr-stack-label>
       {{ component.key | titlecase }}
 
-      <clr-icon shape="eye" *ngIf="isComponentVisible(component.key)" (click)="toggleComponentVisible(component.key, $event)"></clr-icon>
-      <clr-icon shape="eye-hide" *ngIf="!isComponentVisible(component.key)" (click)="toggleComponentVisible(component.key, $event)"></clr-icon>
+      <clr-icon
+        shape="eye"
+        *ngIf="isComponentVisible(component.key)"
+        (click)="toggleComponentVisible(component.key, $event)"
+      ></clr-icon>
+      <clr-icon
+        shape="eye-hide"
+        *ngIf="!isComponentVisible(component.key)"
+        (click)="toggleComponentVisible(component.key, $event)"
+      ></clr-icon>
     </clr-stack-label>
 
     <clr-stack-block *ngFor="let property of component.value.properties">
       <clr-stack-label>{{ property.key }}</clr-stack-label>
       <clr-stack-content>
-
         <ng-container [ngSwitch]="property.type">
           <div *ngSwitchCase="variableTypes.color">
             <app-color-picker
@@ -21,28 +30,27 @@
               (colorChanged)="compileChange(property, $event)"
             ></app-color-picker>
           </div>
+
+          <div *ngSwitchCase="variableTypes.fontweight">
+            <app-font-weight
+              [weight]="property.value"
+              [label]="property.label"
+              (weightChanges)="compileChange(property, $event)"
+            ></app-font-weight>
+          </div>
+
           <div *ngSwitchDefault>
             <app-size-unit
               [size]="property.value"
+              [unit]="property.unit"
               [label]="property.label"
-              (sizeChanged)="sizeChange(property, $event)"
+              (valueChanged)="sizeChange(property, $event)"
             ></app-size-unit>
           </div>
         </ng-container>
-
       </clr-stack-content>
     </clr-stack-block>
-</clr-stack-block>
-
-
-
-
-
-
-
-
-
-
+  </clr-stack-block>
 
   <!-- <clr-stack-block [clrSbExpanded]="true">
       <clr-stack-label>Label 2</clr-stack-label>

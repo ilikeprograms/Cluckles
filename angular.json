@@ -22,13 +22,11 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.app.json",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
+            "assets": ["src/favicon.ico", "src/assets"],
             "styles": [
               "node_modules/@clr/icons/clr-icons.min.css",
               "node_modules/@clr/ui/clr-ui.min.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "src/styles.scss"
             ],
             "scripts": [
@@ -86,20 +84,15 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "no-cache": true,
+            "no-cache": true
             // "reporters": ["jest-junit"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "src/tsconfig.app.json",
-              "src/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["src/tsconfig.app.json", "src/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       }
@@ -125,9 +118,7 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         }
       }

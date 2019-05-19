@@ -496,6 +496,13 @@
     "@types/istanbul-lib-coverage" "^1.1.0"
     "@types/yargs" "^12.0.9"
 
+"@ng-select/ng-select@^2.16.4":
+  version "2.16.4"
+  resolved "https://registry.yarnpkg.com/@ng-select/ng-select/-/ng-select-2.16.4.tgz#c5c9592a750960ba0f49e7a5b34c2074a4c74bf7"
+  integrity sha512-f/A53CNMCcgulSBEnHFDpI9lSQJ9CSrNPiDqvxDkpUSbuoMAHL5WZpNEvc54DXrSgLuD4nSjVIuC92fDXfUluw==
+  dependencies:
+    tslib "^1.9.0"
+
 "@ngrx/effects@^7.3.0":
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-7.3.0.tgz#9bc3d58c7e6c810083870b3cd84bfe339847c5c0"

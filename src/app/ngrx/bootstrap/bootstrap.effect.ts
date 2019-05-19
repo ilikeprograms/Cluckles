@@ -1,15 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { tap, map, withLatestFrom } from 'rxjs/operators';
+import { Actions, Effect, ofType } from "@ngrx/effects";
+import { tap, map, withLatestFrom } from "rxjs/operators";
 
-import { BootstrapTypes, CompileAction } from './bootstrap.actions';
-import { SassService } from '../../core/sass-js/sass.service';
-import { Store, select } from '@ngrx/store';
-import { IndexState } from '../index-state.interface';
-import { IBootstrapState } from './bootstrap-state.interface';
-import { IVariable, VariableTypes } from './variables.interface';
-import { selectAllBootstrapComponents } from './bootstrap-selectors';
+import { BootstrapTypes, CompileAction } from "./bootstrap.actions";
+import { SassService } from "../../core/sass-js/sass.service";
+import { Store, select } from "@ngrx/store";
+import { IndexState } from "../index-state.interface";
+import { IBootstrapState } from "./bootstrap-state.interface";
+import { IVariable, VariableTypes, ISizeType } from "./variables.interface";
+import { selectAllBootstrapComponents } from "./bootstrap-selectors";
+import { componentNeedsResolution } from "@angular/core/src/metadata/resource_loading";
 
 @Injectable()
 export class BootstrapEffects {
@@ -19,26 +20,26 @@ export class BootstrapEffects {
   public compile$ = this.actions$.pipe(
     ofType(BootstrapTypes.Compile),
     withLatestFrom(this.store.pipe(select(selectAllBootstrapComponents))),
-    tap(([compileAction, components]: [CompileAction, Array<IVariable<VariableTypes>>]) => {
-      // console.log(bootstrapState);
-      // console.log()
+    tap(
+      ([compileAction, components]: [
+        CompileAction,
+        Array<IVariable<VariableTypes>>
+      ]) => {
+        let toCompile: string = "";
 
-      let toCompile: string = '';
+        components.forEach((component: IVariable<VariableTypes>) => {
+          let propertyValue: string = component.value;
 
-      // const bootstrapComponents: IBootstrapState = bootstrapState.bootstrap;
+          if (component.type === VariableTypes.size) {
+            propertyValue += (component as ISizeType).unit;
+          }
 
+          toCompile += `${component.variable}: ${propertyValue}; `;
+        });
 
-      components.forEach((component: IVariable<VariableTypes>) => {
-        toCompile += `${component.variable}: ${component.value}; `;
-      });
-
-
-      console.log(toCompile);
-
-      this.sassService.compile(toCompile + '@import "custom.scss"');
-
-
-    })
+        this.sassService.compile(toCompile + '@import "custom.scss"');
+      }
+    )
   );
 
   @Effect()

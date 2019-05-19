@@ -1,16 +1,24 @@
 export enum VariableTypes {
-  color = 'color',
-  size = 'size',
-  fontweight = 'fontweight'
+  color = "color",
+  size = "size",
+  fontweight = "fontweight"
 }
 
-export interface IVariable<T> {
+export interface IVariableValue {
+  value: string;
+}
+
+export interface IVariable<T> extends IVariableValue {
   id: string;
   type: T;
-  value: string;
   variable: string;
   label: string;
   component: string;
 }
+export interface ISizeUnit {
+  unit: string;
+}
+
+export interface ISizeType extends IVariable<VariableTypes.size>, ISizeUnit {}
 
 export type IColorType = IVariable<VariableTypes.color>;
