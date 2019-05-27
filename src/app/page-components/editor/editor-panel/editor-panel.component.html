@@ -2,7 +2,7 @@
   <clr-stack-header>Components</clr-stack-header>
 
   <clr-stack-block
-    *ngFor="let component of (componentProperties$ | async | keyvalue)"
+    *ngFor="let component of componentProperties$ | async | keyvalue"
   >
     <clr-stack-label>
       {{ component.key | titlecase }}
@@ -37,6 +37,14 @@
               [label]="property.label"
               (weightChanges)="compileChange(property, $event)"
             ></app-font-weight>
+          </div>
+
+          <div *ngSwitchCase="variableTypes.text">
+            <app-text-unit
+              [value]="property.value"
+              [label]="property.label"
+              (valueChanged)="compileChange(property, $event)"
+            ></app-text-unit>
           </div>
 
           <div *ngSwitchDefault>

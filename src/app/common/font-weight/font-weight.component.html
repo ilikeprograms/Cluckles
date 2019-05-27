@@ -1,0 +1,19 @@
+<form clrForm clrLayout="vertical" [formGroup]="fontWeightForm">
+  <label>{{ label }}</label>
+  <ng-select formControlName="fontWeight" appendTo="body" [clearable]="false">
+    <ng-option [value]="100">100</ng-option>
+    <ng-option [value]="200">200</ng-option>
+    <ng-option [value]="300">300</ng-option>
+    <ng-option [value]="400">400</ng-option>
+    <ng-option [value]="500">500</ng-option>
+    <ng-option [value]="600">600</ng-option>
+    <ng-option [value]="700">700</ng-option>
+    <ng-option [value]="bold">Bold</ng-option>
+    <ng-option [value]="bolder">Bolder</ng-option>
+    <ng-option [value]="inherit">Inherit</ng-option>
+    <ng-option [value]="initial">Initial</ng-option>
+    <ng-option [value]="lighter">Lighter</ng-option>
+    <ng-option [value]="normal">Normal</ng-option>
+    <ng-option [value]="unset">Unset</ng-option>
+  </ng-select>
+</form>

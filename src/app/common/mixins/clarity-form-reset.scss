@@ -1,0 +1,9 @@
+@mixin clarityFormReset() {
+  .clr-form {
+    padding: 0.5rem 0 0 0;
+  }
+
+  .clr-form-control {
+    margin-top: 0;
+  }
+}

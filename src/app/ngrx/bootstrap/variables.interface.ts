@@ -1,7 +1,8 @@
 export enum VariableTypes {
-  color = "color",
-  size = "size",
-  fontweight = "fontweight"
+  color = 'color',
+  size = 'size',
+  fontweight = 'fontweight',
+  text = 'text',
 }
 
 export interface IVariableValue {

@@ -1,0 +1,17 @@
+@mixin clarityInputContainer() {
+  clr-input-container /deep/ {
+    width: 100%;
+
+    .clr-control-container {
+      width: 100%;
+
+      .clr-input-wrapper {
+        width: 100%;
+
+        input {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

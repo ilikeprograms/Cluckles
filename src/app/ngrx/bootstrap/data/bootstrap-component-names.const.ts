@@ -1,14 +1,9 @@
-import { BootstrapComponentNamesEnum } from "./bootstrap-component-names.enum";
-
-// const keys = Object.keys(BootstrapComponentNamesEnum).filter(k => typeof BootstrapComponentNamesEnum[k as any] === 'string'); // ["A", "B"]
-// export const bootstrapComponentNames = keys.map(k => BootstrapComponentNamesEnum[k as any]); // [0, 1]
-
-// console.log(bootstrapComponentNames);
+import { BootstrapComponentNamesEnum } from './bootstrap-component-names.enum';
 
 export const bootstrapComponentNames = [
   'alert',
-  'badge',
-  'breadcrumb',
+  'badges',
+  'breadcrumbs',
   'button',
   'buttongroup',
   'card',
@@ -26,5 +21,5 @@ export const bootstrapComponentNames = [
   'popovers',
   'progress',
   'scrollspy',
-  'tooltips'
+  'tooltips',
 ];
