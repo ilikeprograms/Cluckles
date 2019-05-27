@@ -18,12 +18,67 @@
   <app-button></app-button>
 </div>
 
+<div class="component" *ngIf="isComponentVisible('buttongroups')">
+  <h1>Button Groups</h1>
+  <app-button-groups></app-button-groups>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('cards')">
+  <h1>Cards</h1>
+  <app-cards></app-cards>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('carousel')">
+  <h1>Carousel</h1>
+  <app-carousel></app-carousel>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('dropdown')">
+  <h1>Dropdown</h1>
+  <app-dropdown></app-dropdown>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('form')">
+  <h1>Form</h1>
+  <app-form></app-form>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('inputgroup')">
+  <h1>Input group</h1>
+  <app-input-group></app-input-group>
+</div>
+
 <div class="component" *ngIf="isComponentVisible('jumbotron')">
   <h1>Jumbotron</h1>
   <app-jumbotron></app-jumbotron>
 </div>
 
+<div class="component" *ngIf="isComponentVisible('listgroup')">
+  <h1>List group</h1>
+  <app-list-group></app-list-group>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('navs')">
+  <h1>Navs</h1>
+  <app-navs></app-navs>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('pagination')">
+  <h1>Pagination</h1>
+  <app-pagination></app-pagination>
+</div>
+
 <div class="component" *ngIf="isComponentVisible('progress')">
   <h1>Progress</h1>
   <app-progress></app-progress>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('spinner')">
+  <h1>Spinner</h1>
+  <app-spinner></app-spinner>
+</div>
+
+<div class="component" *ngIf="isComponentVisible('toast')">
+  <h1>Toasts</h1>
+  <app-toast></app-toast>
 </div>

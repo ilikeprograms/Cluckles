@@ -175,7 +175,6 @@ export const bootstrapVariables: Array<IVariable<VariableTypes>> = [
     label: 'Divider',
     component: BootstrapComponentNamesEnum.Breadcrumbs,
   },
-
   {
     type: VariableTypes.size,
     value: '1',
